@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Ma super agence' %}
+
+{% block body %}
+<h1>Bienvenue sur le site</h1>
+
+<div class="container">
+    {% for property in properties %}
+        <div class="card">
+            <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{ property.title }}</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
