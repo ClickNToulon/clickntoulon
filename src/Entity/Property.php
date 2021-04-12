@@ -11,6 +11,10 @@ use Cocur\Slugify\Slugify;
  */
 class Property
 {
+    const HEAT = [
+        '0' => 'electric',
+        '1' => 'gaz'
+    ];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -120,6 +124,11 @@ class Property
         $this->price = $price;
 
         return $this;
+    }
+
+    public function getFormattedPrice(): string
+    {
+        return number_format($this->price, 0, "", " ");
     }
 
     public function getRooms(): ?int
