@@ -3,13 +3,37 @@
 {% block title 'Ma super agence' %}
 
 {% block body %}
-<h1>Bienvenue sur le site</h1>
-
-<div class="container">
-    {% for property in properties %}
-        <div class="card">
-            <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{ property.title }}</a>
-        </div>
-    {% endfor %}
+<div class="main-container header">
+    <h1>Bienvenue {% if user is defined and user != null %}{{ user.username }}{% else %}sur le site{% endif %}</h1>
 </div>
+<main class="main-container bg-dark py-10">
+    <div class="products-grid">
+        {% for property in properties %}
+            <div class="card">
+                <img src="{{ property.image }}" class="card-img-top" alt="Image produit n°" height="200">
+                <div class="card-body">
+                    <a class="card-title" href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{ property.title }}</a>
+                    <div class="price-stars">
+                        <div class="price">
+                            <p class="product-price">{{ property.formattedPrice }} &euro;</p>
+                            <p class="product-price"></p>
+                            <p class="product-price"></p>
+                        </div>
+                    </div>
+                    <p class="card-text">{{ property.description }}</p>
+                    <form action="" method="POST" class="add-basket">
+                        <input type="hidden" name="id_product" value="<?php echo html_entity_decode($product['id']); ?>">
+                        <div class="quantity">
+                            <input type="number" name="quantity" class="quantity-input">
+                        </div>
+                        <input type="hidden" name="quantity" value="">
+                        <button type="submit" class="btn btn-add">Ajouter au panier</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+<script src="js/input.js"></script>
+{{ include('footer.html.twig') }}
 {% endblock %}

@@ -4,11 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -18,44 +21,43 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=155)
+     * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank()
      */
-    private $surname;
+    private $username;
 
     /**
-     * @ORM\Column(type="string", length=155)
+     * @ORM\Column(type="json")
      */
-    private $name;
+    private $roles = [];
 
     /**
-     * @ORM\Column(type="string", length=155)
+     * @var string The hashed password
+     * @ORM\Column(type="string", length=64)
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $address;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $zip;
+    private $postal_code;
 
     /**
-     * @ORM\Column(type="string", length=155)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $city;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $auth;
 
     /**
      * @ORM\Column(type="datetime")
@@ -68,9 +70,11 @@ class User
     private $updated_at;
 
     /**
-     * @ORM\Column(type="string", length=155)
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
      */
-    private $token;
+    private $plainPassword;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -78,37 +82,103 @@ class User
     private $avatar;
 
     /**
+     * @var \DateTimeInterface|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $deleted_on;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
+        $this->updated_at = new \DateTime();
+        $this->roles = ['ROLE_USER'];
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getSurname(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->surname;
+        return (string) $this->username;
     }
 
-    public function setSurname(string $surname): self
+    public function setUsername(string $username): self
     {
-        $this->surname = $surname;
+        $this->username = $username;
 
         return $this;
     }
 
-    public function getName(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        return $this->name;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function setName(string $name): self
+    public function setRoles(array $roles): self
     {
-        $this->name = $name;
+        $this->roles = $roles;
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $password): self
+    {
+        $this->plainPassword = $password;
+
+        return $this;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        $this->plainPassword = null;
     }
 
     public function getEmail(): ?string
@@ -128,21 +198,21 @@ class User
         return $this->address;
     }
 
-    public function setAddress(?string $address): self
+    public function setAddress(string $address): self
     {
         $this->address = $address;
 
         return $this;
     }
 
-    public function getZip(): ?int
+    public function getPostalCode(): ?int
     {
-        return $this->zip;
+        return $this->postal_code;
     }
 
-    public function setZip(?int $zip): self
+    public function setPostalCode(?int $postal_code): self
     {
-        $this->zip = $zip;
+        $this->postal_code = $postal_code;
 
         return $this;
     }
@@ -152,33 +222,9 @@ class User
         return $this->city;
     }
 
-    public function setCity(string $city): self
+    public function setCity(?string $city): self
     {
         $this->city = $city;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getAuth(): ?int
-    {
-        return $this->auth;
-    }
-
-    public function setAuth(int $auth): self
-    {
-        $this->auth = $auth;
 
         return $this;
     }
@@ -203,18 +249,6 @@ class User
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    public function setToken(string $token): self
-    {
-        $this->token = $token;
 
         return $this;
     }

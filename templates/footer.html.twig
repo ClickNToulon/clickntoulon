@@ -1,0 +1,47 @@
+<footer class="pt-3 pb-md-3 pt-md-5">
+    <div class="container">
+        <div class="row mx-auto">
+            <div class="col-6 col-md">
+                <h5 class="footer-title">Utilisateurs</h5>
+                <ul class="list-unstyled">
+                    {% if user is defined and user != null %}
+                        <li><a href=""><i class="bi-person-lines-fill"></i> Votre Profil</a></li>
+                        <li><a href=""><i class="bi-bag-check"></i> Mes commandes</a></li>
+                        <li><a href="/logout"><button class="btn btn-danger btn-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
+                    {% else %}
+                        <li><a href="/login"><i class="bi-box-arrow-in-right"></i> Connexion</a></li>
+                        <li><a href=""><i class="bi-person-plus"></i> Inscription</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5 class="footer-title">Trouver et réserver</h5>
+                <ul class="list-unstyled">
+                    <li><a href=""><i class="bi-search"></i> Rechercher</a></li>
+                    <li><a href=""><i class="bi-shop-window"></i> Les boutiques</a></li>
+                    <li><a href="{{ path('products.index') }}"><i class="bi-box-seam"></i> Les produits</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5 class="footer-title">À Propos</h5>
+                <ul class="list-unstyled">
+                    <li><a href=""><i class="bi-info-circle"></i> Qui sommes-nous ?</a></li>
+                    <li><a href=""><i class="bi-people"></i> Notre Équipe</a></li>
+                    <li><a href=""><i class="bi-file-text"></i> CGU</a></li>
+                    <li><a href=""><i class="bi-eye-slash"></i> Politique de confidentialité</a></li>
+                    <form method="post" action="" id="report-form">
+                        <li><button type="submit" id="report" class="btn btn-danger btn-mt"><i class="bi-x-circle"></i> Signaler un contenu</button></li>
+                    </form>
+                </ul>
+            </div>
+        </div>
+        <div width="100%" class="img-center">
+            <div class="footer-logos">
+                <img src="/images/logo.svg" alt="TouSolidaires" class="logo-ts" height="200px" width="200px">
+            </div>
+            <div class="copyright">
+                <small class="d-block mb-2 copy"><i class="fal fa-copyright" aria-hidden="true"></i> 2021 TouSolidaires Tous droits réservés</small>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title '' %}
+{% block title %}{{ property.title }}{% endblock %}
 
 {% block body %}
-<h1>{{ property.title }}</h1>
-<p>{{ property.formattedPrice }}</p>
+    <div class="main-container header">
+        <h1>{{ property.title }}</h1>
+        <p>{{ property.formattedPrice }}</p>
+    </div>
+{{ include('footer.html.twig') }}
 {% endblock %}

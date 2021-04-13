@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Les produits' %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Les produits</h1>
+    {% for product in products %}
+    <h2>{{ product.title }}</h2>
+    {% endfor %}
+</div>
+{% endblock %}

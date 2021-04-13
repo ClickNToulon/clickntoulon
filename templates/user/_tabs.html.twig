@@ -1,0 +1,14 @@
+<div class="nav nav-pills container-fluid">
+    <div class="container-fluid nav-profile">
+        <li class="nav-item" role="presentation">
+            <a href="{{ path('user_profil') }}" {% if active == 'profil' %}class="active"{% endif %}>
+                <i class="bi-person-lines-fill"></i>Profil
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a href="{{ path('user_edit') }}" {% if active == 'edit' %}class="active"{% endif %}>
+                <i class="bi-pen"></i>Editer
+            </a>
+        </li>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Modifier mes informations' %}
+
+{% block body %}
+    {% include 'user/_header.html.twig' %}
+    {% include 'user/_tabs.html.twig' with {active: 'edit'} %}
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {{ form_start(form_password, {attr: {class: 'user-modify'}}) }}
+            <h3 class="password-update"><i class="bi-lock"></i> Mot de passe</h3>
+            <div class="stack forms form-modify password-form">
+                {{ form_row(form_password.password) }}
+            </div>
+            <div class="button-submit">
+                <button type="submit" class="btn btn-form">Modifier mon mot de passe</button>
+            </div>
+        {{ form_end(form_password) }}
+        {{ form_start(form_avatar, {attr: {class: 'user-modify'}}) }}.
+            <h3 class="user-modify-title"><i class="bi-person-bounding-box"></i> Photo de profil</h3>
+            <div class="forms user_upload_profile form-modify">
+                <img src="{{ '/uploads/' ~ user.avatar }}" width="150" height="150">
+                {{ form_widget(form_avatar) }}
+            </div>
+            <div class="button-submit">
+                <button type="submit" class="btn btn-form profile">Changer de photo de profil</button>
+            </div>
+        {{ form_end(form_avatar) }}
+    </div>
+{% endblock %}

@@ -3,5 +3,12 @@
 {% block title 'Mon profil' %}
 
 {% block body %}
-    <h1>Bienvenue sur votre profil</h1>
+    {% include 'user/_header.html.twig' %}
+    {% include 'user/_tabs.html.twig' with {active: 'profil'} %}
+
+    <div class="container">
+        <h1>Test</h1>
+    </div>
+
+    {{ include('footer.html.twig') }}
 {% endblock %}
