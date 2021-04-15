@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\UpdatePasswordForm;
 use App\Form\UpdateAvatarForm;
+use App\Form\UpdateUserForm;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
@@ -71,9 +72,15 @@ class UserController extends AbstractController
             return $responseAvatar;
         }
 
+        [$formInfo, $responseInfo] = $this->createFormInfos($request);
+        if ($responseInfo) {
+            return $responseInfo;
+        }
+
         return $this->render('user/edit.html.twig', [
             'form_password' => $formPassword->createView(),
             'form_avatar' => $formAvatar->createView(),
+            'form_profile' => $formInfo->createView(),
             'user' => $user
         ]);
     }
@@ -148,6 +155,30 @@ class UserController extends AbstractController
             $this->em->persist($user);
             $this->em->flush();
             $this->addFlash('success', 'Votre photo de profil a bien été mis à jour');
+            return [$form, $this->redirectToRoute('user_edit')];
+        }
+
+        return [$form, null];
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * @throws Exception
+     */
+    private function createFormInfos(Request $request): array
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(UpdateUserForm::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
+            $user->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance));
+            $this->em->persist($user);
+            $this->em->flush();
+            $this->addFlash('success', 'Vos informations ont bien été mises à jour');
+
             return [$form, $this->redirectToRoute('user_edit')];
         }
 

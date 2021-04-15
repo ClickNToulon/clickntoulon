@@ -3,13 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
+use DateTimeInterface;
+use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 class User implements UserInterface
 {
@@ -70,27 +75,28 @@ class User implements UserInterface
     private $updated_at;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
-     */
-    private $plainPassword;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $avatar;
 
     /**
-     * @var \DateTimeInterface|null
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="boolean")
      */
-    private $deleted_on;
+    private $banned = false;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
+
+    /**
+     * @throws Exception
+     */
     public function __construct()
     {
-        $this->created_at = new \DateTime();
-        $this->updated_at = new \DateTime();
+        $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
+        $this->created_at = new DateTime('now', $dateTimeZoneFrance);
+        $this->updated_at = new DateTime('now', $dateTimeZoneFrance);
         $this->roles = ['ROLE_USER'];
     }
 
@@ -150,18 +156,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword(string $password): self
-    {
-        $this->plainPassword = $password;
-
-        return $this;
-    }
-
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
@@ -178,7 +172,6 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        $this->plainPassword = null;
     }
 
     public function getEmail(): ?string
@@ -229,24 +222,24 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
 
@@ -265,14 +258,26 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getDeletedOn(): ?\DateTimeInterface
+    public function getBanned(): ?bool
     {
-        return $this->deleted_on;
+        return $this->banned;
     }
 
-    public function setDeletedOn(?\DateTimeInterface $deleted_on): self
+    public function setBanned(bool $banned): self
     {
-        $this->deleted_on = $deleted_on;
+        $this->banned = $banned;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

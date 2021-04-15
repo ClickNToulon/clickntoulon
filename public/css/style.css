@@ -778,11 +778,6 @@ input.form-control-quantity {
   width: 100% !important;
 }
 
-.form-check-input:checked {
-  background-color: rgba(245, 176, 39, 1);
-  border-color: rgba(245, 176, 39, 1);
-}
-
 .form-row .form-check {
   display: flex;
   align-items: center;
@@ -932,7 +927,7 @@ button.btn-mt {
 }
 
 /* Alert */
-.fa-check-circle {
+.bi-check-circle {
   font-size: 30px !important;
   color: #198754 !important;
 }
@@ -947,7 +942,7 @@ button.btn-mt {
   left: 17px;
   z-index: 3;
   transform-origin: 0 100%;
-  animation: alertDuration 3s linear both;
+  animation: alertDuration 5s linear both;
 }
 
 .toast {
@@ -962,7 +957,7 @@ button.btn-mt {
   background: #dc3545 !important;
 }
 
-.fa-exclamation-circle {
+.bi-exclamation-circle {
   font-size: 30px;
   color: #dc3545 !important;
 }
