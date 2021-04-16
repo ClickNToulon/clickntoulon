@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Notre équipe - TouSolidaires' %}
+
+{% block body %}
+    <main class="main-container team">
+        <div class="team-grid">
+            {% for admin in admins %}
+            <div class="card-test card-cover overflow-hidden text-white rounded-5 shadow-lg"
+                 style="background-color: #232F3E !important;width: 100%; height: 299px;">
+                <div class="d-flex flex-column align-items-center justify-content-center h-100 p-5 text-white text-shadow-1">
+                    <div class="d-flex flex-row">
+                        <img src="/uploads/{{ admin.avatar }}" alt="" class="admin-logo" width="200px">
+                        <div class="d-flex flex-column m-auto">
+                            <h2 class="display-6 lh-1 m-auto text-center mx-auto">{{ admin.username }}</h2>
+                            <ul class="d-flex list-unstyled align-items-left mt-3 flex-column ms-3">
+                                <li class="d-flex align-items-center text-left">
+                                    <i class="bi-envelope me-2"></i>
+                                    <small class="mb-1">{{ admin.email }}</small>
+                                </li>
+                                <li class="d-flex align-items-center text-left">
+                                    <i class="bi-calendar3 me-2"></i>
+                                    <small class="mb-1">Inscrit depuis le {{ admin.createdat | format_datetime('short', 'none', locale='fr') }}</small>
+                                </li>
+                                <li class="d-flex align-items-center text-justify">
+                                    <i class="bi-geo-fill me-2"></i>
+                                    <small>{{ admin.address }} {{ admin.postalcode }} {{ admin.city }}</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    {% include 'footer.html.twig' %}
+{% endblock %}

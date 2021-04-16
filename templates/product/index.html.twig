@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Les produits - TouSolidaires' %}
+
+{% block body %}
+    <main class="main-container py-10">
+        <div class="products-grid">
+            {% for product in pagination %}
+                <div class="card" style="width: 100%">
+                    <img src="/images/1.jpg" class="card-img-top" alt="Image produit n°{{ product.id }}" height="200">
+                    <div class="card-body">
+                        <a class="card-title" href="/products">{{ product.name }}</a>
+                        <div class="price-stars">
+                            <div class="prices">
+                                {% if product.dealprice != null %}
+                                    <p class="deal_price product-price">
+                                        {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else%} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
+                                    </p>
+                                    <p class="product-price">
+                                        {% set productdealprice = product.dealprice | split('.') %}{% if productdealprice[1] is defined and productdealprice[1] != 00 %}{% if productdealprice[1] | length > 1 %}{{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] }}</sup> {% else%} {{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productdealprice[0] }}&euro; {% endif %}
+                                    </p>
+                                {% else %}
+                                    <p class="product-price">
+                                        {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else %} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <p class="card-text">{{ product.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="navigation no-bg">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </main>
+    {% include 'footer.html.twig' %}
+{% endblock %}

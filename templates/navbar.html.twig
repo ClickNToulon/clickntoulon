@@ -9,23 +9,23 @@
                     <a class="nav-link active" href="{{ path('home') }}"><i class="bi-house-fill"></i></a>
                 </li>
                 <li class="nav-item link-shop">
-                    <a class="nav-link" href=""><i class="bi-shop-window"></i> Boutiques</a>
+                    <a class="nav-link" href="/boutiques"><i class="bi-shop-window"></i> Boutiques</a>
                 </li>
                 <li class="nav-item link-products">
-                    <a class="nav-link" href=""><i class="bi-box-seam"></i> Produits</a>
+                    <a class="nav-link" href="/produits"><i class="bi-box-seam"></i> Produits</a>
                 </li>
                 {% if user is defined and user != null and is_granted('ROLE_MERCHANT') %}
                 <li class="nav-item link-products">
-                    <a class="nav-link" href=""><i class="bi-shop"></i> Ma boutique</a>
+                    <a class="nav-link" href="/ma-boutique"><i class="bi-shop"></i> Ma boutique</a>
                 </li>
                 {% endif %}
             </ul>
             <div class="navbar-end">
                 <li class="nav-item">
-                    <a class="nav-link" href=""><i class="bi-search"></i> Recherche</a>
+                    <a class="nav-link" href="/recherche"><i class="bi-search"></i> Recherche</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle show" href="" id="dropdown-user" data-bs-toggle="dropdown" aria-expanded="true"><i class="bi-person"></i>
+                    <a class="nav-link dropdown-toggle show" id="dropdown-user" data-bs-toggle="dropdown" aria-expanded="true"><i class="bi-person"></i>
                         {% if user is defined and user != null and is_granted('ROLE_ADMIN') %}
                             {{ user.username }} <span class="admin-badge badge-header"><i class="fad fa-badge-check"></i></span>
                         {% elseif user is defined and user != null and is_granted('ROLE_USER') %}
@@ -38,14 +38,14 @@
                         {% if user is defined and user != null and is_granted('ROLE_ADMIN') %}
                         <li><a class="dropdown-item" href="/admin"><i class="bi-shield-lock"></i> Administration</a></li>
                         <li><a class="dropdown-item" href="/profil"><i class="bi-person-lines-fill"></i> Mon Profil</a></li>
-                        <li><a class="dropdown-item" href="/orders"><i class="bi-bag-check"></i> Mes commandes</a></li>
-                        <li><a class="dropdown-item" href="/logout"><button class="btn btn-danger btn-no-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
+                        <li><a class="dropdown-item" href="/commandes"><i class="bi-bag-check"></i> Mes commandes</a></li>
+                        <li><a class="dropdown-item" href="/deconnexion"><button class="btn btn-danger btn-no-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
                         {% elseif user is defined and user != null and is_granted('ROLE_USER') %}
                         <li><a class="dropdown-item" href="/profil"><i class="bi-person-lines-fill"></i> Mon Profil</a></li>
-                        <li><a class="dropdown-item" href="/orders"><i class="bi-bag-check"></i> Mes commandes</a></li>
-                        <li><a class="dropdown-item" href="/logout"><button class="btn btn-danger btn-no-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
+                        <li><a class="dropdown-item" href="/commandes"><i class="bi-bag-check"></i> Mes commandes</a></li>
+                        <li><a class="dropdown-item" href="/deconnexion"><button class="btn btn-danger btn-no-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
                         {% else %}
-                        <li><a class="dropdown-item" href="/login"><i class="bi-box-arrow-in-right"></i> Connexion</a></li>
+                        <li><a class="dropdown-item" href="/connexion"><i class="bi-box-arrow-in-right"></i> Connexion</a></li>
                         <li><a class="dropdown-item" href="/inscription"><i class="bi-person-plus"></i> Inscription</a></li>
                         {% endif %}
                     </ul>

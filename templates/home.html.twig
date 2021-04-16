@@ -1,10 +1,116 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Ma super agence' %}
+{% block title 'TouSolidaires - Le site des achats solidaires' %}
 
 {% block body %}
-<div class="main-container header">
-    <h1>Bienvenue {% if user is defined and user != null %}{{ user.username }}{% else %}sur le site{% endif %}</h1>
-</div>
+    {% if user is defined and user == null %}
+    <div class="container-fluid hero">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <img src="/images/logo-home.svg" class="d-block mx-lg-auto img-fluid" alt="Logo Noir"
+                     width="500" height="450" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold lh-1 mb-3">TouSolidaires, le site des achats solidaires</h1>
+                <p class="lead">
+                    TouSolidaires est une plateforme associative qui fonctionne 24h/24 7j/7.
+                    <br>
+                    Réalisé par des étudiants de l’ISEN de Toulon et propulsé par Junior’ISEN, le but est de venir en aide aux commerçants toulonnais.
+                </p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a href="/inscription"><button type="button" class="btn btn-home">Créer votre compte</button></a>
+                    <a href="/a-propos"><button type="button" class="btn btn-home-outline">Qui sommes-nous ?</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="px-4 py-5 my-5 mb-0 text-center">
+        <img class="d-block mx-auto mb-4" src="/images/logo-home.svg" alt="" width="100" height="100">
+        <h1 class="display-5 fw-bold">Bienvenue {{ user.username }}</h1>
+        <div class="col-lg-6 mx-auto">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/profil"><button type="button" class="btn btn-home btn-lg">Mon profil</button></a>
+                <a href="/commandes"><button type="button" class="btn btn-home-outline btn-lg">Mes
+                        commandes</button></a>
+                <a href="/paniers"><button type="button" class="btn btn-home-outline btn-lg">Mon
+                        panier</button></a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="container-fluid">
+        <div class="row row-cols-3 row-shops align-items-strech py-5">
+            {% for shop in shops %}
+                <div class="col">
+                    <div class="card-test card-cover overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('/images/test.jpg');width: 100%;height: 350px">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <a class="text-white pt-auto mt-auto pb-0 mb-0" href="/shops/{{ shop.slug }}">
+                                <h2 class="display-6 lh-1">{{ shop.name }}</h2>
+                            </a>
+                            <ul class="d-flex list-unstyled mt-3">
+                                <li class="d-flex align-items-center me-auto">
+                                    <i class="bi-geo-fill me-2"></i>
+                                    <small>{{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</small>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <a class="text-white" href="tel:+33{{ shop.phone }}">
+                                        <i class="bi-telephone-fill me-2"></i>
+                                        <small>+33{{ shop.phone }}</small>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="d-flex list-unstyled">
+                                <li class="d-flex align-items-center me-auto">
+                                    <i class="bi-tags-fill me-1"></i>
+                                    <i>Boulangerie - Pâtisserie</i>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    {% if shop.status == 2 %}
+                                    <h4 class="lead shop-status"><span class="badge">Boutique partenaire <span class="admin-badge"><i class="fad fa-badge-check"></i></span></span></h4>
+                                    {% elseif shop.status == 1 %}
+                                    <h4 class="lead shop-status"><span class="badge">Boutique vérifiée</span></h4>
+                                    {% else %}
+                                    <h4 class="lead shop-status"><span class="badge">Boutique non vérifiée</span></h4>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="main-container bg-dark py-10">
+        <div class="products-grid">
+            {% for product in products %}
+                <div class="card" style="width: 100%">
+                    <img src="/images/1.jpg" class="card-img-top" alt="Image produit n°{{ product.id }}" height="200">
+                    <div class="card-body">
+                        <a class="card-title" href="/products">{{ product.name }}</a>
+                        <div class="price-stars">
+                            <div class="prices">
+                                {% if product.dealprice != null %}
+                                    <p class="deal_price product-price">
+                                        {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else%} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
+                                    </p>
+                                    <p class="product-price">
+                                        {% set productdealprice = product.dealprice | split('.') %}{% if productdealprice[1] is defined and productdealprice[1] != 00 %}{% if productdealprice[1] | length > 1 %}{{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] }}</sup> {% else%} {{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productdealprice[0] }}&euro; {% endif %}
+                                    </p>
+                                {% else %}
+                                    <p class="product-price">
+                                        {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else %} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <p class="card-text">{{ product.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <h3 class="text-center mt-4"><a href="/produits"><i>Voir plus de produits</i></a></h3>
+    </div>
+
 {{ include('footer.html.twig') }}
 {% endblock %}

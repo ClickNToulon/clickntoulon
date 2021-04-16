@@ -23,7 +23,7 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/connexion", name="app_login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -42,11 +42,11 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="app_logout")
+     * @Route("/deconnexion", name="app_logout")
      */
     public function logout()
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new \LogicException('Methode qui peut être nulle');
     }
 
     /**
@@ -54,10 +54,9 @@ class SecurityController extends AbstractController
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param EntityManagerInterface $em
-     * @param EmailVerifier $emailVerifier
      * @return RedirectResponse|Response
      */
-    public function signUp(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em, EmailVerifier $emailVerifier)
+    public function signUp(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');

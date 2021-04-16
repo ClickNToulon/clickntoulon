@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Recherche - TouSolidaires' %}
+
+{% block body %}
+    {{ form_start(search, {attr: {class: 'form form-search'}}) }}
+        <h2>Rechercher un produit ou une boutique</h2>
+        <div class="forms forms-search">
+            {{ form_widget(search.q) }}
+        </div>
+        <div class="button-submit">
+            <button class="btn btn-form" type="submit">Effectuer la recherche</button>
+        </div>
+    {{ form_end(search) }}
+
+    {% if word_searched | length > 0 %}
+    <div class="main-container search">
+        {% if search_count != 0 %}
+        <h2 class="results-count mb-4">{{ search_count }}
+            {% if search_count > 1 %} Résultats {% else %} Résultat {% endif %}</h2>
+        <h4 class="results-count mb-4">{{ search_shop_count }}
+            {% if search_shop_count > 1 %} Résultats {% else %} Résultat {% endif %} correspondent à des boutiques</h4>
+        <div class="search-results">
+            {% for shop in search_shop_results %}
+            <div class="card-test card-cover overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+                 style="background-image: url('/images/test.jpg');width: 100%;height: 350px">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <a class="text-white pt-auto mt-auto pb-0 mb-0" href="/shops">
+                        <h2 class="display-6 lh-1">{{ shop.name }}</h2>
+                    </a>
+                    <ul class="d-flex list-unstyled mt-3 mb-1">
+                        <li class="d-flex align-items-center me-auto">
+                            <i class="bi-geo-fill me-2"></i>
+                            <small>{{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <a class="text-white" href="tel:+33{{ shop.phone }}">
+                                <i class="bi-telephone-fill me-2"></i>
+                                <small>+33{{ shop.phone }}</small>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="d-flex list-unstyled">
+                        <li class="d-flex align-items-center me-auto">
+                            <i class="bi-tags-fill me-1"></i>
+                            <i>Boulangerie - Patisserie</i>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            {% if shop.status == 2 %}
+                                <h4 class="lead shop-status"><span class="badge">Boutique partenaire <span class="admin-badge"><i class="fad fa-badge-check"></i></span></span></h4>
+                            {% elseif shop.status == 1 %}
+                                <h4 class="lead shop-status"><span class="badge">Boutique vérifiée</span></h4>
+                            {% else %}
+                                <h4 class="lead shop-status"><span class="badge">Boutique non vérifiée</span></h4>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <h4 class="results-count mb-4">{{ search_product_count }}
+            {% if search_product_count > 1 %} Résultats {% else %} Résultat {% endif %} correspondent à des produits</h4>
+        <div class="search-results">
+            {% for product in search_product_results %}
+            <div class="card" style="width: 100%">
+                <img src="/images/1.jpg" class="card-img-top" alt="Image produit n°{{ product.id }}" height="200">
+                <div class="card-body">
+                    <a class="card-title" href="/products">{{ product.name }}</a>
+                    <div class="price-stars">
+                        <div class="prices">
+                            {% if product.dealprice != null %}
+                            <p class="deal_price product-price">
+                                {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else%} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
+                            </p>
+                            <p class="product-price">
+                                {% set productdealprice = product.dealprice | split('.') %}{% if productdealprice[1] is defined and productdealprice[1] != 00 %}{% if productdealprice[1] | length > 1 %}{{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] }}</sup> {% else%} {{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productdealprice[0] }}&euro; {% endif %}
+                            </p>
+                            {% else %}
+                            <p class="product-price">
+                                {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else %} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p class="card-text">{{ product.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <h4 class="results-count">Il n’y a aucun résultat pour {{ word_searched }}</h4>
+        <h6 class="results-count">Vérifiez l’orthographe des mots saisis ou complétez-les par un nouveau mot clé</h6>
+        {% endif %}
+    </div>
+    {% endif %}
+{% endblock %}

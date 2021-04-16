@@ -1571,14 +1571,13 @@ div.card-body.card-body-product {
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
-  margin-bottom: -15px;
 }
 
 .prices p:first-of-type {
   margin-right: 20px;
 }
 
-.prices p:last-of-type {
+.prices p:nth-child(2) {
   color: #dc3545;
   font-weight: bold;
 }
@@ -2051,7 +2050,7 @@ div.nav-profile li.nav-item a.active {
   padding: 5rem 10rem;
 }
 
-.btn-form-outline {
+.btn-home-outline {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%) rgba(245, 176, 39, 0);
   color: rgba(245, 176, 39, 1);
   font-weight: bold;
@@ -2063,11 +2062,28 @@ div.nav-profile li.nav-item a.active {
   transition: filter 0.7s, background 0.7s, color 0.7s;
 }
 
-.btn-form-outline:hover {
+.btn-home-outline:hover {
   color: #FFF;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) rgba(245, 176, 39, 1);
   filter: brightness(1.2);
   transition: filter 0.7s, background 0.7s, color 0.7s;
+}
+
+.btn-home {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) rgba(245, 176, 39, 1);
+  color: #FFF;
+  font-weight: bold;
+  padding: 9px 16px;
+  margin: 0 !important;
+  border-radius: 10px !important;
+  margin-top: calc(2 * 8px) !important;
+  transition: filter 0.3s, background 0.3s, color 0.3s;
+}
+
+.btn-home:hover {
+  color: #FFF;
+  filter: brightness(1.2);
+  transition: filter 0.3s, background 0.3s, color 0.3s;
 }
 
 .rounded-5 {
