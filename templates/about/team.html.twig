@@ -3,6 +3,7 @@
 {% block title 'Notre équipe - TouSolidaires' %}
 
 {% block body %}
+    {% include 'navbar.html.twig' with {'active': 'about'} %}
     <main class="main-container team">
         <div class="team-grid">
             {% for admin in admins %}

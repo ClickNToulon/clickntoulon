@@ -2,12 +2,17 @@
     <div class="container-fluid nav-profile">
         <li class="nav-item" role="presentation">
             <a href="{{ path('user_profil') }}" {% if active == 'profil' %}class="active"{% endif %}>
-                <i class="bi-person-lines-fill"></i>Profil
+                <i class="bi-person-lines-fill"></i>Mon Profil
             </a>
         </li>
         <li class="nav-item" role="presentation">
             <a href="{{ path('user_edit') }}" {% if active == 'edit' %}class="active"{% endif %}>
-                <i class="bi-pen"></i>Editer
+                <i class="bi-pen"></i>Editer mes informations
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a href="{{ path('user_orders') }}" {% if active == 'orders' %}class="active"{% endif %}>
+                <i class="bi-box-seam"></i>Mes Commandes
             </a>
         </li>
     </div>

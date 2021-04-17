@@ -3,11 +3,12 @@
 {% block title 'Les boutiques - TouSolidaires' %}
 
 {% block body %}
+    {% include 'navbar.html.twig' with {'active': 'shop'} %}
     <main class="main-container py-10">
         <div class="shops-grid">
             {% for shop in shops %}
             <div class="card-test card-cover overflow-hidden text-white bg-dark rounded-5 shadow-lg"
-                 style="background-image: url('/images/test.jpg');width: 100%;height: 350px">
+                 style="background-image: url('{{ asset('images/test.jpg') }}');width: 100%;height: 350px">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                     <a class="text-white pt-auto mt-auto pb-0 mb-0" href="{{ path('shop_show', {slug: shop.slug}) }}">
                         <h2 class="display-6 lh-1">{{ shop.name }}</h2>

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mes commandes - TouSolidaires' %}
+
+{% block body %}
+    {% include 'navbar.html.twig' with {'active': 'user'} %}
+    {% include 'user/_header.html.twig' %}
+    {% include 'user/_tabs.html.twig' with {active: 'orders'} %}
+
+{% endblock %}

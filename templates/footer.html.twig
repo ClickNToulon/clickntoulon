@@ -5,36 +5,36 @@
                 <h5 class="footer-title">Utilisateurs</h5>
                 <ul class="list-unstyled">
                     {% if user is defined and user != null %}
-                        <li><a href="/profil"><i class="bi-person-lines-fill"></i> Votre Profil</a></li>
-                        <li><a href="/commandes"><i class="bi-bag-check"></i> Mes commandes</a></li>
-                        <li><a href="/deconnexion"><button class="btn btn-danger btn-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
+                        <li><a href="{{ path('user_profil') }}"><i class="bi-person-lines-fill"></i> Votre Profil</a></li>
+                        <li><a href="{{ path('user_orders') }}"><i class="bi-bag-check"></i> Mes commandes</a></li>
+                        <li><a href="{{ path('app_logout') }}"><button class="btn btn-danger btn-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
                     {% else %}
-                        <li><a href="/connexion"><i class="bi-box-arrow-in-right"></i> Connexion</a></li>
-                        <li><a href="/deconnexion"><i class="bi-person-plus"></i> Inscription</a></li>
+                        <li><a href="{{ path('app_login') }}"><i class="bi-box-arrow-in-right"></i> Connexion</a></li>
+                        <li><a href="{{ path('app_signup') }}"><i class="bi-person-plus"></i> Inscription</a></li>
                     {% endif %}
                 </ul>
             </div>
             <div class="col-6 col-md">
                 <h5 class="footer-title">Trouver et réserver</h5>
                 <ul class="list-unstyled">
-                    <li><a href="/recherche"><i class="bi-search"></i> Rechercher</a></li>
-                    <li><a href="/boutiques"><i class="bi-shop-window"></i> Les boutiques</a></li>
-                    <li><a href="/produits"><i class="bi-box-seam"></i> Les produits</a></li>
+                    <li><a href="{{ path('search') }}"><i class="bi-search"></i> Rechercher</a></li>
+                    <li><a href="{{ path('shop_index') }}"><i class="bi-shop-window"></i> Les boutiques</a></li>
+                    <li><a href="{{ path('product_index') }}"><i class="bi-box-seam"></i> Les produits</a></li>
                 </ul>
             </div>
             <div class="col-6 col-md">
                 <h5 class="footer-title">À Propos</h5>
                 <ul class="list-unstyled">
-                    <li><a href="/a-propos"><i class="bi-info-circle"></i> Qui sommes-nous ?</a></li>
-                    <li><a href="/notre-equipe"><i class="bi-people"></i> Notre Équipe</a></li>
-                    <li><a href="/conditions"><i class="bi-file-text"></i> CGU</a></li>
-                    <li><a href="/confidentialite"><i class="bi-eye-slash"></i> Politique de confidentialité</a></li>
+                    <li><a href="{{ path('about_index') }}"><i class="bi-info-circle"></i> Qui sommes-nous ?</a></li>
+                    <li><a href="{{ path('about_team') }}"><i class="bi-people"></i> Notre Équipe</a></li>
+                    <li><a href="{{ path('about_cgu') }}"><i class="bi-file-text"></i> CGU</a></li>
+                    <li><a href="{{ path('about_confidentialite') }}"><i class="bi-eye-slash"></i> Politique de confidentialité</a></li>
                 </ul>
             </div>
         </div>
         <div width="100%" class="img-center">
             <div class="footer-logos">
-                <img src="/images/logo.svg" alt="TouSolidaires" class="logo-ts" height="200px" width="200px">
+                <img src="{{ asset('images/logo.svg') }}" alt="TouSolidaires" class="logo-ts" height="200px" width="200px">
             </div>
             <div class="copyright">
                 <small class="d-block mb-2 copy"><i class="fal fa-copyright" aria-hidden="true"></i> 2021 TouSolidaires Tous droits réservés</small>

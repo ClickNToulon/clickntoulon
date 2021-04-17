@@ -3,6 +3,7 @@
 {% block title 'Mon profil - TouSolidaires' %}
 
 {% block body %}
+    {% include 'navbar.html.twig' with {'active': 'user'} %}
     {% include 'user/_header.html.twig' %}
     {% include 'user/_tabs.html.twig' with {active: 'profil'} %}
 

@@ -3,6 +3,7 @@
 {% block title 'Modifier mes informations - TouSolidaires' %}
 
 {% block body %}
+    {% include 'navbar.html.twig' with {'active': 'user'} %}
     {% include 'user/_header.html.twig' %}
     {% include 'user/_tabs.html.twig' with {active: 'edit'} %}
     <div class="container">
@@ -41,7 +42,7 @@
         {{ form_start(form_avatar, {attr: {class: 'user-modify'}}) }}.
             <h3 class="user-modify-title"><i class="bi-person-bounding-box"></i> Photo de profil</h3>
             <div class="forms user_upload_profile form-modify">
-                <img src="{{ '/uploads/' ~ user.avatar }}" width="150" height="150">
+                <img src="{{ asset('uploads/') ~ user.avatar }}" width="150" height="150">
                 {{ form_errors(form_avatar) }}
                 {{ form_widget(form_avatar) }}
             </div>

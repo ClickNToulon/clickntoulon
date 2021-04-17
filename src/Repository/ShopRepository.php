@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Shop;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -42,6 +43,22 @@ class ShopRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllQuery(): Query
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.banned != true')
+            ->getQuery();
+    }
+
+    public function home()
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.status >= 1')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Shop[] Returns an array of Shop objects
     //  */
@@ -70,10 +87,15 @@ class ShopRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findAllQuery(): Query
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findById($shopID)
     {
         return $this->createQueryBuilder('s')
-            ->where('s.banned != true')
-            ->getQuery();
+            ->where('s.id = :shop_id')
+            ->setParameter('shop_id', $shopID)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

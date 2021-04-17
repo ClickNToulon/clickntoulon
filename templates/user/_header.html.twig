@@ -1,6 +1,6 @@
 <div class="mt-5 mb-5">
     <div class="user-profile">
-        <img src="{{ '/uploads/' ~ user.avatar }}" alt="User" class="user-profile-image">
+        <img src="{{ asset('uploads/') ~ user.avatar }}" alt="User" class="user-profile-image">
         <div class="user-profile-info">
             <h1 class="pb-2 h1">{{ user.username }}</h1>
             <div class="user-profile-status">
@@ -18,7 +18,7 @@
                 </h4>
             </div>
             {% if is_granted('ROLE_MERCHANT') %}
-                <a href=""><button class="btn btn-form">Créer votre boutique</button></a>
+                <a href="{{ path('seller_create') }}"><button class="btn btn-form">Créer votre boutique</button></a>
             {% endif %}
         </div>
     </div>

@@ -1035,6 +1035,7 @@ main.team {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 392px !important;
 }
 
 main.team .team-grid {

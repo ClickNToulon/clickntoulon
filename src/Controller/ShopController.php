@@ -21,6 +21,10 @@ class ShopController extends AbstractController
      * @var ShopRepository
      */
     private $repository;
+
+    /**
+     * @var EntityManagerInterface
+     */
     private $em;
 
     public function __construct(ShopRepository $repository, EntityManagerInterface $em)
@@ -60,7 +64,6 @@ class ShopController extends AbstractController
     {
         $user = $this->getUser();
         $timetable = $tableRepository->findById($shop);
-        dump($timetable);
         return $this->render('shop/show.html.twig', [
             'shop' => $shop,
             'timetable' => $timetable,

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Entity\Shop;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
@@ -72,6 +73,14 @@ class ProductRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->where('p.status >= 0')
+            ->getQuery();
+    }
+
+    public function findAllByShopQuery(Shop $shop): Query
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.shop_id = :shop_id')
+            ->setParameter('shop_id', $shop->getId())
             ->getQuery();
     }
 }

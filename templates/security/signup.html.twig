@@ -3,6 +3,7 @@
 {% block title 'Inscription - TouSolidaires' %}
 
 {% block body %}
+    {% include 'navbar.html.twig' with {'active': 'signup'} %}
     <div class="toast-container position-absolute p-3">
         {% for message in app.flashes('warning') %}
             <div class="toast toast-warning d-flex align-items-center bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -37,7 +38,7 @@
                 <div class="checkbox">
                     <input class="form-check-input" type="checkbox" id="checkbox" name="cgu" required="">
                     <label class="form-check-label label-inscription" for="checkbox">
-                        J'accepte les <a href="/conditions" class="link-underline white">Conditions Générales d'Utilisation</a> de la plateforme
+                        J'accepte les <a href="{{ path('about_cgu') }}" class="link-underline white">Conditions Générales d'Utilisation</a> de la plateforme
                     </label>
                 </div>
             </div>
@@ -46,7 +47,7 @@
             </div>
             <div class="info-usage">
                 Vos données personnelles (email, nom et prénom) ne sont utilisées qu'à des fins d'authentification et sont partagées uniquement avec les commerçants lorsque vous effectuez une commande chez eux.
-                (<a href="/confidentialite" class="link-underline info-usage-link">En savoir plus</a>)
+                (<a href="{{ path('about_confidentialite') }}" class="link-underline info-usage-link">En savoir plus</a>)
             </div>
         {{ form_end(form) }}
     </div>

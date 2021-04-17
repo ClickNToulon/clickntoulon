@@ -50,7 +50,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil/edit", name="user_edit")
+     * @Route("/profil/modifier", name="user_edit")
      * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param SluggerInterface $slugger
@@ -86,6 +86,19 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/profil/mes-commandes", name="user_orders")
+     * @IsGranted("ROLE_USER")
+     * @return Response
+     */
+    public function orders(): Response
+    {
+        $user = $this->getUser();
+        return $this->render('user/orders.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+    /**
      * Génère le formulaire de création.
      * @param Request $request
      * @return array
@@ -99,7 +112,6 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->get('password')->getData();
-            dump($data);
             $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
             $user->setPassword($this->passwordEncoder->encodePassword($user, $data))
                 ->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance));

@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ product.name }} - TouSolidaires
+{% endblock %}
+
+{% block body %}
+    {% include 'navbar.html.twig' with {'active': 'product'} %}
+    <main class="main-container py-10">
+        <div class="product-container-2">
+            <div class="card card-product">
+                <h3 class="card-title text-center pt-3"></h3>
+                <div class="card-body-shop card-body-product">
+                    <div class="card-column">
+                        <div class="timetable-day timetable-day-product">
+                            <h4>{{ shop.name }}</h4>
+                            <i><a href="{{ path('shop_show', {slug: shop.slug}) }}">Voir la boutique</a></i>
+                        </div>
+                        <div class="timetable-day timetable-day-product">
+                            <h4>Adresse</h4>
+                            <p>{{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
+                        </div>
+                        <div class="timetable-day timetable-day-product">
+                            <h4>Nous contacter</h4>
+                            <p class="mt-2 mb-1">Téléphone : <a href="tel:+33{{ shop.phone }}" target="_blank">+33{{ shop.phone }}</a></p>
+                            <p class="mb-1">Email : <a href="mailto:{{ shop.email }}" target="_blank">{{ shop.email }}</a></p>
+                            <!--<h4 class="mb-2 mt-3">Moyens de paiement acceptés par le commerçant</h4>
+                            <?php foreach($payment as $payment_test) { $payment_test = (int)$payment_test; $payments = $payment_icons->getIcon($payment_test);?>
+                            <a title="<?php echo html_entity_decode($payments[1]); ?>"><i class="<?php echo html_entity_decode($payments[0]); ?> px-1"></i></a>
+                            <?php } ?-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="shop-info">
+                <h1 class="pb-3">{{ product.name }}</h1>
+                <p class="text-justify">{{ product.description }}</p>
+                {% set address = "%address% %zip% %city%"| replace({'%address%': shop.address, '%zip%': shop.postalcode, '%city%': shop.city}) %}
+                <div class="shop-info-details">
+                    <div class="product-image">
+                        <img src="{{ asset('images/1.jpg') }}" alt="">
+                    </div>
+                    <div class="pl-5 w-100 h-100">
+                        <h4>Prix à l'unité</h4>
+                        {% if product.dealprice != null %}
+                            <div class="prices">
+                                <p class="deal_price product-price">
+                                    {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else%} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
+                                </p>
+                                <p class="product-price">
+                                    {% set productdealprice = product.dealprice | split('.') %}{% if productdealprice[1] is defined and productdealprice[1] != 00 %}{% if productdealprice[1] | length > 1 %}{{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] }}</sup> {% else%} {{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productdealprice[0] }}&euro; {% endif %}
+                                </p>
+                            </div>
+                        {% else %}
+                            <p class="product-price">
+                                {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else %} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
+                            </p>
+                        {% endif %}
+                        {% if product.dealStart != null and product.dealEnd != null %}
+							{% set dealstart = product.dealStart | format_datetime(pattern="dd'/'MM'/'yy 'à' HH'h'mm", locale="fr") %}
+                            {% set dealend = product.dealEnd | format_datetime(pattern="dd'/'MM'/'yy 'à' HH'h'mm", locale="fr") %}
+                        <span>La promotion commence le {{ dealstart }} et se termine le {{ dealend }}
+                        {% endif %}
+                        <!--<form action="/products/add/<?php echo html_entity_decode($product['id']); ?>" method="POST" class="add-basket add-basket-product">
+                            <?php $basketinfo = $this->BasketModel->fetch2Params("id_shop", $product['id_shop'], "id_user", $user['id'], "id_product", $product['id']);
+                            if ($basketinfo === false): $basketinfo['quantity'] = 0; endif;?>
+                            <input type="hidden" name="id_product" value="<?php echo html_entity_decode($product['id']); ?>">
+							<label for="quantity" class="text-black">QUANTIT&Eacute;</label>
+                            <input type="number" name="quantity" class="form-control input-quantity" min="0" placeholder="<?php $quantity = (int)$basketinfo['quantity'] + 1; echo html_entity_decode($quantity); ?>">
+                            <button type="submit" class="btn btn-add">Ajouter au panier</button>
+                        </form>-->
+						<br>
+						<!--<h4>Catégories</h4>
+						<div class="categories-grid">
+							<?php foreach($products_categories as $row => $product_category_id) {
+								if($product_category_id !== "") {
+								$product_category = $this->categoryModel->fetch("id", $product_category_id);
+								if($shop['id'] === $product_category['id_shop']) { ?>
+								<span class="badge bg-secondary rounded-pill"><?= $product_category['name'] ?></span>
+                            <?php }} else { ?>
+                            <p>Le produit n'a pas de catégories</p>
+                            <?php }} ?>
+						</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% include 'footer.html.twig' %}
+{% endblock %}
+

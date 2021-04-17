@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ShopRepository;
+use Cocur\Slugify\Slugify;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
@@ -203,7 +204,7 @@ class Shop
 
     public function getSlug(): ?string
     {
-        return $this->slug;
+        return (new Slugify())->slugify($this->name);
     }
 
     public function setSlug(string $slug): self

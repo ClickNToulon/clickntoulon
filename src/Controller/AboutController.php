@@ -17,7 +17,10 @@ class AboutController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('about/index.html.twig');
+        $user = $this->getUser();
+        return $this->render('about/index.html.twig', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -27,9 +30,11 @@ class AboutController extends AbstractController
      */
     public function team(UserRepository $userRepository): Response
     {
+        $user = $this->getUser();
         $admins = $userRepository->findAdmins();
         return $this->render('about/team.html.twig', [
-            'admins' => $admins
+            'admins' => $admins,
+            'user' => $user
         ]);
     }
 
@@ -39,15 +44,21 @@ class AboutController extends AbstractController
      */
     public function conditions(): Response
     {
-        return $this->render('about/cgu.html.twig');
+        $user = $this->getUser();
+        return $this->render('about/cgu.html.twig', [
+            'user' => $user
+        ]);
     }
 
     /**
-     * @Route("/confidentialite", name="about_cgu")
+     * @Route("/confidentialite", name="about_confidentialite")
      * @return Response
      */
     public function confidentialite(): Response
     {
-        return $this->render('about/confidentialite.html.twig');
+        $user = $this->getUser();
+        return $this->render('about/confidentialite.html.twig', [
+            'user' => $user
+        ]);
     }
 }

@@ -29,6 +29,7 @@ security:
                 secret: '%kernel.secret%'
                 lifetime: 604800 # 1 week in seconds
                 path: /
+                samesite: strict
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
@@ -41,7 +42,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        #- { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api, roles: ROLE_ADMIN }
     role_hierarchy:
         ROLE_MERCHANT: ROLE_USER
         ROLE_ADMIN: [ ROLE_MERCHANT ]

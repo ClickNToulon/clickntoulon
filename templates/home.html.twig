@@ -3,11 +3,12 @@
 {% block title 'TouSolidaires - Le site des achats solidaires' %}
 
 {% block body %}
+    {% include 'navbar.html.twig' with {'active': 'home'} %}
     {% if user is defined and user == null %}
     <div class="container-fluid hero">
         <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
             <div class="col-10 col-sm-8 col-lg-6">
-                <img src="/images/logo-home.svg" class="d-block mx-lg-auto img-fluid" alt="Logo Noir"
+                <img src="{{ asset('images/logo-home.svg') }}" class="d-block mx-lg-auto img-fluid" alt="Logo Noir"
                      width="500" height="450" loading="lazy">
             </div>
             <div class="col-lg-6">
@@ -18,22 +19,22 @@
                     Réalisé par des étudiants de l’ISEN de Toulon et propulsé par Junior’ISEN, le but est de venir en aide aux commerçants toulonnais.
                 </p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a href="/inscription"><button type="button" class="btn btn-home">Créer votre compte</button></a>
-                    <a href="/a-propos"><button type="button" class="btn btn-home-outline">Qui sommes-nous ?</button></a>
+                    <a href="{{ path('app_signup') }}"><button type="button" class="btn btn-home">Créer votre compte</button></a>
+                    <a href="{{ path('about_index') }}"><button type="button" class="btn btn-home-outline">Qui sommes-nous ?</button></a>
                 </div>
             </div>
         </div>
     </div>
     {% else %}
     <div class="px-4 py-5 my-5 mb-0 text-center">
-        <img class="d-block mx-auto mb-4" src="/images/logo-home.svg" alt="" width="100" height="100">
+        <img class="d-block mx-auto mb-4" src="{{ asset('images/logo-home.svg') }}" alt="" width="100" height="100">
         <h1 class="display-5 fw-bold">Bienvenue {{ user.username }}</h1>
         <div class="col-lg-6 mx-auto">
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <a href="/profil"><button type="button" class="btn btn-home btn-lg">Mon profil</button></a>
-                <a href="/commandes"><button type="button" class="btn btn-home-outline btn-lg">Mes
+                <a href="{{ path('user_profil') }}"><button type="button" class="btn btn-home btn-lg">Mon profil</button></a>
+                <a href="{{ path('user_orders') }}"><button type="button" class="btn btn-home-outline btn-lg">Mes
                         commandes</button></a>
-                <a href="/paniers"><button type="button" class="btn btn-home-outline btn-lg">Mon
+                <a href="{{ path('basket_index') }}"><button type="button" class="btn btn-home-outline btn-lg">Mon
                         panier</button></a>
             </div>
         </div>
@@ -43,9 +44,9 @@
         <div class="row row-cols-3 row-shops align-items-strech py-5">
             {% for shop in shops %}
                 <div class="col">
-                    <div class="card-test card-cover overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('/images/test.jpg');width: 100%;height: 350px">
+                    <div class="card-test card-cover overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('{{ asset('images/test.jpg') }}');width: 100%;height: 350px">
                         <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                            <a class="text-white pt-auto mt-auto pb-0 mb-0" href="/shops/{{ shop.slug }}">
+                            <a class="text-white pt-auto mt-auto pb-0 mb-0" href="{{ path('shop_show', {slug: shop.slug}) }}">
                                 <h2 class="display-6 lh-1">{{ shop.name }}</h2>
                             </a>
                             <ul class="d-flex list-unstyled mt-3">
@@ -85,9 +86,9 @@
         <div class="products-grid">
             {% for product in products %}
                 <div class="card" style="width: 100%">
-                    <img src="/images/1.jpg" class="card-img-top" alt="Image produit n°{{ product.id }}" height="200">
+                    <img src="{{ asset('images/1.jpg') }}" class="card-img-top" alt="Image produit n°{{ product.id }}" height="200">
                     <div class="card-body">
-                        <a class="card-title" href="/products">{{ product.name }}</a>
+                        <a class="card-title" href="{{ path('product_show', {id: product.id}) }}">{{ product.name }}</a>
                         <div class="price-stars">
                             <div class="prices">
                                 {% if product.dealprice != null %}
@@ -109,8 +110,7 @@
                 </div>
             {% endfor %}
         </div>
-        <h3 class="text-center mt-4"><a href="/produits"><i>Voir plus de produits</i></a></h3>
+        <h3 class="text-center mt-4"><a href="{{ path('product_index') }}"><i>Voir plus de produits</i></a></h3>
     </div>
-
-{{ include('footer.html.twig') }}
+    {% include('footer.html.twig') %}
 {% endblock %}

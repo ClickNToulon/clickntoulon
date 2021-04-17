@@ -35,6 +35,7 @@ class SearchController extends AbstractController
             $search_param = null;
         }
 
+        $user = $this->getUser();
         $search_shop_results = $shopRepository->search($search_param);
         $search_product_results = $productRepository->search($search_param);
         $search_shop_count = count($search_shop_results);
@@ -47,7 +48,8 @@ class SearchController extends AbstractController
             'search_product_count' => $search_product_count,
             'search_count' => $search_count,
             'word_searched' => $search_param,
-            'search' => $form->createView()
+            'search' => $form->createView(),
+            'user' => $user
         ]);
     }
 

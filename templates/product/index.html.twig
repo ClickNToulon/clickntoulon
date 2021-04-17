@@ -3,13 +3,14 @@
 {% block title 'Les produits - TouSolidaires' %}
 
 {% block body %}
+    {% include 'navbar.html.twig' with {'active': 'product'} %}
     <main class="main-container py-10">
         <div class="products-grid">
-            {% for product in pagination %}
+            {% for product in products %}
                 <div class="card" style="width: 100%">
                     <img src="/images/1.jpg" class="card-img-top" alt="Image produit n°{{ product.id }}" height="200">
                     <div class="card-body">
-                        <a class="card-title" href="/products">{{ product.name }}</a>
+                        <a class="card-title" href="{{ path('product_show', {id: product.id}) }}">{{ product.name }}</a>
                         <div class="price-stars">
                             <div class="prices">
                                 {% if product.dealprice != null %}
@@ -32,7 +33,7 @@
             {% endfor %}
         </div>
         <div class="navigation no-bg">
-            {{ knp_pagination_render(pagination) }}
+            {{ knp_pagination_render(products) }}
         </div>
     </main>
     {% include 'footer.html.twig' %}

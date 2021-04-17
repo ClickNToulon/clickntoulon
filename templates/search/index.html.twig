@@ -3,6 +3,7 @@
 {% block title 'Recherche - TouSolidaires' %}
 
 {% block body %}
+    {% include 'navbar.html.twig' with {'active': 'search'} %}
     {{ form_start(search, {attr: {class: 'form form-search'}}) }}
         <h2>Rechercher un produit ou une boutique</h2>
         <div class="forms forms-search">
@@ -23,9 +24,9 @@
         <div class="search-results">
             {% for shop in search_shop_results %}
             <div class="card-test card-cover overflow-hidden text-white bg-dark rounded-5 shadow-lg"
-                 style="background-image: url('/images/test.jpg');width: 100%;height: 350px">
+                 style="background-image: url('{{ asset('images/test.jpg') }}');width: 100%;height: 350px">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                    <a class="text-white pt-auto mt-auto pb-0 mb-0" href="/shops">
+                    <a class="text-white pt-auto mt-auto pb-0 mb-0" href="{{ path('shop_show', {slug: shop.slug}) }}">
                         <h2 class="display-6 lh-1">{{ shop.name }}</h2>
                     </a>
                     <ul class="d-flex list-unstyled mt-3 mb-1">
@@ -64,9 +65,9 @@
         <div class="search-results">
             {% for product in search_product_results %}
             <div class="card" style="width: 100%">
-                <img src="/images/1.jpg" class="card-img-top" alt="Image produit n°{{ product.id }}" height="200">
+                <img src="{{ asset('images/1.jpg') }}" class="card-img-top" alt="Image produit n°{{ product.id }}" height="200">
                 <div class="card-body">
-                    <a class="card-title" href="/products">{{ product.name }}</a>
+                    <a class="card-title" href="{{ path('product_show', {id: product.id}) }}">{{ product.name }}</a>
                     <div class="price-stars">
                         <div class="prices">
                             {% if product.dealprice != null %}
