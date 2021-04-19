@@ -7,6 +7,8 @@ use App\Repository\UserRepository;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -36,7 +38,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -91,6 +93,11 @@ class User implements UserInterface
     private $isVerified = false;
 
     /**
+     * @ORM\OneToMany(targetEntity=Basket::class, mappedBy="owner")
+     */
+    private $baskets;
+
+    /**
      * @throws Exception
      */
     public function __construct()
@@ -99,6 +106,7 @@ class User implements UserInterface
         $this->created_at = new DateTime('now', $dateTimeZoneFrance);
         $this->updated_at = new DateTime('now', $dateTimeZoneFrance);
         $this->roles = ['ROLE_USER'];
+        $this->baskets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -276,6 +284,36 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Basket[]
+     */
+    public function getBaskets(): Collection
+    {
+        return $this->baskets;
+    }
+
+    public function addBasket(Basket $basket): self
+    {
+        if (!$this->baskets->contains($basket)) {
+            $this->baskets[] = $basket;
+            $basket->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBasket(Basket $basket): self
+    {
+        if ($this->baskets->removeElement($basket)) {
+            // set the owning side to null (unless already changed)
+            if ($basket->getOwner() === $this) {
+                $basket->setOwner(null);
+            }
+        }
 
         return $this;
     }

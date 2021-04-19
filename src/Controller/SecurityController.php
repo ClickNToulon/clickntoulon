@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
+use LogicException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -43,10 +44,11 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/deconnexion", name="app_logout")
+     * @throws LogicException
      */
     public function logout()
     {
-        throw new \LogicException('Methode qui peut être nulle');
+        throw new LogicException('Methode qui peut être nulle');
     }
 
     /**
@@ -82,7 +84,12 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/verify/email", name="app_verify_email")
-    public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param EmailVerifier $emailVerifier
+     * @return Response
+     */
+    public function verifyUserEmail(Request $request, UserRepository $userRepository, EmailVerifier $emailVerifier): Response
     {
         $id = $request->get('id');
 
@@ -98,7 +105,7 @@ class SecurityController extends AbstractController
 
         // validate email confirmation link, sets User::isVerified=true and persists
         try {
-            $this->emailVerifier->handleEmailConfirmation($request, $user);
+            $emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $exception->getReason());
 
@@ -108,5 +115,5 @@ class SecurityController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_login');
-    }*/
+    }
 }

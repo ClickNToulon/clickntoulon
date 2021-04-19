@@ -107,10 +107,10 @@
                         {% endif %}
                         <h4 class="mt-3">Catégories</h4>
                         <p>Boulangerie - Patisserie</p>
-                        <!--<h4 class="mb-2">Moyens de paiement acceptés par le commerçant</h4>
-                        <?php foreach($payment as $payment_test) { $payment_test = (int)$payment_test; $payments = $payment_icons->getIcon($payment_test);?>
-                        <a title="<?php echo html_entity_decode($payments[1]); ?>"><i class="<?php echo html_entity_decode($payments[0]); ?> px-1"></i></a>
-                        <?php } ?>-->
+                        <h4 class="mb-2">Moyens de paiement acceptés par le commerçant</h4>
+                        {% for payment in payments %}
+                        <a title="{{ payment[1] }}"><i class="{{ payment[0] }} px-1"></i></a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

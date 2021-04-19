@@ -596,6 +596,13 @@ form.user-modify div.button-submit {
   height: calc(100% - 350px) !important;
 }
 
+.form-choose {
+  height: auto;
+  padding: 1rem;
+  background-color: rgba(35, 47, 62, .875) !important;
+  border-radius: 15px !important;
+}
+
 .email-logo {
   width: 50%;
   height: 50%;

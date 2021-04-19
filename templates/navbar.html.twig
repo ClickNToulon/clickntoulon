@@ -16,7 +16,7 @@
                 </li>
                 {% if user is defined and user != null and is_granted('ROLE_MERCHANT') %}
                 <li class="nav-item link-products">
-                    <a class="nav-link {% if active == 'my-shop' %}active{% endif %}" href="{{ path('seller_index') }}"><i class="bi-shop"></i> Ma boutique</a>
+                    <a class="nav-link {% if active == 'my-shop' %}active{% endif %}" href="{{ path('seller_choose') }}"><i class="bi-shop"></i> Ma boutique</a>
                 </li>
                 {% endif %}
             </ul>

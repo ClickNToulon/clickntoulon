@@ -4,7 +4,9 @@
 namespace App\Controller;
 
 
+use App\Entity\Payment;
 use App\Entity\Shop;
+use App\Repository\PaymentRepository;
 use App\Repository\ShopRepository;
 use App\Repository\TimeTableRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,16 +60,25 @@ class ShopController extends AbstractController
      * @Route("/boutiques/{slug}", name="shop_show")
      * @param Shop $shop
      * @param TimeTableRepository $tableRepository
+     * @param PaymentRepository $paymentRepository
      * @return Response
      */
-    public function showOne(Shop $shop, TimeTableRepository $tableRepository): Response
+    public function showOne(Shop $shop, TimeTableRepository $tableRepository, PaymentRepository $paymentRepository): Response
     {
         $user = $this->getUser();
         $timetable = $tableRepository->findById($shop);
+        $payments_shop = $shop->getPayments();
+        $payments_icons = new Payment();
+        $payments = [];
+        foreach ($payments_shop as $k => $v) {
+            $payment_shop = $v->getId();
+            $payments[] = $payments_icons->getIcon($payment_shop);
+        }
         return $this->render('shop/show.html.twig', [
             'shop' => $shop,
             'timetable' => $timetable,
-            'user' => $user
+            'user' => $user,
+            'payments' => $payments
         ]);
     }
 

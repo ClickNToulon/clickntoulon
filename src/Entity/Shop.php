@@ -6,6 +6,8 @@ use App\Repository\ShopRepository;
 use Cocur\Slugify\Slugify;
 use DateTime;
 use DateTimeZone;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 
@@ -92,6 +94,11 @@ class Shop
     private $is_verified = false;
 
     /**
+     * @ORM\ManyToMany(targetEntity=Payment::class)
+     */
+    private $payments = [1];
+
+    /**
      * @throws Exception
      */
     public function __construct()
@@ -99,6 +106,7 @@ class Shop
         $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
         $this->created_at = new DateTime('now', $dateTimeZoneFrance);
         $this->updated_at = new DateTime('now', $dateTimeZoneFrance);
+        $this->payments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -270,6 +278,30 @@ class Shop
     public function setIsVerified(bool $is_verified): self
     {
         $this->is_verified = $is_verified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Payment[]
+     */
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    public function addPayment(Payment $payment): self
+    {
+        if (!$this->payments->contains($payment)) {
+            $this->payments[] = $payment;
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): self
+    {
+        $this->payments->removeElement($payment);
 
         return $this;
     }

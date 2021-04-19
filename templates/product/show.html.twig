@@ -24,10 +24,10 @@
                             <h4>Nous contacter</h4>
                             <p class="mt-2 mb-1">Téléphone : <a href="tel:+33{{ shop.phone }}" target="_blank">+33{{ shop.phone }}</a></p>
                             <p class="mb-1">Email : <a href="mailto:{{ shop.email }}" target="_blank">{{ shop.email }}</a></p>
-                            <!--<h4 class="mb-2 mt-3">Moyens de paiement acceptés par le commerçant</h4>
-                            <?php foreach($payment as $payment_test) { $payment_test = (int)$payment_test; $payments = $payment_icons->getIcon($payment_test);?>
-                            <a title="<?php echo html_entity_decode($payments[1]); ?>"><i class="<?php echo html_entity_decode($payments[0]); ?> px-1"></i></a>
-                            <?php } ?-->
+                            <h4 class="mb-2 mt-3">Moyens de paiement acceptés par le commerçant</h4>
+                            {% for payment in payments %}
+                                <a title="{{ payment[1] }}"><i class="{{ payment[0] }} px-1"></i></a>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                         {% if product.dealStart != null and product.dealEnd != null %}
 							{% set dealstart = product.dealStart | format_datetime(pattern="dd'/'MM'/'yy 'à' HH'h'mm", locale="fr") %}
                             {% set dealend = product.dealEnd | format_datetime(pattern="dd'/'MM'/'yy 'à' HH'h'mm", locale="fr") %}
-                        <span>La promotion commence le {{ dealstart }} et se termine le {{ dealend }}
+                            <span>La promotion commence le {{ dealstart }} et se termine le {{ dealend }}</span>
                         {% endif %}
                         <!--<form action="/products/add/<?php echo html_entity_decode($product['id']); ?>" method="POST" class="add-basket add-basket-product">
                             <?php $basketinfo = $this->BasketModel->fetch2Params("id_shop", $product['id_shop'], "id_user", $user['id'], "id_product", $product['id']);

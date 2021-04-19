@@ -98,4 +98,13 @@ class ShopRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findAllByUser($id)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.owner_id = :user_id')
+            ->setParameter('user_id', array($id))
+            ->getQuery()
+            ->getResult();
+    }
 }

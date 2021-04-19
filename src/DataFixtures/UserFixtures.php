@@ -24,7 +24,6 @@ class UserFixtures extends Fixture
         $user->setUsername('test');
         $user->setCreatedAt(new \DateTime());
         $user->setUpdatedAt(new \DateTime());
-        $user->setAuth(4);
         $user->setEmail('quentin.boitel@test.fr');
         $user->setRoles(['ROLE_USER']);
         $user->setPassword($this->passwordEncoder->encodePassword($user, 'test'));
