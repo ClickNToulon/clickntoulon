@@ -83,4 +83,13 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('shop_id', $shop->getId())
             ->getQuery();
     }
+
+    public function findAllByShop(Shop $shop)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.shop_id = :shop_id')
+            ->setParameter('shop_id', $shop->getId())
+            ->getQuery()
+            ->getResult();
+    }
 }

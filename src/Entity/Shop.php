@@ -16,6 +16,12 @@ use Exception;
  */
 class Shop
 {
+
+    const Tag = [
+        0 => "Boulangerie - Pâtisserie",
+        1 => "Boucher",
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -96,7 +102,17 @@ class Shop
     /**
      * @ORM\ManyToMany(targetEntity=Payment::class)
      */
-    private $payments = [1];
+    private $payments;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $cover;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $tag;
 
     /**
      * @throws Exception
@@ -302,6 +318,35 @@ class Shop
     public function removePayment(Payment $payment): self
     {
         $this->payments->removeElement($payment);
+
+        return $this;
+    }
+
+    public function getCover(): ?string
+    {
+        return $this->cover;
+    }
+
+    public function setCover(string $cover): self
+    {
+        $this->cover = $cover;
+
+        return $this;
+    }
+
+    public function getTag(): ?int
+    {
+        return $this->tag;
+    }
+
+    public function getTagName(): string
+    {
+        return self::Tag[$this->tag];
+    }
+
+    public function setTag(int $tag): self
+    {
+        $this->tag = $tag;
 
         return $this;
     }

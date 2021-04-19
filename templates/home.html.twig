@@ -27,7 +27,7 @@
     </div>
     {% else %}
     <div class="px-4 py-5 my-5 mb-0 text-center">
-        <img class="d-block mx-auto mb-4" src="{{ asset('images/logo-home.svg') }}" alt="" width="100" height="100">
+        <img class="d-block mx-auto mb-4" src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/logo-home.svg') }}{% endif %}" alt="" width="150" height="150">
         <h1 class="display-5 fw-bold">Bienvenue {{ user.username }}</h1>
         <div class="col-lg-6 mx-auto">
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
@@ -57,14 +57,14 @@
                                 <li class="d-flex align-items-center">
                                     <a class="text-white" href="tel:+33{{ shop.phone }}">
                                         <i class="bi-telephone-fill me-2"></i>
-                                        <small>+33{{ shop.phone }}</small>
+                                        <small>+33 {{ shop.phone }}</small>
                                     </a>
                                 </li>
                             </ul>
                             <ul class="d-flex list-unstyled">
                                 <li class="d-flex align-items-center me-auto">
                                     <i class="bi-tags-fill me-1"></i>
-                                    <i>Boulangerie - Pâtisserie</i>
+                                    <i>{{ shop.tagName }}</i>
                                 </li>
                                 <li class="d-flex align-items-center">
                                     {% if shop.status == 2 %}

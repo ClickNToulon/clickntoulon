@@ -29,6 +29,27 @@
                     toastsWarningItem.forEach(toast => toast.show()); // This show them
                 </script>
             {% endfor %}
+            {% for message in app.flashes('warning') %}
+                <div class="toast toast-warning d-flex align-items-center bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-body d-flex align-items-center">
+                        <div class="toast-icon">
+                            <i class="bi-exclamation-circle" aria-hidden="true"></i>
+                        </div>
+                        <div class="toast-text mx-2">
+                            <p class="d-flex align-items-center text-center mb-0" style="font-size: 15px">{{ message }}</p>
+                        </div>
+                        <div class="alert__progress warning"></div>
+                    </div>
+                </div>
+                <script>
+                    const toastsWarning = [].slice.call(document.querySelectorAll('.toast-warning'));
+                    const toastsWarningItem = toastsWarning.map(function (toast) {
+                        // Creates an array of toasts (it only initializes them)
+                        return new bootstrap.Toast(toast, {"delay": 5010}) // No need for options; use the default options
+                    });
+                    toastsWarningItem.forEach(toast => toast.show()); // This show them
+                </script>
+            {% endfor %}
         </div>
         {{ form_start(form_password, {attr: {class: 'user-modify'}}) }}
             <h3 class="password-update"><i class="bi-lock"></i> Mot de passe</h3>
@@ -42,7 +63,7 @@
         {{ form_start(form_avatar, {attr: {class: 'user-modify'}}) }}.
             <h3 class="user-modify-title"><i class="bi-person-bounding-box"></i> Photo de profil</h3>
             <div class="forms user_upload_profile form-modify">
-                <img src="{{ asset('uploads/') ~ user.avatar }}" width="150" height="150">
+                <img src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/user.png') }}{% endif %}" width="150" height="150">
                 {{ form_errors(form_avatar) }}
                 {{ form_widget(form_avatar) }}
             </div>
@@ -76,6 +97,16 @@
                 <button type="submit" class="btn btn-form">Modifier mon profil</button>
             </div>
         {{ form_end(form_profile) }}
+        {{ form_start(form_delete, {attr: {class: 'user-modify last'}}) }}
+        <h3 class="danger-zone"><i class="bi-trash"></i> Danger Zone</h3>
+        <p class="danger-zone-txt">Vous n'&ecirc;tes pas satisfait du contenu propos&eacute; sur le site ?<br>
+            Ou vous souhaitez supprimer toutes les informations associ&eacute;es à votre compte ?</p>
+        <i class="danger-zone-txt">Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es relatives &agrave; votre profil, ainsi que toutes vos commandes pass&eacute;es sur le site.</i>
+        {{ form_row(form_delete.id) }}
+        <div class="button-submit">
+            <button type="submit" class="btn btn-form btn-danger"><i class="bi-trash"></i> Supprimer mon profil</button>
+        </div>
+        {{ form_end(form_delete) }}
     </div>
     {% include 'footer.html.twig' %}
 {% endblock %}

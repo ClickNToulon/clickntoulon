@@ -35,12 +35,13 @@
             <div class="row first">
                 <div class="col-12 form-row">
                     {{ form_row(form.name) }}
-                    {{ form_row(form.phone) }}
+                    {{ form_row(form.tag) }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 form-row">
                     {{ form_row(form.email) }}
+                    {{ form_row(form.phone) }}
                 </div>
             </div>
             <div class="row">
@@ -57,6 +58,11 @@
                 <div class="col-12 form-row">
                     {{ form_row(form.postal_code) }}
                     {{ form_row(form.city) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 form-row">
+                    {{ form_row(form.cover) }}
                 </div>
             </div>
         </div>

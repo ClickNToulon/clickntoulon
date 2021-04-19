@@ -1,6 +1,6 @@
 <div class="mt-5 mb-5">
     <div class="user-profile">
-        <img src="{{ asset('uploads/') ~ user.avatar }}" alt="User" class="user-profile-image">
+        <img src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/user.png') }}{% endif %}" alt="User" class="user-profile-image">
         <div class="user-profile-info">
             <h1 class="pb-2 h1">{{ user.username }}</h1>
             <div class="user-profile-status">

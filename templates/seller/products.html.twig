@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Gérer les produits de ma boutique - TouSolidaires' %}
+
+{% block body %}
+    {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
+    {% include 'seller/_header.html.twig' %}
+    {% include 'seller/_tabs.html.twig' with {'active': 'products'} %}
+    <div class="tab-content container">
+        <div class="tab-pane active">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <h1>Liste des produits</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <button type="button" class="btn btn-sm btn-outline-add" data-bs-toggle="modal" data-bs-target="#newProduct">+</button>
+                    </div>
+                </div>
+            </div>
+            {% if products != false %}
+            <table class="table table-light table-striped">
+                <thead class="thead-light">
+                <tr>
+                    <th>N°</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Prix en promo</th>
+                    <th>Actions</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{% if product.dealprice == null %}Pas de promo{% else %}{{ product.dealprice }}{% endif %}</td>
+                    <td><a href=""><button class="btn btn-form mg-t-0">Modifier ce produit</button></a></td>
+                    <td><a href=""><button class="btn btn-form btn-danger mg-t-0">Supprimer ce produit</button></a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td class="last text-bold">Total : {{ total_products }}</td>
+                    <td class="last"></td>
+                    <td class="last"></td>
+                    <td class="last"></td>
+                    <td class="last"></td>
+                    <td class="last"></td>
+                </tr>
+                </tfoot>
+            </table>
+            {% else %}
+            <h3 class="text-black">Vous n'avez pas de produits. Vous pouvez en rajouter d&egrave;s maintenant.</h3>
+            {% endif %}
+            <div class="modal fade" id="newProduct" tabindex="-1" aria-labelledby="newProductLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content bg-dark">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="newProductLabel">Ajouter un nouveau produit</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body forms">
+                            {{ form_start(form, {attr: {class: 'add-product-form'}}) }}
+                            {{ form_row(form.name) }}
+                            {{ form_row(form.price) }}
+                            {{ form_row(form.description) }}
+                            {{ form_row(form.image) }}
+                            <div class="button-submit seller-submit">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                                <button type="submit" name="p_add" class="btn btn-form">Enregistrer</button>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html.twig' %}
+{% endblock %}

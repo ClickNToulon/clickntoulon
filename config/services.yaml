@@ -4,7 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    uploads: '%kernel.project_dir%/public/uploads'
+    uploads/users: '%kernel.project_dir%/public/uploads/users'
+    uploads/products: '%kernel.project_dir%/public/uploads/products'
+    uploads/shops: '%kernel.project_dir%/public/uploads/shops'
 
 services:
     # default configuration for services in *this* file

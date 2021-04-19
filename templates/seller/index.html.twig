@@ -4,9 +4,7 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
-    <div class="main-container">
-        <h3>{{ shop.name }}</h3>
-        <a href="{{ path('seller_choose') }}"><button class="btn btn-form">Changer de boutique</button></a>
-    </div>
+    {% include 'seller/_header.html.twig' %}
+    {% include 'seller/_tabs.html.twig' with {'active': 'orders'} %}
     {% include 'footer.html.twig' %}
 {% endblock %}

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\DeleteUserForm;
 use App\Form\UpdatePasswordForm;
 use App\Form\UpdateAvatarForm;
 use App\Form\UpdateUserForm;
@@ -14,6 +16,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -24,12 +27,12 @@ class UserController extends AbstractController
     /**
      * @var UserPasswordEncoderInterface
      */
-    private $passwordEncoder;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private EntityManagerInterface $em;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em) {
         $this->passwordEncoder = $passwordEncoder;
@@ -77,10 +80,16 @@ class UserController extends AbstractController
             return $responseInfo;
         }
 
+        [$formDelete, $responseDelete] = $this->createFormDelete($request);
+        if ($responseDelete) {
+            return $responseDelete;
+        }
+
         return $this->render('user/edit.html.twig', [
             'form_password' => $formPassword->createView(),
             'form_avatar' => $formAvatar->createView(),
             'form_profile' => $formInfo->createView(),
+            'form_delete' => $formDelete->createView(),
             'user' => $user
         ]);
     }
@@ -150,7 +159,7 @@ class UserController extends AbstractController
                 // Move the file to the directory where brochures are stored
                 try {
                     $avatarFile->move(
-                        $this->getParameter('uploads'),
+                        $this->getParameter('uploads/users'),
                         $newFilename
                     );
                 } catch (FileException $e) {
@@ -192,6 +201,28 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Vos informations ont bien été mises à jour');
 
             return [$form, $this->redirectToRoute('user_edit')];
+        }
+
+        return [$form, null];
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function createFormDelete(Request $request): array
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(DeleteUserForm::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $session = $this->get('session');
+            $session = new Session();
+            $session->invalidate();
+            $this->em->remove($user);
+            $this->em->flush();
+            return [$form, $this->redirectToRoute('home')];
         }
 
         return [$form, null];

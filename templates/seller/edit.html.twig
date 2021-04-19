@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Modifier les informations de ma boutique - TouSolidaires' %}
+
+{% block body %}
+    {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
+    {% include 'seller/_header.html.twig' %}
+    {% include 'seller/_tabs.html.twig' with {'active': 'edit'} %}
+    {{ form_start(form_update, {attr: {class: 'user-modify'}}) }}
+    <h3 class="user-modify-title"><i class="bi-shop-window"></i> Informations de ma boutique</h3>
+    <div class="forms form-modify">
+        <i class="left">Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultatif.</i>
+        <div class="row first">
+            <div class="col-12 form-row">
+                {{ form_row(form_update.name) }}
+                {{ form_row(form_update.tag) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-row">
+                {{ form_row(form_update.email) }}
+                {{ form_row(form_update.phone) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-row form-address">
+                {{ form_row(form_update.description) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-row form-address">
+                {{ form_row(form_update.address) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-row">
+                {{ form_row(form_update.postal_code) }}
+                {{ form_row(form_update.city) }}
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="forms form-modify">
+        <i class="left">Au moins un des sélecteurs ci-dessous doit être sélectionné</i>
+        <div class="row">
+            <div class="col-12 form-row">
+                <div class="checkboxs">
+                    {% for payment in payments %}
+                        <div>
+                            <input type="checkbox" class="form-check-input" name="payment[]" value="{{ payment.id }}" id="payment_{{ payment.id }}" {% if payment in shop.payments %}checked{% endif %}>
+                            <label for="payment_{{ payment.id }}">{{ payment.name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="button-submit">
+        <button type="submit" class="btn btn-form" name="add_shop">Modifier ma boutique</button>
+    </div>
+    {{ form_end(form_update) }}
+    {% include 'footer.html.twig' %}
+{% endblock %}
