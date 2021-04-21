@@ -59,5 +59,15 @@
         <button type="submit" class="btn btn-form" name="add_shop">Modifier ma boutique</button>
     </div>
     {{ form_end(form_update) }}
+
+    {{ form_start(form_delete, {attr: {class: 'user-modify last'}}) }}
+        <h3 class="danger-zone"><i class="bi-trash"></i> Danger Zone</h3>
+        <p class="danger-zone-txt">Vous n'êtes pas satisfait du contenu proposé sur le site ?<br>
+            Ou vous souhaitez supprimer toutes les informations associées à votre boutique ?</p>
+        <i class="danger-zone-txt">Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es relatives à votre boutique, ainsi que toutes les commandes passées sur le site qui ne sont encore livrées (donc même celles en attente et en préparation).</i>
+        <div class="button-submit">
+            <button type="submit" class="btn btn-form btn-danger" name="delete"><i class="bi-trash"></i> Supprimer ma boutique</button>
+        </div>
+    {{ form_end(form_delete) }}
     {% include 'footer.html.twig' %}
 {% endblock %}

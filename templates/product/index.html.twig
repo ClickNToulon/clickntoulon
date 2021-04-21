@@ -8,7 +8,7 @@
         <div class="products-grid">
             {% for product in products %}
                 <div class="card" style="width: 100%">
-                    <img src="/images/1.jpg" class="card-img-top" alt="Image produit n°{{ product.id }}" height="200">
+                    <img src="{% if product.image != null %}{{ asset('uploads/products/' ~ product.image) }}{% else %}{{ asset('images/1.jpg') }}{% endif %}" class="card-img-top" alt="Image produit n°{{ product.id }}" height="200">
                     <div class="card-body">
                         <a class="card-title" href="{{ path('product_show', {id: product.id}) }}">{{ product.name }}</a>
                         <div class="price-stars">
@@ -32,9 +32,7 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="navigation no-bg">
-            {{ knp_pagination_render(products) }}
-        </div>
+        {{ knp_pagination_render(products) }}
     </main>
     {% include 'footer.html.twig' %}
 {% endblock %}

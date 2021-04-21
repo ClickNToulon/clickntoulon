@@ -7,8 +7,8 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Entity\Shop;
 use App\Form\ChooseShop;
-use App\Form\PaymentForm;
 use App\Form\ProductType;
+use App\Form\ShopDeleteForm;
 use App\Form\ShopType;
 use App\Form\ShopUpdateForm;
 use App\Repository\PaymentRepository;
@@ -84,7 +84,8 @@ class SellerController extends AbstractController
         }
         return $this->render('seller/choose.html.twig', [
             'shops' => $shops,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 
@@ -164,6 +165,9 @@ class SellerController extends AbstractController
         $payments = $paymentRepository->findAll();
         $form_update->handleRequest($request);
 
+        $form_delete = $this->createForm(ShopDeleteForm::class, $shop);
+        $form_delete->handleRequest($request);
+
         if ($form_update->isSubmitted() && $form_update->isValid()) {
             $payments_add = $request->request->all('payment');
             foreach ($payments_add as $key => $value) {
@@ -176,10 +180,18 @@ class SellerController extends AbstractController
             $this->em->persist($shop);
             $this->em->flush();
         }
+
+        if ($form_delete->isSubmitted() && $form_delete->isValid()) {
+            $this->em->remove($shop);
+            $this->em->flush();
+            return $this->redirectToRoute('seller_choose', );
+        }
+
         return $this->render('seller/edit.html.twig', [
             'shop' => $shop,
             'user' => $user,
             'form_update' => $form_update->createView(),
+            'form_delete' => $form_delete->createView(),
             'payments' => $payments
         ]);
 
