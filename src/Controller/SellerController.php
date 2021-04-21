@@ -129,6 +129,7 @@ class SellerController extends AbstractController
             $default_payment = $paymentRepository->find(1);
             $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
             $shop
+                ->setOwnerId($user->getId())
                 ->setCreatedAt(new DateTime('now', $dateTimeZoneFrance))
                 ->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance))
                 ->setStatus(0)
