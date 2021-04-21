@@ -7,7 +7,7 @@
             <a class="nav-link {% if active == 'products' %}active{% endif %}" id="edit_product" data-toggle="tab" href="{{ path('seller_edit_products', {id: shop.id}) }}" role="tab" aria-controls="edit_product" aria-selected="false"><i class="bi-pen"></i> Ajouter/&Eacute;diter un produit</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link {% if active == 'categories' %}active{% endif %}" id="edit_category" data-toggle="tab" href="{{ path('seller_choose') }}" role="tab" aria-controls="edit_catgeory" aria-selected="false"><i class="bi-tags"></i> Ajouter/&Eacute;diter une cat&eacute;gorie</a>
+            <a class="nav-link {% if active == 'categories' %}active{% endif %}" id="edit_category" data-toggle="tab" href="{{ path('seller_categories', {id: shop.id}) }}" role="tab" aria-controls="edit_catgeory" aria-selected="false"><i class="bi-tags"></i> Ajouter/&Eacute;diter une cat&eacute;gorie</a>
         </li>
         <li class="nav-item" role="presentation">
             <a class="nav-link {% if active == 'edit' %}active{% endif %}" id="edit" data-toggle="tab" href="{{ path('seller_edit', {id: shop.id}) }}" role="tab" aria-controls="edit" aria-selected="false"><i class="bi-shop-window"></i> &Eacute;diter les informations de ma boutique</a>

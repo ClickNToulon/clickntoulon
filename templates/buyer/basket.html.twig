@@ -4,5 +4,8 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'basket'} %}
+    {% for basket in baskets %}
+        {{ basket.productsId }}
+    {% endfor %}
     {% include 'footer.html.twig' %}
 {% endblock %}

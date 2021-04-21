@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Shop;
-use Doctrine\ORM\EntityRepository;
+use App\Repository\ShopRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,16 +13,15 @@ class ChooseShop extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $id = $options['id'];
         $builder
             ->add('select', EntityType::class, [
                 'class' => Shop::class,
                 'mapped' => false,
                 'required' => true,
                 'label' => false,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('s')
-                        ->where('s.owner_id = :user_id')
-                        ->setParameter('user_id', 3);
+                'query_builder' => function(ShopRepository $em) use($id) {
+                    return $em->choose($id);
                 },
                 'choice_label' => 'name',
                 'attr' => [
@@ -33,9 +32,11 @@ class ChooseShop extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver
+            ->setDefaults([
             'data_class' => Shop::class,
             'translation_domain' => 'forms'
-        ]);
+            ])
+            ->setRequired('id');;
     }
 }

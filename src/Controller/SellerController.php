@@ -4,13 +4,16 @@
 namespace App\Controller;
 
 
+use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\Shop;
+use App\Form\CategoryType;
 use App\Form\ChooseShop;
 use App\Form\ProductType;
 use App\Form\ShopDeleteForm;
 use App\Form\ShopType;
 use App\Form\ShopUpdateForm;
+use App\Repository\CategoryRepository;
 use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ShopRepository;
@@ -73,7 +76,7 @@ class SellerController extends AbstractController
     {
         $user = $this->getUser();
         $shops = $this->shopRepository->findAllByUser($user->getId());
-        $form = $this->createForm(ChooseShop::class);
+        $form = $this->createForm(ChooseShop::class, null, ['id' => $user->getId()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -126,14 +129,6 @@ class SellerController extends AbstractController
             $default_payment = $paymentRepository->find(1);
             $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
             $shop
-                ->setEmail($shop->getEmail())
-                ->setName($shop->getName())
-                ->setPhone($shop->getPhone())
-                ->setAddress($shop->getAddress())
-                ->setPostalCode($shop->getPostalCode())
-                ->setCity($shop->getCity())
-                ->setDescription($shop->getDescription())
-                ->setOwnerId($user->getId())
                 ->setCreatedAt(new DateTime('now', $dateTimeZoneFrance))
                 ->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance))
                 ->setStatus(0)
@@ -179,6 +174,7 @@ class SellerController extends AbstractController
 
             $this->em->persist($shop);
             $this->em->flush();
+            $this->addFlash('success', 'Votre boutique a bien été modifiée');
         }
 
         if ($form_delete->isSubmitted() && $form_delete->isValid()) {
@@ -246,6 +242,38 @@ class SellerController extends AbstractController
             'shop' => $shop,
             'products' => $products,
             'total_products' => $total_products,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/ma-boutique/{id}/categories", name="seller_categories", requirements={"id": "[0-9\-]*"})
+     * @param Shop $shop
+     * @param CategoryRepository $categoryRepository
+     * @param Request $request
+     * @return Response
+     */
+    public function categories(Shop $shop, CategoryRepository $categoryRepository, Request $request): Response
+    {
+        $user = $this->getUser();
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $category->setShop($shop);
+            $this->em->persist($category);
+            $this->em->flush();
+        }
+
+        $categories = $categoryRepository->findAllByShop($shop);
+        dump($categories);
+        $total_categories = count($categories);
+        return $this->render("seller/categories.html.twig", [
+            'user' => $user,
+            'shop' => $shop,
+            'categories' => $categories,
+            'total_categories' => $total_categories,
             'form' => $form->createView()
         ]);
     }

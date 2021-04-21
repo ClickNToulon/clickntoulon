@@ -63,14 +63,14 @@
                         </div>
                         <div class="modal-body forms">
                             {{ form_start(form, {attr: {class: 'add-product-form'}}) }}
-                            {{ form_row(form.name) }}
-                            {{ form_row(form.price) }}
-                            {{ form_row(form.description) }}
-                            {{ form_row(form.image) }}
-                            <div class="button-submit seller-submit">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-                                <button type="submit" name="p_add" class="btn btn-form">Enregistrer</button>
-                            </div>
+                                {{ form_row(form.name) }}
+                                {{ form_row(form.price) }}
+                                {{ form_row(form.description) }}
+                                {{ form_row(form.image) }}
+                                <div class="button-submit seller-submit">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                                    <button type="submit" name="p_add" class="btn btn-form">Enregistrer</button>
+                                </div>
                             {{ form_end(form) }}
                         </div>
                     </div>

@@ -115,6 +115,11 @@ class Shop
     private $tag;
 
     /**
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="shop", orphanRemoval=true)
+     */
+    private $categories;
+
+    /**
      * @throws Exception
      */
     public function __construct()
@@ -123,6 +128,7 @@ class Shop
         $this->created_at = new DateTime('now', $dateTimeZoneFrance);
         $this->updated_at = new DateTime('now', $dateTimeZoneFrance);
         $this->payments = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -347,6 +353,36 @@ class Shop
     public function setTag(int $tag): self
     {
         $this->tag = $tag;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->setShop($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getShop() === $this) {
+                $category->setShop(null);
+            }
+        }
 
         return $this;
     }

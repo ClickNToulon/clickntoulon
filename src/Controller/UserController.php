@@ -7,6 +7,8 @@ use App\Form\DeleteUserForm;
 use App\Form\UpdatePasswordForm;
 use App\Form\UpdateAvatarForm;
 use App\Form\UpdateUserForm;
+use App\Repository\OrderRepository;
+use App\Repository\ProductRepository;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
@@ -97,13 +99,23 @@ class UserController extends AbstractController
     /**
      * @Route("/profil/mes-commandes", name="user_orders")
      * @IsGranted("ROLE_USER")
+     * @param OrderRepository $orderRepository
+     * @param ProductRepository $productRepository
      * @return Response
      */
-    public function orders(): Response
+    public function orders(OrderRepository $orderRepository, ProductRepository $productRepository): Response
     {
         $user = $this->getUser();
+        $orders = $orderRepository->findAllByUser($user->getId());
+        dump($orders);
+        foreach($orders as $k => $v) {
+            $products = [];
+            $products[] = $productRepository->find($v->getProductsId());
+            dump($products);
+        }
         return $this->render('user/orders.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'orders' => $orders
         ]);
     }
 

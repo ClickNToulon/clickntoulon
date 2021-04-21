@@ -22,12 +22,12 @@ class ShopController extends AbstractController
     /**
      * @var ShopRepository
      */
-    private $repository;
+    private ShopRepository $repository;
 
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private EntityManagerInterface $em;
 
     public function __construct(ShopRepository $repository, EntityManagerInterface $em)
     {
@@ -67,6 +67,7 @@ class ShopController extends AbstractController
     {
         $user = $this->getUser();
         $timetable = $tableRepository->findById($shop);
+        dump($timetable);
         $payments_shop = $shop->getPayments();
         $payments_icons = new Payment();
         $payments = [];

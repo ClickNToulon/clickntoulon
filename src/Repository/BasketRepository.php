@@ -19,15 +19,6 @@ class BasketRepository extends ServiceEntityRepository
         parent::__construct($registry, Basket::class);
     }
 
-    public function findByUser($id)
-    {
-        return $this->createQueryBuilder('b')
-            ->where('b.owner = :user_id')
-            ->setParameter('user_id', array($id))
-            ->getQuery()
-            ->getResult();
-    }
-
     // /**
     //  * @return Basket[] Returns an array of Basket objects
     //  */
@@ -56,4 +47,12 @@ class BasketRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findByUser($id)
+    {
+        return $this->createQueryBuilder('b')
+            ->where('b.owner_id = :user_id')
+            ->setParameter('user_id', $id)
+            ->getQuery()
+            ->getResult();
+    }
 }

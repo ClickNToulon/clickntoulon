@@ -6,6 +6,29 @@
     {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
     {% include 'seller/_header.html.twig' %}
     {% include 'seller/_tabs.html.twig' with {'active': 'edit'} %}
+    <div class="toast-container position-absolute p-3">
+        {% for message in app.flashes('success') %}
+            <div class="toast toast-success d-flex align-items-center bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body d-flex align-items-center">
+                    <div class="toast-icon">
+                        <i class="bi-check-circle" aria-hidden="true"></i>
+                    </div>
+                    <div class="toast-text mx-2">
+                        <p class="d-flex align-items-center text-center mb-0" style="font-size: 15px">{{ message }}</p>
+                    </div>
+                    <div class="alert__progress"></div>
+                </div>
+            </div>
+            <script>
+                const toastsWarning = [].slice.call(document.querySelectorAll('.toast-success'));
+                const toastsWarningItem = toastsWarning.map(function (toast) {
+                    // Creates an array of toasts (it only initializes them)
+                    return new bootstrap.Toast(toast, {"delay": 5010}) // No need for options; use the default options
+                });
+                toastsWarningItem.forEach(toast => toast.show()); // This show them
+            </script>
+        {% endfor %}
+    </div>
     {{ form_start(form_update, {attr: {class: 'user-modify'}}) }}
     <h3 class="user-modify-title"><i class="bi-shop-window"></i> Informations de ma boutique</h3>
     <div class="forms form-modify">

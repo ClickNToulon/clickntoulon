@@ -6,6 +6,7 @@ use App\Entity\Shop;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -57,6 +58,18 @@ class ShopRepository extends ServiceEntityRepository
             ->setMaxResults(3)
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @param $id
+     * @return QueryBuilder
+     */
+    public function choose($id): QueryBuilder
+    {
+        return $this
+            ->createQueryBuilder('s')
+            ->where('s.owner_id = :id')
+            ->setParameter('id', $id);
     }
 
     // /**

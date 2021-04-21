@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Gérer les catégories de votre boutique - TouSolidaires.' %}
+
+{% block body %}
+    {% include 'navbar.html.twig' with {"active": "my-shop"} %}
+    {% include 'seller/_header.html.twig' %}
+    {% include 'seller/_tabs.html.twig' with {"active": "categories"} %}
+    <div class="tab-content container">
+        <div class="tab-pane active">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <h1>Liste des cat&eacute;gories</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <button type="button" class="btn btn-sm btn-outline-add" data-bs-toggle="modal" data-bs-target="#newCategory">+</button>
+                    </div>
+                </div>
+            </div>
+            {% if categories != false %}
+            <table class="table table-light table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th>N°</th>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                    <tr>
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.name }}</td>
+                        <td><a href=""><button class="btn btn-form btn-danger mg-t-0">Supprimer cette catégorie</button></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="last text-bold">Total : {{ total_categories }}</td>
+                        <td class="last"></td>
+                        <td class="last"></td>
+                    </tr>
+                </tfoot>
+            </table>
+            {% else %}
+            <h3 class="text-black">Vous n'avez pas encore créer de catégories. Vous pouvez en rajouter d&egrave;s maintenant.</h3>
+            {% endif %}
+            <div class="modal fade" id="newCategory" tabindex="-1" aria-labelledby="newCategoryLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content bg-dark">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="newCategoryLabel">Ajouter une nouvelle cat&eacute;gorie</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body forms">
+                            {{ form_start(form, {attr: {class: 'add-product-form'}}) }}
+                                {{ form_row(form.name) }}
+                                <div class="button-submit seller-submit">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-form" name="c_add">Enregistrer</button>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html.twig' %}
+{% endblock %}

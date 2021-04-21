@@ -18,75 +18,72 @@ class Basket
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Shop::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer")
      */
-    private $shop;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Product::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $products;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="baskets")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $owner;
+    private ?int $owner_id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantity;
+    private ?int $shop_id;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private ?string $products_id;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private ?string $quantity;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getShop(): ?Shop
+    public function getOwnerId(): ?int
     {
-        return $this->shop;
+        return $this->owner_id;
     }
 
-    public function setShop(?Shop $shop): self
+    public function setOwnerId(int $owner_id): self
     {
-        $this->shop = $shop;
+        $this->owner_id = $owner_id;
 
         return $this;
     }
 
-    public function getProducts(): ?Product
+    public function getShopId(): ?int
     {
-        return $this->products;
+        return $this->shop_id;
     }
 
-    public function setProducts(?Product $products): self
+    public function setShopId(int $shop_id): self
     {
-        $this->products = $products;
+        $this->shop_id = $shop_id;
 
         return $this;
     }
 
-    public function getOwner(): ?User
+    public function getProductsId(): ?string
     {
-        return $this->owner;
+        return $this->products_id;
     }
 
-    public function setOwner(?User $owner): self
+    public function setProductsId(string $products_id): self
     {
-        $this->owner = $owner;
+        $this->products_id = $products_id;
 
         return $this;
     }
 
-    public function getQuantity(): ?int
+    public function getQuantity(): ?string
     {
         return $this->quantity;
     }
 
-    public function setQuantity(?int $quantity): self
+    public function setQuantity(string $quantity): self
     {
         $this->quantity = $quantity;
 

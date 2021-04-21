@@ -9,6 +9,7 @@ use App\Entity\Product;
 use App\Entity\Shop;
 use App\Repository\ProductRepository;
 use App\Repository\ShopRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,7 +56,9 @@ class ProductController extends AbstractController
     /**
      * @Route("/produits/{id}", name="product_show")
      * @param Product $product
+     * @param ShopRepository $shopRepository
      * @return Response
+     * @throws NonUniqueResultException
      */
     public function shopProducts(Product $product, ShopRepository $shopRepository): Response
     {
