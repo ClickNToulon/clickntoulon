@@ -6,60 +6,55 @@
     {% include 'navbar.html.twig' with {'active': 'user'} %}
     {% include 'user/_header.html.twig' %}
     {% include 'user/_tabs.html.twig' with {active: 'orders'} %}
-
-    {% for order in orders %}
-        <div class="card">
-            <h2 class="card-title card-order-title text-center mt-3 mb-0">Commande n°{{ order.id }}</h2>
-            <div class="card-body pt-0">
-                <div class="order-info pt-0">
-                    <h3 class="order-shop-title">{% if order.shopid == shop.id %}{{ shop.name }}{% endif %}</h3>
-                    <p class="card-text mb-1"><i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
-                    <p class="card-text mb-3"><i class="bi-telephone"></i> Téléphone : <a href="tel:+33{{ shop.phone }}">+33{{ shop.phone }}</a></p>
+    <div class="tab-content container">
+        <div class="tab-pane active">
+            <div class="user-last-orders">
+                <h3 class="mb-3">Mes dernières commandes</h3>
+                <div class="bg-dark mb-3">
+                    {% if orders is not null %}
+                        <div class="user-orders-grid">
+                            {% for order in orders %}
+                                {% for shop in shops %}
+                                    {% if shop.id == order.shopid %}
+                                        <div class="card">
+                                            <h2 class="card-title card-order-title text-center mt-3 mb-0">Commande n°{{ order.id }}</h2>
+                                            <div class="card-body pt-0">
+                                                <div class="order-info pt-0">
+                                                    <h3 class="order-shop-title">{{ shop.name }}</h3>
+                                                    <p class="card-text mb-1"><i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
+                                                    <p class="card-text mb-3"><i class="bi-telephone"></i> Téléphone : <a href="tel:+33{{ shop.phone }}">+33{{ shop.phone }}</a></p>
+                                                </div>
+                                                {% if order.timebegin != null and order.timeend != null %}
+                                                <p class="card-text mb-0"><i class="bi-calendar3"></i> Date de retrait : <?php $order['day'] = explode("-", $order['day']); echo $order['day'][2] . '/'. $order['day'][1].'/'.$order['day'][0]; ?></p>
+                                                <p class="card-text"><i class="bi-clock"></i> Horaire de retrait :
+                                                    <?php $order["time_begin"] = explode(':', $order['time_begin']); echo html_entity_decode($order['time_begin'][0])."h".html_entity_decode($order['time_begin'][1]);?>
+                                                    - <?php $order["time_end"] = explode(':', $order['time_end']); echo html_entity_decode($order['time_end'][0])."h".html_entity_decode($order['time_end'][1]);?>
+                                                </p>
+                                                {% elseif order.status == 0 %}
+                                                <p class="card-text">La date et le créneau de retrait vous seront communiqués une fois la commande validée par le commerçant.</p>
+                                                {% else %}
+                                                <p class="card-text">La date et le créneau de retrait vous ont été communiqués par un autre moyen par le commerçant.</p>
+                                                {% endif %}
+                                                <h3 class="text-center mt-4"><a href="{{ path('user_order', {id: order.id}) }}"><i>Plus d'informations</i></a></h3>
+                                            </div>
+                                            {% if order.status == 0 %}
+                                            <p class="order-made-text buyer-made-text mt-2">Commande en attente de validation par le commerçant</p>
+                                            {% elseif order.status == 1 %}
+                                            <p class="order-accepted-text mt-2">Commande acceptée</p>
+                                            {% elseif order.status == 2 %}
+                                            <p class="order-pickup-text mt-2">Commande récupérée</p>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                    <h4>Pas de commandes récentes</h4>
+                    {% endif %}
                 </div>
-                {% if order.timebegin != null and order.timeend != null %}
-                <p class="card-text mb-0"><i class="bi-calendar3"></i> Date de retrait : <?php $order['day'] = explode("-", $order['day']); echo $order['day'][2] . '/'. $order['day'][1].'/'.$order['day'][0]; ?></p>
-                <p class="card-text"><i class="bi-clock"></i> Horaire de retrait :
-                    <?php $order["time_begin"] = explode(':', $order['time_begin']); echo html_entity_decode($order['time_begin'][0])."h".html_entity_decode($order['time_begin'][1]);?>
-                    - <?php $order["time_end"] = explode(':', $order['time_end']); echo html_entity_decode($order['time_end'][0])."h".html_entity_decode($order['time_end'][1]);?>
-                </p>
-                {% elseif order.status == 0 %}
-                <p class="card-text">La date et le créneau de retrait vous seront communiqués une fois la commande validée par le commerçant.</p>
-                {% else %}
-                <p class="card-text">La date et le créneau de retrait vous ont été communiqués par un autre moyen par le commerçant.</p>
-                {% endif %}
-                <h4>Produits</h4>
-                {% if products != false %}
-                <div class="product-card">
-                    <table class="table table-light table-striped text-center mt-2">
-                        <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prix</th>
-                            <th>Quantité</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for product in products %}
-                        <tr>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.price }} &euro;</td>
-                            <td>x{{ quantity }}</td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                {% else %}
-                    <p>Les produits ne sont plus vendus par cette boutique</p>
-                {% endif %}
             </div>
-            {% if order.status == 0 %}
-            <p class="order-made-text buyer-made-text mt-2">Commande en attente de validation par le commerçant</p>
-            {% elseif order.status == 1 %}
-            <p class="order-accepted-text mt-2">Commande acceptée</p>
-            {% elseif order.status == 2 %}
-            <p class="order-pickup-text mt-2">Commande récupérée</p>
-            {% endif %}
         </div>
-    {% endfor %}
+    </div>
+    {% include 'footer.html.twig' %}
 {% endblock %}

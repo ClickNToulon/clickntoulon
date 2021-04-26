@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\User;
 use App\Form\DeleteUserForm;
 use App\Form\UpdatePasswordForm;
@@ -9,6 +10,7 @@ use App\Form\UpdateAvatarForm;
 use App\Form\UpdateUserForm;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
+use App\Repository\ShopRepository;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
@@ -100,27 +102,40 @@ class UserController extends AbstractController
      * @Route("/profil/mes-commandes", name="user_orders")
      * @IsGranted("ROLE_USER")
      * @param OrderRepository $orderRepository
-     * @param ProductRepository $productRepository
+     * @param ShopRepository $shopRepository
      * @return Response
      */
-    public function orders(OrderRepository $orderRepository, ProductRepository $productRepository): Response
+    public function orders(OrderRepository $orderRepository, ShopRepository $shopRepository): Response
     {
         $user = $this->getUser();
-        $orders = $orderRepository->findAllByUser($user->getId());
-        dump($orders);
-        foreach($orders as $k => $v) {
-            $products = [];
-            $products[] = $productRepository->find($v->getProductsId());
-            dump($products);
-        }
+        $orders = $orderRepository->findLast4ByUser($user->getId());
+        $shops = $shopRepository->findAll();
         return $this->render('user/orders.html.twig', [
             'user' => $user,
-            'orders' => $orders
+            'orders' => $orders,
+            'shops' => $shops
+        ]);
+    }
+
+
+    /**
+     * @Route("/profil/mes-commandes/{id}", name="user_order", requirements={"id": "[0-9\-]*"})
+     * @param Order $order
+     * @param ShopRepository $shopRepository
+     * @return Response
+     */
+    public function order(Order $order, ShopRepository $shopRepository): Response
+    {
+        $user = $this->getUser();
+        $shop = $shopRepository->find($order->getShopId());
+        return $this->render('user/order.html.twig', [
+            'user' => $user,
+            'order' => $order,
+            'shop' => $shop
         ]);
     }
 
     /**
-     * Génère le formulaire de création.
      * @param Request $request
      * @return array
      * @throws Exception

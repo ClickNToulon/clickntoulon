@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Commande n°{{ order.id }} - TouSolidaires
+{% endblock %}
+
+{% block body %}
+    {% include 'navbar.html.twig' with {'active': 'user'} %}
+    <div class="container">
+        <div class="user-last-orders">
+            <div class="bg-dark mb-3 mt-3">
+                <div class="user-orders-grid">
+                    <div class="card">
+                        <h2 class="card-title card-order-title text-center mt-3 mb-0">Commande n°{{ order.id }}</h2>
+                        <div class="card-body pt-0">
+                            <div class="order-info pt-0">
+                                <h3 class="order-shop-title">{{ shop.name }}</h3>
+                                <p class="card-text mb-1"><i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
+                                <p class="card-text mb-3"><i class="bi-telephone"></i> Téléphone : <a href="tel:+33{{ shop.phone }}">+33{{ shop.phone }}</a></p>
+                            </div>
+                            {% if order.timebegin != null and order.timeend != null %}
+                                <p class="card-text mb-0"><i class="bi-calendar3"></i> Date de retrait : <?php $order['day'] = explode("-", $order['day']); echo $order['day'][2] . '/'. $order['day'][1].'/'.$order['day'][0]; ?></p>
+                                <p class="card-text"><i class="bi-clock"></i> Horaire de retrait :
+                                    <?php $order["time_begin"] = explode(':', $order['time_begin']); echo html_entity_decode($order['time_begin'][0])."h".html_entity_decode($order['time_begin'][1]);?>
+                                    - <?php $order["time_end"] = explode(':', $order['time_end']); echo html_entity_decode($order['time_end'][0])."h".html_entity_decode($order['time_end'][1]);?>
+                                </p>
+                            {% elseif order.status == 0 %}
+                                <p class="card-text">La date et le créneau de retrait vous seront communiqués une fois la commande validée par le commerçant.</p>
+                            {% else %}
+                                <p class="card-text">La date et le créneau de retrait vous ont été communiqués par un autre moyen par le commerçant.</p>
+                            {% endif %}
+
+                        </div>
+                        {% if order.status == 0 %}
+                            <p class="order-made-text buyer-made-text mt-2">Commande en attente de validation par le commerçant</p>
+                        {% elseif order.status == 1 %}
+                            <p class="order-accepted-text mt-2">Commande acceptée</p>
+                        {% elseif order.status == 2 %}
+                            <p class="order-pickup-text mt-2">Commande récupérée</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html.twig' %}
+{% endblock %}
