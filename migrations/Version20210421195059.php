@@ -22,9 +22,9 @@ final class Version20210421195059 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE category DROP FOREIGN KEY FK_64C19C1B852C405');
         $this->addSql('DROP INDEX IDX_64C19C1B852C405 ON category');
-        $this->addSql('ALTER TABLE category CHANGE shop_id shop_id_id INT NOT NULL');
-        $this->addSql('ALTER TABLE category ADD CONSTRAINT FK_64C19C1B852C405 FOREIGN KEY (shop_id_id) REFERENCES shop (id)');
-        $this->addSql('CREATE INDEX IDX_64C19C1B852C405 ON category (shop_id_id)');
+        $this->addSql('ALTER TABLE category CHANGE shop_id_id shop_id INT NOT NULL');
+        $this->addSql('ALTER TABLE category ADD CONSTRAINT FK_64C19C1B852C405 FOREIGN KEY (shop_id) REFERENCES shop (id)');
+        $this->addSql('CREATE INDEX IDX_64C19C1B852C405 ON category (shop_id)');
     }
 
     public function down(Schema $schema) : void
