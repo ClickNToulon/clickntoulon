@@ -2,25 +2,20 @@
     <div class="container">
         <div class="row mx-auto">
             <div class="col-6 col-md">
-                <h5 class="footer-title">Utilisateurs</h5>
-                <ul class="list-unstyled">
-                    {% if user is defined and user != null %}
-                        <li><a href="{{ path('user_profil') }}"><i class="bi-person-lines-fill"></i> Votre Profil</a></li>
-                        <li><a href="{{ path('user_orders') }}"><i class="bi-bag-check"></i> Mes commandes</a></li>
-                        <li><a href="{{ path('app_logout') }}"><button class="btn btn-danger btn-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
-                    {% else %}
-                        <li><a href="{{ path('app_login') }}"><i class="bi-box-arrow-in-right"></i> Connexion</a></li>
-                        <li><a href="{{ path('app_signup') }}"><i class="bi-person-plus"></i> Inscription</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5 class="footer-title">Trouver et réserver</h5>
+                <h5 class="footer-title">La plateforme</h5>
                 <ul class="list-unstyled">
                     <li><a href="{{ path('search') }}"><i class="bi-search"></i> Rechercher</a></li>
                     <li><a href="{{ path('shop_index') }}"><i class="bi-shop-window"></i> Les boutiques</a></li>
                     <li><a href="{{ path('product_index') }}"><i class="bi-box-seam"></i> Les produits</a></li>
+                    {% if user is defined and user != null %}
+                        <li><a href="{{ path('app_logout') }}"><button class="btn btn-danger btn-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
+                    {% else %}
+                        <li><a href="{{ path('app_login') }}"><button class="btn btn-home btn-mt"><i class="bi-box-arrow-in-right"></i> Connexion</button></a></li>
+                    {% endif %}
                 </ul>
+            </div>
+            <div class="col-6 col-md">
+                <img src="{{ asset('images/logo.svg') }}" alt="TouSolidaires" class="logo-ts" height="200px" width="200px">
             </div>
             <div class="col-6 col-md">
                 <h5 class="footer-title">À Propos</h5>
@@ -33,9 +28,6 @@
             </div>
         </div>
         <div width="100%" class="img-center">
-            <div class="footer-logos">
-                <img src="{{ asset('images/logo.svg') }}" alt="TouSolidaires" class="logo-ts" height="200px" width="200px">
-            </div>
             <div class="copyright">
                 <small class="d-block mb-2 copy"><i class="fal fa-copyright" aria-hidden="true"></i> 2021 TouSolidaires Tous droits réservés</small>
             </div>
