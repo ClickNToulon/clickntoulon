@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ShopType extends AbstractType
 {
@@ -44,14 +45,10 @@ class ShopType extends AbstractType
                 ],
                 'required' => true,
                 'constraints' => [
-                    new File([
+                    new Image([
                         'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/jpg',
-                            'image/png',
-                            'image/jpeg'
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid image',
+                        'minHeight' => '200',
+                        'minWidth' => '300'
                     ])
                 ]
             ])

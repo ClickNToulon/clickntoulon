@@ -1,7 +1,7 @@
+@charset "UTF-8";
 /*
  * DSFR v1.0.0-rc1.0 | restricted use
  */
-@charset "UTF-8";
 
 /* ------------------------------------ *\
   CORE
@@ -77,7 +77,7 @@ a[target="_blank" i]::after, .fr-accordion .fr-accordion__btn::before,
 .fr-nav__btn::after, .fr-search-bar .fr-btn::before,
 .fr-header__navbar .fr-btn--menu::before,
 .fr-header__navbar .fr-btn--search::before {
-  font-family: icons !important;
+  font-family: icons, sans-serif !important;
   font-style: normal;
   font-weight: normal !important;
   font-variant: normal;
@@ -554,7 +554,7 @@ p {
 }
 
 :root {
-  --is-link:  ;
+  --is-link: false ;
 }
 
 a {
