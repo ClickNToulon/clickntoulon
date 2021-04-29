@@ -166,10 +166,24 @@ class SellerController extends AbstractController
 
         if ($form_update->isSubmitted() && $form_update->isValid()) {
             $payments_add = $request->request->all('payment');
-            foreach ($payments_add as $key => $value) {
-                $payment_add[] = $paymentRepository->find($value);
-                foreach ($payment_add as $key2 => $value2) {
-                    $shop->addPayment($value2);
+            $payments_shop = $shop->getPayments();
+            $payments_shop_array = [];
+            foreach ($payments_shop as $k => $v) {
+                $payments_shop_array[] = $v->getId();
+            }
+            foreach($payments_shop_array as $key => $value) {
+                if(in_array($value, $payments_add)) {
+                    $payment_adding = $paymentRepository->find($value);
+                    $shop->addPayment($payment_adding);
+                } else {
+                    $payment_removing = $paymentRepository->find($value);
+                    $shop->removePayment($payment_removing);
+                }
+            }
+            foreach ($payments_add as $key2 => $value2) {
+                if(!in_array($value2, $payments_shop_array)) {
+                    $payment_adding = $paymentRepository->find($value2);
+                    $shop->addPayment($payment_adding);
                 }
             }
 
