@@ -55,7 +55,7 @@ class ShopRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('s')
             ->where('s.status >= 1')
-            ->setMaxResults(3)
+            ->setMaxResults(2)
             ->getQuery()
             ->getResult();
     }

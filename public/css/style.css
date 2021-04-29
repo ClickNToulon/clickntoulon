@@ -2,29 +2,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 @font-face {
-  font-family: "Gotham";
-  font-weight: 500;
-  src: url("../fonts/GothamPro-Medium.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Gotham";
-  font-weight: 700;
-  src: url("../fonts/GothamPro-Bold.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "SF Pro";
+  font-family: Marianne;
+  src: url("../fonts/Marianne-Regular.woff2") format("woff2"),
+  url("../fonts/Marianne-Regular.woff") format("woff");
   font-weight: 400;
-  src: url("../fonts/SFPro-Regular.woff2") format("woff2");
+  font-style: normal;
 }
 
 @font-face {
-  font-family: "SF Pro";
-  font-weight: 700;
-  src: url("../fonts/SFPro-Bold.woff2") format("woff2");
+  font-family: Marianne;
+  src: url("../fonts/Marianne-Regular_Italic.woff2") format("woff2"),
+  url("../fonts/Marianne-Regular_Italic.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
 }
 
+@font-face {
+  font-family: Marianne;
+  src: url("../fonts/Marianne-Bold.woff2") format("woff2"),
+  url("../fonts/Marianne-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
 
 /* Base */
 * {
@@ -37,7 +36,7 @@ html {
   color: #000000 !important;
   height: 100% !important;
   min-height: 100vh !important;
-  font-family: "SF Pro", "Gotham", "Poppins", sans-serif !important;
+  font-family: "Marianne", sans-serif !important;
 }
 
 .about-container p,
@@ -65,7 +64,7 @@ html {
 .about-container h1,
 .about-container h2,
 .about-container h3 {
-  font-family: "Gotham", "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+  font-family: "Marianne", sans-serif !important;
   font-weight: bold !important;
 }
 
@@ -129,18 +128,37 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "SF Pro", "Gotham", sans-serif !important;
+  font-family: "Marianne", sans-serif !important;
   font-weight: 700 !important;
 }
 
 p {
-  font-family: "SF Pro", sans-serif !important;
+  font-family: "Marianne", sans-serif !important;
   font-weight: 400;
+}
+
+b {
+  font-family: "Marianne", sans-serif !important;
+  font-weight: bold;
+}
+
+i {
+  font-family: "Marianne Italic", sans-serif;
+  font-style: italic;
+}
+
+ul {
+  list-style: none !important;
+}
+
+li {
+  list-style: none !important;
 }
 
 a {
   text-decoration: none !important;
   color: #000000;
+  box-shadow: none !important;
 }
 
 a:any-link:hover {
@@ -314,7 +332,7 @@ ul.navbar-nav {
   display: flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
-  height: 22px !important;
+  height: 37px !important;
   border-right: 1px solid #FFF;
 }
 
@@ -329,8 +347,9 @@ ul.navbar-nav {
 .product-price {
   font-weight: bold;
   font-style: italic;
-  font-size: 20px;
+  color: rgba(0, 0, 0, .7) !important;
   margin-bottom: 0 !important;
+  margin-right: 0 !important;
 }
 
 .nav-item {
@@ -492,6 +511,18 @@ a.carousel-item:hover div.carousel-caption h4 {
 
 .lead b {
   font-weight: bold;
+}
+
+.dark-bg {
+  background-color: #232F3E !important;
+}
+
+.fr-modal__header {
+  background-color: #232F3E !important;
+}
+
+.fr-modal__header .fr-link {
+  color: white !important;
 }
 
 /* Forms */
@@ -848,44 +879,45 @@ input.form-control:focus {
 }
 
 .btn-form {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) rgba(25, 135, 84, 1);
+  background: rgba(25, 135, 84, 1);
   color: #FFF;
+  font-family: "Marianne", sans-serif;
   font-weight: bold;
+  font-style: italic;
   padding: 9px 16px;
   margin: 0 !important;
   border-radius: 10px !important;
   margin-top: calc(2 * 8px) !important;
-  transition: filter 0.3s, background 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
 .btn-secondary {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) #6C757D;
+  background: #6C757D;
+  font-family: "Marianne", sans-serif;
   font-weight: bold;
+  font-style: italic;
   padding: 9px 16px;
   border-radius: 10px !important;
   margin: 0 !important;
   margin-top: calc(2 * 8px) !important;
-  transition: filter 0.3s, background 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
 .btn-secondary:hover {
-  filter: brightness(1.4);
   color: #FFF;
 }
 
 .btn-danger {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) #dc3545 !important;
+  background: #dc3545 !important;
   color: #FFF;
+  font-family: "Marianne", sans-serif;
   font-weight: bold;
+  font-style: italic;
   padding: 9px 16px;
   border-radius: 10px !important;
   margin: 0 !important;
   margin-top: calc(2 * 8px) !important;
-  transition: filter 0.3s, background 0.3s !important;
-}
-
-.btn-danger:hover {
-  filter: brightness(1.2) !important;
+  transition: background 0.3s !important;
 }
 
 .btn-danger:hover a:hover {
@@ -901,7 +933,6 @@ button.btn-mt {
 }
 
 .btn-form:hover {
-  filter: brightness(1.2);
   color: #FFF;
 }
 
@@ -1412,10 +1443,9 @@ div.shop-info {
 /* Products */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(250px, 1fr));
-  grid-gap: calc(4 * 8px);
-  grid-auto-flow: dense;
-  width: 100%;
+  grid-template-columns: repeat(4, minmax(350px, 350px));
+  grid-row-gap: calc(4 * 8px) !important;
+  grid-column-gap: 8px !important;
 }
 
 .user-orders-grid {
@@ -1448,10 +1478,6 @@ div.shop-info {
   flex-direction: column;
 }
 
-.products-grid .card {
-  width: 100% !important;
-}
-
 /* Card */
 .card {
   position: relative;
@@ -1460,22 +1486,20 @@ div.shop-info {
   align-items: center;
   justify-content: center;
   background-color: #ffffff !important;
-  width: 250px !important;
-  min-height: 20px;
-  max-height: 448px;
-  border-radius: 20px !important;
+  width: 350px !important;
+  height: auto;
+  border-radius: 10px !important;
+  transition: all .5s;
 }
 
 .card-body {
-  border-radius: 20px;
-  position: absolute;
+  border-radius: 10px;
+  position: relative;
   padding: 20px !important;
   padding-top: 10px !important;
   width: 100%;
-  bottom: 0;
   background-color: #FFF;
-  height: 100px;
-  overflow-y: hidden;
+  height: auto;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -1483,18 +1507,16 @@ div.shop-info {
   transition: 600ms all;
 }
 
-.card-text {
-  transition: 300ms all !important;
-  opacity: 0;
-  display: none;
+.title-card {
+  max-width: 185px !important;
 }
 
 a.card-title {
-  font-size: 26px !important;
+  font-size: 20px !important;
   margin-top: 0 !important;
   margin-bottom: .5rem !important;
   width: 100%;
-  text-align: left;
+  text-align: justify !important;
 }
 
 .card-title {
@@ -1508,7 +1530,7 @@ a.card-title {
 }
 
 .card-text {
-  text-align: left;
+  text-align: justify;
 }
 
 .card-footer {
@@ -1533,6 +1555,11 @@ a.card-title {
 .card:hover .add-basket {
   transition: opacity .6s all;
   opacity: 1;
+}
+
+.card:hover {
+  transition: all .5s;
+  transform: translateY(-1.5rem) !important;
 }
 
 div.card-body.card-body-shop {
@@ -1581,8 +1608,8 @@ div.card-body.card-body-product {
   flex-direction: row;
 }
 
-.prices p:first-of-type {
-  margin-right: 20px;
+.prices p.deal_price {
+  margin-right: 10px !important;
 }
 
 .prices p:nth-child(2) {
@@ -1970,7 +1997,7 @@ div.nav-profile li.nav-item a.active {
   color: #FFF !important;
 }
 
-.modal-body.forms {
+.fr-modal__content.forms {
   display: flex;
   align-items: baseline;
   justify-content: center;
@@ -1983,7 +2010,7 @@ div.nav-profile li.nav-item a.active {
   background-color: #232F3E !important;
 }
 
-.modal-body.forms form {
+.fr-modal__content.forms form {
   width: 100%;
 }
 
@@ -1997,7 +2024,7 @@ div.nav-profile li.nav-item a.active {
   opacity: 1 !important;
 }
 
-.modal-body.forms form div.button-submit {
+.fr-modal__content.forms form div.button-submit {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
@@ -2023,6 +2050,10 @@ div.nav-profile li.nav-item a.active {
   justify-content: center;
   flex-direction: row;
   margin-left: -65px;
+}
+
+.logo-ts {
+  margin-left: -30px;
 }
 
 .footer-logos img {
@@ -2058,40 +2089,50 @@ div.nav-profile li.nav-item a.active {
   padding: 5rem 10rem;
 }
 
+.fr-btn:hover {
+  background-color: rgba(245, 176, 39, .7) !important;
+}
+
 .btn-home-outline {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%) rgba(245, 176, 39, 0);
+  background: rgba(245, 176, 39, 0);
   color: rgba(245, 176, 39, 1);
+  font-family: "Marianne", sans-serif !important;
   font-weight: bold;
+  font-style: italic;
   padding: 9px 16px;
   border-radius: 10px !important;
   margin: 0 !important;
   margin-top: calc(2 * 8px) !important;
   border-color: rgba(245, 176, 39, 1);
+  box-shadow: inset 0 0 0 1px #F5b027;
   transition: filter 0.7s, background 0.7s, color 0.7s;
 }
 
 .btn-home-outline:hover {
   color: #FFF;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) rgba(245, 176, 39, 1);
-  filter: brightness(1.2);
-  transition: filter 0.7s, background 0.7s, color 0.7s;
+  background: rgba(245, 176, 39, 1) !important;
+  transition: background 0.7s, color 0.7s;
 }
 
 .btn-home {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) rgba(245, 176, 39, 1);
+  background: rgba(245, 176, 39, 1);
   color: #FFF;
+  font-family: "Marianne", sans-serif !important;
   font-weight: bold;
+  font-style: italic;
   padding: 9px 16px;
   margin: 0 !important;
   border-radius: 10px !important;
+  border-color: #F5b027 !important;
   margin-top: calc(2 * 8px) !important;
-  transition: filter 0.3s, background 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
 .btn-home:hover {
-  color: #FFF;
-  filter: brightness(1.2);
-  transition: filter 0.3s, background 0.3s, color 0.3s;
+  color: #F5b027;
+  box-shadow: inset 0 0 0 1px #F5b027; !important;
+  background-color: #EAEDED !important;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
 .rounded-5 {
@@ -2178,49 +2219,28 @@ input[type=number] {
   line-height: .9;
 }
 
-.price-stars {
+.price-title {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
   margin-bottom: 1rem !important;
+  width: 100% !important;
 }
 
-.price-stars div.stars {
+.price-title div.prices {
   display: flex !important;
   align-items: center !important;
   justify-content: flex-end !important;
-  padding-left: 200px !important;
+  margin-left: auto !important;
 }
 
-div.stars span.star-rating {
-  font-weight: bold !important;
-  font-size: 17px !important;
-  margin-left: 10px !important;
-}
-
-.price-stars div.price {
+.price-title div.title-card {
   margin-right: auto !important;
 }
 
-.price-stars div.stars span.checked {
-  color: orange;
-}
-
 .card-img-top {
-  height: 100%;
   top: 0;
-  border-radius: 20px 20px 30px 30px;
-}
-
-.card:hover .card-body {
-  transition: 600ms all;
-  height: 250px;
-}
-
-.card:hover .card-body .card-text {
-  transition: 2s all;
-  opacity: 1;
-  display: block;
+  border-radius: 10px 10px 0 0;
 }
 
 .stack {
@@ -2233,4 +2253,81 @@ div.stars span.star-rating {
 .custom-file {
   margin: 0 !important;
   height: 44px !important;
+}
+
+.fr-btns-group {
+  justify-content: center !important;
+}
+
+
+.fr-card {
+  border-radius: 10px !important;
+}
+
+.fr-card:not(.fr-card--no-arrow) .fr-card__body::after {
+  color: #F5b027 !important;
+}
+
+.tag-danger {
+  color: white !important;
+  background-color: rgba(220, 53, 69, 1) !important;
+}
+
+.fr-card__body {
+  padding: 1rem !important;
+}
+
+.fr-tags-group li {
+  margin: 0 !important;
+}
+
+.fr-tags-group li:nth-child(2) {
+  margin-left: 5px !important;
+}
+
+.fr-responsive-img {
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
+
+.fr-card--horizontal .fr-responsive-img {
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 10px !important;
+}
+
+.fr-modal__footer {
+  background-color: #232F3E !important;
+}
+
+.fr-modal__footer .fr-btn.btn-danger:hover {
+  background-color: #dc3545 !important;
+}
+
+.fr-modal__footer .fr-btn.btn-form:hover {
+  background-color: rgba(25, 135, 84, 1) !important;
+}
+
+.fr-modal__content.forms input {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.fr-modal__content {
+  margin-bottom: 3rem !important;
+  padding-top: 0 !important;
+}
+
+.bi-plus-circle {
+  height: 20px !important;
+  margin-right: 5px;
+}
+
+.dialog-w-100 {
+  width: 100% !important;
+  max-width: 1248px !important;
+}
+
+.fr-card__title .fr-card__link {
+  color: #F5b027 !important;
 }

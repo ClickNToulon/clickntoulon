@@ -45,15 +45,15 @@
                         {% if product.dealprice != null %}
                             <div class="prices">
                                 <p class="deal_price product-price">
-                                    {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else%} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
+                                    {{ product.price | format_currency('EUR') }}
                                 </p>
                                 <p class="product-price">
-                                    {% set productdealprice = product.dealprice | split('.') %}{% if productdealprice[1] is defined and productdealprice[1] != 00 %}{% if productdealprice[1] | length > 1 %}{{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] }}</sup> {% else%} {{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productdealprice[0] }}&euro; {% endif %}
+                                    {{ product.dealprice | format_currency('EUR') }}
                                 </p>
                             </div>
                         {% else %}
                             <p class="product-price">
-                                {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else %} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
+                                {{ product.price | format_currency('EUR') }}
                             </p>
                         {% endif %}
                         {% if product.dealStart != null and product.dealEnd != null %}

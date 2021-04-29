@@ -5,43 +5,43 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'shop'} %}
     <main class="main-container py-10">
-        <div class="shops-grid">
+        <div class="fr-grid-row fr-grid-row--gutters">
             {% for shop in shops %}
-            <div class="card-test card-cover overflow-hidden text-white bg-dark rounded-5 shadow-lg"
-                 style="background-image: url('{% if shop.cover %}{{ asset('uploads/shops/' ~ shop.cover) }}{% else %}{{ asset('images/test.jpg') }}{% endif %}');width: 100%;height: 350px">
-                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                    <a class="text-white pt-auto mt-auto pb-0 mb-0" href="{{ path('shop_show', {slug: shop.slug}) }}">
-                        <h2 class="display-6 lh-1">{{ shop.name }}</h2>
-                    </a>
-                    <ul class="d-flex list-unstyled mt-3 mb-1">
-                        <li class="d-flex align-items-center me-auto">
-                            <i class="bi-geo-fill me-2"></i>
-                            <small>{{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</small>
-                        </li>
-                        <li class="d-flex align-items-center">
-                            <a class="text-white" href="tel:+33{{ shop.phone }}">
-                                <i class="bi-telephone-fill me-2"></i>
-                                <small>+33 {{ shop.phone }}</small>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="d-flex list-unstyled">
-                        <li class="d-flex align-items-center me-auto">
-                            <i class="bi-tags-fill me-1"></i>
-                            <i>{{ shop.tagName }}</i>
-                        </li>
-                        <li class="d-flex align-items-center">
-                            {% if shop.status == 2 %}
-                                <h4 class="lead shop-status"><span class="badge">Boutique partenaire <span class="admin-badge"><i class="fad fa-badge-check"></i></span></span></h4>
-                            {% elseif shop.status == 1 %}
-                                <h4 class="lead shop-status"><span class="badge">Boutique vérifiée</span></h4>
-                            {% else %}
-                                <h4 class="lead shop-status"><span class="badge">Boutique non vérifiée</span></h4>
+                <div class="fr-col-12 fr-col-md-6">
+                    <div class="fr-card fr-card--horizontal fr-enlarge-link">
+                        <div class="fr-card__body">
+                            <ul class="fr-tags-group fr-card__detail">
+                                <li>
+                                    <span class="fr-tag">
+                                        <i class="bi-tags-fill me-1"></i>{{ shop.tagName }}
+                                    </span>
+                                </li>
+                                <li>
+                                    {% if shop.status == 2 %}
+                                        <span class="fr-tag">Boutique partenaire <span class="admin-badge ms-1 me-0"><i class="fad fa-badge-check"></i></span></span>
+                                    {% elseif shop.status == 1 %}
+                                        <span class="fr-tag">Boutique vérifiée</span>
+                                    {% else %}
+                                        <span class="fr-tag">Boutique non vérifiée</span>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                            <h4 class="fr-card__title">
+                                <a href="{{ path('shop_show', {slug: shop.slug}) }}" class="fr-card__link">{{ shop.name }}</a>
+                            </h4>
+                            <p class="fr-card__desc">{{ shop.description | u.truncate(150, '...', false) }}</p>
+                            <p class="mb-1"><i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
+                            <p class="mb-1"><i class="bi-telephone"></i> Téléphone : +33{{ shop.phone }}</p>
+                            {% if shop.email != null %}
+                                <p class="mb-1"><i class="bi-envelope"></i> Email : {{ shop.email }}</p>
                             {% endif %}
-                        </li>
-                    </ul>
+                        </div>
+                        <div class="fr-card__img">
+                            <img src="{{ asset('images/test.jpg') }}" class="fr-responsive-img" alt="">
+                            <!-- L'alternative de l'image (attribut alt) doit à priori rester vide car l'image est illustrative et ne doit pas être restituée aux technologies d’assistance. Vous pouvez toutefois remplir l'alternative si vous estimer qu'elle apporte une information essentielle à la compréhension du contenu non présente dans le texte -->
+                        </div>
+                    </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
         {{ knp_pagination_render(shops) }}

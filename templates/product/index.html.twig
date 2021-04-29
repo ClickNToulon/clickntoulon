@@ -5,29 +5,37 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'product'} %}
     <main class="main-container py-10">
-        <div class="products-grid">
+        <div class="fr-grid-row fr-grid-row--gutters">
             {% for product in products %}
-                <div class="card" style="width: 100%">
-                    <img src="{% if product.image != null %}{{ asset('uploads/products/' ~ product.image) }}{% else %}{{ asset('images/1.jpg') }}{% endif %}" class="card-img-top" alt="Image produit n°{{ product.id }}" height="200">
-                    <div class="card-body">
-                        <a class="card-title" href="{{ path('product_show', {id: product.id}) }}">{{ product.name }}</a>
-                        <div class="price-stars">
-                            <div class="prices">
-                                {% if product.dealprice != null %}
-                                    <p class="deal_price product-price">
-                                        {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else%} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
-                                    </p>
-                                    <p class="product-price">
-                                        {% set productdealprice = product.dealprice | split('.') %}{% if productdealprice[1] is defined and productdealprice[1] != 00 %}{% if productdealprice[1] | length > 1 %}{{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] }}</sup> {% else%} {{ productdealprice[0] }}<sup>&euro;{{ productdealprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productdealprice[0] }}&euro; {% endif %}
-                                    </p>
-                                {% else %}
-                                    <p class="product-price">
-                                        {% set productprice = product.price | split('.') %}{% if productprice[1] is defined and productprice[1] != 00 %}{% if productprice[1] | length > 1 %}{{ productprice[0] }}<sup>&euro;{{ productprice[1] }}</sup> {% else %} {{ productprice[0] }}<sup>&euro;{{ productprice[1] | number_format(1, '', '')}}</sup> {% endif %} {% else %} {{ productprice[0] }}&euro; {% endif %}
-                                    </p>
-                                {% endif %}
-                            </div>
+                <div class="fr-col-12 fr-col-md-3">
+                    <div class="fr-card fr-enlarge-link">
+                        <div class="fr-card__body">
+                            {% if product.dealprice != null %}
+                                <ul class="fr-tags-group fr-card__detail">
+                                    <li>
+                                        <span class="fr-tag deal_price product-price">{{ product.price | format_currency('EUR') }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="fr-tag product-price tag-danger">{{ product.dealprice | format_currency('EUR') }}</span>
+                                    </li>
+                                </ul>
+                            {% else %}
+                                <ul class="fr-tags-group fr-card__detail">
+                                    <li>
+                                    <span class="fr-tag product-price">
+                                        {{ product.price | format_currency('EUR') }}
+                                    </span>
+                                    </li>
+                                </ul>
+                            {% endif %}
+                            <h4 class="fr-card__title">
+                                <a href="{{ path('product_show', {id: product.id}) }}" class="fr-card__link">{{ product.name }}</a>
+                            </h4>
+                            <p class="fr-card__desc">{{ product.description }}</p>
                         </div>
-                        <p class="card-text">{{ product.description }}</p>
+                        <div class="fr-card__img">
+                            <img src="{% if product.image != null %}{{ asset('uploads/products/' ~ product.image) }}{% else %}{{ asset('images/1.jpg') }}{% endif %}" class="fr-responsive-img" alt="Image produit n°{{ product.id }}">
+                        </div>
                     </div>
                 </div>
             {% endfor %}
