@@ -4,11 +4,11 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'shop'} %}
-    <main class="main-container py-10">
+    <main class="fr-container fr-container--fluid py-10">
         <div class="fr-grid-row fr-grid-row--gutters">
             {% for shop in shops %}
                 <div class="fr-col-12 fr-col-md-6">
-                    <div class="fr-card fr-card--horizontal fr-enlarge-link">
+                    <div class="fr-card fr-enlarge-link">
                         <div class="fr-card__body">
                             <ul class="fr-tags-group fr-card__detail">
                                 <li>

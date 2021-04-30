@@ -1,6 +1,4 @@
 /* Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-
 @font-face {
   font-family: Marianne;
   src: url("../fonts/Marianne-Regular.woff2") format("woff2"),
@@ -32,11 +30,10 @@
   box-sizing: border-box;
 }
 
+
 html {
-  color: #000000 !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  font-family: "Marianne", sans-serif !important;
+  display: block;
+  width: 100%;
 }
 
 .about-container p,
@@ -99,27 +96,9 @@ html {
   font-weight: bold;
 }
 
-html::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
-}
-
-html::-webkit-scrollbar-thumb {
-  background: #232F3E;
-}
-
-html::-webkit-scrollbar-track {
-  background: #EAEDED;
-}
-
 body {
   background-color: #EAEDED !important;
   color: #000000 !important;
-  width: 100% !important;
-  min-width: 100vh;
-  height: 100% !important;
-  min-height: 100vh !important;
-  display: block !important;
 }
 
 h1,
@@ -374,18 +353,52 @@ ul.navbar-nav {
 }
 
 div.navbar-end {
-  flex-direction: row !important;
   display: flex !important;
-  align-items: center !important;
-  list-style: none !important;
 }
 
-.navbar-end li a {
+.navbar-brand {
+  display: none !important;
+}
+
+/*@media screen and (max-width: 990px) {
+
+  .navbar-toggler {
+    background-color: #232F3E !important;
+  }
+  .navbar-end {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  .navbar-brand {
+    display: block !important;
+  }
+
+  .navbar-nav {
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .link-home {
+    display: none !important;
+  }
+}*/
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/*.navbar-end li a {
   display: flex !important;
   align-items: baseline !important;
   justify-content: flex-start !important;
   flex-direction: row;
-}
+}*/
 
 div li {
   margin: 0 .25rem;
