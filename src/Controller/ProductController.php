@@ -8,6 +8,7 @@ use App\Entity\Category;
 use App\Entity\Payment;
 use App\Entity\Product;
 use App\Entity\Shop;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ShopRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -61,7 +62,7 @@ class ProductController extends AbstractController
      * @return Response
      * @throws NonUniqueResultException
      */
-    public function shopProducts(Product $product, ShopRepository $shopRepository): Response
+    public function shopProducts(Product $product, ShopRepository $shopRepository, CategoryRepository $categoryRepository): Response
     {
         $user = $this->getUser();
         $shop = $shopRepository->findById($product->getShopId());
@@ -76,9 +77,10 @@ class ProductController extends AbstractController
         $categories = [];
         $categories_shop = $shop->getCategories();
         foreach ($categories_shop as $row => $id) {
-            $category = $categories_entity->findById($id);
-            array_push($categories, $category->getName());
+            $category = $categoryRepository->find($id);
+            $categories[] = $category->getName();
         }
+        dump($categories);
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'shop' => $shop,

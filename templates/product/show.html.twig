@@ -73,7 +73,9 @@
 						<h4>Catégories</h4>
 						<div class="categories-grid">
                             {% if categories is not empty %}
-                            	<span class="badge bg-secondary rounded-pill">{{ categories }}</span>
+                                {% for category in categories %}
+                            	<span class="badge bg-secondary rounded-pill">{{ category }}</span>
+                                {% endfor %}
                             {% else %}
                             <p>Le produit n'a pas de catégorie</p>
                             {% endif %}

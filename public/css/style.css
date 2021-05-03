@@ -291,6 +291,11 @@ ul.navbar-nav {
   margin-right: auto !important;
 }
 
+ul.navbar-nav:nth-of-type(2) {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
 .navbar-nav li {
   margin: 0 .5rem;
 }
@@ -1502,7 +1507,6 @@ div.shop-info {
   width: 350px !important;
   height: auto;
   border-radius: 10px !important;
-  transition: all .5s;
 }
 
 .card-body {
@@ -1568,11 +1572,6 @@ a.card-title {
 .card:hover .add-basket {
   transition: opacity .6s all;
   opacity: 1;
-}
-
-.card:hover {
-  transition: all .5s;
-  transform: translateY(-1.5rem) !important;
 }
 
 div.card-body.card-body-shop {

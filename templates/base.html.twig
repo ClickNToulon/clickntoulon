@@ -10,12 +10,12 @@
         <link rel="stylesheet" href="{{ asset('css/desktop.css') }}" media="screen and (min-width:900px)">
         <link rel="stylesheet" href="{{  asset('css/mobile.css') }}" media="screen and (max-width:900px)">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     </head>
     <body>
         {% block body %}{% endblock %}
 
         <script src="{{ asset('js/icons.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         <script type="module" src="{{ asset('js/dsfr.module.min.js') }}"></script>
         <script nomodule src="{{ asset('js/dsfr.nomodule.js') }}"></script>
     </body>
