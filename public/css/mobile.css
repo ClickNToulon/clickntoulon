@@ -1,0 +1,26 @@
+/*
+ * Navbar
+ */
+.dropdown:hover .dropdown-menu{
+    display: none!important;
+}
+/*
+ * Forms
+ */
+.stack, .form-row {
+    flex-direction: column!important;
+}
+
+.form-group {
+    padding-bottom: 5px;
+}
+/*
+ * Footer
+ */
+footer .col-6 {
+    width: 100%;
+}
+
+footer .col-md {
+    flex: 0;
+}
