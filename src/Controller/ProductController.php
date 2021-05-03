@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Category;
 use App\Entity\Payment;
 use App\Entity\Product;
 use App\Entity\Shop;
@@ -66,16 +67,24 @@ class ProductController extends AbstractController
         $shop = $shopRepository->findById($product->getShopId());
         $payments_shop = $shop->getPayments();
         $payments_icons = new Payment();
+        $categories_entity = new Category();
         $payments = [];
         foreach ($payments_shop as $k => $v) {
             $payment_shop = $v->getId();
             $payments[] = $payments_icons->getIcon($payment_shop);
         }
+        $categories = [];
+        $categories_shop = $shop->getCategories();
+        foreach ($categories_shop as $row => $id) {
+            $category = $categories_entity->findById($id);
+            array_push($categories, $category->getName());
+        }
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'shop' => $shop,
             'user' => $user,
-            'payments' => $payments
+            'payments' => $payments,
+            'categories' => $categories
         ]);
     }
 

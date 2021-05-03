@@ -10229,6 +10229,7 @@ input.fr-toggle__input:disabled + label::after {
 
   .fr-grid-row--gutters, .fr-grid-row-sm--gutters, .fr-grid-row-md--gutters {
     margin: -0.75rem;
+    width: inherit;
   }
 
   .fr-grid-row--gutters > [class^="fr-col-"],
