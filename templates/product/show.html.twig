@@ -70,17 +70,14 @@
                             <button type="submit" class="btn btn-add">Ajouter au panier</button>
                         </form>-->
 						<br>
-						<!--<h4>Catégories</h4>
+						<h4>Catégories</h4>
 						<div class="categories-grid">
-							<?php foreach($products_categories as $row => $product_category_id) {
-								if($product_category_id !== "") {
-								$product_category = $this->categoryModel->fetch("id", $product_category_id);
-								if($shop['id'] === $product_category['id_shop']) { ?>
-								<span class="badge bg-secondary rounded-pill"><?= $product_category['name'] ?></span>
-                            <?php }} else { ?>
-                            <p>Le produit n'a pas de catégories</p>
-                            <?php }} ?>
-						</div>-->
+                            {% if categories is not empty %}
+                            	<span class="badge bg-secondary rounded-pill">{{ categories }}</span>
+                            {% else %}
+                            <p>Le produit n'a pas de catégorie</p>
+                            {% endif %}
+						</div>
                     </div>
                 </div>
             </div>
