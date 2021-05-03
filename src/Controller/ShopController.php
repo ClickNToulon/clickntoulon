@@ -48,7 +48,7 @@ class ShopController extends AbstractController
         $shops = $paginator->paginate(
             $this->repository->findAllQuery(),
             $request->query->getInt('page', 1),
-            12
+            8
         );
         return $this->render('shop/index.html.twig', [
             'shops' => $shops,

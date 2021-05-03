@@ -1126,6 +1126,7 @@ details, details > summary:first-of-type {
   flex-wrap: wrap;
   margin: 0;
   padding: 0;
+  width: inherit;
 }
 
 .fr-grid-row--top {
@@ -1183,6 +1184,7 @@ details, details > summary:first-of-type {
 
 .fr-grid-row--gutters {
   margin: -0.5rem;
+  width: inherit;
 }
 
 .fr-grid-row--gutters > [class^="fr-col-"],
@@ -10241,6 +10243,7 @@ input.fr-toggle__input:disabled + label::after {
   .fr-grid-row-md--gutters > [class*=" fr-col-"],
   .fr-grid-row-md--gutters > .fr-col {
     padding: 0.75rem;
+    width: inherit;
   }
 
   .fr-grid-row-lg--gutters {
@@ -10828,7 +10831,7 @@ input.fr-toggle__input:disabled + label::after {
   }
 
   .fr-container, .fr-container-sm, .fr-container-md, .fr-container-lg {
-    max-width: 78rem;
+    max-width: 90rem;
   }
 
   .fr-container-xl {
