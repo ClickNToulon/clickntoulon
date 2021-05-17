@@ -101,7 +101,15 @@
                         <h4 class="mb-2"><i class="bi-geo"></i> Adresse</h4>
                         <p>{{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
                         <h4>Nous contacter</h4>
-                        <p class="mt-2 mb-1"><i class="bi-telephone"></i> Téléphone : <a href="tel:+33{{ shop.phone }}" target="_blank">+33 {{ shop.phone }}</a></p>
+                        {% set splitArray = shop.phone|split('', 1) %}
+                        {% set first = splitArray|first %}
+                        {% set firstArray =  [0, first] | join('') %}
+                        {% set splitArray = splitArray|slice(1) %}
+                        {% set splitArray = splitArray|join('') %}
+                        {% set lastArray = [firstArray, splitArray] |join('') %}
+                        {% set finalSplit = lastArray|split('', 2) %}
+                        {% set formattedString = finalSplit|join(' ') %}
+                        <p class="mt-2 mb-1"><i class="bi-telephone"></i> Téléphone : <a href="tel:+33{{ shop.phone }}" target="_blank">{{ formattedString }}</a></p>
                         {% if shop.email != null %}
                         <p class="mb-1"><i class="bi-envelope"></i> Email : <a href="mailto:{{ shop.email }}" target="_blank">{{ shop.email }}</a></p>
                         {% endif %}

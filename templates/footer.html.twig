@@ -1,35 +1,57 @@
-<footer class="pt-3 pb-md-3 pt-md-5">
-    <div class="container">
-        <div class="row mx-auto">
-            <div class="col-6 col-md">
-                <h5 class="footer-title">La plateforme</h5>
-                <ul class="list-unstyled">
-                    <li><a href="{{ path('search') }}"><i class="bi-search"></i> Rechercher</a></li>
-                    <li><a href="{{ path('shop_index') }}"><i class="bi-shop-window"></i> Les boutiques</a></li>
-                    <li><a href="{{ path('product_index') }}"><i class="bi-box-seam"></i> Les produits</a></li>
-                    {% if user is defined and user != null %}
-                        <li><a href="{{ path('app_logout') }}"><button class="btn btn-danger btn-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
-                    {% else %}
-                        <li><a href="{{ path('app_login') }}"><button class="btn btn-home btn-mt"><i class="bi-box-arrow-in-right"></i> Connexion</button></a></li>
-                    {% endif %}
-                </ul>
+<footer class="fr-footer" role="contentinfo" id="">
+    <div class="fr-container">
+        <div class="fr-footer__body">
+            <div class="fr-footer__brand">
+                <a href="/" title="Retour à l’accueil">
+                    <img src="{{ asset('images/logo.svg') }}" alt="" width="150" height="150">
+                </a>
             </div>
-            <div class="col-6 col-md">
-                <img src="{{ asset('images/logo.svg') }}" alt="TouSolidaires" class="logo-ts" height="200px" width="200px">
-            </div>
-            <div class="col-6 col-md">
-                <h5 class="footer-title">À Propos</h5>
-                <ul class="list-unstyled">
-                    <li><a href="{{ path('about_index') }}"><i class="bi-info-circle"></i> Qui sommes-nous ?</a></li>
-                    <li><a href="{{ path('about_team') }}"><i class="bi-people"></i> Notre Équipe</a></li>
-                    <li><a href="{{ path('about_cgu') }}"><i class="bi-file-text"></i> CGU</a></li>
-                    <li><a href="{{ path('about_confidentialite') }}"><i class="bi-eye-slash"></i> Politique de confidentialité</a></li>
+            <div class="fr-footer__content">
+                <p class="fr-footer__content-desc">
+                    TouSolidaires est une plateforme associative qui fonctionne 24h/24 7j/7.
+                    <br>
+                    Réalisé par des étudiants de l’ISEN de Toulon et propulsé par Junior’ISEN, le but est de venir en aide aux commerçants toulonnais.
+                </p>
+                <ul class="fr-footer__content-list">
+                    <li class="fr-footer__content-item">
+                        <a class="fr-link fr-footer__content-link fr-link--icon-left" href="{{ path('search') }}"><i class="bi-search me-2"></i>  Rechercher</a>
+                    </li>
+                    <li class="fr-footer__content-item">
+                        <a class="fr-link fr-footer__content-link fr-link--icon-left" href="{{ path('shop_index') }}"><i class="bi-shop-window me-2"></i>Les boutiques</a>
+                    </li>
+                    <li class="fr-footer__content-item">
+                        <a class="fr-footer__content-link fr-link fr-link--icon-left" href="{{ path('product_index') }}"><i class="bi-box-seam me-2"></i>Les produits</a>
+                    </li>
+                    <li class="fr-footer__content-item">
+                        {% if user is defined and user != null %}
+                            <a class="fr-footer__content-link fr-link fr-link--icon-left" href="{{ path('app_logout') }}"><i class="bi-box-arrow-right me-2"></i> Déconnexion</a>
+                        {% else %}
+                            <a class="fr-footer__content-link fr-link fr-link--icon-left" href="{{ path('app_login') }}"><i class="bi-box-arrow-in-right me-2"></i> Connexion</a>
+                        {% endif %}
+                    </li>
                 </ul>
             </div>
         </div>
-        <div width="100%" class="img-center">
-            <div class="copyright">
-                <small class="d-block mb-2 copy"><i class="fal fa-copyright" aria-hidden="true"></i> 2021 TouSolidaires Tous droits réservés</small>
+        <div class="fr-footer__bottom">
+            <ul class="fr-footer__bottom-list">
+                <li class="fr-footer__bottom-item">
+                    <a class="fr-footer__bottom-link" href="">Plan du site</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a class="fr-footer__bottom-link" href="{{ path('about_index') }}">Qui sommes-nous ?</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a class="fr-footer__bottom-link" href="{{ path('about_team') }}">Notre équipe</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a class="fr-footer__bottom-link" href="{{ path('about_cgu') }}">Conditions Générales d'Utilisation</a>
+                </li>
+                <li class="fr-footer__bottom-item">
+                    <a class="fr-footer__bottom-link" href="{{ path('about_confidentialite') }}">Politique de confidentialité</a>
+                </li>
+            </ul>
+            <div class="fr-footer__bottom-copy">
+                <p>Le site TouSolidaires est sous license MIT</p>
             </div>
         </div>
     </div>

@@ -78,14 +78,21 @@
                             </h4>
                             <p class="fr-card__desc">{{ shop.description | u.truncate(150, '...', false) }}</p>
                             <p class="mb-1"><i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
-                            <p class="mb-1"><i class="bi-telephone"></i> Téléphone : +33{{ shop.phone }}</p>
+                            {% set splitArray = shop.phone|split('', 1) %}
+                            {% set first = splitArray|first %}
+                            {% set firstArray =  [0, first] | join('') %}
+                            {% set splitArray = splitArray|slice(1) %}
+                            {% set splitArray = splitArray|join('') %}
+                            {% set lastArray = [firstArray, splitArray] |join('') %}
+                            {% set finalSplit = lastArray|split('', 2) %}
+                            {% set formattedString = finalSplit|join(' ') %}
+                            <p class="mb-1"><i class="bi-telephone"></i> Téléphone : {{ formattedString }}</p>
                             {% if shop.email != null %}
                                 <p class="mb-1"><i class="bi-envelope"></i> Email : {{ shop.email }}</p>
                             {% endif %}
                         </div>
                         <div class="fr-card__img">
                             <img src="{{ asset('images/test.jpg') }}" class="fr-responsive-img" alt="">
-                            <!-- L'alternative de l'image (attribut alt) doit à priori rester vide car l'image est illustrative et ne doit pas être restituée aux technologies d’assistance. Vous pouvez toutefois remplir l'alternative si vous estimer qu'elle apporte une information essentielle à la compréhension du contenu non présente dans le texte -->
                         </div>
                     </div>
                 </div>

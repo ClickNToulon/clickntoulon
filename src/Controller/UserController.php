@@ -124,14 +124,22 @@ class UserController extends AbstractController
      * @param ShopRepository $shopRepository
      * @return Response
      */
-    public function order(Order $order, ShopRepository $shopRepository): Response
+    public function order(Order $order, ShopRepository $shopRepository, ProductRepository $productRepository): Response
     {
         $user = $this->getUser();
+        $products = [];
+        $products_id = explode(",", $order->getProductsId());
+        foreach ($products_id as $key => $value) {
+            $products[] = $productRepository->find($value);
+        }
+        $products_quantity = explode(",", $order->getQuantity());
         $shop = $shopRepository->find($order->getShopId());
         return $this->render('user/order.html.twig', [
             'user' => $user,
             'order' => $order,
-            'shop' => $shop
+            'shop' => $shop,
+            'products' => $products,
+            'quantities' => $products_quantity
         ]);
     }
 
