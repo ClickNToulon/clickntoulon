@@ -6,5 +6,48 @@
     {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
     {% include 'seller/_header.html.twig' %}
     {% include 'seller/_tabs.html.twig' with {'active': 'orders'} %}
+
+    <div class="tab-content fr-container">
+        <div class="tab-pane active">
+            {% if orders != false %}
+                <table class="table table-light table-striped">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>N°</th>
+                        <th>Nom client</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set i = 0 %}
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ orders_buyers[i].username }}</td>
+                            <td>{{ order.status }}</td>
+                            <td><a href=""><button class="btn btn-form mg-t-0">Confirmer</button></a></td>
+                            <td><a href=""><button class="btn btn-form btn-danger mg-t-0">Annuler</button></a></td>
+                            {% set i = i + 1 %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td class="last text-bold">Total :  {{ total_orders }}</td>
+                        <td class="last"></td>
+                        <td class="last"></td>
+                        <td class="last"></td>
+                        <td class="last"></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            {% else %}
+                <h3 class="text-black">Vous n'avez pas de produits. Vous pouvez en rajouter d&egrave;s maintenant.</h3>
+            {% endif %}
+        </div>
+    </div>
+
     {% include 'footer.html.twig' %}
 {% endblock %}

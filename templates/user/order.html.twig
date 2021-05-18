@@ -59,11 +59,11 @@ Commande n°{{ order.id }} - TouSolidaires
                 </tbody>
             </table>
         </div>
-        <h6 class="mb-1"><i class="bi-truck"></i> &Eacute;tat de la commmande</h6>
         <div class="order-status">
+            <h6 class="mb-1"><i class="bi-truck"></i> &Eacute;tat de la commmande</h6>
             <ul class="list-unstyled multi-steps">
                 <li class="{% if order.status == 0 %}is-active{% endif %}">Commande en attente de validation par le commerçant</li>
-                <li class="{% if order.status == 1 %}is-active{% endif %}">Commande acceptée</li>
+                <li class="{% if order.status == 1 %}is-active{% endif %}">Commande en cours de préparation</li>
                 <li class="{% if order.status == 2 %}is-active{% endif %}">Commande prête</li>
                 <li class="{% if order.status == 4 %}{% elseif order.status == 3 %}is-active{% endif %}">Commande récupérée</li>
             </ul>

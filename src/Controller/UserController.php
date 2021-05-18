@@ -44,19 +44,6 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil", name="user_profil")
-     * @IsGranted("ROLE_USER")
-     * @return Response
-     */
-    public function profil(): Response
-    {
-        $user = $this->getUser();
-        return $this->render('user/profil.html.twig', [
-            'user' => $user
-        ]);
-    }
-
-    /**
      * @Route("/profil/modifier", name="user_edit")
      * @IsGranted("ROLE_USER")
      * @param Request $request

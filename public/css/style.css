@@ -1695,10 +1695,6 @@ div.card-body.card-body-product {
   transition: none !important;
 }
 
-.order-shop-title {
-  margin-bottom: 1rem !important;
-}
-
 .orders-grid .card .card-body .card-text {
   transition: none !important;
   opacity: 1;
@@ -2276,6 +2272,14 @@ input[type=number] {
   color: #F5b027 !important;
 }
 
+.fr-card--orders:not(.fr-card--no-arrow) .fr-card__body::after {
+  color: #000 !important;
+}
+
+.fr-card--orders:not(.fr-card--no-arrow):hover .fr-card__body::after {
+  color: #F5b027 !important;
+}
+
 .tag-danger {
   color: white !important;
   background-color: rgba(220, 53, 69, 1) !important;
@@ -2327,7 +2331,6 @@ input[type=number] {
 }
 
 .bi-plus-circle {
-  height: 20px !important;
   margin-right: 5px;
 }
 
@@ -2340,13 +2343,29 @@ input[type=number] {
   color: #F5b027 !important;
 }
 
+.order-desc {
+  color: black !important;
+}
+
+.order-address {
+  text-align: left !important;
+}
 
 .order-container {
-  max-height: 64vh;
+  max-height: 65vh;
   height: 100%;
 }
 
-/* test steps */
+.table-stripped tr:last-of-type {
+  color: transparent !important;
+}
+
+tr:last-of-type {
+  border-style: none !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+}
+
 .multi-steps > li.is-active:before, .multi-steps > li.is-active ~ li:before {
   content: counter(stepNum);
   font-family: Marianne, sans-serif;
@@ -2363,9 +2382,17 @@ input[type=number] {
   width: 100%;
 }
 
+.multi-steps > li.is-active.orders-active:before {
+  content: "\23F3" !important;
+}
+
+.multi-steps > li.is-active.orders-active-end:before {
+  content: "\2713" !important;
+}
+
 .order {
   background-color: white !important;
-  height: calc(100% - 138.72px);
+  height: calc(100% - 145.72px);
   margin-top: 10px;
   border-radius: 10px;
   padding: 10px;
@@ -2374,10 +2401,11 @@ input[type=number] {
 
 .order-status {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
+  flex-direction: column;
   position: relative;
   justify-content: center;
-  padding-bottom: 20px !important;
+  margin-top: 15px;
 }
 
 .multi-steps > li {

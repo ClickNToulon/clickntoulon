@@ -6,53 +6,68 @@
     {% include 'navbar.html.twig' with {'active': 'user'} %}
     {% include 'user/_header.html.twig' %}
     {% include 'user/_tabs.html.twig' with {active: 'orders'} %}
-    <div class="tab-content container">
+    <div class="tab-content fr-container">
         <div class="tab-pane active">
-            <div class="user-last-orders">
-                <h3 class="mb-3">Mes dernières commandes</h3>
-                <div class="bg-dark mb-3">
-                    {% if orders is not null %}
-                        <div class="user-orders-grid">
-                            {% for order in orders %}
-                                {% for shop in shops %}
-                                    {% if shop.id == order.shopid %}
-                                        <div class="card">
-                                            <h2 class="card-title card-order-title text-center mt-3 mb-0">Commande n°{{ order.id }}</h2>
-                                            <div class="card-body pt-0">
-                                                <div class="order-info pt-0">
-                                                    <h3 class="order-shop-title">{{ shop.name }}</h3>
-                                                    <p class="card-text mb-1"><i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
-                                                    <p class="card-text mb-3"><i class="bi-telephone"></i> Téléphone : <a href="tel:+33{{ shop.phone }}">+33{{ shop.phone }}</a></p>
+            <h3 class="mb-3">Mes dernières commandes</h3>
+            <div class="fr-grid-row fr-grid-row--gutters mb-2">
+                {% if orders is not null %}
+                    {% for order in orders %}
+                        {% for shop in shops %}
+                            {% if shop.id == order.shopid %}
+                                <div class="fr-col-12 fr-col-md-3">
+                                    <div class="fr-card fr-enlarge-link fr-card--orders">
+                                        <div class="fr-card__body">
+                                            <h4 class="fr-card__title">
+                                                <a href="{{ path('user_order', {id: order.id}) }}" class="fr-card__link">Commande n°{{ order.id }}</a>
+                                            </h4>
+                                            <div class="fr-card__desc order-desc">
+                                                <div class="order-info">
+                                                    <h4 class="order-shop-title">{{ shop.name }}</h4>
+                                                    <p class="card-text order-address mb-1"><i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
+                                                    {% set splitArray = shop.phone|split('', 1) %}
+                                                    {% set first = splitArray|first %}
+                                                    {% set firstArray =  [0, first] | join('') %}
+                                                    {% set splitArray = splitArray|slice(1) %}
+                                                    {% set splitArray = splitArray|join('') %}
+                                                    {% set lastArray = [firstArray, splitArray] |join('') %}
+                                                    {% set finalSplit = lastArray|split('', 2) %}
+                                                    {% set formattedString = finalSplit|join(' ') %}
+                                                    <p class="card-text mb-3"><i class="bi-telephone"></i> Téléphone : {{ formattedString }}</p>
                                                 </div>
                                                 {% if order.timebegin != null and order.timeend != null %}
-                                                <p class="card-text mb-0"><i class="bi-calendar3"></i> Date de retrait : <?php $order['day'] = explode("-", $order['day']); echo $order['day'][2] . '/'. $order['day'][1].'/'.$order['day'][0]; ?></p>
-                                                <p class="card-text"><i class="bi-clock"></i> Horaire de retrait :
-                                                    <?php $order["time_begin"] = explode(':', $order['time_begin']); echo html_entity_decode($order['time_begin'][0])."h".html_entity_decode($order['time_begin'][1]);?>
-                                                    - <?php $order["time_end"] = explode(':', $order['time_end']); echo html_entity_decode($order['time_end'][0])."h".html_entity_decode($order['time_end'][1]);?>
-                                                </p>
+                                                    <p class="card-text mb-0"><i class="bi-calendar3"></i> Date de retrait : {{ order.day | format_date(locale="fr") }}</p>
+                                                    <p class="card-text"><i class="bi-clock"></i> Horaire de retrait :
+                                                        {{ order.timeBegin | format_time('short',pattern="HH'h'mm", locale='fr') }}
+                                                        - {{ order.timeEnd | format_time('short',pattern="HH'h'mm", locale='fr') }}
+                                                    </p>
                                                 {% elseif order.status == 0 %}
-                                                <p class="card-text">La date et le créneau de retrait vous seront communiqués une fois la commande validée par le commerçant.</p>
+                                                    <p class="card-text">La date et le créneau de retrait vous seront communiqués une fois la commande validée par le commerçant.</p>
                                                 {% else %}
-                                                <p class="card-text">La date et le créneau de retrait vous ont été communiqués par un autre moyen par le commerçant.</p>
+                                                    <p class="card-text">La date et le créneau de retrait vous ont été communiqués par un autre moyen par le commerçant.</p>
                                                 {% endif %}
-                                                <h3 class="text-center mt-4"><a href="{{ path('user_order', {id: order.id}) }}"><i>Plus d'informations</i></a></h3>
                                             </div>
-                                            {% if order.status == 0 %}
-                                            <p class="order-made-text buyer-made-text mt-2">Commande en attente de validation par le commerçant</p>
-                                            {% elseif order.status == 1 %}
-                                            <p class="order-accepted-text mt-2">Commande acceptée</p>
-                                            {% elseif order.status == 2 %}
-                                            <p class="order-pickup-text mt-2">Commande récupérée</p>
-                                            {% endif %}
+                                            <ul class="list-unstyled multi-steps mb-2">
+                                                <li class="{% if order.status != 3 %}is-active orders-active{% else %}orders-active-end{% endif %}">
+                                                    {% if order.status == 0 %}
+                                                        Commande en attente de validation par le commerçant
+                                                    {% elseif order.status == 1 %}
+                                                        Commande en cours de préparation
+                                                    {% elseif order.status == 2 %}
+                                                        Commande prête
+                                                    {% elseif order.status == 3 %}
+                                                        Commande récupérée
+                                                    {% endif %}
+                                                </li>
+                                            </ul>
                                         </div>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endfor %}
-                        </div>
-                    {% else %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
                     <h4>Pas de commandes récentes</h4>
-                    {% endif %}
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>

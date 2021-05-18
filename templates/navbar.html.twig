@@ -31,7 +31,7 @@
                     </li>
                 {% endif %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle show" id="dropdown-user" href="{{ path('user_profil') }}" data-bs-toggle="dropdown" aria-expanded="true"><i class="bi-person"></i>
+                    <a class="nav-link dropdown-toggle show" id="dropdown-user" href="" data-bs-toggle="dropdown" aria-expanded="true"><i class="bi-person"></i>
                         {% if user is defined and user != null and is_granted('ROLE_ADMIN') %}
                             {{ user.username }} <span class="admin-badge badge-header"><i class="fad fa-badge-check"></i></span>
                         {% elseif user is defined and user != null and is_granted('ROLE_USER') %}
@@ -43,11 +43,11 @@
                     <ul class="dropdown-menu dropdown-menu-dark text-center show dropdown-menu-end dropdown-menu-lg-start dropdown-user" aria-labelledby="dropdown-user">
                         {% if user is defined and user != null and is_granted('ROLE_ADMIN') %}
                             <li><a class="dropdown-item" href="{{ path('admin') }}"><i class="bi-shield-lock"></i> Administration</a></li>
-                            <li><a class="dropdown-item" href="{{ path('user_profil') }}"><i class="bi-person-lines-fill"></i> Mon Profil</a></li>
+                            <li><a class="dropdown-item" href="{{ path('user_edit') }}"><i class="bi-person-lines-fill"></i> Mes informations</a></li>
                             <li><a class="dropdown-item" href="{{ path('user_orders') }}"><i class="bi-bag-check"></i> Mes commandes</a></li>
                             <li><a class="dropdown-item" href="{{ path('app_logout') }}"><button class="btn btn-danger btn-no-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
                         {% elseif user is defined and user != null and is_granted('ROLE_USER') %}
-                            <li><a class="dropdown-item" href="{{ path('user_profil') }}"><i class="bi-person-lines-fill"></i> Mon Profil</a></li>
+                            <li><a class="dropdown-item" href="{{ path('user_edit') }}"><i class="bi-person-lines-fill"></i> Mes informations</a></li>
                             <li><a class="dropdown-item" href="{{ path('user_orders') }}"><i class="bi-bag-check"></i> Mes commandes</a></li>
                             <li><a class="dropdown-item" href="{{ path('app_logout') }}"><button class="fr-btn btn-danger btn-no-mt"><i class="bi-box-arrow-right"></i> Déconnexion</button></a></li>
                         {% else %}

@@ -28,6 +28,14 @@ class OrderRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getAllShop($id) {
+        return $this->createQueryBuilder('o')
+            ->where('o.shop_id = :shop_id and o.status != 3')
+            ->setParameter('shop_id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Order[] Returns an array of Order objects
     //  */

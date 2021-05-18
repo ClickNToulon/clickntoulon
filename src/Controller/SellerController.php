@@ -14,9 +14,11 @@ use App\Form\ShopDeleteForm;
 use App\Form\ShopType;
 use App\Form\ShopUpdateForm;
 use App\Repository\CategoryRepository;
+use App\Repository\OrderRepository;
 use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ShopRepository;
+use App\Repository\UserRepository;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,16 +55,25 @@ class SellerController extends AbstractController
      * @param Shop $shop
      * @return Response
      */
-    public function index(Shop $shop): Response
+    public function index(Shop $shop, OrderRepository $orderRepository, UserRepository $userRepository, ProductRepository $productRepository): Response
     {
         $user = $this->getUser();
         $shopsUser = $this->shopRepository->findAllByUser($user->getId());
         if (!in_array($shop, $shopsUser)) {
             return new Response($this->render('bundles/TwigBundle/Exception/error403.html.twig'), Response::HTTP_FORBIDDEN);
         }
+        $orders = $orderRepository->getAllShop($shop->getId());
+        $orders_buyers = [];
+        foreach ($orders as $key => $value) {
+            $orders_buyers[] = $userRepository->find($value->getBuyerId());
+        }
+        $total_orders = count($orders);
         return $this->render('seller/index.html.twig', [
             'user' => $user,
-            'shop' => $shop
+            'shop' => $shop,
+            'orders' => $orders,
+            'orders_buyers' => $orders_buyers,
+            'total_orders' => $total_orders
         ]);
     }
 
