@@ -47,16 +47,17 @@
                                                 {% endif %}
                                             </div>
                                             <ul class="list-unstyled multi-steps mb-2">
-                                                <li class="{% if order.status != 3 %}is-active orders-active{% else %}orders-active-end{% endif %}">
+                                                <li class="{% if order.status != 4 %}is-active orders-active{% else %}orders-active-end{% endif %}">
                                                     {% if order.status == 0 %}
                                                         Commande en attente de validation par le commerçant
                                                     {% elseif order.status == 1 %}
                                                         Commande en cours de préparation
                                                     {% elseif order.status == 2 %}
                                                         Commande prête
-                                                    {% elseif order.status == 3 %}
+                                                    {% elseif order.status == 3 or order.status == 4 %}
                                                         Commande récupérée
                                                     {% endif %}
+
                                                 </li>
                                             </ul>
                                         </div>

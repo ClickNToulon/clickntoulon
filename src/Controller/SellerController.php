@@ -9,6 +9,8 @@ use App\Entity\Product;
 use App\Entity\Shop;
 use App\Form\CategoryType;
 use App\Form\ChooseShop;
+use App\Form\DeleteCategory;
+use App\Form\EditProduct;
 use App\Form\ProductType;
 use App\Form\ShopDeleteForm;
 use App\Form\ShopType;
@@ -53,6 +55,9 @@ class SellerController extends AbstractController
      * @Route("/ma-boutique/{id}", name="seller_index", requirements={"id": "[0-9\-]*"})
      * @IsGranted("ROLE_MERCHANT")
      * @param Shop $shop
+     * @param OrderRepository $orderRepository
+     * @param UserRepository $userRepository
+     * @param ProductRepository $productRepository
      * @return Response
      */
     public function index(Shop $shop, OrderRepository $orderRepository, UserRepository $userRepository, ProductRepository $productRepository): Response
@@ -292,6 +297,21 @@ class SellerController extends AbstractController
             $this->em->flush();
         }
 
+        $form_delete = $this->createForm(DeleteCategory::class, $category);
+        $form_delete->handleRequest($request);
+
+        if($form_delete->isSubmitted() && $form_delete->isValid()) {
+            dump($request->request);
+            $category_id = $request->request->all('category_id');
+            dump($category_id);
+            foreach ($category_id as $key => $value) {
+                $category_id = $category_id[$key];
+            }
+            $category = $categoryRepository->find($category_id);
+            $this->em->remove($category);
+            $this->em->flush();
+        }
+
         $categories = $categoryRepository->findAllByShop($shop);
         dump($categories);
         $total_categories = count($categories);
@@ -300,8 +320,36 @@ class SellerController extends AbstractController
             'shop' => $shop,
             'categories' => $categories,
             'total_categories' => $total_categories,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'form_delete' => $form_delete->createView()
         ]);
     }
 
+
+    /**
+     * @Route("/ma-boutique/{id}/produits/{product}/modifier}", name="seller_edit_product", requirements={"id": "[0-9\-]*", "product": "[0-9\-]*"})
+     * @IsGranted("ROLE_MERCHANT")
+     * @param Product $product
+     * @param Shop $shop
+     * @param Request $request
+     * @return Response
+     */
+    public function editProduct(Product $product, Shop $shop, Request $request): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(EditProduct::class, $product);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($product);
+            $this->em->flush();
+
+        }
+
+        return $this->render("seller/edit_product.html.twig", [
+            'user' => $user,
+            'shop' => $shop,
+            'product' => $product,
+            'form' => $form->createView()
+        ]);
+    }
 }

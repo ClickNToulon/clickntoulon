@@ -779,6 +779,12 @@ textarea.form-control:focus {
   font-size: 17px;
 }
 
+i.danger-zone-txt {
+  font-family: Marianne;
+  font-style: italic;
+  font-weight: bold;
+}
+
 .password-update {
   color: #000000;
   font-weight: bold;

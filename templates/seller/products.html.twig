@@ -35,7 +35,7 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.price | format_currency('EUR') }}</td>
                     <td>{% if product.dealprice == null %}Pas de promo{% else %}{{ product.dealprice | format_currency('EUR') }}{% endif %}</td>
-                    <td><a href=""><button class="btn btn-form mg-t-0">Modifier ce produit</button></a></td>
+                    <td><a href="{{ path('seller_edit_product', {id: shop.id, product: product.id}) }}"><button class="btn btn-form mg-t-0">Modifier ce produit</button></a></td>
                     <td><a href=""><button class="btn btn-form btn-danger mg-t-0">Supprimer ce produit</button></a></td>
                 </tr>
                 {% endfor %}
