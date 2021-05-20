@@ -30,7 +30,14 @@
                     <tr>
                         <td>{{ category.id }}</td>
                         <td>{{ category.name }}</td>
-                        <td><a href=""><button class="btn btn-form btn-danger mg-t-0">Supprimer cette catégorie</button></a></td>
+                        <td>
+                            {{ form_start(form_delete) }}
+                            <input type="hidden" name="category_id[]" id="{{ category.name }}" value="{{ category.id }}">
+                            <div class="button-submit">
+                                <button type="submit" class="btn btn-form btn-danger"><i class="bi-trash"></i> Supprimer mon profil</button>
+                            </div>
+                            {{ form_end(form_delete) }}
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

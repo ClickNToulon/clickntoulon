@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title '&Eacute;diter un produit - TouSolidaires' %}
+
+{% block body %}
+    {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
+
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+{% endblock %}
