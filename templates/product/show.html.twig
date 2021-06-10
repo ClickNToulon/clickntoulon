@@ -64,14 +64,12 @@
                             {% set dealend = product.dealEnd | format_datetime(pattern="dd'/'MM'/'yy 'à' HH'h'mm", locale="fr") %}
                             <span>La promotion commence le {{ dealstart }} et se termine le {{ dealend }}</span>
                         {% endif %}
-                        <!--<form action="/products/add/<?php echo html_entity_decode($product['id']); ?>" method="POST" class="add-basket add-basket-product">
-                            <?php $basketinfo = $this->BasketModel->fetch2Params("id_shop", $product['id_shop'], "id_user", $user['id'], "id_product", $product['id']);
-                            if ($basketinfo === false): $basketinfo['quantity'] = 0; endif;?>
-                            <input type="hidden" name="id_product" value="<?php echo html_entity_decode($product['id']); ?>">
-							<label for="quantity" class="text-black">QUANTIT&Eacute;</label>
-                            <input type="number" name="quantity" class="form-control input-quantity" min="0" placeholder="<?php $quantity = (int)$basketinfo['quantity'] + 1; echo html_entity_decode($quantity); ?>">
-                            <button type="submit" class="btn btn-add">Ajouter au panier</button>
-                        </form>-->
+                        {{ form_start(form, {'method': 'POST', 'action': path('basket_add')}) }}
+                            {{ form_row(form.quantity, {'value': quantity}) }}
+                            {{ form_row(form.products_id, {'value': product.id}) }}
+                            {{ form_row(form.shop_id, {'value': shop.id}) }}
+                            {{ form_row(form.add)}}
+                        {{ form_end(form) }}
 						<br>
 						<h4>Catégories</h4>
 						<div class="categories-grid">
