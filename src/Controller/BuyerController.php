@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Basket;
+use App\Entity\Shop;
 use App\Form\AddProductBasketType;
 use App\Repository\BasketRepository;
+use App\Repository\ProductRepository;
+use App\Repository\ShopRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,9 +22,15 @@ class BuyerController extends AbstractController
      */
     private BasketRepository $repository;
 
-    public function __construct(BasketRepository $repository)
+    private ShopRepository $shop_repo;
+
+    private ProductRepository $product_repo;
+
+    public function __construct(BasketRepository $repository, ShopRepository $shop_repo, ProductRepository $product_repo)
     {
         $this->repository = $repository;
+        $this->shop_repo = $shop_repo;
+        $this->product_repo = $product_repo;
     }
 
     /**
@@ -33,10 +42,20 @@ class BuyerController extends AbstractController
     {
         $user = $this->getUser();
         $baskets = $this->repository->findByUser($user->getId());
-        dump($baskets);
+        $shops = [];
+        $products = [];
+        foreach ($baskets as $b) {
+            $shop_info = $this->shop_repo->find($b->getShopId());
+            array_push($shops, $shop_info);
+            $products_Id = explode(";", $b->getProductsId());
+            foreach ($products_Id as $product) {
+                array_push($products, $this->product_repo->find($product));
+            }
+        }
         return $this->render('buyer/basket.html.twig', [
             'user' => $user,
-            'baskets' => $baskets
+            'baskets' => $baskets,
+            'shops' => $shops
         ]);
     }
 
@@ -56,26 +75,48 @@ class BuyerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $done = false;
             foreach ($baskets as $b) {
-                if ($b["shop_id"] == $form->get("shop_id")) {
-                    $limit = count($b["products_id"]);
-                    $product = explode(";", $b["products_id"]);
-                    $quantity = explode(";", $b["quantity"]);
-                    for ($i=0;$i<$limit;$i++) {
-                        if($done != true) {
-                            if($product[$i] == $form->get("products_id")) {
-                                $done = true;
-                                $quantity[$i] = $form->get("quantity");
+                $datas = $form->getData();
+                if ($b->getShopId() == $datas->getShopId()) {
+                    $b->setOwnerId($user->getId());
+                    if (is_array($b->getProductsId())) {
+                        $limit = count($b->getProductsId());
+                        $product = explode(";", $b->getProductsId());
+                        $quantity = explode(";", $b->getQuantity());
+                        for ($i=0;$i<$limit;$i++) {
+                            if($done != true) {
+                                if($product[$i] == $datas->getProductsId()) {
+                                    $done = true;
+                                    $quantity[$i] = $datas->getQuantity();
+                                }
                             }
                         }
+                        $b->setProductsId(implode(";", $product));
+                        $b->setQuantity(implode(";", $quantity));
+                    } else {
+                        $b->setQuantity($datas->getQuantity());
+                        $done = true;
                     }
 
                     if($done != true) {
-                        array_push($product, $form->get("products_id"));
-                        array_push($quantity, $form->get("quantity"));
+                        if(is_array($b->getProductsId())) {
+                            $product = explode(";", $b->getProductsId());
+                            $quantity = explode(";", $b->getQuantity());
+                            array_push($product, $form->get("products_id"));
+                            array_push($quantity, $form->get("quantity"));
+                            $b->setProductsId(implode(";", $product));
+                            $b->setQuantity(implode(";", $quantity));
+                            $done = true;
+                        } else {
+                            $product = [];
+                            $quantity = [];
+                            array_push($product, $b->getProductsId(), $datas->getProductsId());
+                            array_push($quantity, $b->getQuantity(), $datas->getQuantity());
+                            $b->setProductsId(implode(";", $product));
+                            $b->setQuantity(implode(";", $quantity));
+                            $done = true;
+                        }
                     }
-                    $b["owner_id"] = $user->getId();
-                    $b["products_id"] = implode(";", $product);
-                    $b["quantity"] = implode(";", $quantity);
+
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($b);
                     $entityManager->flush();

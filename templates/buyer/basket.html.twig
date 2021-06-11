@@ -4,8 +4,11 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'basket'} %}
+    {% set i = 0 %}
     {% for basket in baskets %}
-        {{ basket.productsId }}
+        {% if shops is defined %}
+            <h3>Boutique: {{ shops[i].name }}</h3>
+        {% endif %}
     {% endfor %}
     {% include 'footer.html.twig' %}
 {% endblock %}
