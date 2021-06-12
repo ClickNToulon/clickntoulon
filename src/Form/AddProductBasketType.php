@@ -4,8 +4,8 @@ namespace App\Form;
 
 use App\Entity\Basket;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,13 +21,16 @@ class AddProductBasketType extends AbstractType
             ->add('products_id', HiddenType::class, [
                 "required" => true
             ])
-            ->add('quantity', IntegerType::class, [
-                "required" => true
+            ->add('quantity', NumberType::class, [
+                "required" => true,
+                "attr" => [
+                    "class" => "fr-input form-control"
+                ]
             ])
             ->add("add", SubmitType::class, [
                 "label" => "Add to the basket",
                 "attr" => [
-                    "class" => "btn btn-add"
+                    "class" => "btn btn-add btn-no-mt"
                 ]
             ])
         ;

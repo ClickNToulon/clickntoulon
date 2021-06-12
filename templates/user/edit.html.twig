@@ -77,19 +77,19 @@
                 <i class="left">Tous les champs doivent être remplis</i>
                 <div class="row first">
                     <div class="col-12 form-row">
-                        {{ form_row(form_profile.username, {attr: {class: 'form-control last-input'}}) }}
-                        {{ form_row(form_profile.email, {attr: {class: 'form-control last-input'}}) }}
+                        {{ form_row(form_profile.username) }}
+                        {{ form_row(form_profile.email) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 form-row form-address">
-                        {{ form_row(form_profile.address, {attr: {class: 'form-control'}}) }}
+                        {{ form_row(form_profile.address) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 form-row">
-                        {{ form_row(form_profile.postal_code, {attr: {class: 'form-control last-input'}}) }}
-                        {{ form_row(form_profile.city, {attr: {class: 'form-control last-input'}}) }}
+                        {{ form_row(form_profile.postal_code) }}
+                        {{ form_row(form_profile.city) }}
                     </div>
                 </div>
             </div>

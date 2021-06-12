@@ -31,11 +31,11 @@ class UpdatePasswordForm extends AbstractType
             'mapped' => false,
             'first_options' => ['label' => false, 'attr' => array_merge($htmlAttr, [
                 'placeholder' => 'New Password',
-                'class' => 'last-password'
+                'class' => 'fr-input last-password'
             ])],
             'second_options' => ['label' => false, 'attr' => array_merge($htmlAttr, [
                 'placeholder' => 'Repeat Password',
-                'class' => 'last-password'
+                'class' => 'fr-input last-password'
             ])],
         ]);
     }

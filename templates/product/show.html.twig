@@ -64,11 +64,11 @@
                             {% set dealend = product.dealEnd | format_datetime(pattern="dd'/'MM'/'yy 'à' HH'h'mm", locale="fr") %}
                             <span>La promotion commence le {{ dealstart }} et se termine le {{ dealend }}</span>
                         {% endif %}
-                        {{ form_start(form, {'method': 'POST', 'action': path('basket_add')}) }}
-                            {{ form_row(form.quantity, {'value': quantity}) }}
+                        {{ form_start(form, {'method': 'POST', 'action': path('basket_add'), 'attr': {'class': 'form-add-product'}}) }}
                             {{ form_row(form.products_id, {'value': product.id}) }}
                             {{ form_row(form.shop_id, {'value': shop.id}) }}
-                            {{ form_row(form.add)}}
+                            {{ form_row(form.quantity, {'value': quantity}) }}
+                            {{ form_row(form.add) }}
                         {{ form_end(form) }}
 						<br>
 						<h4>Catégories</h4>

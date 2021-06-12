@@ -31,9 +31,9 @@
         <h2>Connexion</h2>
         <form method="post" class="forms">
             <label for="inputUsername">Nom d'Utilisateur</label>
-            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
+            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="fr-input form-control" required autofocus>
             <label for="inputPassword">Mot de passe</label>
-            <input type="password" name="password" id="inputPassword" class="form-control last-input" required>
+            <input type="password" name="password" id="inputPassword" class="fr-input form-control last-input" required>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <div class="form-actions">
                 <div class="checkbox">

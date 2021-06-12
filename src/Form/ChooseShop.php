@@ -25,7 +25,7 @@ class ChooseShop extends AbstractType
                 },
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'form-select'
+                    'class' => 'fr-select'
                 ],
             ]);
     }

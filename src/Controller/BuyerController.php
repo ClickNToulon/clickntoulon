@@ -75,8 +75,8 @@ class BuyerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $done = false;
             foreach ($baskets as $b) {
-                $datas = $form->getData();
-                if ($b->getShopId() == $datas->getShopId()) {
+                $data = $form->getData();
+                if ($b->getShopId() == $data->getShopId()) {
                     $b->setOwnerId($user->getId());
                     if (is_array($b->getProductsId())) {
                         $limit = count($b->getProductsId());
@@ -84,16 +84,16 @@ class BuyerController extends AbstractController
                         $quantity = explode(";", $b->getQuantity());
                         for ($i=0;$i<$limit;$i++) {
                             if($done != true) {
-                                if($product[$i] == $datas->getProductsId()) {
+                                if($product[$i] == $data->getProductsId()) {
                                     $done = true;
-                                    $quantity[$i] = $datas->getQuantity();
+                                    $quantity[$i] = $data->getQuantity();
                                 }
                             }
                         }
                         $b->setProductsId(implode(";", $product));
                         $b->setQuantity(implode(";", $quantity));
                     } else {
-                        $b->setQuantity($datas->getQuantity());
+                        $b->setQuantity($data->getQuantity());
                         $done = true;
                     }
 
@@ -109,8 +109,8 @@ class BuyerController extends AbstractController
                         } else {
                             $product = [];
                             $quantity = [];
-                            array_push($product, $b->getProductsId(), $datas->getProductsId());
-                            array_push($quantity, $b->getQuantity(), $datas->getQuantity());
+                            array_push($product, $b->getProductsId(), $data->getProductsId());
+                            array_push($quantity, $b->getQuantity(), $data->getQuantity());
                             $b->setProductsId(implode(";", $product));
                             $b->setQuantity(implode(";", $quantity));
                             $done = true;

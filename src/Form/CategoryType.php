@@ -16,7 +16,7 @@ class CategoryType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => true,
                 'attr' => [
-                    'class' => 'form-control last-input'
+                    'class' => 'fr-input last-input'
                 ]
             ])
         ;

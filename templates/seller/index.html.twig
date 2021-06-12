@@ -7,7 +7,7 @@
     {% include 'seller/_header.html.twig' %}
     {% include 'seller/_tabs.html.twig' with {'active': 'orders'} %}
 
-    <div class="tab-content fr-container">
+    <div class="tab-content container">
         <div class="tab-pane active">
             {% if orders != false %}
                 <table class="table table-light table-striped">
@@ -44,7 +44,7 @@
                     </tfoot>
                 </table>
             {% else %}
-                <h3 class="text-black">Vous n'avez pas de produits. Vous pouvez en rajouter d&egrave;s maintenant.</h3>
+                <h3 class="text-black">Vous n'avez pas de commandes en cours.</h3>
             {% endif %}
         </div>
     </div>

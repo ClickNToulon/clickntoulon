@@ -22,23 +22,39 @@ class ShopType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'class' => 'last-password'
+                    'class' => 'fr-input last-password'
                 ]
             ])
-            ->add('description')
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'class' => 'fr-input'
+                ]
+            ])
             ->add('phone', NumberType::class, [
                 'attr' => [
-                    'class' => 'last-password'
+                    'class' => 'fr-input last-password'
                 ]
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'last-password form-control'
+                    'class' => 'last-password fr-input'
                 ]
             ])
-            ->add('address', TextareaType::class)
-            ->add('postal_code')
-            ->add('city')
+            ->add('address', TextareaType::class, [
+                'attr' => [
+                    'class' => 'fr-input'
+                ]
+            ])
+            ->add('postal_code', TextType::class, [
+                'attr' => [
+                    'class' => 'fr-input'
+                ]
+            ])
+            ->add('city', TextType::class, [
+                'attr' => [
+                    'class' => 'fr-input'
+                ]
+            ])
             ->add('cover', FileType::class, [
                 'attr' => [
                     'class' => 'form-control last-password'
@@ -55,7 +71,7 @@ class ShopType extends AbstractType
             ->add('tag', ChoiceType::class, [
                 'choices' => $this->getChoices(),
                 'attr' => [
-                    'class' => 'form-select last-select'
+                    'class' => 'fr-select last-select'
                 ]
             ])
         ;

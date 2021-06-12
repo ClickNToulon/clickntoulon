@@ -32,8 +32,8 @@
         {{ form_start(form, {attr: {class: 'forms'}}) }}
             {{ form_row(form.username) }}
             {{ form_row(form.email) }}
-            {{ form_row(form.password.first) }}
-            {{ form_row(form.password.second, {attr: {class: 'last-input'}}) }}
+            {{ form_row(form.password.first, {attr: {class: 'fr-input'}}) }}
+            {{ form_row(form.password.second, {attr: {class: 'fr-input last-input'}}) }}
             <div class="form-actions">
                 <div class="checkbox">
                     <input class="form-check-input" type="checkbox" id="checkbox" name="cgu" required="">

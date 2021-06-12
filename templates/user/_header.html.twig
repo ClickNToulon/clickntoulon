@@ -6,7 +6,7 @@
             <div class="user-profile-status">
                 <h4 class="lead fw-normal">
                     {% if user is defined and user != null and is_granted('ROLE_ADMIN') %}
-                        <span class="badge rounded-pill bg-secondary">Administrateur <span class="admin-badge"><i class="fad fa-badge-check"></i></span></span>
+                        <span class="fr-tag fr-tag-admin">Administrateur <span class="admin-badge"><i class="fad fa-badge-check"></i></span></span>
                     {% elseif user is defined and user != null and is_granted('ROLE_MERCHANT') %}
                         <span class="badge rounded-pill bg-secondary">Commerçant <i class="bi-shop-window px-1"></i></span>
                     {% elseif user is defined and user != null and is_granted('ROLE_USER') %}

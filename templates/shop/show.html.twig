@@ -6,21 +6,13 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'shop'} %}
-    <div class="header header-shop">
-        <div class="h-100 w-100">
-            <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="8000">
-                <div class="carousel-inner">
-                    <a href="{{ path('shop_show', {slug: shop.slug}) }}" class="carousel-item carousel-item-shop h-100">
-                        <img src="{% if shop.cover %}{{ asset('uploads/shops/' ~ shop.cover) }}{% else %}{{ asset('images/1.jpg') }}{% endif %}" alt="Shop image">
-                    </a>
-                </div>
-            </div>
-        </div>
+    <div class="h-100 w-100 shop-img">
+        <img src="{% if shop.cover %}{{ asset('uploads/shops/' ~ shop.cover) }}{% else %}{{ asset('images/1.jpg') }}{% endif %}" class="w-100 h-100" alt="Shop image">
     </div>
     <main class="main-container shop-container">
         <div class="shop-container-2">
             <div class="card-shop">
-                <h3 class="card-title text-center pt-3 card-title-shop"><i class="bi-clock"></i> Horaires d'ouverture</h3>
+                <h3 class="card-title card-title-shop"><i class="bi-clock"></i> Horaires d'ouverture</h3>
                 <div class="card-body-shop">
                     <div class="card-column">
                         {% if timetable == null %}
@@ -99,7 +91,7 @@
                         </div></div>
                     <div class="pl-5 w-100 h-100">
                         <h4 class="mb-2"><i class="bi-geo"></i> Adresse</h4>
-                        <p>{{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
+                        <p class="mb-3">{{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
                         <h4>Nous contacter</h4>
                         {% set splitArray = shop.phone|split('', 1) %}
                         {% set first = splitArray|first %}
@@ -109,16 +101,18 @@
                         {% set lastArray = [firstArray, splitArray] |join('') %}
                         {% set finalSplit = lastArray|split('', 2) %}
                         {% set formattedString = finalSplit|join(' ') %}
-                        <p class="mt-2 mb-1"><i class="bi-telephone"></i> Téléphone : <a href="tel:+33{{ shop.phone }}" target="_blank">{{ formattedString }}</a></p>
+                        <p class="mt-1 mb-1"><i class="bi-telephone"></i> Téléphone : <a href="tel:+33{{ shop.phone }}" target="_blank">{{ formattedString }}</a></p>
                         {% if shop.email != null %}
-                        <p class="mb-1"><i class="bi-envelope"></i> Email : <a href="mailto:{{ shop.email }}" target="_blank">{{ shop.email }}</a></p>
+                        <p class="mb-2"><i class="bi-envelope"></i> Email : <a href="mailto:{{ shop.email }}" target="_blank">{{ shop.email }}</a></p>
                         {% endif %}
                         <h4 class="mt-3">Catégorie</h4>
-                        <p>{{ shop.tagName }}</p>
+                        <p class="mb-3">{{ shop.tagName }}</p>
                         <h4 class="mb-2">Moyens de paiement acceptés par le commerçant</h4>
-                        {% for payment in payments %}
-                        <a title="{{ payment[1] }}"><i class="{{ payment[0] }} px-1"></i></a>
-                        {% endfor %}
+                        <div class="payments">
+                            {% for payment in payments %}
+                            <p class="payment" title="{{ payment[1] }}"><i class="{{ payment[0] }} px-1"></i></p>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>

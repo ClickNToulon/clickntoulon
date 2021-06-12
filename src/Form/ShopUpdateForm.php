@@ -19,27 +19,45 @@ class ShopUpdateForm extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'class' => 'last-password'
+                    'class' => 'fr-input last-password'
                 ]
             ])
-            ->add('description')
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'class' => 'fr-input',
+                    'rows' => 3
+                ]
+            ])
             ->add('phone', NumberType::class, [
                 'attr' => [
-                    'class' => 'last-password'
+                    'class' => 'fr-input last-password'
                 ]
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'last-password form-control'
+                    'class' => 'fr-input last-password form-control'
                 ]
             ])
-            ->add('address', TextareaType::class)
-            ->add('postal_code')
-            ->add('city')
+            ->add('address', TextareaType::class, [
+                'attr' => [
+                    'class' => 'fr-input',
+                    'rows' => 1
+                ]
+            ])
+            ->add('postal_code', TextType::class, [
+                'attr' => [
+                    'class' => 'fr-input form-control'
+                ]
+            ])
+            ->add('city', TextType::class, [
+                'attr' => [
+                    'class' => 'fr-input form-control'
+                ]
+            ])
             ->add('tag', ChoiceType::class, [
                 'choices' => $this->getChoices(),
                 'attr' => [
-                    'class' => 'form-select last-select'
+                    'class' => 'fr-select last-select'
                 ]
             ])
         ;

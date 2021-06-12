@@ -22,8 +22,10 @@ class SearchForm extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control last-password',
-                    'name' => 'q'
+                    'class' => 'fr-input search-input',
+                    'name' => 'q',
+                    'type' => 'search',
+                    'placeholder' => 'Rechercher'
                 ],
             ]);
     }

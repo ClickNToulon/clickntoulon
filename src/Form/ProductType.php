@@ -20,19 +20,19 @@ class ProductType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => true,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'fr-input'
                 ]
             ])
             ->add('price', NumberType::class, [
                 'required' => true,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'fr-input'
                 ]
             ])
             ->add('description', TextareaType::class, [
                 'required' => true,
                 'attr' => [
-                    'class' => 'form-control mb-24'
+                    'class' => 'fr-input mb-24'
                 ]
             ])
             ->add('image',FileType::class, [
