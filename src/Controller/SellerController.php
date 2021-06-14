@@ -37,6 +37,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Controller\MailerController;
+use Symfony\Component\Mailer\MailerInterface;
 
 class SellerController extends AbstractController
 {
@@ -49,9 +51,11 @@ class SellerController extends AbstractController
      * @var ShopRepository
      */
     private ShopRepository $shopRepository;
+    private MailerInterface $mailer;
 
-    public function __construct(EntityManagerInterface $em, ShopRepository $shopRepository)
+    public function __construct(EntityManagerInterface $em, ShopRepository $shopRepository, MailerInterface $mailer)
     {
+        $this->mailer = $mailer;
         $this->em = $em;
         $this->shopRepository = $shopRepository;
     }
@@ -79,12 +83,15 @@ class SellerController extends AbstractController
             $data = $request->request->all('order_status_confirm');
             dump($data['id']);
             $order = $orderRepository->find($data['id']);
-            $order->setStatus(1)
-                ->setTimeBegin(new DateTime($data['begin']))
+            $order->setTimeBegin(new DateTime($data['begin']))
                 ->setTimeEnd(new DateTime($data['end']))
                 ->setDay(new DateTime($data['date']));
             $this->em->persist($order);
             $this->em->flush();
+            $title = "Votre commande numéro " . $data['id'] . " a été acceptée par le commerçant";
+            $options = [];
+            array_push($options, $user->getUsername(), $data['id'], $data['date'], $data['begin'], $data['end']);
+            (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderaccept');
         }
         $form_prepared = $this->createForm(OrderStatusPrepared::class, null);
         $form_prepared->handleRequest($request);
