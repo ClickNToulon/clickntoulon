@@ -1,17 +1,9 @@
 City: Ville
 Address: Adresse
 Postal code: Code postal
-Heat: Chauffage
-Floor: Etage
-Bedrooms: Chambres
-Rooms: Pièces
 Price: Prix
 Title: Nom
 Description: Description
-Surface: Surface
-Sold: Vendu
-electric: Electrique
-gaz: Gaz
 Email: Adresse Mail
 Username: Nom d'Utilisateur
 Password: Mot de passe
@@ -38,6 +30,9 @@ Shop Id: ID Boutique
 Deal Price: Prix promo
 Deal Start: Début promo
 Deal End: Fin promo
+Deal price: Prix promo
+Deal start: Début promo
+Deal end: Fin promo
 Owner Id: ID Propriétaire
 Tag: Type
 Boulangerie - Pâtisserie: Boulangerie - Pâtisserie
@@ -48,3 +43,4 @@ Votre message (optionel): Votre message (optionel)
 Begin: Début
 End: Fin
 Date: Date de la récupération de la commande
+Image: Image

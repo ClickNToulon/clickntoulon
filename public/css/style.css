@@ -2577,3 +2577,7 @@ p.payment {
 #order_status_confirm_message {
   padding: 0.5rem !important;
 }
+
+.edit-product input, .edit-product textarea {
+  margin-bottom: 0 !important;
+}

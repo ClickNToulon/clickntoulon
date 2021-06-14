@@ -26,7 +26,6 @@ use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ShopRepository;
 use App\Repository\UserRepository;
-use Cassandra\Time;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
@@ -63,7 +62,9 @@ class SellerController extends AbstractController
      * @param Shop $shop
      * @param OrderRepository $orderRepository
      * @param UserRepository $userRepository
+     * @param Request $request
      * @return Response
+     * @throws Exception
      */
     public function index(Shop $shop, OrderRepository $orderRepository, UserRepository $userRepository, Request $request): Response
     {
@@ -385,7 +386,7 @@ class SellerController extends AbstractController
 
 
     /**
-     * @Route("/ma-boutique/{id}/produits/{product}/modifier}", name="seller_edit_product", requirements={"id": "[0-9\-]*", "product": "[0-9\-]*"})
+     * @Route("/ma-boutique/{id}/produits/{product}/modifier", name="seller_edit_product", requirements={"id": "[0-9\-]*", "product": "[0-9\-]*"})
      * @IsGranted("ROLE_MERCHANT")
      * @param Product $product
      * @param Shop $shop
@@ -395,12 +396,11 @@ class SellerController extends AbstractController
     public function editProduct(Product $product, Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
-        $form = $this->createForm(EditProduct::class, $product);
+        $form = $this->createForm(EditProduct::class, $product, ['id' => $shop]);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($product);
             $this->em->flush();
-
         }
 
         return $this->render("seller/edit_product.html.twig", [

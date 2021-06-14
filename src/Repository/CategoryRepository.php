@@ -57,4 +57,11 @@ class CategoryRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllByShopQuery(Shop $shop)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.shop = :shop_id')
+            ->setParameter('shop_id', $shop);
+    }
 }

@@ -5,6 +5,37 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
 
-    {{ form_start(form) }}
+    {{ form_start(form, {attr: {class: 'user-modify'}}) }}
+    <h3 class="user-modify-title"><i class="bi-pen"></i> Modifier un produit</h3>
+    <div class="forms form-modify edit-product">
+        <div class="row first">
+            <div class="col-12 form-row">
+                {{ form_row(form.name) }}
+                {{ form_row(form.categories) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-row form-address">
+                {{ form_row(form.description) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-row">
+                {{ form_row(form.price) }}
+                {{ form_row(form.deal_price) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-row">
+                {{ form_row(form.deal_start) }}
+                {{ form_row(form.deal_end) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-row">
+                {{ form_row(form.image) }}
+            </div>
+        </div>
+    </div>
     {{ form_end(form) }}
 {% endblock %}

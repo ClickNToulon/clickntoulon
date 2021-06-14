@@ -2,8 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\Shop;
+use App\Repository\CategoryRepository;
+use App\Repository\ShopRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -18,11 +24,12 @@ class EditProduct extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $id = $options['id'];
         $builder
             ->add('name', TextType::class, [
                 'required' => true,
                 'attr' => [
-                    'class' => 'fr-input'
+                    'class' => 'fr-input mb-0'
                 ]
             ])
             ->add('price', NumberType::class, [
@@ -34,7 +41,8 @@ class EditProduct extends AbstractType
             ->add('description', TextareaType::class, [
                 'required' => true,
                 'attr' => [
-                    'class' => 'fr-input mb-24'
+                    'class' => 'fr-input',
+                    'rows' => 3
                 ]
             ])
             ->add('image',FileType::class, [
@@ -63,15 +71,30 @@ class EditProduct extends AbstractType
             ])
             ->add('deal_start', DateType::class, [
                 'required' => false,
+                'widget' => 'single_text',
                 'attr' => [
                     'class' => 'fr-input'
                 ]
             ])
             ->add('deal_end', DateType::class, [
                 'required' => false,
+                'widget' => 'single_text',
                 'attr' => [
                     'class' => 'fr-input'
                 ]
+            ])
+            ->add('categories', EntityType::class, [
+                'class' => Category::class,
+                'mapped' => false,
+                'required' => true,
+                'label' => 'Categories',
+                'query_builder' => function(CategoryRepository $em) use ($id) {
+                    return $em->findAllByShopQuery($id);
+                },
+                'choice_label' => 'name',
+                'attr' => [
+                    'class' => 'fr-select'
+                ],
             ]);
     }
 
@@ -79,7 +102,8 @@ class EditProduct extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Product::class,
-            'translation_domain' => 'products'
-        ]);
+            'translation_domain' => 'forms'
+        ])
+        ->setRequired('id');
     }
 }
