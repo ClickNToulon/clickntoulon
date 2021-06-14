@@ -9,8 +9,13 @@ use App\Entity\Product;
 use App\Entity\Shop;
 use App\Form\CategoryType;
 use App\Form\ChooseShop;
+use App\Form\OrderStatusCancel;
+use App\Form\OrderStatusConfirm;
 use App\Form\DeleteCategory;
 use App\Form\EditProduct;
+use App\Form\OrderStatusPickup;
+use App\Form\OrderStatusPrepared;
+use App\Form\OrderStatusReady;
 use App\Form\ProductType;
 use App\Form\ShopDeleteForm;
 use App\Form\ShopType;
@@ -21,6 +26,7 @@ use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ShopRepository;
 use App\Repository\UserRepository;
+use Cassandra\Time;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
@@ -57,15 +63,63 @@ class SellerController extends AbstractController
      * @param Shop $shop
      * @param OrderRepository $orderRepository
      * @param UserRepository $userRepository
-     * @param ProductRepository $productRepository
      * @return Response
      */
-    public function index(Shop $shop, OrderRepository $orderRepository, UserRepository $userRepository, ProductRepository $productRepository): Response
+    public function index(Shop $shop, OrderRepository $orderRepository, UserRepository $userRepository, Request $request): Response
     {
         $user = $this->getUser();
         $shopsUser = $this->shopRepository->findAllByUser($user->getId());
         if (!in_array($shop, $shopsUser)) {
             return new Response($this->render('bundles/TwigBundle/Exception/error403.html.twig'), Response::HTTP_FORBIDDEN);
+        }
+        $form_confirm = $this->createForm(OrderStatusConfirm::class, null);
+        $form_confirm->handleRequest($request);
+        if($form_confirm->isSubmitted() && $form_confirm->isValid()) {
+            $data = $request->request->all('order_status_confirm');
+            dump($data['id']);
+            $order = $orderRepository->find($data['id']);
+            $order->setStatus(1)
+                ->setTimeBegin(new DateTime($data['begin']))
+                ->setTimeEnd(new DateTime($data['end']))
+                ->setDay(new DateTime($data['date']));
+            $this->em->persist($order);
+            $this->em->flush();
+        }
+        $form_prepared = $this->createForm(OrderStatusPrepared::class, null);
+        $form_prepared->handleRequest($request);
+        if($form_prepared->isSubmitted() && $form_prepared->isValid()) {
+            $data = $request->get('id');
+            $order = $orderRepository->find($data);
+            $order->setStatus(2);
+            $this->em->persist($order);
+            $this->em->flush();
+        }
+        $form_ready = $this->createForm(OrderStatusReady::class, null);
+        $form_ready->handleRequest($request);
+        if($form_ready->isSubmitted() && $form_ready->isValid()) {
+            $data = $request->get('id');
+            $order = $orderRepository->find($data);
+            $order->setStatus(3);
+            $this->em->persist($order);
+            $this->em->flush();
+        }
+        $form_pickup = $this->createForm(OrderStatusPickup::class, null);
+        $form_pickup->handleRequest($request);
+        if($form_pickup->isSubmitted() && $form_pickup->isValid()) {
+            $data = $request->get('id');
+            $order = $orderRepository->find($data);
+            $order->setStatus(4);
+            $this->em->persist($order);
+            $this->em->flush();
+        }
+        $form_cancel = $this->createForm(OrderStatusCancel::class, null);
+        $form_cancel->handleRequest($request);
+        if($form_cancel->isSubmitted() && $form_cancel->isValid()) {
+            $data = $request->get('id');
+            $order = $orderRepository->find($data);
+            $order->setStatus(5);
+            $this->em->persist($order);
+            $this->em->flush();
         }
         $orders = $orderRepository->getAllShop($shop->getId());
         $orders_buyers = [];
@@ -78,7 +132,12 @@ class SellerController extends AbstractController
             'shop' => $shop,
             'orders' => $orders,
             'orders_buyers' => $orders_buyers,
-            'total_orders' => $total_orders
+            'total_orders' => $total_orders,
+            'form_confirm' => $form_confirm->createView(),
+            'form_prepared' => $form_prepared->createView(),
+            'form_ready' => $form_ready->createView(),
+            'form_pickup' => $form_pickup->createView(),
+            'form_cancel' => $form_cancel->createView()
         ]);
     }
 
@@ -97,7 +156,6 @@ class SellerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->get('select')->getViewData();
-            dump($data);
             $shop = $this->shopRepository->find($data);
             return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
         }

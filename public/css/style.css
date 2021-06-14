@@ -223,7 +223,7 @@ table {
   border-radius: 0.25rem !important;
 }
 
-.table-stripped {
+.table-striped {
   border-radius: 0.25rem !important;
 }
 
@@ -2004,6 +2004,24 @@ div.nav-profile li.nav-item a.active {
   margin-left: 5px !important;
 }
 
+.fr-modal__title {
+  color: #F5b027 !important;
+}
+
+#order_status_confirm_pickupdate {
+  display: flex;
+  flex-direction: row;
+  background-color: #232F3E;
+  border: none !important;
+  padding: 0.375rem 0 !important;
+}
+
+#order_status_confirm_pickupdate select {
+  width: 30%;
+  margin-right: 1.25rem;
+  border: none !important;
+}
+
 .img-center {
   text-align: center;
   display: flex;
@@ -2012,6 +2030,29 @@ div.nav-profile li.nav-item a.active {
   flex-direction: column;
   width: 100%;
   max-width: 100%;
+}
+
+.pickup-time {
+  display: flex;
+  flex-direction: row;
+}
+
+.pickup-time div {
+  width: 50%;
+}
+
+.pickup-time div div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.pickup-time div:first-of-type {
+  margin-right: 0.25rem !important;
+}
+
+.pickup-time div:last-of-type {
+  margin-left: 0.25rem !important;
 }
 
 .footer-logos {
@@ -2318,8 +2359,8 @@ input[type=number] {
 }
 
 .order-container {
-  max-height: 65vh;
-  height: 100%;
+  height: auto;
+  padding: 5rem var(--bs-gutter-x, .75rem);
 }
 
 .table-stripped tr:last-of-type {
@@ -2358,10 +2399,10 @@ tr:last-of-type {
 
 .order {
   background-color: white !important;
-  height: calc(100% - 145.72px);
+  height: auto;
   margin-top: 10px;
   border-radius: 0.25rem;
-  padding: 10px;
+  padding: 1.5rem;
   margin-bottom: 5px !important;
 }
 
@@ -2371,7 +2412,7 @@ tr:last-of-type {
   flex-direction: column;
   position: relative;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 5rem;
 }
 
 .multi-steps > li {
@@ -2445,6 +2486,9 @@ tr:last-of-type {
   color: #198754 !important;
 }
 
+.multi-steps {
+  margin-top: 15px;
+}
 
 .fr-footer a {
   color: white;
@@ -2518,4 +2562,18 @@ p.payment {
 .fr-tag-admin .admin-badge {
   margin-left: 5px;
   margin-right: 0 !important;
+}
+
+.pickup-time .fr-input-wrap input.fr-input.form-control {
+  margin-bottom: 0 !important;
+  padding-left: 0.5rem !important;
+  padding-right: 0.25rem !important;
+}
+
+#order_status_confirm_pickupdate {
+  padding-left: 0.5rem !important;
+}
+
+#order_status_confirm_message {
+  padding: 0.5rem !important;
 }

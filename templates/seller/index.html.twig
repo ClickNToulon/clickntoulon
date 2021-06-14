@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title 'Ma boutique - TouSolidaires' %}
@@ -27,8 +28,72 @@
                             <td>{{ order.id }}</td>
                             <td>{{ orders_buyers[i].username }}</td>
                             <td>{{ order.status }}</td>
-                            <td><a href=""><button class="btn btn-form mg-t-0">Confirmer</button></a></td>
-                            <td><a href=""><button class="btn btn-form btn-danger mg-t-0">Annuler</button></a></td>
+                            <td>
+                                {% if order.status == 0 %}
+                                    <button class="btn btn-form mg-t-0" data-fr-opened="false" aria-controls="order-confirm">Confirmer la commande</button>
+                                    <dialog aria-labelledby="order-confirm-title" id="order-confirm" class="fr-modal align-items-center justify-content-center" role="dialog">
+                                        <div class="fr-container--fluid fr-container-md dialog-w-100">
+                                            <div class="fr-grid-row fr-grid-row--center">
+                                                <div class="fr-col-12 fr-col-md-6 dark-bg">
+                                                    <div class="fr-modal__body">
+                                                        <div class="fr-modal__header">
+                                                            <button class="fr-link--close fr-link" aria-controls="order-confirm">Fermer</button>
+                                                        </div>
+                                                        <div class="fr-modal__content forms">
+                                                            <h1 id="order-confirm-title" class="fr-modal__title mb-2">
+                                                                <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
+                                                                Confirmer la commande n°{{ order.id }}
+                                                            </h1>
+                                                            {{ form_start(form_confirm) }}
+                                                            {{ form_row(form_confirm.id, {attr: {value: order.id}}) }}
+                                                            {% set now = "now"|date("Y-m-d", "Europe/Paris") %}
+                                                            {{ form_row(form_confirm.date, {attr: {value: now}}) }}
+                                                            {{ form_row(form_confirm.begin) }}
+                                                            {{ form_row(form_confirm.end) }}
+                                                            {{ form_row(form_confirm.message) }}
+                                                        </div>
+                                                        <div class="fr-modal__footer">
+                                                            <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--inline-lg">
+                                                                <li>
+                                                                    <button type="button" class="fr-btn btn-danger" aria-controls="order-confirm">
+                                                                        Revenir en arrière
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <button type="submit" class="fr-btn btn-form">
+                                                                        Confirmer la commande
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        {{ form_end(form_confirm) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dialog>
+                                {% elseif order.status == 1 %}
+                                    {{ form_start(form_prepared) }}
+                                        {{ form_widget(form_prepared.id, {attr: {value: order.id}}) }}
+                                        <button class="btn btn-form mg-t-0" data-fr-opened="false" aria-controls="order-prepared">Commande en cours de preparation</button>
+                                    {{ form_end(form_prepared) }}
+                                {% elseif order.status == 2 %}
+                                    {{ form_start(form_ready) }}
+                                        {{ form_widget(form_ready.id, {attr: {value: order.id}}) }}
+                                        <button class="btn btn-form mg-t-0" data-fr-opened="false" aria-controls="order-ready">Commande prête</button>
+                                    {{ form_end(form_ready) }}
+                                {% elseif order.status == 3 %}
+                                    {{ form_start(form_pickup) }}
+                                        {{ form_widget(form_pickup.id, {attr: {value: order.id}}) }}
+                                        <button class="btn btn-form mg-t-0" data-fr-opened="false" aria-controls="order-pickup">Commande récupérée</button>
+                                    {{ form_end(form_pickup) }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ form_start(form_cancel) }}
+                                    {{ form_widget(form_cancel.id, {attr: {value: order.id}}) }}
+                                    <button class="btn btn-form btn-danger mg-t-0" data-fr-opened="false" aria-controls="order-cancel">Annuler la commande</button></td>
+                                {{ form_end(form_cancel) }}
                             {% set i = i + 1 %}
                         </tr>
                     {% endfor %}
