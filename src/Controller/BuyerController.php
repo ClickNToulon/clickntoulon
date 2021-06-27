@@ -55,7 +55,8 @@ class BuyerController extends AbstractController
         return $this->render('buyer/basket.html.twig', [
             'user' => $user,
             'baskets' => $baskets,
-            'shops' => $shops
+            'shops' => $shops,
+            'products' => $products
         ]);
     }
 

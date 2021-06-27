@@ -4,11 +4,45 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'basket'} %}
-    {% set i = 0 %}
+    {% set total = 0 %}
     {% for basket in baskets %}
-        {% if shops is defined %}
-            <h3>Boutique: {{ shops[i].name }}</h3>
-        {% endif %}
+        {% for shop in shops %}
+            {% if basket.shopId == shop.id %}
+                <h3>Boutique: {{ shop.name }}</h3>
+            {% endif %}
+        {% endfor %}
+        {% for product in products %}
+            {% if product.id in basket.productsId %}
+                <div class="row">
+                    <div class="col-4">
+                        <img src="uploads/products/{{ product.image }}" alt="{{ product.name }}" height="150px">
+                    </div>
+                    <div class="col-4">
+                        <b>{{ product.name }}</b>
+                    </div>
+                    <div class="col-2 d-flex">
+                        <div>
+                            <p>Quantity:</p>
+                            <div class="btn-group">
+                                <div id="delete" class="btn btn-sm btn-outline-secondary">-</div>
+                                <div id="quantity" class="btn btn-sm btn-outline-secondary" disabled>{{ basket.quantity }}</div>
+                                <div id="add" class="btn btn-sm btn-outline-secondary">+</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <p>Price:</p>
+                        {% set p = (product.price * basket.quantity) %}
+                        {% set total = total + p %}
+                        <b>{{ p|number_format(2,',',' ') }} €</b>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
     {% endfor %}
+    <div>
+        <b>Total:</b>
+        <b>{{ total|number_format(2,',',' ') }} €</b>
+    </div>
     {% include 'footer.html.twig' %}
 {% endblock %}
