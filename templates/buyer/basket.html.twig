@@ -5,10 +5,12 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'basket'} %}
     {% set i = 0 %}
+    {% set total = 0 %}
     {% for basket in baskets %}
         {% for shop in shops %}
             {% if basket.shopId == shop.id %}
                 <h3>Boutique: {{ shop.name }}</h3>
+                <br>
             {% endif %}
         {% endfor %}
         {% for product in products %}
@@ -30,10 +32,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-2">
+                        <p>Price:</p>
+                        {% set p = (product.price * quantities[i]) %}
+                        {% set total = total + p %}
+                        <b>{{ p|number_format(2,',',' ') }} €</b>
+                    </div>
                 </div>
+
                 {% set i = i+1 %}
             {% endif %}
         {% endfor %}
     {% endfor %}
+    <div>
+        <b>Total:</b>
+        <b>{{ total|number_format(2,',',' ') }} €</b>
+    </div>
     {% include 'footer.html.twig' %}
 {% endblock %}
