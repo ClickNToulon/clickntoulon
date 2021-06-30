@@ -45,6 +45,7 @@ class OrderStatusConfirm extends AbstractType
             ])
             ->add('message', TextareaType::class, [
                 'mapped' => false,
+                'required' => false,
                 'label' => 'Votre message (optionel)',
                 'attr' => [
                     'class' => 'fr-input'

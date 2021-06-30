@@ -37,7 +37,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use App\Controller\MailerController;
 use Symfony\Component\Mailer\MailerInterface;
 
 class SellerController extends AbstractController
@@ -81,16 +80,19 @@ class SellerController extends AbstractController
         $form_confirm->handleRequest($request);
         if($form_confirm->isSubmitted() && $form_confirm->isValid()) {
             $data = $request->request->all('order_status_confirm');
-            dump($data['id']);
             $order = $orderRepository->find($data['id']);
             $order->setTimeBegin(new DateTime($data['begin']))
                 ->setTimeEnd(new DateTime($data['end']))
-                ->setDay(new DateTime($data['date']));
+                ->setDay(new DateTime($data['date']))
+                ->setStatus(1);
             $this->em->persist($order);
             $this->em->flush();
             $title = "Votre commande numéro " . $data['id'] . " a été acceptée par le commerçant";
             $options = [];
             array_push($options, $user->getUsername(), $data['id'], $data['date'], $data['begin'], $data['end']);
+            if(isset($data['message']) && $data['message'] !== null) {
+                array_push($options, $data['message']);
+            }
             (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderaccept');
         }
         $form_prepared = $this->createForm(OrderStatusPrepared::class, null);
@@ -110,6 +112,10 @@ class SellerController extends AbstractController
             $order->setStatus(3);
             $this->em->persist($order);
             $this->em->flush();
+            $title = "Votre commande numéro " . $data['id'] . " est prête chez le commerçant";
+            $options = [];
+            array_push($options, $user->getUsername(), $data['id'], $data['date'], $data['begin'], $data['end']);
+            (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderready');
         }
         $form_pickup = $this->createForm(OrderStatusPickup::class, null);
         $form_pickup->handleRequest($request);
@@ -123,11 +129,18 @@ class SellerController extends AbstractController
         $form_cancel = $this->createForm(OrderStatusCancel::class, null);
         $form_cancel->handleRequest($request);
         if($form_cancel->isSubmitted() && $form_cancel->isValid()) {
-            $data = $request->get('id');
-            $order = $orderRepository->find($data);
+            $data = $request->request->all('order_status_cancel');
+            $order = $orderRepository->find($data['id']);
             $order->setStatus(5);
             $this->em->persist($order);
             $this->em->flush();
+            $title = "Votre commande numéro " . $data['id'] . " a été annulée par le commerçant";
+            $options = [];
+            array_push($options, $user->getUsername(), $data['id']);
+            if(isset($data['message']) && $data['message'] !== null) {
+                array_push($options, $data['message']);
+            }
+            (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderrefuse');
         }
         $orders = $orderRepository->getAllShop($shop->getId());
         $orders_buyers = [];
@@ -406,8 +419,11 @@ class SellerController extends AbstractController
         $form = $this->createForm(EditProduct::class, $product, ['id' => $shop]);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($product);
-            $this->em->flush();
+            $data = $form->getData();
+            dump($data);
+            $product->setName($data);
+            //$this->em->persist($product);
+            //$this->em->flush();
         }
 
         return $this->render("seller/edit_product.html.twig", [

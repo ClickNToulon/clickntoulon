@@ -2581,3 +2581,11 @@ p.payment {
 .edit-product input, .edit-product textarea {
   margin-bottom: 0 !important;
 }
+
+#order_status_cancel_message {
+  width: 568px !important;
+}
+
+.orders, .seller-products, .seller-categories {
+  min-height: 309px;
+}

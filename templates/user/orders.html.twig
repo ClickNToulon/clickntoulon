@@ -47,7 +47,7 @@
                                                 {% endif %}
                                             </div>
                                             <ul class="list-unstyled multi-steps mb-2">
-                                                <li class="{% if order.status != 4 %}is-active orders-active{% else %}orders-active-end{% endif %}">
+                                                <li class="{% if order.status != 5 %}is-active orders-active{% else %}orders-active-end{% endif %}">
                                                     {% if order.status == 0 %}
                                                         Commande en attente de validation par le commerçant
                                                     {% elseif order.status == 1 %}

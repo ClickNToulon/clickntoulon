@@ -109,6 +109,7 @@ class UserController extends AbstractController
      * @Route("/profil/mes-commandes/{id}", name="user_order", requirements={"id": "[0-9\-]*"})
      * @param Order $order
      * @param ShopRepository $shopRepository
+     * @param ProductRepository $productRepository
      * @return Response
      */
     public function order(Order $order, ShopRepository $shopRepository, ProductRepository $productRepository): Response

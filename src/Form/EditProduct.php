@@ -28,6 +28,7 @@ class EditProduct extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'required' => true,
+                'label' => 'Product Name',
                 'attr' => [
                     'class' => 'fr-input mb-0'
                 ]

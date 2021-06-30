@@ -8,7 +8,7 @@
     {% include 'seller/_header.html.twig' %}
     {% include 'seller/_tabs.html.twig' with {'active': 'orders'} %}
 
-    <div class="tab-content container">
+    <div class="tab-content container orders">
         <div class="tab-pane active">
             {% if orders != false %}
                 <table class="table table-light table-striped">
@@ -208,6 +208,7 @@
                                                         </h1>
                                                         {{ form_start(form_cancel) }}
                                                         {{ form_row(form_cancel.id, {attr: {value: order.id}}) }}
+                                                        {{ form_row(form_cancel.message) }}
                                                         <p class="mt-3 text-white mb-0">Vous allez confirmer que vous voulez annuler la commande n°{{ order.id }}.</p>
                                                     </div>
                                                     <div class="fr-modal__footer">

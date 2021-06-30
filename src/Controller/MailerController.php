@@ -18,13 +18,11 @@ use Twig\Loader\FilesystemLoader;
 class MailerController extends AbstractController
 {
     /**
-     * @Route("/email")
      * @param MailerInterface $mailer
      * @param $to
      * @param $subject
      * @param $options
      * @param $template
-     * @return Response
      * @throws LoaderError
      */
     public function send(MailerInterface $mailer, $to, $subject, $options, $template)
@@ -43,9 +41,9 @@ class MailerController extends AbstractController
         $twigBodyRenderer = new BodyRenderer($twig);
 
         $email = (new TemplatedEmail())
-            ->from(new Address("donotreply.tousolidaires@google.com", "TouSolidaires"))
+            ->from(new Address("donotreply.tousolidaires@gmail.com", "TouSolidaires"))
             ->to(new Address($to))
-            ->replyTo(new Address('q.boitel2002@gmail.com', "TouSolidaires"))
+            ->replyTo(new Address('tousolidaires@yncrea.fr', "TouSolidaires"))
             ->subject($subject)
             ->htmlTemplate('emails/' . $template . '.html.twig')
             ->context([
