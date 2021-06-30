@@ -44,12 +44,10 @@
                     </div>
                     {% endif %}
                 {% endfor %}
-            </div>
         {% endfor %}
     </div>
     <div class="fr-container fr-container--fluid pb-4 text-center">
-        <b>Total :</b>
-        <b>{{ total|number_format(2,',',' ') }} €</b>
+        <b>Total : {{ total|number_format(2,',',' ') }} €</b>
     </div>
     {% include 'footer.html.twig' %}
 {% endblock %}
