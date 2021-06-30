@@ -6,46 +6,49 @@
     {% include 'navbar.html.twig' with {'active': 'basket'} %}
     {% set i = 0 %}
     {% set total = 0 %}
-    {% for basket in baskets %}
-        {% for shop in shops %}
-            {% if basket.shopId == shop.id %}
-                <h3>Boutique: {{ shop.name }}</h3>
-                <br>
-            {% endif %}
-        {% endfor %}
-        {% for product in products %}
-            {% if product.id in basket.productsId %}
-                <div class="row">
-                    <div class="col-4">
-                        <img src="{{ asset(["uploads/products/",product.image]|join ) }}" alt="{{ product.name }}" height="150px">
-                    </div>
-                    <div class="col-4">
-                        <b>{{ product.name }}</b>
-                    </div>
-                    <div class="col-2 d-flex">
-                        <div>
-                            <p>Quantity:</p>
-                            <div class="btn-group">
-                                <div id="delete" class="btn btn-sm btn-outline-secondary">-</div>
-                                <div id="quantity" class="btn btn-sm btn-outline-secondary" disabled>{{ quantities[i] }}</div>
-                                <div id="add" class="btn btn-sm btn-outline-secondary">+</div>
+    <div class="baskets">
+        {% for basket in baskets %}
+            <div class="fr-container fr-container--fluid pt-2 pb-2 text-center">
+                {% for shop in shops %}
+                    {% if basket.shopId == shop.id %}
+                        <h3>Boutique : {{ shop.name }}</h3>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% for product in products %}
+                {% if product.id in basket.productsId %}
+                    <div class="fr-container fr-container--fluid pb-3">
+                        <div class="fr-grid-row fr-grid-row--gutters">
+                            <div class="fr-col-4 text-center">
+                                <img src="{{ asset(["uploads/products/",product.image]|join ) }}" alt="{{ product.name }}" height="150px">
+                            </div>
+                            <div class="fr-col-4 text-center">
+                                <b>{{ product.name }}</b>
+                            </div>
+                            <div class="fr-col-2 d-flex text-center">
+                                <div>
+                                    <p>Quantité</p>
+                                    <div class="quantity">
+                                        <input type="number" name="quantity" class="quantity-input" value="{{ quantities[i] }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fr-col-2 text-center">
+                                <p>Prix</p>
+                                {% set p = (product.price * quantities[i]) %}
+                                {% set total = total + p %}
+                                <b>{{ p|number_format(2,',',' ') }} €</b>
                             </div>
                         </div>
+                        {% set i = i+1 %}
                     </div>
-                    <div class="col-2">
-                        <p>Price:</p>
-                        {% set p = (product.price * quantities[i]) %}
-                        {% set total = total + p %}
-                        <b>{{ p|number_format(2,',',' ') }} €</b>
-                    </div>
-                </div>
-
-                {% set i = i+1 %}
-            {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
         {% endfor %}
-    {% endfor %}
-    <div>
-        <b>Total:</b>
+    </div>
+    <div class="fr-container fr-container--fluid pb-4 text-center">
+        <b>Total :</b>
         <b>{{ total|number_format(2,',',' ') }} €</b>
     </div>
     {% include 'footer.html.twig' %}

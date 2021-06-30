@@ -50,7 +50,7 @@
                                 <p class="deal_price product-price">
                                     {{ product.price | format_currency('EUR') }}
                                 </p>
-                                <p class="product-price">
+                                <p class="product-price text-red">
                                     {{ product.dealprice | format_currency('EUR') }}
                                 </p>
                             </div>
@@ -72,15 +72,17 @@
                         {{ form_end(form) }}
 						<br>
 						<h4>Catégories</h4>
-						<div class="categories-grid">
+						<ul class="fr-tags-group categories">
                             {% if categories is not empty %}
                                 {% for category in categories %}
-                            	<span class="badge bg-secondary rounded-pill">{{ category }}</span>
+                            	<li>
+                                   <span class="fr-tag">{{ category }}</span>
+                                </li>
                                 {% endfor %}
                             {% else %}
                             <p>Le produit n'a pas de catégorie</p>
                             {% endif %}
-						</div>
+						</ul>
                     </div>
                 </div>
             </div>

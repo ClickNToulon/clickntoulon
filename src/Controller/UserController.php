@@ -224,6 +224,8 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Vos informations ont bien été mises à jour');
 
             return [$form, $this->redirectToRoute('user_edit')];
+        } else if($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('warning', 'Problème rencontré');
         }
 
         return [$form, null];

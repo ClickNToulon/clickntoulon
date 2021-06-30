@@ -1148,7 +1148,7 @@ ul.admin-infos {
 }
 
 nav .nav-item .dropdown-menu {
-  border-radius: 10px;
+  border-radius: 0.25rem !important;
   background-color: #ffffff !important;
 }
 
@@ -1323,14 +1323,9 @@ div.card-product {
   border: none !important;
 }
 
-.categories-grid {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(25px, 1fr)) !important;
-  grid-gap: calc(2 * 8px);
-  grid-auto-flow: dense;
-  width: 100%;
+.categories .fr-tag {
+  background-color: #F5b027;
+  color: #FFF;
 }
 
 div.card-order {
@@ -2588,4 +2583,32 @@ p.payment {
 
 .orders, .seller-products, .seller-categories {
   min-height: 309px;
+}
+
+.fr-footer__content-link {
+  border-radius: 0.25rem !important;
+}
+
+.baskets {
+  min-height: 313px !important;
+}
+
+@keyframes fadeOut {
+  from {
+    display: block;
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    display: none !important;
+  }
+}
+
+.fr-alert {
+  display: none !important;
+}
+
+.fr-alert.show {
+  display: block !important;
+  animation: fadeOut 10.1s ease;
 }

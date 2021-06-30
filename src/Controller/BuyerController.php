@@ -30,11 +30,11 @@ class BuyerController extends AbstractController
     /**
      * @Route("/panier", name="basket_index")
      * @IsGranted("ROLE_USER")
-     * @param ShopRepository $shop
-     * @param ProductRepository $product
+     * @param ShopRepository $shopRepository
+     * @param ProductRepository $productRepository
      * @return Response
      */
-    public function basket(ShopRepository $shop, ProductRepository $product): Response
+    public function basket(ShopRepository $shopRepository, ProductRepository $productRepository): Response
     {
         $user = $this->getUser();
         $baskets = $this->repository->findByUser($user->getId());
@@ -42,12 +42,12 @@ class BuyerController extends AbstractController
         $products = [];
         $quantities = [];
         foreach ($baskets as $b) {
-            $shop_info = $shop->find($b->getShopId());
+            $shop_info = $shopRepository->find($b->getShopId());
             array_push($shops, $shop_info);
-            $products_Id = explode(";", $b->getProductsId());
-            $quantities = explode(";", $b->getQuantity());
-            foreach ($products_Id as $p) {
-                array_push($products, $product->find($p));
+            $products_id = explode(";", $b->getProductsId());
+            array_push($quantities, $b->getQuantity());
+            foreach ($products_id as $p) {
+                array_push($products, $productRepository->find($p));
             }
         }
         return $this->render('buyer/basket.html.twig', [

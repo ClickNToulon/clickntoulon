@@ -2,9 +2,9 @@ function quantityInput(element, options) {
     const spinner = element;
 
     const defaultOptions = {
-        min: 1,
+        min: 0,
         max: 99,
-        value: 1,
+        value: 0,
     };
 
     options = Object.assign({}, defaultOptions, options);
@@ -87,6 +87,10 @@ const numberInputs = document.querySelectorAll(".quantity");
 
 if (numberInputs.length > 0) {
     numberInputs.forEach((el, index) => {
-        quantityInput(el);
+        quantityInput(el, {
+            min: 0,
+            max: 99,
+            value: el.firstElementChild.value
+        });
     });
 }
