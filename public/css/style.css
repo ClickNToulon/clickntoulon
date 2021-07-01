@@ -36,6 +36,18 @@ html {
   width: 100%;
 }
 
+html::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+html::-webkit-scrollbar-thumb {
+  background: #F5b027;
+}
+html::-webkit-scrollbar-track {
+  background: #EAEDED;
+}
+
+
 .about-container p,
 .about-container ul,
 .about-container ol {
@@ -2611,4 +2623,54 @@ p.payment {
 .fr-alert.show {
   display: block !important;
   animation: fadeOut 10.1s ease;
+}
+
+.pagination {
+  background-color: transparent !important;
+  margin-top: 20px !important;
+}
+
+.pagination-next, .pagination-previous {
+  background-color: transparent !important;
+  border-color: #F5b027 !important;
+  color: #F5b027 !important;
+  font-weight: bold !important;
+  border-radius: 0.25rem !important;
+}
+
+a.pagination-next:hover, a.pagination-previous:hover {
+  background-color: #F5b027 !important;
+  color: white !important;
+}
+
+.pagination-link {
+  background-color: transparent !important;
+  color: #F5b027 !important;
+  border-color: #F5b027 !important;
+  font-weight: bold !important;
+  border-radius: 0.25rem !important;
+}
+
+a.pagination-link:hover {
+  background-color: #F5b027 !important;
+  color: white !important;
+}
+
+.pagination-link.is-current {
+  background-color: #F5b027 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.pagination-link.is-current:hover {
+  color: white !important;
+}
+
+@media screen and (min-width: 769px), print{
+  .pagination {
+    justify-content: center !important;
+  }
+  .pagination-list {
+    flex-grow: inherit !important;
+  }
 }

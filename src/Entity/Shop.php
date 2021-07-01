@@ -20,6 +20,23 @@ class Shop
     const Tag = [
         0 => "Boulangerie - Pâtisserie",
         1 => "Boucher",
+        2 => "Bijouterie - Horlogerie",
+        3 => "Épicerie",
+        4 => "Quincaillerie",
+        5 => "Librairie",
+        6 => "Musée",
+        7 => "Fleuriste",
+        8 => "Pharmacie",
+        9 => "Poisonnerie",
+        10 => 'Fromagerie',
+        11 => 'Chocolaterie',
+        12 =>'Restaurant',
+        13 => "Brasserie",
+        14 => "Station-Service",
+        15 => "Crèmerie",
+        16 => "Droguerie",
+        17 => "Papeterie",
+        18 => "Friperie"
     ];
 
     /**
