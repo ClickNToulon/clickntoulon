@@ -9,6 +9,7 @@ use App\Entity\Category;
 use App\Entity\Payment;
 use App\Entity\Product;
 use App\Form\AddProductBasketType;
+use App\Form\UpdateProductQuantityBasket;
 use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
@@ -99,6 +100,7 @@ class ProductController extends AbstractController
      * @Route("/produits/{id}", name="product_show")
      * @param Product $product
      * @param ShopRepository $shopRepository
+     * @param CategoryRepository $categoryRepository
      * @return Response
      * @throws NonUniqueResultException
      */
@@ -108,7 +110,6 @@ class ProductController extends AbstractController
         $shop = $shopRepository->findById($product->getShopId());
         $payments_shop = $shop->getPayments();
         $payments_icons = new Payment();
-        $categories_entity = new Category();
         $payments = [];
         foreach ($payments_shop as $k => $v) {
             $payment_shop = $v->getId();
@@ -121,12 +122,12 @@ class ProductController extends AbstractController
             $categories[] = $category->getName();
         }
         $form = $this->createForm(AddProductBasketType::class, new Basket());
-        if ($user != null) :
-        $baskets = $this->basketRepository->findByUser($user->getId());
-        $quantity = $this->checkBaskets($baskets, $product);
-        else:
+        if ($user != null) {
+            $baskets = $this->basketRepository->findByUser($user->getId());
+            $quantity = $this->checkBaskets($baskets, $product);
+        } else {
             $quantity = 1;
-        endif;
+        }
         return $this->render('product/show.html.twig', [
             'form' => $form->createView(),
             'product' => $product,

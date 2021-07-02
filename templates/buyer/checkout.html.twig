@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Passez la commande - TouSolidaires' %}
+
+{% block body %}
+    {% include 'navbar.html.twig' with {'active': 'basket'} %}
+    <div class="fr-container fr-container--fluid py-5 order_checkout">
+        <main>
+            <div class="row g-5">
+                <div class="col-md-5 col-lg-4 order-md-last order_info">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3 px-1">
+                        <span class="text-black">Votre panier</span>
+                        <span class="fr-tag bg-yellow text-white">{{ total_products }}</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                        {% set total = 0 %}
+                        {% set i = 0 %}
+                        {% for product in products %}
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div class="product-description">
+                                    <h6 class="my-0">{{ product.name }}</h6>
+                                    <small class="text-muted">{{ product.description | length > 70 ? product.description|slice(0, 70) ~ '...' : product.description }}</small>
+                                </div>
+                                <div>
+                                    <span class="badge bg-yellow text-white">x{{ quantities[i] }}&nbsp;</span>
+                                    <span class="text-black">{{ product.price |number_format(2,',',' ') }} €</span>
+                                </div>
+                            </li>
+                            {% set p = product.price * quantities[i] %}
+                            {% set total = total + p %}
+                            {% set i = i + 1 %}
+                        {% endfor %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="text-black">Total (Euro)</span>
+                            <strong>{{ total | number_format(2,',',' ') }} €</strong>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-7 col-lg-8">
+                    <h4 class="mb-3">Informations sur le retrait de la commande</h4>
+                    {{ form_start(form) }}
+                    {{ form_row(form.shop_id, {attr: {value: shop.id}}) }}
+                    <label for="create_order_day" class="text-black">Date de retrait souhaitée</label>
+                    {% set now = "now"|date("Y-m-d", "Europe/Paris") %}
+                    {{ form_widget(form.day, {attr: {value: now}}) }}
+                    <div class="buttons">
+                        <button class="btn btn-form btn-no-mt" type="submit">Commander</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </main>
+    </div>
+
+    {% include 'footer.html.twig' %}
+{% endblock %}

@@ -1333,6 +1333,13 @@ div.card-product {
   height: 100% !important;
   background-color: #EAEDED !important;
   border: none !important;
+  display: block;
+  justify-content: normal !important;
+  align-items: normal !important;
+}
+
+.shop-info-details figure.fr-content-media {
+  margin: 0 !important;
 }
 
 .categories .fr-tag {
@@ -1564,6 +1571,11 @@ div.card-body.card-body-shop {
 div.card-body.card-body-product {
   align-items: flex-start !important;
   justify-content: left !important;
+  height: 100%;
+}
+
+.card-body-product .card-column {
+  height: 100% !important;
 }
 
 .card-column {
@@ -2672,5 +2684,48 @@ a.pagination-link:hover {
   }
   .pagination-list {
     flex-grow: inherit !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 }
+
+.bg-yellow {
+  background-color: #F5b027 !important;
+}
+
+.basket_info {
+  align-items: center !important;
+  justify-content: space-between;
+}
+
+.order_info .fr-tag {
+  display: inline-block !important;
+  padding: .35em .65em !important;
+  font-size: .75em !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: #fff !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  vertical-align: baseline !important;
+  border-radius: .25rem !important;
+}
+
+.order_info div.product-description {
+  width: 290px !important;
+  text-align: justify;
+}
+
+.order_checkout {
+  min-height: 567px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start !important;
+  width: 100%;
+  flex-direction: row;
+}
+
+.order_checkout main {
+  width: 100% !important;
+}
+
