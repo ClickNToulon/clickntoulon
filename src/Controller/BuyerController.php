@@ -49,12 +49,15 @@ class BuyerController extends AbstractController
         $products = [];
         $quantities = [];
         $products_id = [];
+        $b_products_id = [];
         foreach ($baskets as $b) {
             dump($b->getProductsId());
             $shop_info = $shopRepository->find($b->getShopId());
             $shops[$shop_info->getId()] = $shop_info;
             $products_id = explode(",", $b->getProductsId());
-            $quantities = explode(",", $b->getQuantity());
+            $b_products_id[$b->getId()] = explode(",", $b->getProductsId());
+            dump($b_products_id);
+            $quantities[$b->getId()] = explode(",", $b->getQuantity());
             foreach ($products_id as $p) {
                 array_push($products, $productRepository->find($p));
             }
@@ -73,6 +76,7 @@ class BuyerController extends AbstractController
             'shops' => $shops,
             'products' => $products,
             'quantities' => $quantities,
+            'b_products_id' => $b_products_id,
             //'form' => $form->createView()
         ]);
     }

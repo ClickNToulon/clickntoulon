@@ -12,75 +12,57 @@
                 <h3>Vous n'avez aucun article dans votre panier</h3>
             </div>
         {% else %}
-        {% for basket in baskets %}
-            <div class="fr-container fr-container--fluid pt-4 pb-2 text-center">
-                {% for shop in shops %}
-                    {% if basket.shopId == shop.id %}
-                        <div class="fr-grid-row fr-grid-row--gutters">
-                            <div class="fr-col-6">
-                                <h3>Boutique : {{ shop.name }}</h3>
-                            </div>
-                            <div class="fr-col-6">
-                                <a href="{{ path('basket_checkout', {id: shop.id}) }}"><button class="btn-form btn-no-mt">Passez la commande</button></a>
+            {% for basket in baskets %}
+                {% set total_products = b_products_id[basket.id] | length %}
+                <div class="fr-container fr-container--fluid py-5 order_basket">
+                    <main>
+                        <div class="row g-5">
+                            <div class="col-12 order-md-last order_info">
+                                <h4 class="d-flex justify-content-between align-items-center mb-3 px-1">
+                                    {% for shop in shops %}
+                                        {% if basket.shopId == shop.id %}
+                                            <span class="text-black">{{ shop.name }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <span class="fr-tag bg-yellow text-white">{{ total_products }}</span>
+                                </h4>
+                                <ul class="list-group mb-3">
+                                    {% set total = 0 %}
+                                    {% set i = 0 %}
+                                    {% for product in products %}
+                                        {% if product.id in b_products_id[basket.id] %}
+                                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                                <div class="product-description basket_product">
+                                                    <h6 class="my-0">{{ product.name }}</h6>
+                                                    <small class="text-muted">{{ product.description | length > 200 ? product.description|slice(0, 200) ~ '...' : product.description }}</small>
+                                                </div>
+                                                <div>
+                                                    <span class="badge bg-yellow text-white">x{{ quantities[basket.id][i] }}</span>
+                                                    <span class="text-black">{{ product.price |number_format(2,',',' ') }} €</span>
+                                                </div>
+                                            </li>
+                                            {% set p = product.price * quantities[basket.id][i] %}
+                                            {% set total = total + p %}
+                                            {% set i = i + 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span class="text-black">Total (Euro)</span>
+                                        <strong>{{ total | number_format(2,',',' ') }} €</strong>
+                                    </li>
+                                    <li class="d-flex order_confirm">
+                                        {% for shop in shops %}
+                                            {% if basket.shopId == shop.id %}
+                                                <a href="{{ path('basket_checkout', {id: shop.id}) }}"><button class="btn-form btn-no-mt">Passez la commande</button></a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-            {% for product in products %}
-                {% if product.id in basket.productsId %}
-                    <div class="fr-container fr-container--fluid pb-3">
-                        <div class="fr-grid-row fr-grid-row--gutters">
-                            <div class="fr-col-4 text-center">
-                                <img src="{{ asset("uploads/products/" ~ product.image ) }}" alt="{{ product.name }}" height="150px">
-                            </div>
-                            <div class="fr-col-4 text-center">
-                                <b>{{ product.name }}</b>
-                            </div>
-                            <div class="fr-col-2 d-flex text-center">
-                                <div>
-                                    <p>Quantité</p>
-                                    <div class="btn-group">
-                                        <button id="delete_{{ i }}" class="btn btn-sm btn-outline-secondary">-</button>
-                                        <input id="quantity_{{ i }}" class="btn btn-sm btn-outline-secondary" value="{{ quantities[i] }}">
-                                        <button id="add_{{ i }}" class="btn btn-sm btn-outline-secondary">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="fr-col-2 text-center">
-                                <p>Prix</p>
-                                {% set p = product.price * quantities[i] %}
-                                {% set total = total + p %}
-                                <b id="price_{{ i }}">{{ p|number_format(2,',',' ') }} €</b>
-                            </div>
-                        </div>
-                        <script>
-                            const input_{{ i }} = document.querySelector("#quantity_{{ i }}");
-                            const delete_btn_{{ i }} = document.querySelector("#delete_{{ i }}");
-                            const add_{{ i }} = document.querySelector("#add_{{ i }}");
-                            add_{{ i }}.onclick = function () {
-                                const value = Number(input_{{ i }}.value) + 1
-                                input_{{ i }}.value = value
-                                let p = {{ product.price }} * input_{{ i }}.value
-                                const price_{{ i }} = document.querySelector("#price_{{ i }}")
-                                price_{{ i }}.innerHTML = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(p)
-                            }
-                            delete_btn_{{ i }}.onclick = function () {
-                                const value = Number(input_{{ i }}.value) - 1
-                                input_{{ i }}.value = value
-                                let p = {{ product.price }} * input_{{ i }}.value
-                                const price_{{ i }} = document.querySelector("#price_{{ i }}")
-                                price_{{ i }}.innerHTML = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(p)
-                            }
-                        </script>
-                        {% set i = i+1 %}
-                    </div>
-                    {% endif %}
-                {% endfor %}
-        {% endfor %}
-        <div class="fr-container fr-container--fluid pb-4 text-center">
-            <b>Total : {{ total|number_format(2,',',' ') }} €</b>
-        </div>
+                    </main>
+                </div>
+            {% endfor %}
         {% endif %}
     </div>
     {% include 'footer.html.twig' %}

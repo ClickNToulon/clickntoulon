@@ -2716,6 +2716,10 @@ a.pagination-link:hover {
   text-align: justify;
 }
 
+.order_info div.product-description.basket_product {
+  width: 1250px !important;
+}
+
 .order_checkout {
   min-height: 567px !important;
   display: flex !important;
@@ -2725,7 +2729,23 @@ a.pagination-link:hover {
   flex-direction: row;
 }
 
-.order_checkout main {
+.order_basket {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start !important;
+  width: 100%;
+  flex-direction: row;
+  padding: 2rem 0 !important;
+  height: auto !important;
+}
+
+.order_checkout main, .order_basket main {
   width: 100% !important;
 }
 
+.order_confirm {
+  align-items: end !important;
+  justify-content: flex-end;
+  padding: .5rem 1rem !important;
+  padding-right: 0 !important;
+}
