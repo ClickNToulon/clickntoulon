@@ -18,6 +18,7 @@ use App\Form\OrderStatusPrepared;
 use App\Form\OrderStatusReady;
 use App\Form\ProductType;
 use App\Form\ShopDeleteForm;
+use App\Form\ShopTimeTableUpdate;
 use App\Form\ShopType;
 use App\Form\ShopUpdateForm;
 use App\Repository\CategoryRepository;
@@ -25,6 +26,7 @@ use App\Repository\OrderRepository;
 use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ShopRepository;
+use App\Repository\TimeTableRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use DateTimeZone;
@@ -249,7 +251,7 @@ class SellerController extends AbstractController
      * @param PaymentRepository $paymentRepository
      * @return Response
      */
-    public function edit(Shop $shop, Request $request, PaymentRepository $paymentRepository): Response
+    public function edit(Shop $shop, Request $request, PaymentRepository $paymentRepository, TimeTableRepository $timeTableRepository): Response
     {
         $user = $this->getUser();
         $form_update = $this->createForm(ShopUpdateForm::class, $shop);
@@ -258,6 +260,10 @@ class SellerController extends AbstractController
 
         $form_delete = $this->createForm(ShopDeleteForm::class, $shop);
         $form_delete->handleRequest($request);
+
+        $shop_timetable = $timeTableRepository->findById($shop);
+        $form_timetable = $this->createForm(ShopTimeTableUpdate::class, $shop_timetable);
+        $form_timetable->handleRequest($request);
 
         if ($form_update->isSubmitted() && $form_update->isValid()) {
             $payments_add = $request->request->all('payment');
@@ -287,6 +293,12 @@ class SellerController extends AbstractController
             $this->addFlash('success', 'Votre boutique a bien été modifiée');
         }
 
+        if($form_timetable->isSubmitted() && $form_timetable->isValid()) {
+            $data = $form_timetable->getData();
+            $this->em->persist($data);
+            $this->em->flush();
+        }
+
         if ($form_delete->isSubmitted() && $form_delete->isValid()) {
             $this->em->remove($shop);
             $this->em->flush();
@@ -298,6 +310,7 @@ class SellerController extends AbstractController
             'user' => $user,
             'form_update' => $form_update->createView(),
             'form_delete' => $form_delete->createView(),
+            'form_timetable' => $form_timetable->createView(),
             'payments' => $payments
         ]);
 
@@ -421,7 +434,6 @@ class SellerController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             dump($data);
-            $product->setName($data);
             //$this->em->persist($product);
             //$this->em->flush();
         }

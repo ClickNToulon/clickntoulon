@@ -56,7 +56,9 @@
         {{ form_start(form_profile, {attr: {class: 'user-modify'}}) }}
             <h3 class="user-modify-title"><i class="bi-person-lines-fill"></i> Mes informations</h3>
             <div class="forms form-modify">
-                <i class="left">Tous les champs doivent être remplis</i>
+                <div class="fr-alert fr-alert--info fr-alert--sm">
+                    <p>Tous les champs doivent être remplis</p>
+                </div>
                 <div class="row first">
                     <div class="col-12 form-row">
                         {{ form_row(form_profile.username) }}

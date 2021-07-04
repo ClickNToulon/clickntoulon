@@ -31,7 +31,7 @@
                     </li>
                 {% endif %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle show" id="dropdown-user" href="" data-bs-toggle="dropdown" aria-expanded="true"><i class="bi-person"></i>
+                    <a class="nav-link dropdown-toggle show" id="dropdown-user" href="{{ path('user_edit') }}" data-bs-toggle="dropdown" aria-expanded="true"><i class="bi-person"></i>
                         {% if user is defined and user != null and is_granted('ROLE_ADMIN') %}
                             {{ user.username }} <span class="admin-badge badge-header"><i class="fad fa-badge-check"></i></span>
                         {% elseif user is defined and user != null and is_granted('ROLE_USER') %}

@@ -34,7 +34,8 @@
                             <p class="timetable-day-p">
                                 Matin : {% if timetable.tueamop == null and timetable.tueamcl == null %} Fermé {% else %}{{ timetable.tueamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.tueamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
-                            <p class="timetable-day-p">Après-midi : {% if timetable.tuepmop == null and timetable.tuepmcl == null %} Fermé {% else %}{{ timetable.tuepmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.tuepmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                            <p class="timetable-day-p">
+                                Après-midi : {% if timetable.tuepmop == null and timetable.tuepmcl == null %} Fermé {% else %}{{ timetable.tuepmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.tuepmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
                         </div>
                         <div class="timetable-day">
@@ -42,7 +43,8 @@
                             <p class="timetable-day-p">
                                 Matin : {% if timetable.wedamop == null and timetable.wedamcl == null %} Fermé {% else %}{{ timetable.wedamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.wedamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
-                            <p class="timetable-day-p">Après-midi : {% if timetable.wedpmop == null and timetable.wedpmcl == null %} Fermé {% else %}{{ timetable.wedpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.wedpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                            <p class="timetable-day-p">
+                                Après-midi : {% if timetable.wedpmop == null and timetable.wedpmcl == null %} Fermé {% else %}{{ timetable.wedpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.wedpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
                         </div>
                         <div class="timetable-day">
@@ -50,7 +52,8 @@
                             <p class="timetable-day-p">
                                 Matin : {% if timetable.thuamop == null and timetable.thuamcl == null %} Fermé {% else %}{{ timetable.thuamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.thuamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
-                            <p class="timetable-day-p">Après-midi : {% if timetable.thupmop == null and timetable.thupmcl == null %} Fermé {% else %}{{ timetable.thupmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.thupmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                            <p class="timetable-day-p">
+                                Après-midi : {% if timetable.thupmop == null and timetable.thupmcl == null %} Fermé {% else %}{{ timetable.thupmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.thupmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
                         </div>
                         <div class="timetable-day">
@@ -58,7 +61,8 @@
                             <p class="timetable-day-p">
                                 Matin : {% if timetable.friamop == null and timetable.friamcl == null %} Fermé {% else %}{{ timetable.friamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.friamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
-                            <p class="timetable-day-p">Après-midi : {% if timetable.fripmop == null and timetable.fripmcl == null %} Fermé {% else %}{{ timetable.fripmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.fripmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                            <p class="timetable-day-p">
+                                Après-midi : {% if timetable.fripmop == null and timetable.fripmcl == null %} Fermé {% else %}{{ timetable.fripmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.fripmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
                         </div>
                         <div class="timetable-day">
@@ -66,7 +70,8 @@
                             <p class="timetable-day-p">
                                 Matin : {% if timetable.satamop == null and timetable.satamcl == null %} Fermé {% else %}{{ timetable.satamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.satamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
-                            <p class="timetable-day-p">Après-midi : {% if timetable.satpmop == null and timetable.satpmcl == null %} Fermé {% else %}{{ timetable.satpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.satpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                            <p class="timetable-day-p">
+                                Après-midi : {% if timetable.satpmop == null and timetable.satpmcl == null %} Fermé {% else %}{{ timetable.satpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.satpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
                         </div>
                         <div class="timetable-day">
@@ -74,7 +79,8 @@
                             <p class="timetable-day-p">
                                 Matin : {% if timetable.sunamop == null and timetable.sunamcl == null %} Fermé {% else %}{{ timetable.sunamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.sunamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
-                            <p class="timetable-day-p">Après-midi : {% if timetable.sunpmop == null and timetable.sunpmcl == null %} Fermé {% else %}{{ timetable.sunpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.sunpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                            <p class="timetable-day-p">
+                                Après-midi : {% if timetable.sunpmop == null and timetable.sunpmcl == null %} Fermé {% else %}{{ timetable.sunpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.sunpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
                             </p>
                         </div>
                         {% endif %}

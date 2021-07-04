@@ -24,7 +24,7 @@ class AddProductBasketType extends AbstractType
             ->add('quantity', NumberType::class, [
                 "required" => true,
                 "attr" => [
-                    "class" => "fr-input form-control"
+                    "class" => "fr-input"
                 ]
             ])
             ->add("add", SubmitType::class, [

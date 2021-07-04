@@ -533,14 +533,6 @@ footer a {
   margin-left: auto;
 }
 
-.form-modify i.left {
-  display: flex !important;
-  align-self: baseline !important;
-  justify-self: flex-start !important;
-  margin-left: 20px;
-  color: #FFF;
-}
-
 .form-modify div.row {
   width: 100% !important;
   max-width: 100% !important;
@@ -1340,6 +1332,10 @@ div.card-product {
 
 .shop-info-details figure.fr-content-media {
   margin: 0 !important;
+}
+
+.categories {
+  margin-top: 5px !important;
 }
 
 .categories .fr-tag {
@@ -2748,4 +2744,18 @@ a.pagination-link:hover {
   justify-content: flex-end;
   padding: .5rem 1rem !important;
   padding-right: 0 !important;
+}
+
+.form-time .fr-alert, .form-modify .fr-alert {
+  display: block !important;
+  color: white !important;
+  text-align: justify !important;
+}
+
+.form-time .row {
+  margin-top: 0 !important;
+}
+
+.form-time .row.first{
+  margin-top: 20px !important;
 }

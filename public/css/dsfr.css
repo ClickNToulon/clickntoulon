@@ -12673,7 +12673,7 @@ input.fr-toggle__input:disabled + label::after {
   }
 
   .fr-btn:not(a):not(:disabled):hover, a.fr-btn[href]:hover {
-    background-image: linear-gradient(0deg, var(--color-hover), var(--color-hover));
+    /*background-image: linear-gradient(0deg, var(--color-hover), var(--color-hover));*/
   }
 
   .fr-btn:not(a):not(:disabled):active, a.fr-btn[href]:active {

@@ -45,25 +45,29 @@
                     <div class="pl-5 w-100 h-100">
                         <h4>Prix à l'unité</h4>
                         {% if product.dealprice != null %}
-                            <div class="prices">
-                                <p class="deal_price product-price">
-                                    {{ product.price | format_currency('EUR') }}
-                                </p>
-                                <p class="product-price text-red">
-                                    {{ product.dealprice | format_currency('EUR') }}
-                                </p>
-                            </div>
+                            <ul class="fr-tags-group fr-card__detail">
+                                <li>
+                                    <span class="fr-tag deal_price product-price">{{ product.price | format_currency('EUR') }}</span>
+                                </li>
+                                <li>
+                                    <span class="fr-tag product-price tag-danger">{{ product.dealprice | format_currency('EUR') }}</span>
+                                </li>
+                            </ul>
                         {% else %}
-                            <p class="product-price">
-                                {{ product.price | format_currency('EUR') }}
-                            </p>
+                            <ul class="fr-tags-group fr-card__detail">
+                                <li>
+                                    <span class="fr-tag product-price">
+                                        {{ product.price | format_currency('EUR') }}
+                                    </span>
+                                </li>
+                            </ul>
                         {% endif %}
                         {% if product.dealStart != null and product.dealEnd != null %}
 							{% set dealstart = product.dealStart | format_datetime(pattern="dd'/'MM'/'yy 'à' HH'h'mm", locale="fr") %}
                             {% set dealend = product.dealEnd | format_datetime(pattern="dd'/'MM'/'yy 'à' HH'h'mm", locale="fr") %}
                             <span>La promotion commence le {{ dealstart }} et se termine le {{ dealend }}</span>
                         {% endif %}
-                        {{ form_start(form, {'method': 'POST', 'action': path('basket_add'), 'attr': {'class': 'form-add-product'}}) }}
+                        {{ form_start(form, {'method': 'POST', 'attr': {'class': 'form-add-product'}}) }}
                             {{ form_row(form.products_id, {'value': product.id}) }}
                             {{ form_row(form.shop_id, {'value': shop.id}) }}
                             {{ form_row(form.quantity, {'value': quantity}) }}

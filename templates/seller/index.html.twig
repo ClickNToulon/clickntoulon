@@ -44,10 +44,9 @@
                                                                 Confirmer la commande n°{{ order.id }}
                                                             </h1>
                                                             {{ form_start(form_confirm) }}
-                                                            <input type="hidden" name="_token" value="{{ csrf_token('some_key') }}">
                                                             {{ form_row(form_confirm.id, {attr: {value: order.id}}) }}
-                                                            {% set now = "now"|date("Y-m-d", "Europe/Paris") %}
-                                                            {{ form_row(form_confirm.date, {attr: {value: now}}) }}
+                                                            {% set order_date = order.day|date("Y-m-d", "Europe/Paris") %}
+                                                            {{ form_row(form_confirm.date, {attr: {value: order_date}}) }}
                                                             {{ form_row(form_confirm.begin) }}
                                                             {{ form_row(form_confirm.end) }}
                                                             {{ form_row(form_confirm.message) }}
