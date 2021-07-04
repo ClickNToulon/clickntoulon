@@ -36,18 +36,35 @@
                                                     <h6 class="my-0">{{ product.name }}</h6>
                                                     <small class="text-muted">{{ product.description | length > 200 ? product.description|slice(0, 200) ~ '...' : product.description }}</small>
                                                 </div>
-                                                <div>
+                                                <div class="basket_product_price">
                                                     <span class="badge bg-yellow text-white">x{{ quantities[basket.id][i] }}</span>
-                                                    <span class="text-black">{{ product.price |number_format(2,',',' ') }} €</span>
+                                                    {% if product.dealprice != null %}
+                                                        <div class="prices">
+                                                            <span class="text-black product-price deal_price">
+                                                                {{ product.price |number_format(2,',',' ') }} €
+                                                            </span>
+                                                            <span class="text-red">
+                                                                {{ product.dealprice |number_format(2,',',' ') }} €
+                                                            </span>
+                                                        </div>
+                                                    {% else %}
+                                                        <span class="text-black">
+                                                            {{ product.price |number_format(2,',',' ') }} €
+                                                        </span>
+                                                    {% endif %}
                                                 </div>
                                             </li>
-                                            {% set p = product.price * quantities[basket.id][i] %}
+                                            {% if product.dealprice != null %}
+                                                {% set p = product.dealprice * quantities[basket.id][i] %}
+                                            {% else %}
+                                                {% set p = product.price * quantities[basket.id][i] %}
+                                            {% endif %}
                                             {% set total = total + p %}
                                             {% set i = i + 1 %}
                                         {% endif %}
                                     {% endfor %}
                                     <li class="list-group-item d-flex justify-content-between">
-                                        <span class="text-black">Total (Euros)</span>
+                                        <span class="text-black">Total (Euro)</span>
                                         <strong>{{ total | number_format(2,',',' ') }} €</strong>
                                     </li>
                                     <li class="d-flex order_confirm">

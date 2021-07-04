@@ -146,8 +146,12 @@ class SellerController extends AbstractController
         }
         $orders = $orderRepository->getAllShop($shop->getId());
         $orders_buyers = [];
+        $quantities = [];
+        $products_id = [];
         foreach ($orders as $key => $value) {
-            $orders_buyers[] = $userRepository->find($value->getBuyerId());
+            $orders_buyers[$value->getId()] = $userRepository->find($value->getBuyerId());
+            $quantities[$value->getId()] = $value->getQuantity();
+            $products_id[$value->getId()] = $value->getProductsId();
         }
         $total_orders = count($orders);
         return $this->render('seller/index.html.twig', [
@@ -156,6 +160,8 @@ class SellerController extends AbstractController
             'orders' => $orders,
             'orders_buyers' => $orders_buyers,
             'total_orders' => $total_orders,
+            'quantities' => $quantities,
+            'products_id' => $products_id,
             'form_confirm' => $form_confirm->createView(),
             'form_prepared' => $form_prepared->createView(),
             'form_ready' => $form_ready->createView(),

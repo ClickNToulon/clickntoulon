@@ -5,21 +5,19 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use LogicException;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Message;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Twig\Error\LoaderError;
 
 class SecurityController extends AbstractController
 {
@@ -30,7 +28,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
+        if ($this->getUser() && $this->getUser()->isVerified() !== false) {
             return $this->redirectToRoute('home');
         }
 
@@ -56,9 +54,11 @@ class SecurityController extends AbstractController
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param EntityManagerInterface $em
+     * @param MailerInterface $mailer
      * @return RedirectResponse|Response
+     * @throws LoaderError
      */
-    public function signUp(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em)
+    public function signUp(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em, MailerInterface $mailer)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
@@ -72,6 +72,10 @@ class SecurityController extends AbstractController
                 $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
                 $em->persist($user);
                 $em->flush();
+                $title = "Veuillez vérifier votre compte chez TouSolidaires";
+                $options = [];
+                array_push($options, $user->getUsername(), $user->getId());
+                (new MailerController)->send($mailer, $user->getEmail(), $title, $options, 'signup');
                 return $this->redirectToRoute('app_login');
             } catch (UniqueConstraintViolationException $e) {
                 $this->addFlash('warning', "Nom d'utilisateur ou adresse mail déjà utilisé");
@@ -83,15 +87,15 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/verify/email", name="app_verify_email")
+     * @Route("/verifier/profil/{id}", name="app_verify_email", requirements={"id": "[0-9\-]*"})
      * @param Request $request
      * @param UserRepository $userRepository
-     * @param EmailVerifier $emailVerifier
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function verifyUserEmail(Request $request, UserRepository $userRepository, EmailVerifier $emailVerifier): Response
+    public function verifyUserEmail(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
-        $id = $request->get('id');
+        $id = $request->attributes->get('id');
 
         if (null === $id) {
             return $this->redirectToRoute('app_signup');
@@ -102,18 +106,20 @@ class SecurityController extends AbstractController
         if (null === $user) {
             return $this->redirectToRoute('app_signup');
         }
-
         // validate email confirmation link, sets User::isVerified=true and persists
-        try {
-            $emailVerifier->handleEmailConfirmation($request, $user);
-        } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $exception->getReason());
-
-            return $this->redirectToRoute('app_signup');
+        if($user->IsVerified() == true) {
+            $this->addFlash('warning', 'Votre compte a déjà été vérifié ou ce compte n\'existe pas. Veuillez ressayer ultérieurement.');
+            return $this->render('security/verify_email.html.twig', [
+                'user' => $user,
+            ]);
+        } else {
+            $user->setIsVerified(1);
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre compte a bien été vérifié. Vous pouvez désormais accéder à tout le contenu de la plateforme TouSolidaires.');
+            return $this->render('security/verify_email.html.twig', [
+                'user' => $user,
+            ]);
         }
-
-        $this->addFlash('success', 'Your email address has been verified.');
-
-        return $this->redirectToRoute('app_login');
     }
 }

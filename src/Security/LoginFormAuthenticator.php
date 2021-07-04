@@ -74,6 +74,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new CustomUserMessageAuthenticationException("Nom d'utilisateur inconnu.");
         }
 
+        if($user->isVerified() == false) {
+            throw new CustomUserMessageAuthenticationException("Veuillez vérifier votre compte.");
+        }
+
         return $user;
     }
 

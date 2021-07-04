@@ -21,12 +21,29 @@
                                     <h6 class="my-0">{{ product.name }}</h6>
                                     <small class="text-muted">{{ product.description | length > 70 ? product.description|slice(0, 70) ~ '...' : product.description }}</small>
                                 </div>
-                                <div>
+                                <div class="basket_product_price">
                                     <span class="badge bg-yellow text-white">x{{ quantities[i] }}&nbsp;</span>
-                                    <span class="text-black">{{ product.price |number_format(2,',',' ') }} €</span>
+                                    {% if product.dealprice != null %}
+                                        <div class="prices">
+                                            <span class="text-black product-price deal_price">
+                                                {{ product.price |number_format(2,',',' ') }} €
+                                            </span>
+                                            <span class="text-red">
+                                                {{ product.dealprice |number_format(2,',',' ') }} €
+                                            </span>
+                                        </div>
+                                    {% else %}
+                                        <span class="text-black">
+                                            {{ product.price |number_format(2,',',' ') }} €
+                                        </span>
+                                    {% endif %}
                                 </div>
                             </li>
-                            {% set p = product.price * quantities[i] %}
+                            {% if product.dealprice != null %}
+                                {% set p = product.dealprice * quantities[i] %}
+                            {% else %}
+                                {% set p = product.price * quantities[i] %}
+                            {% endif %}
                             {% set total = total + p %}
                             {% set i = i + 1 %}
                         {% endfor %}
@@ -43,6 +60,7 @@
                     <label for="create_order_day" class="text-black">Date de retrait souhaitée</label>
                     {% set now = "now"|date("Y-m-d", "Europe/Paris") %}
                     {{ form_widget(form.day, {attr: {value: now}}) }}
+                    {{ form_row(form.total, {attr: {value: total}}) }}
                     <div class="buttons">
                         <button class="btn btn-form btn-no-mt" type="submit">Commander</button>
                     </div>

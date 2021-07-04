@@ -64,6 +64,11 @@ class Order
      */
     private ?int $status;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $total;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -173,6 +178,18 @@ class Order
     public function setStatus(int $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getTotal(): ?float
+    {
+        return $this->total;
+    }
+
+    public function setTotal(float $total): self
+    {
+        $this->total = $total;
 
         return $this;
     }

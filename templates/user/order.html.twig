@@ -58,6 +58,10 @@ Commande n°{{ order.id }} - TouSolidaires
                 {% endfor %}
                 </tbody>
             </table>
+            <li class="list-group-item border-0 p-0 m-0">
+                <span class="text-black">Total (Euro) :</span>
+                <strong class="font-weight-bolder">{{ order.total | number_format(2,',',' ') }} €</strong>
+            </li>
         </div>
         <div class="order-status">
             <h3 class="mb-1"><i class="bi-truck"></i> &Eacute;tat de la commmande</h3>

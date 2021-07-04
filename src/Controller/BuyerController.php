@@ -3,15 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Basket;
-use App\Entity\Product;
 use App\Entity\Shop;
 use App\Form\CreateOrder;
-use App\Form\UpdateProductQuantityBasket;
 use App\Repository\BasketRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ShopRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,7 +45,6 @@ class BuyerController extends AbstractController
         $shops = [];
         $products = [];
         $quantities = [];
-        $products_id = [];
         $b_products_id = [];
         foreach ($baskets as $b) {
             $shop_info = $shopRepository->find($b->getShopId());
@@ -71,37 +69,77 @@ class BuyerController extends AbstractController
     /**
      * @Route("/panier/ajout/{id}/{quantity}", name="basket_add", requirements={"id": "[0-9\-]*", "quantity": "[0-9\-]*"})
      * @IsGranted("ROLE_USER")
-     * @param Product $product
      * @param Request $request
+     * @param ProductRepository $productRepository
      * @return Response
      */
-    public function basket_add(Product $product, Request $request): Response
+    public function basket_add(Request $request, ProductRepository $productRepository): Response
     {
         $user = $this->getUser();
-        $baskets = $this->repository->findByUser($user->getId());
+        $product_id = $request->attributes->get('id');
+        $product = $productRepository->find($product_id);
+        $baskets = $this->repository->findByUserAndShop($user->getId(), $product->getShopId());
         $quantity = $request->attributes->get('quantity');
-        foreach ($baskets as $b) {
-            $basket = $this->repository->find($b->getId());
-            $basket_products = explode(",", $basket->getProductsId());
-            $quantities = explode(",", $basket->getQuantity());
-            if(in_array($product->getId(), $basket_products)) {
+        if($baskets == null) {
+            return $this->redirectToRoute('add_to_new_basket', ['id' => $product->getId(), 'quantity' => $quantity]);
+        } else {
+            return $this->redirectToRoute('add_to_existing_basket', ['id' => $product->getId(), 'quantity' => $quantity, 'basket' => $baskets[0]->getId()]);
+        }
+    }
+
+    /**
+     * @Route("/panier/ajout/{basket}/{id}/{quantity}", name="add_to_existing_basket", requirements={"basket": "[0-9\-]*", "id": "[0-9\-]*", "quantity": "[0-9\-]*"})
+     * @IsGranted("ROLE_USER")
+     * @param ProductRepository $productRepository
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function add_to_existing_basket(ProductRepository $productRepository, Request $request): Response
+    {
+        $user = $this->getUser();
+        $basket = $this->repository->find($request->attributes->get('basket'));
+        $quantity = $request->attributes->get('quantity');
+        $product_id = $request->attributes->get('id');
+        $product = $productRepository->find($product_id);
+        $basket_products = explode(",", $basket->getProductsId());
+        $quantities = explode(",", $basket->getQuantity());
+        if($basket->getOwnerId() == $user->getId()) {
+            if (in_array($product->getId(), $basket_products)) {
                 $index = array_search($product->getId(), $basket_products);
-                $product_quantity = $quantities[$index];
-                $product_quantity = $product_quantity + $quantity;
-                $quantities[$index] = $product_quantity;
-            } else if($product->getShopId() == $b->getShopId()) {
+                $quantities[$index] = $quantity;
+            } else if ($product->getShopId() == $basket->getShopId()) {
                 array_push($basket_products, $product->getId());
                 array_push($quantities, $quantity);
-                $b->setProductsId(implode(",", $basket_products));
+                $basket->setProductsId(implode(",", $basket_products));
             }
-            $b->setQuantity(implode(",", $quantities));
-            $this->em->persist($b);
+            $basket->setQuantity(implode(",", $quantities));
+            $this->em->persist($basket);
             $this->em->flush();
+            return $this->redirectToRoute('basket_index');
         }
-        return $this->render('buyer/add.html.twig', [
-            'user' => $user,
-            'baskets' => $baskets
-        ]);
+    }
+
+    /**
+     * @Route("/panier/ajout/new/{id}/{quantity}", name="add_to_new_basket", requirements={"id": "[0-9\-]*", "quantity": "[0-9\-]*"})
+     * @IsGranted("ROLE_USER")
+     * @param ProductRepository $productRepository
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function add_to_new_basket(ProductRepository $productRepository, Request $request): Response
+    {
+        $user = $this->getUser();
+        $product_id = $request->attributes->get('id');
+        $product = $productRepository->find($product_id);
+        $basket = new Basket();
+        $quantity = $request->attributes->get('quantity');
+        $basket->setOwnerId($user->getId())
+            ->setShopId($product->getShopId())
+            ->setQuantity($quantity)
+            ->setProductsId($product->getId());
+        $this->em->persist($basket);
+        $this->em->flush();
+        return $this->redirectToRoute('basket_index');
     }
 
     /**
@@ -116,11 +154,10 @@ class BuyerController extends AbstractController
     public function checkout(Shop $shop, Request $request, ShopRepository $shopRepository, ProductRepository $productRepository): Response
     {
         $user = $this->getUser();
-        $basket = $this->repository->findOneByShop($shop->getId());
+        $basket = $this->repository->findByUserAndShop($user->getId(), $shop->getId());
         $products = [];
-        $quantities = [];
         $products_id = explode(",", $basket[0]->getProductsId());
-        $quantities = explode(',', $basket[0]->getQuantity());
+        $quantities = explode(",", $basket[0]->getQuantity());
         foreach ($products_id as $p) {
             array_push($products, $productRepository->find($p));
         }

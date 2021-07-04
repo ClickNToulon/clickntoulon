@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Order;
-use App\Entity\User;
 use App\Form\DeleteUserForm;
 use App\Form\UpdatePasswordForm;
 use App\Form\UpdateAvatarForm;

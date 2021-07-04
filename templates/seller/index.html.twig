@@ -15,6 +15,8 @@
                     <tr>
                         <th>N°</th>
                         <th>Nom client</th>
+                        <th>ID Produits</th>
+                        <th>Quantités</th>
                         <th>Statut</th>
                         <th>Actions</th>
                         <th></th>
@@ -25,7 +27,9 @@
                     {% for order in orders %}
                         <tr>
                             <td>{{ order.id }}</td>
-                            <td>{{ orders_buyers[i].username }}</td>
+                            <td>{{ orders_buyers[order.id].username }}</td>
+                            <td>{{ products_id[order.id] }}</td>
+                            <td>{{ quantities[order.id] }}</td>
                             <td>{{ order.status }}</td>
                             <td>
                                 {% if order.status == 0 %}
@@ -238,6 +242,8 @@
                     <tfoot>
                     <tr>
                         <td class="last text-bold">Total :  {{ total_orders }}</td>
+                        <td class="last"></td>
+                        <td class="last"></td>
                         <td class="last"></td>
                         <td class="last"></td>
                         <td class="last"></td>

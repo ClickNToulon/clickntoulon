@@ -28,10 +28,13 @@ class BasketRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function  findOneByShop($id) {
+    public function findByUserAndShop($user_id, $shop_id) {
         return $this->createQueryBuilder('b')
-            ->where('b.shop_id = :shop_id')
-            ->setParameter('shop_id', $id)
+            ->where('b.owner_id = :user_id AND b.shop_id = :shop_id')
+            ->setParameters([
+                'user_id' => $user_id,
+                'shop_id' => $shop_id
+            ])
             ->setMaxResults(1)
             ->getQuery()
             ->getResult();

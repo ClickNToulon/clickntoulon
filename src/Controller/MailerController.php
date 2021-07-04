@@ -5,14 +5,12 @@ namespace App\Controller;
 use Symfony\Bridge\Twig\Mime\BodyRenderer;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Twig\Error\LoaderError;
 use Twig\Extra\CssInliner\CssInlinerExtension;
 use Twig\Environment as TwigEnvironment;
-use Symfony\Component\Routing\Annotation\Route;
 use Twig\Loader\FilesystemLoader;
 
 class MailerController extends AbstractController

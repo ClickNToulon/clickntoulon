@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Verification de votre email - TouSolidaires' %}
+
+{% block body %}
+    {% include 'navbar.html.twig' with {active: 'verify-email'} %}
+    <div class="fr-container fr-container--fluid verify-email py-10">
+        {% for message in app.flashes('warning') %}
+            <div role="alert" class="fr-alert fr-alert--error" id="alert">
+                <p class="fr-alert__title">Erreur : Compte déjà vérifié</p>
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('success') %}
+            <div role="alert" class="fr-alert fr-alert--success" id="alert">
+                <p class="fr-alert__title">Succès : Compte vérifié</p>
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+
+        <div class="buttons w-100">
+            <a href="{{ path('app_login') }}"><button class="btn btn-home">Se connecter</button></a>
+            <a href="{{ path('home') }}"><button class="btn btn-home-outline">Retourner à l'accueil</button></a>
+        </div>
+    </div>
+    {% include 'footer.html.twig' %}
+{% endblock %}

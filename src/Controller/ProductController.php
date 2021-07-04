@@ -1,15 +1,10 @@
 <?php
 
-
 namespace App\Controller;
 
-
-use App\Entity\Basket;
-use App\Entity\Category;
 use App\Entity\Payment;
 use App\Entity\Product;
 use App\Form\AddProductBasketType;
-use App\Form\UpdateProductQuantityBasket;
 use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
@@ -20,7 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ProductController extends AbstractController
 {
@@ -28,15 +22,15 @@ class ProductController extends AbstractController
     /**
      * @var ProductRepository
      */
-    private $repository;
+    private ProductRepository $repository;
     /**
      * @var PaginatorInterface
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
     /**
      * @var BasketRepository
      */
-    private $basketRepository;
+    private BasketRepository $basketRepository;
 
     public function __construct(ProductRepository $repository, PaginatorInterface $paginator, basketrepository $basketRepo)
     {
@@ -101,10 +95,11 @@ class ProductController extends AbstractController
      * @param Product $product
      * @param ShopRepository $shopRepository
      * @param CategoryRepository $categoryRepository
+     * @param Request $request
      * @return Response
      * @throws NonUniqueResultException
      */
-    public function shopProducts(Product $product, ShopRepository $shopRepository, CategoryRepository $categoryRepository): Response
+    public function shopProducts(Product $product, ShopRepository $shopRepository, CategoryRepository $categoryRepository, Request $request): Response
     {
         $user = $this->getUser();
         $shop = $shopRepository->findById($product->getShopId());
@@ -121,12 +116,18 @@ class ProductController extends AbstractController
             $category = $categoryRepository->find($id);
             $categories[] = $category->getName();
         }
-        $form = $this->createForm(AddProductBasketType::class, new Basket());
+        $form = $this->createForm(AddProductBasketType::class, null);
         if ($user != null) {
             $baskets = $this->basketRepository->findByUser($user->getId());
             $quantity = $this->checkBaskets($baskets, $product);
         } else {
             $quantity = 1;
+        }
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            return $this->redirectToRoute('basket_add', ['id' => $data['product_id'], 'quantity' => $data['quantity']]);
         }
         return $this->render('product/show.html.twig', [
             'form' => $form->createView(),

@@ -46,6 +46,10 @@
                                                     <p class="card-text">La date et le créneau de retrait vous ont été communiqués par un autre moyen par le commerçant.</p>
                                                 {% endif %}
                                             </div>
+                                            <li class="list-group-item border-0 p-0 m-0 orders-total">
+                                                <span class="text-black">Total (Euro) :</span>
+                                                <strong class="font-weight-bolder">{{ order.total | number_format(2,',',' ') }} €</strong>
+                                            </li>
                                             <ul class="list-unstyled multi-steps mb-2">
                                                 <li class="{% if order.status != 5 %}is-active orders-active{% else %}orders-active-end{% endif %}">
                                                     {% if order.status == 0 %}

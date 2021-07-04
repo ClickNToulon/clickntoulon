@@ -42,6 +42,10 @@ class CreateOrder extends AbstractType
                     'class' => 'fr-input'
                 ],
                 'widget' => 'single_text',
+            ])
+            ->add('total', HiddenType::class, [
+                'mapped' => true,
+                'required' => true
             ]);
     }
 

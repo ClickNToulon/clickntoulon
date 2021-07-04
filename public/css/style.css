@@ -273,6 +273,11 @@ hr {
   color: black;
 }
 
+.text-red {
+  color: red !important;
+  font-weight: bold;
+}
+
 /* Navbar */
 nav {
   background-color: rgba(35, 47, 62, .9) !important;
@@ -2367,6 +2372,7 @@ input[type=number] {
 
 .order-desc {
   color: black !important;
+  margin-bottom: 0.5rem !important;
 }
 
 .order-address {
@@ -2758,4 +2764,46 @@ a.pagination-link:hover {
 
 .form-time .row.first{
   margin-top: 20px !important;
+}
+
+.basket_product_price {
+  display: flex;
+  flex-direction: row;
+}
+
+.basket_product_price .badge {
+  height: min-content;
+  margin-right: 5px;
+}
+
+.basket_product_price .prices {
+  display: flex;
+  flex-direction: column;
+}
+
+.orders-total {
+  background-color: transparent;
+  margin-bottom: 0.5rem !important;
+}
+
+.verify-email {
+  min-height: 567px !important;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.verify-email .fr-alert {
+  display: block !important;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons a {
+  margin: 10px !important;
 }
