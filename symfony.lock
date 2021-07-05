@@ -511,6 +511,9 @@
     "symfony/security-http": {
         "version": "v5.2.6"
     },
+    "symfony/semaphore": {
+        "version": "v5.2.10"
+    },
     "symfony/serializer": {
         "version": "v5.2.4"
     },
