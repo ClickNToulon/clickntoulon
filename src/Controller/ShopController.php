@@ -10,6 +10,7 @@ use App\Repository\PaymentRepository;
 use App\Repository\ShopRepository;
 use App\Repository\TimeTableRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,6 +63,7 @@ class ShopController extends AbstractController
      * @param TimeTableRepository $tableRepository
      * @param PaymentRepository $paymentRepository
      * @return Response
+     * @throws NonUniqueResultException
      */
     public function showOne(Shop $shop, TimeTableRepository $tableRepository, PaymentRepository $paymentRepository): Response
     {

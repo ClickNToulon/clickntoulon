@@ -29,10 +29,10 @@ class CategoryRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findAllByShopQuery(Shop $shop)
+    public function findAllByShopQuery($id)
     {
         return $this->createQueryBuilder('c')
             ->where('c.shop = :shop_id')
-            ->setParameter('shop_id', $shop);
+            ->setParameter('shop_id', $id);
     }
 }

@@ -39,7 +39,7 @@ class OrderRepository extends ServiceEntityRepository
     public function findLast4ByUser($id)
     {
         return $this->createQueryBuilder('o')
-            ->where('o.buyer_id = :user_id')
+            ->where('o.buyer_id = :user_id AND o.status < 6')
             ->setParameter('user_id', $id)
             ->setMaxResults(4)
             ->getQuery()

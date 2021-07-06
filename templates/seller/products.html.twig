@@ -17,40 +17,42 @@
                 </div>
             </div>
             {% if products != false %}
-            <table class="table table-light table-striped">
-                <thead class="thead-light">
-                <tr>
-                    <th>N°</th>
-                    <th>Nom</th>
-                    <th>Prix</th>
-                    <th>Prix en promo</th>
-                    <th>Actions</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for product in products %}
-                <tr>
-                    <td>{{ product.id }}</td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.price | format_currency('EUR') }}</td>
-                    <td>{% if product.dealprice == null %}Pas de promo{% else %}{{ product.dealprice | format_currency('EUR') }}{% endif %}</td>
-                    <td><a href="{{ path('seller_edit_product', {id: shop.id, product: product.id}) }}"><button class="btn btn-form mg-t-0">Modifier ce produit</button></a></td>
-                    <td><a href=""><button class="btn btn-form btn-danger mg-t-0">Supprimer ce produit</button></a></td>
-                </tr>
-                {% endfor %}
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td class="last text-bold">Total : {{ total_products }}</td>
-                    <td class="last"></td>
-                    <td class="last"></td>
-                    <td class="last"></td>
-                    <td class="last"></td>
-                    <td class="last"></td>
-                </tr>
-                </tfoot>
-            </table>
+            <div class="fr-table fr-table--bordered fr-table--no-caption">
+                <table class="table table-light table-striped">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Nom</th>
+                            <th>Prix</th>
+                            <th>Prix en promo</th>
+                            <th class="last-th">Actions</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.price | format_currency('EUR') }}</td>
+                            <td>{% if product.dealprice == null %}Pas de promo{% else %}{{ product.dealprice | format_currency('EUR') }}{% endif %}</td>
+                            <td class="last-td"><a href="{{ path('seller_edit_product', {id: shop.id, product: product.id}) }}"><button class="btn btn-form mg-t-0"><i class="bi-pen-fill"></i> Modifier ce produit</button></a></td>
+                            <td class="last-td"><a href=""><button class="btn btn-form btn-danger mg-t-0"><i class="bi-trash"></i> Supprimer ce produit</button></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-bold">Total : {{ total_products }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
             {% else %}
             <h3 class="text-black">Vous n'avez pas de produits. Vous pouvez en rajouter d&egrave;s maintenant.</h3>
             {% endif %}
@@ -58,7 +60,7 @@
                 <div class="fr-container--fluid fr-container-md dialog-w-100">
                     <div class="fr-grid-row fr-grid-row--center">
                         <div class="fr-col-12 fr-col-md-6 dark-bg">
-                            <div class="fr-modal__body">
+                            <div class="fr-modal__body add-product">
                                 <div class="fr-modal__header">
                                     <button class="fr-link--close fr-link" aria-controls="fr-modal-2">Fermer</button>
                                 </div>
@@ -69,8 +71,16 @@
                                     </h1>
                                     {{ form_start(form, {attr: {class: 'add-product-form'}}) }}
                                         {{ form_row(form.name) }}
-                                        {{ form_row(form.price) }}
+                                        {{ form_row(form.categories) }}
                                         {{ form_row(form.description) }}
+                                        <div class="column">
+                                            {{ form_row(form.price) }}
+                                            {{ form_row(form.deal_price) }}
+                                        </div>
+                                        <div class="column">
+                                            {{ form_row(form.deal_start) }}
+                                            {{ form_row(form.deal_end) }}
+                                        </div>
                                         {{ form_row(form.image) }}
                                 </div>
                                 <div class="fr-modal__footer">

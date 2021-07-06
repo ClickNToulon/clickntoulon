@@ -21,7 +21,10 @@ Commande n°{{ order.id }} - TouSolidaires
                 {% set lastArray = [firstArray, splitArray] |join('') %}
                 {% set finalSplit = lastArray|split('', 2) %}
                 {% set formattedString = finalSplit|join(' ') %}
-                <a href="tel:{{ formattedString }}" class="mb-0"><i class="bi-telephone"></i> Téléphone : {{ formattedString }}</a>
+                <p class="mb-1"><a href="tel:{{ formattedString }}" class="mb-1" target="_blank"><i class="bi-telephone"></i> Téléphone : {{ formattedString }}</a></p>
+                {% if shop.email != null %}
+                    <p class="mb-1"><a href="mailto:{{ shop.email }}" class="mb-0" target="_blank"><i class="bi-envelope"></i> Email : {{ shop.email }}</a></p>
+                {% endif %}
             </div>
             <h6 class="mt-3 mb-2"><i class="bi-info-circle"></i> Informations de la commande</h6>
             <div class="horaires mt-2">
@@ -38,26 +41,35 @@ Commande n°{{ order.id }} - TouSolidaires
                 {% endif %}
             </div>
             <h6 class="mt-3 mb-2"><i class="bi-box-seam"></i> Les produits présents dans la commande</h6>
-            <table class="table table-light table-striped text-center mt-3">
-                <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Prix</th>
-                    <th>Quantité</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% set i = 0 %}
-                {% for product in products %}
-                <tr>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.price | format_currency('EUR') }}</td>
-                    <td>x{{ quantities[i] }}</td>
-                    {% set i = i + 1 %}
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            <div class="fr-table fr-table--bordered">
+                <table class="table table-light table-striped text-center mt-3">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% set i = 0 %}
+                    {% for product in products %}
+                        <tr>
+                            <td class="td-name">{{ product.name }}</td>
+                            <td>{{ product.price | format_currency('EUR') }}</td>
+                            <td>x{{ quantities[i] }}</td>
+                            {% set i = i + 1 %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td><strong>Total (Euro) : {{ order.total | number_format(2,',',' ') }} €</strong></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
             <li class="list-group-item border-0 p-0 m-0">
                 <span class="text-black">Total (Euro) :</span>
                 <strong class="font-weight-bolder">{{ order.total | number_format(2,',',' ') }} €</strong>

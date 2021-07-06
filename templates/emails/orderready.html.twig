@@ -1,0 +1,27 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{{ email.subject }}</title>
+</head>
+<body>
+{% apply inline_css(source("@css/style.css")) %}
+    <img src="{{ email.image('@images/logo.jpg') }}" alt="Logo TouSolidaires" width="150" height="150">
+    <p class="card-text">Bonjour {{ name }} !</p>
+    <br>
+    <p>Votre commande numéro {{ id }} est prête chez le commerçant.</p>
+    <p>Vous pourrez la récupérer le {{ date }} entre {{ time_begin }} et {{ time_end }}.</p>
+    <p>Si vous souhaitez une facture, vous pourrez la demander directement auprès du commerçant.</p>
+    <br>
+    {% if message != null %}
+        <p>Le commerçant a laissé un message pour vous:
+        {{ message }}
+        <br>
+    {% endif %}
+    <p>Solidairement,</p>
+    <p>L'équipe TouSolidaires</p>
+    <br><br>
+    <i>La solidarité s'exprime aussi envers notre planète. Veuillez imprimer ce mail qu'en cas de nécessité.</i>
+{% endapply %}
+</body>
+</html>

@@ -9,13 +9,7 @@ use App\Entity\Product;
 use App\Entity\Shop;
 use App\Form\CategoryType;
 use App\Form\ChooseShop;
-use App\Form\OrderStatusCancel;
-use App\Form\OrderStatusConfirm;
 use App\Form\DeleteCategory;
-use App\Form\EditProduct;
-use App\Form\OrderStatusPickup;
-use App\Form\OrderStatusPrepared;
-use App\Form\OrderStatusReady;
 use App\Form\ProductType;
 use App\Form\ShopDeleteForm;
 use App\Form\ShopTimeTableUpdate;
@@ -31,6 +25,7 @@ use App\Repository\UserRepository;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,6 +35,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Twig\Error\LoaderError;
 
 class SellerController extends AbstractController
 {
@@ -78,72 +74,6 @@ class SellerController extends AbstractController
         if (!in_array($shop, $shopsUser)) {
             return new Response($this->render('bundles/TwigBundle/Exception/error403.html.twig'), Response::HTTP_FORBIDDEN);
         }
-        $form_confirm = $this->createForm(OrderStatusConfirm::class, null);
-        $form_confirm->handleRequest($request);
-        if($form_confirm->isSubmitted() && $form_confirm->isValid()) {
-            $data = $request->request->all('order_status_confirm');
-            $order = $orderRepository->find($data['id']);
-            $order->setTimeBegin(new DateTime($data['begin']))
-                ->setTimeEnd(new DateTime($data['end']))
-                ->setDay(new DateTime($data['date']))
-                ->setStatus(1);
-            $this->em->persist($order);
-            $this->em->flush();
-            $title = "Votre commande numéro " . $data['id'] . " a été acceptée par le commerçant";
-            $options = [];
-            array_push($options, $user->getUsername(), $data['id'], $data['date'], $data['begin'], $data['end']);
-            if(isset($data['message']) && $data['message'] !== null) {
-                array_push($options, $data['message']);
-            }
-            (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderaccept');
-        }
-        $form_prepared = $this->createForm(OrderStatusPrepared::class, null);
-        $form_prepared->handleRequest($request);
-        if($form_prepared->isSubmitted() && $form_prepared->isValid()) {
-            $data = $request->get('id');
-            $order = $orderRepository->find($data);
-            $order->setStatus(2);
-            $this->em->persist($order);
-            $this->em->flush();
-        }
-        $form_ready = $this->createForm(OrderStatusReady::class, null);
-        $form_ready->handleRequest($request);
-        if($form_ready->isSubmitted() && $form_ready->isValid()) {
-            $data = $request->get('id');
-            $order = $orderRepository->find($data);
-            $order->setStatus(3);
-            $this->em->persist($order);
-            $this->em->flush();
-            $title = "Votre commande numéro " . $data['id'] . " est prête chez le commerçant";
-            $options = [];
-            array_push($options, $user->getUsername(), $data['id'], $data['date'], $data['begin'], $data['end']);
-            (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderready');
-        }
-        $form_pickup = $this->createForm(OrderStatusPickup::class, null);
-        $form_pickup->handleRequest($request);
-        if($form_pickup->isSubmitted() && $form_pickup->isValid()) {
-            $data = $request->get('id');
-            $order = $orderRepository->find($data);
-            $order->setStatus(4);
-            $this->em->persist($order);
-            $this->em->flush();
-        }
-        $form_cancel = $this->createForm(OrderStatusCancel::class, null);
-        $form_cancel->handleRequest($request);
-        if($form_cancel->isSubmitted() && $form_cancel->isValid()) {
-            $data = $request->request->all('order_status_cancel');
-            $order = $orderRepository->find($data['id']);
-            $order->setStatus(5);
-            $this->em->persist($order);
-            $this->em->flush();
-            $title = "Votre commande numéro " . $data['id'] . " a été annulée par le commerçant";
-            $options = [];
-            array_push($options, $user->getUsername(), $data['id']);
-            if(isset($data['message']) && $data['message'] !== null) {
-                array_push($options, $data['message']);
-            }
-            (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderrefuse');
-        }
         $orders = $orderRepository->getAllShop($shop->getId());
         $orders_buyers = [];
         $quantities = [];
@@ -162,12 +92,122 @@ class SellerController extends AbstractController
             'total_orders' => $total_orders,
             'quantities' => $quantities,
             'products_id' => $products_id,
-            'form_confirm' => $form_confirm->createView(),
-            'form_prepared' => $form_prepared->createView(),
-            'form_ready' => $form_ready->createView(),
-            'form_pickup' => $form_pickup->createView(),
-            'form_cancel' => $form_cancel->createView()
         ]);
+    }
+
+    /**
+     * @Route("/ma-boutique/{id}/commandes/{order}/confirmer", name="seller_orders_confirm", requirements={"id": "[0-9\-]*", "order": "[0-9\-]*"})
+     * @IsGranted("ROLE_MERCHANT")
+     * @param Shop $shop
+     * @param OrderRepository $orderRepository
+     * @param Request $request
+     * @return Response
+     * @throws Exception
+     */
+    public function confirm_order(Shop $shop, OrderRepository $orderRepository, Request $request): Response
+    {
+        $user = $this->getUser();
+        $order = $orderRepository->find($request->attributes->get('order'));
+        $order_infos = $request->request->all('order_confirm');
+        $order->setTimeBegin(new DateTime($order_infos['begin']))
+            ->setTimeEnd(new DateTime($order_infos['end']))
+            ->setDay(new DateTime($order_infos['day']))
+            ->setStatus(1);
+        $this->em->persist($order);
+        $this->em->flush();
+        $title = "Votre commande numéro " . $order_infos['id'] . " a été acceptée par le commerçant";
+        $options = [];
+        array_push($options, $user->getUsername(), $order_infos['id'], $order_infos['day'], $order_infos['begin'], $order_infos['end']);
+        if(isset($order_infos['message']) && $order_infos['message'] !== null) {
+            array_push($options, $order_infos['message']);
+        }
+        (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderaccept');
+        return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
+    }
+
+    /**
+     * @Route("/ma-boutique/{id}/commandes/{order}/preparation", name="seller_orders_prepared", requirements={"id": "[0-9\-]*", "order": "[0-9\-]*"})
+     * @IsGranted("ROLE_MERCHANT")
+     * @param Shop $shop
+     * @param OrderRepository $orderRepository
+     * @param Request $request
+     * @return Response
+     */
+    public function prepared_order(Shop $shop, OrderRepository $orderRepository, Request $request): Response
+    {
+        $order = $orderRepository->find($request->attributes->get('order'));
+        $order->setStatus(2);
+        $this->em->persist($order);
+        $this->em->flush();
+        return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
+    }
+
+    /**
+     * @Route("/ma-boutique/{id}/commandes/{order}/prête", name="seller_orders_ready", requirements={"id": "[0-9\-]*", "order": "[0-9\-]*"})
+     * @IsGranted("ROLE_MERCHANT")
+     * @param Shop $shop
+     * @param OrderRepository $orderRepository
+     * @param Request $request
+     * @return Response
+     * @throws LoaderError
+     */
+    public function order_ready(Shop $shop, OrderRepository $orderRepository, Request $request): Response
+    {
+        $user = $this->getUser();
+        $order = $orderRepository->find($request->attributes->get('order'));
+        $order_infos = $request->request->all('order_ready');
+        $order->setStatus(3);
+        $this->em->persist($order);
+        $this->em->flush();
+        $title = "Votre commande numéro " . $order_infos['id'] . " est prête chez le commerçant";
+        $options = [];
+        array_push($options, $user->getUsername(), $order_infos['id'], $order_infos['day'], $order_infos['begin'], $order_infos['end']);
+        (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderready');
+        return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
+    }
+
+    /**
+     * @Route("/ma-boutique/{id}/commandes/{order}/recuperée", name="seller_orders_pickup", requirements={"id": "[0-9\-]*", "order": "[0-9\-]*"})
+     * @IsGranted("ROLE_MERCHANT")
+     * @param Shop $shop
+     * @param OrderRepository $orderRepository
+     * @param Request $request
+     * @return Response
+     */
+    public function order_pickup(Shop $shop, OrderRepository $orderRepository, Request $request): Response
+    {
+        $order = $orderRepository->find($request->attributes->get('order'));
+        $order->setStatus(4);
+        $this->em->persist($order);
+        $this->em->flush();
+        return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
+    }
+
+    /**
+     * @Route("/ma-boutique/{id}/commandes/{order}/annulation", name="seller_orders_cancel", requirements={"id": "[0-9\-]*", "order": "[0-9\-]*"})
+     * @IsGranted("ROLE_MERCHANT")
+     * @param Shop $shop
+     * @param OrderRepository $orderRepository
+     * @param Request $request
+     * @return Response
+     * @throws LoaderError
+     */
+    public function order_cancel(Shop $shop, OrderRepository $orderRepository, Request $request): Response
+    {
+        $user = $this->getUser();
+        $order = $orderRepository->find($request->attributes->get('order'));
+        $order_infos = $request->request->all('order_cancel');
+        $order->setStatus(6);
+        $this->em->persist($order);
+        $this->em->flush();
+        $title = "Votre commande numéro " . $order_infos['id'] . " a été annulée par le commerçant";
+        $options = [];
+        array_push($options, $user->getUsername(), $order_infos['id']);
+        if(isset($order_infos['message']) && $order_infos['message'] !== null) {
+            array_push($options, $order_infos['message']);
+        }
+        (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderrefuse');
+        return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
 
     /**
@@ -255,7 +295,9 @@ class SellerController extends AbstractController
      * @param Shop $shop
      * @param Request $request
      * @param PaymentRepository $paymentRepository
+     * @param TimeTableRepository $timeTableRepository
      * @return Response
+     * @throws NonUniqueResultException
      */
     public function edit(Shop $shop, Request $request, PaymentRepository $paymentRepository, TimeTableRepository $timeTableRepository): Response
     {
@@ -335,7 +377,7 @@ class SellerController extends AbstractController
     {
         $user = $this->getUser();
         $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product, ['id' => $shop->getId()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -427,28 +469,71 @@ class SellerController extends AbstractController
     /**
      * @Route("/ma-boutique/{id}/produits/{product}/modifier", name="seller_edit_product", requirements={"id": "[0-9\-]*", "product": "[0-9\-]*"})
      * @IsGranted("ROLE_MERCHANT")
-     * @param Product $product
-     * @param Shop $shop
+     * @param ShopRepository $shopRepository
      * @param Request $request
+     * @param ProductRepository $productRepository
+     * @param SluggerInterface $slugger
      * @return Response
+     * @throws Exception
      */
-    public function editProduct(Product $product, Shop $shop, Request $request): Response
+    public function editProduct(ShopRepository $shopRepository, Request $request, ProductRepository $productRepository, SluggerInterface $slugger): Response
     {
         $user = $this->getUser();
-        $form = $this->createForm(EditProduct::class, $product, ['id' => $shop]);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+        $product = $productRepository->find($request->attributes->get('product'));
+        $shop = $shopRepository->find($request->attributes->get('id'));
+        $form_update_product = $this->createForm(ProductType::class, $product, ['id' => $shop->getId()]);
+        $form_update_product->handleRequest($request);
+        if($form_update_product->isSubmitted() && $form_update_product->isValid()) {
+            $data = $request->request->all('product');
+            $image = $form_update_product->get('image')->getData();
             dump($data);
-            //$this->em->persist($product);
-            //$this->em->flush();
+            $price = floatval(str_replace(",",".",$data['price']));
+            $deal_price = floatval(str_replace(",",".",$data['deal_price']));
+            $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
+            $product->setName($data['name'])
+                ->setDescription($data['description'])
+                ->setPrice($price);
+            if($deal_price == "") {
+                $product->setDealPrice(null);
+            } else {
+                $product->setDealPrice($deal_price);
+            }
+            if($data['deal_start'] == "") {
+                $product->setDealStart(null);
+            } else {
+                $product->setDealStart(new DateTime($data['deal_start']));
+            }
+            if($data['deal_end'] == "") {
+                $product->setDealEnd(null);
+            } else {
+                $product->setDealEnd(new DateTime($data['deal_end']));
+            }
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename, '-', 'fr');
+                $newFilename = sprintf("%s-%s-%s.%s", $safeFilename, $data['name'], $user->getId(), $image->guessExtension());
+
+                try {
+                    $image->move(
+                        $this->getParameter('uploads/products'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+
+                }
+
+                $product->setImage($newFilename);
+            }
+            dump($product);
+            $this->em->persist($product);
+            $this->em->flush();
         }
 
         return $this->render("seller/edit_product.html.twig", [
             'user' => $user,
             'shop' => $shop,
             'product' => $product,
-            'form' => $form->createView()
+            'form' => $form_update_product->createView()
         ]);
     }
 }

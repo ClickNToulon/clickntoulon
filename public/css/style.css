@@ -222,13 +222,29 @@ h6 {
   padding: 0 !important;
 }
 
-table {
-  margin: 0 !important;
-  border-spacing: 30px !important;
-  margin-bottom: 20px !important;
-  border-collapse: collapse;
-  border-radius: 10px;
-  overflow: hidden;
+.fr-table td {
+  padding: 0.5rem !important;
+  font-size: 16px;
+}
+
+.fr-table thead th {
+  font-size: 17px !important;
+}
+
+.fr-table tfoot td {
+  font-size: 16px;
+}
+
+.fr-table tbody tr td:not(.td-name):first-of-type{
+  font-weight: bold;
+}
+
+.fr-table table thead th, .fr-table table tbody td, .fr-table table tfoot td{
+  text-align: center !important;
+}
+
+.fr-table table thead th.last-th, .fr-table table tbody td.last-td {
+  text-align: left !important;
 }
 
 .table {
@@ -803,8 +819,26 @@ input.form-control-quantity {
   max-width: 466px !important;
 }
 
-.add-product-form select.form-select {
-  width: 466px !important;
+.add-product-form select.fr-select {
+  width: 100% !important;
+  margin-bottom: 24px !important;
+}
+
+.add-product-form div.column {
+  display: flex;
+  flex-direction: row;
+}
+
+.add-product-form div.column div.form-group {
+  width: 100%;
+}
+
+.add-product-form div.column div.form-group:first-of-type {
+  margin-right: 10px !important;
+}
+
+.add-product-form div.column div.form-group:last-of-type {
+  margin-left: 10px !important;
 }
 
 .form-time .row label {
@@ -1995,13 +2029,22 @@ div.nav-profile li.nav-item a.active {
   height: auto;
   padding: 1rem;
   width: 100% !important;
+  margin-bottom: 0 !important;
   max-width: 100%;
   border-radius: 0 !important;
   background-color: #232F3E !important;
 }
 
+.order-confirm {
+  margin-top: 0 !important;
+}
+
 .fr-modal__content.forms form {
   width: 100%;
+}
+
+.fr-modal__footer {
+  padding-top: 1rem !important;
 }
 
 .btn-close {

@@ -17,38 +17,40 @@
                 </div>
             </div>
             {% if categories != false %}
-            <table class="table table-light table-striped">
-                <thead class="thead-light">
-                    <tr>
-                        <th>N°</th>
-                        <th>Nom</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for category in categories %}
-                    <tr>
-                        <td>{{ category.id }}</td>
-                        <td>{{ category.name }}</td>
-                        <td>
-                            {{ form_start(form_delete) }}
-                            <input type="hidden" name="category_id[]" id="{{ category.name }}" value="{{ category.id }}">
-                            <div class="button-submit">
-                                <button type="submit" class="btn btn-form btn-danger btn-no-mt"><i class="bi-trash"></i> Supprimer la catégorie</button>
-                            </div>
-                            {{ form_end(form_delete) }}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td class="last text-bold">Total : {{ total_categories }}</td>
-                        <td class="last"></td>
-                        <td class="last"></td>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="fr-table fr-table--bordered">
+                <table class="table table-light table-striped">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>N°</th>
+                            <th>Nom</th>
+                            <th class="last-th">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                        <tr>
+                            <td>{{ category.id }}</td>
+                            <td>{{ category.name }}</td>
+                            <td class="last-td">
+                                {{ form_start(form_delete) }}
+                                <input type="hidden" name="category_id[]" id="{{ category.name }}" value="{{ category.id }}">
+                                <div class="button-submit">
+                                    <button type="submit" class="btn btn-form btn-danger btn-no-mt"><i class="bi-trash"></i> Supprimer la catégorie</button>
+                                </div>
+                                {{ form_end(form_delete) }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-bold">Total : {{ total_categories }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
             {% else %}
             <h3 class="text-black">Vous n'avez pas encore créer de catégories. Vous pouvez en rajouter d&egrave;s maintenant.</h3>
             {% endif %}

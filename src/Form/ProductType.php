@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Product;
+use App\Repository\CategoryRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -16,6 +20,7 @@ class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $id = $options['id'];
         $builder
             ->add('name', TextType::class, [
                 'required' => true,
@@ -32,7 +37,31 @@ class ProductType extends AbstractType
             ->add('description', TextareaType::class, [
                 'required' => true,
                 'attr' => [
-                    'class' => 'fr-input mb-24'
+                    'class' => 'fr-input mb-24',
+                    'rows' => 3
+                ]
+            ])
+            ->add('deal_price', NumberType::class, [
+                'required' => false,
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'fr-input'
+                ]
+            ])
+            ->add('deal_start', DateType::class, [
+                'required' => false,
+                'mapped' => false,
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'fr-input'
+                ]
+            ])
+            ->add('deal_end', DateType::class, [
+                'required' => false,
+                'mapped' => false,
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'fr-input'
                 ]
             ])
             ->add('image',FileType::class, [
@@ -52,6 +81,19 @@ class ProductType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid image',
                     ])
                 ]
+            ])
+            ->add('categories', EntityType::class, [
+                'class' => Category::class,
+                'mapped' => false,
+                'required' => true,
+                'label' => 'Categories',
+                'query_builder' => function(CategoryRepository $em) use ($id) {
+                    return $em->findAllByShopQuery($id);
+                },
+                'choice_label' => 'name',
+                'attr' => [
+                    'class' => 'fr-select'
+                ],
             ]);
     }
 
@@ -60,6 +102,7 @@ class ProductType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Product::class,
             'translation_domain' => 'products'
-        ]);
+        ])
+        ->setRequired('id');
     }
 }
