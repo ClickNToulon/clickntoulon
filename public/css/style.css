@@ -1042,6 +1042,10 @@ button.btn-mt {
   flex-direction: row !important;
 }
 
+button.btn-danger.admin-button {
+  padding: 5px 8px !important;
+}
+
 /* Badges */
 .svg {
   width: 25px;
@@ -1232,6 +1236,14 @@ nav .nav-item .dropdown-toggle {
 .dropdown-user {
   min-width: 194.14px;
   right: 0;
+}
+
+.dropdown-user.admin-dropdown li {
+  padding-right: 0 !important;
+}
+
+.dropdown-user.admin-dropdown li a.dropdown-item {
+  padding: 4px 0 !important;
 }
 
 .dropdown-cart {
@@ -2427,16 +2439,6 @@ input[type=number] {
   padding: 5rem var(--bs-gutter-x, .75rem);
 }
 
-.table-stripped tr:last-of-type {
-  color: transparent !important;
-}
-
-tr:last-of-type {
-  border-style: none !important;
-  border-width: 0 !important;
-  border-color: transparent !important;
-}
-
 .multi-steps > li.is-active:before, .multi-steps > li.is-active ~ li:before {
   content: counter(stepNum);
   font-family: Marianne, sans-serif;
@@ -2849,4 +2851,8 @@ a.pagination-link:hover {
 
 .buttons a {
   margin: 10px !important;
+}
+
+.chartjs-size-monitor {
+  max-width: 50%;
 }

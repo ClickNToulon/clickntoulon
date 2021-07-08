@@ -116,7 +116,7 @@ class ProductController extends AbstractController
             $category = $categoryRepository->find($id);
             $categories[] = $category->getName();
         }
-        $form = $this->createForm(UpdateProductQuantityBasket::class, null);
+        $form = $this->createForm(AddProductBasketType::class, null);
         if ($user != null) {
             $baskets = $this->basketRepository->findByUser($user->getId());
             $quantity = $this->checkBaskets($baskets, $product);

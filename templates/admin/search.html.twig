@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Recherche - Administration - TouSolidaires' %}
+
+{% block body %}
+    {% include 'admin/navbar.html.twig' with {'active': 'search'} %}
+    {{ form_start(search, {attr: {class: 'form form-search'}}) }}
+    <h2>Rechercher un produit ou une boutique</h2>
+    <div class="fr-search-bar fr-search-bar--lg w-50" id="search-2" role="search">
+        <label class="fr-label" for="search-787-input">
+            Recherche
+        </label>
+        {{ form_row(search.q) }}
+        <button class="fr-btn">
+            Rechercher
+        </button>
+    </div>
+    {{ form_end(search) }}
+
+    {% if word_searched | length > 0 %}
+        <div class="fr-container fr-container--fluid mb-5">
+            {% if search_count != 0 %}
+                <h2 class="results-count mb-4">{{ search_count }} {% if search_count > 1 %} Résultats {% else %} Résultat {% endif %}</h2>
+                <h4 class="results-count mb-4">{{ search_shop_count }} {% if search_shop_count > 1 %} Résultats {% else %} Résultat {% endif %} correspondent à des boutiques</h4>
+                <div class="fr-grid-row fr-grid-row--gutters">
+                    {% for shop in search_shop_results %}
+                        <div class="fr-col-12 {% if search_shop_count > 1 %}fr-col-md-6{% endif %} fr-card-search">
+                            <div class="fr-card fr-enlarge-link">
+                                <div class="fr-card__body">
+                                    <ul class="fr-tags-group fr-card__detail">
+                                        <li>
+                                    <span class="fr-tag">
+                                        <i class="bi-tags-fill me-1"></i>{{ shop.tagName }}
+                                    </span>
+                                        </li>
+                                        <li>
+                                            {% if shop.status == 2 %}
+                                                <span class="fr-tag">Boutique partenaire <span class="admin-badge ms-1 me-0"><i class="fad fa-badge-check"></i></span></span>
+                                            {% elseif shop.status == 1 %}
+                                                <span class="fr-tag">Boutique vérifiée</span>
+                                            {% else %}
+                                                <span class="fr-tag">Boutique non vérifiée</span>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                    <h4 class="fr-card__title">
+                                        <a href="{{ path('shop_show', {slug: shop.slug}) }}" class="fr-card__link">{{ shop.name }}</a>
+                                    </h4>
+                                    <p class="fr-card__desc">{{ shop.description | u.truncate(150, '...', false) }}</p>
+                                    <p class="mb-1"><i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
+                                    {% set splitArray = shop.phone|split('', 1) %}
+                                    {% set first = splitArray|first %}
+                                    {% set firstArray =  [0, first] | join('') %}
+                                    {% set splitArray = splitArray|slice(1) %}
+                                    {% set splitArray = splitArray|join('') %}
+                                    {% set lastArray = [firstArray, splitArray] |join('') %}
+                                    {% set finalSplit = lastArray|split('', 2) %}
+                                    {% set formattedString = finalSplit|join(' ') %}
+                                    <p class="mb-1"><i class="bi-telephone"></i> Téléphone : {{ formattedString }}</p>
+                                    {% if shop.email != null %}
+                                        <p class="mb-1"><i class="bi-envelope"></i> Email : {{ shop.email }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="fr-card__img">
+                                    <img src="{{ asset('uploads/shops/') ~ shop.cover }}" class="fr-responsive-img" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <h4 class="results-count mb-4 text-center mt-4">{{ search_product_count }} {% if search_product_count > 1 %} Résultats {% else %} Résultat {% endif %} correspondent à des produits</h4>
+                <div class="fr-grid-row fr-grid-row--gutters">
+                    {% for product in search_product_results %}
+                        <div class="fr-col-12 fr-col-md-3">
+                            <div class="fr-card fr-enlarge-link">
+                                <div class="fr-card__body">
+                                    {% if product.dealprice != null %}
+                                        <ul class="fr-tags-group fr-card__detail">
+                                            <li>
+                                                <span class="fr-tag deal_price product-price">{{ product.price | format_currency('EUR') }}</span>
+                                            </li>
+                                            <li>
+                                                <span class="fr-tag product-price tag-danger">{{ product.dealprice | format_currency('EUR') }}</span>
+                                            </li>
+                                        </ul>
+                                    {% else %}
+                                        <ul class="fr-tags-group fr-card__detail">
+                                            <li>
+                                        <span class="fr-tag product-price">
+                                            {{ product.price | format_currency('EUR') }}
+                                        </span>
+                                            </li>
+                                        </ul>
+                                    {% endif %}
+                                    <h4 class="fr-card__title">
+                                        <a href="{{ path('product_show', {id: product.id}) }}" class="fr-card__link">{{ product.name }}</a>
+                                    </h4>
+                                    <p class="fr-card__desc">{{ product.description }}</p>
+                                </div>
+                                <div class="fr-card__img">
+                                    <img src="{% if product.image != null %}{{ asset('uploads/products/' ~ product.image) }}{% else %}{{ asset('images/1.jpg') }}{% endif %}" class="fr-responsive-img" alt="Image produit n°{{ product.id }}">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="d-flex align-items-center flex-column">
+                    <h4 class="results-count">Il n’y a aucun résultat pour {{ word_searched }}</h4>
+                    <h6 class="results-count">Vérifiez l’orthographe des mots saisis ou complétez-les par un nouveau mot clé</h6>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}
