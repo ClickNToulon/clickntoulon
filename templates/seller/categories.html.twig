@@ -5,92 +5,100 @@
 {% block body %}
     {% include 'navbar.html.twig' with {"active": "my-shop"} %}
     {% include 'seller/_header.html.twig' %}
-    {% include 'seller/_tabs.html.twig' with {"active": "categories"} %}
-    <div class="tab-content container seller-categories">
-        <div class="tab-pane active">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                <h1>Liste des cat&eacute;gories</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group me-2">
-                        <button type="button" class="fr-btn fr-btn--secondary btn-home-outline" data-fr-opened="false" aria-controls="fr-modal-2"><i class="bi-plus-circle"></i> Ajouter une nouvelle catégorie</button>
-                    </div>
+    <main class="pb-4-5 pb-md-11 mt-md-n6">
+        <div class="container-md">
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    {% include 'seller/_tabs.html.twig' with {active: 'categories'} %}
                 </div>
-            </div>
-            {% if categories != false %}
-            <div class="fr-table fr-table--bordered">
-                <table class="table table-light table-striped">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>N°</th>
-                            <th>Nom</th>
-                            <th class="last-th">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for category in categories %}
-                        <tr>
-                            <td>{{ category.id }}</td>
-                            <td>{{ category.name }}</td>
-                            <td class="last-td">
-                                {{ form_start(form_delete) }}
-                                <input type="hidden" name="category_id[]" id="{{ category.name }}" value="{{ category.id }}">
-                                <div class="button-submit">
-                                    <button type="submit" class="btn btn-form btn-danger btn-no-mt"><i class="bi-trash"></i> Supprimer la catégorie</button>
+                <div class="col-12 col-md-9">
+                    <div class="card card-bleed shadow-light-lg mb-5 seller-categories">
+                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 w-100">
+                            <h1>Liste des cat&eacute;gories</h1>
+                            <div class="btn-toolbar mb-2 mb-md-0">
+                                <div class="btn-group">
+                                    <button type="button" class="fr-btn fr-btn--secondary btn-home-outline" data-fr-opened="false" aria-controls="fr-modal-2"><i class="bi-plus-circle"></i> Ajouter une nouvelle catégorie</button>
                                 </div>
-                                {{ form_end(form_delete) }}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td class="text-bold">Total : {{ total_categories }}</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            {% else %}
-            <h3 class="text-black">Vous n'avez pas encore créer de catégories. Vous pouvez en rajouter d&egrave;s maintenant.</h3>
-            {% endif %}
-            <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" class="fr-modal align-items-center justify-content-center" role="dialog">
-                <div class="fr-container--fluid fr-container-md dialog-w-100">
-                    <div class="fr-grid-row fr-grid-row--center">
-                        <div class="fr-col-12 fr-col-md-6 dark-bg">
-                            <div class="fr-modal__body">
-                                <div class="fr-modal__header">
-                                    <button class="fr-link--close fr-link" aria-controls="fr-modal-2">Fermer</button>
-                                </div>
-                                <div class="fr-modal__content forms">
-                                    <h1 id="fr-modal-2-title" class="fr-modal__title mb-2">
-                                        <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
-                                        Ajouter une nouvelle catégorie
-                                    </h1>
-                                    {{ form_start(form, {attr: {class: 'add-product-form'}}) }}
-                                    {{ form_row(form.name) }}
-                                </div>
-                                <div class="fr-modal__footer">
-                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--inline-lg">
-                                        <li>
-                                            <button type="button" class="fr-btn btn-danger" aria-controls="fr-modal-2">
-                                                Annuler
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button type="submit" class="fr-btn btn-form" >
-                                                Enregistrer
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                                {{ form_end(form) }}
                             </div>
                         </div>
+                        {% if categories != false %}
+                        <div class="fr-table fr-table--bordered">
+                            <table class="table table-light table-striped">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Nom</th>
+                                        <th class="last-th">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for category in categories %}
+                                    <tr>
+                                        <td>{{ category.id }}</td>
+                                        <td>{{ category.name }}</td>
+                                        <td class="last-td">
+                                            {{ form_start(form_delete) }}
+                                            <input type="hidden" name="category_id[]" id="{{ category.name }}" value="{{ category.id }}">
+                                            <div class="button-submit">
+                                                <button type="submit" class="btn btn-form btn-danger btn-no-mt"><i class="bi-trash"></i> Supprimer la catégorie</button>
+                                            </div>
+                                            {{ form_end(form_delete) }}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td class="text-bold">Total : {{ total_categories }}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        {% else %}
+                        <h3 class="text-black">Vous n'avez pas encore créer de catégories. Vous pouvez en rajouter d&egrave;s maintenant.</h3>
+                        {% endif %}
+                        <dialog aria-labelledby="fr-modal-2-title" id="fr-modal-2" class="fr-modal align-items-center justify-content-center" role="dialog">
+                            <div class="fr-container--fluid fr-container-md dialog-w-100">
+                                <div class="fr-grid-row fr-grid-row--center">
+                                    <div class="fr-col-12 fr-col-md-6 dark-bg">
+                                        <div class="fr-modal__body">
+                                            <div class="fr-modal__header">
+                                                <button class="fr-link--close fr-link" aria-controls="fr-modal-2">Fermer</button>
+                                            </div>
+                                            <div class="fr-modal__content forms">
+                                                <h1 id="fr-modal-2-title" class="fr-modal__title mb-2">
+                                                    <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
+                                                    Ajouter une nouvelle catégorie
+                                                </h1>
+                                                {{ form_start(form, {attr: {class: 'add-product-form'}}) }}
+                                                {{ form_row(form.name) }}
+                                            </div>
+                                            <div class="fr-modal__footer">
+                                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--inline-lg">
+                                                    <li>
+                                                        <button type="button" class="fr-btn btn-danger" aria-controls="fr-modal-2">
+                                                            Annuler
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button type="submit" class="fr-btn btn-form" >
+                                                            Enregistrer
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            {{ form_end(form) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dialog>
                     </div>
                 </div>
-            </dialog>
+            </div>
         </div>
-    </div>
+    </main>
     {% include 'footer.html.twig' %}
 {% endblock %}

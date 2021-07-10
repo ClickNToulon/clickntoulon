@@ -5,7 +5,6 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
     {% include 'seller/_header.html.twig' %}
-    {% include 'seller/_tabs.html.twig' with {'active': 'edit'} %}
     <div class="toast-container position-absolute p-3">
         {% for message in app.flashes('success') %}
             <div role="alert" class="fr-alert fr-alert--success show" id="alert">
@@ -20,63 +19,77 @@
             </script>
         {% endfor %}
     </div>
-    {{ form_start(form_update, {attr: {class: 'user-modify'}}) }}
-    <h3 class="user-modify-title"><i class="bi-shop-window"></i> Informations de ma boutique</h3>
-    <div class="forms form-modify">
-        <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
-            <p>Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultatif</p>
-        </div>
-        <div class="row first">
-            <div class="col-12 form-row">
-                {{ form_row(form_update.name) }}
-                {{ form_row(form_update.tag) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 form-row">
-                {{ form_row(form_update.email) }}
-                {{ form_row(form_update.phone) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 form-row form-address">
-                {{ form_row(form_update.description) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 form-row form-address">
-                {{ form_row(form_update.address) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 form-row">
-                {{ form_row(form_update.postal_code) }}
-                {{ form_row(form_update.city) }}
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="forms form-modify">
-        <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
-            <p>Au moins un des sélecteurs ci-dessous doit être sélectionné</p>
-        </div>
-        <div class="row row-selects">
-            <div class="col-12 form-row">
-                <div class="checkboxs">
-                    {% for payment in payments %}
-                        <div>
-                            <input type="checkbox" class="form-check-input" name="payment[]" value="{{ payment.id }}" id="payment_{{ payment.id }}" {% if payment in shop.payments %}checked{% endif %}>
-                            <label for="payment_{{ payment.id }}">{{ payment.name }}</label>
+    <main class="pb-8 pb-md-11 mt-md-n6">
+        <div class="container-md">
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    {% include 'seller/_tabs.html.twig' with {active: 'edit'} %}
+                </div>
+                <div class="col-12 col-md-9">
+                    <div class="card card-bleed card-form shadow-light-lg mb-5">
+                        <div class="card-header">
+                            <h4 class="mb-0">
+                                <i class="bi-shop-window"></i> Informations de ma boutique
+                            </h4>
                         </div>
-                    {% endfor %}
+                        <div class="card-body">
+                            {{ form_start(form_update, {attr: {class: 'user-update'}}) }}
+                            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+                                <p>Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultatif</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_row(form_update.name) }}
+                                    {{ form_row(form_update.tag) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_row(form_update.email) }}
+                                    {{ form_row(form_update.phone) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_row(form_update.description) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_row(form_update.address) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_row(form_update.postal_code) }}
+                                    {{ form_row(form_update.city) }}
+                                </div>
+                            </div>
+                            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+                                <p>Au moins un des sélecteurs ci-dessous doit être sélectionné</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="checkboxs">
+                                        {% for payment in payments %}
+                                            <div>
+                                                <input type="checkbox" class="form-check-input" name="payment[]" value="{{ payment.id }}" id="payment_{{ payment.id }}" {% if payment in shop.payments %}checked{% endif %}>
+                                                <label for="payment_{{ payment.id }}" class="text-black">{{ payment.name }}</label>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-submit">
+                                <button type="submit" class="btn btn-form" name="add_shop">Modifier ma boutique</button>
+                            </div>
+                            {{ form_end(form_update) }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="button-submit">
-        <button type="submit" class="btn btn-form" name="add_shop">Modifier ma boutique</button>
-    </div>
-    {{ form_end(form_update) }}
+    </main>
 
     {{ form_start(form_timetable, {attr: {class: 'user-modify'}}) }}
     <h3 class="user-modify-title"><i class="bi-clock"></i> Horaires de ma boutique</h3>

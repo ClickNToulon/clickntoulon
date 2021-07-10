@@ -1,4 +1,10 @@
-<div class="main-container">
-    <h3>{{ shop.name }}</h3>
-    <a href="{{ path('seller_choose') }}"><button class="btn btn-home">Changer de boutique</button></a>
-</div>
+<header class="pb-11 pt-9 d-none d-md-block seller-header">
+    <div class="container-md">
+        <div class="row align-items-center">
+            <div class="col d-flex flex-column justify-content-center">
+                <h3>{{ shop.name }}</h3>
+                <a href="{{ path('seller_choose') }}"><button class="btn btn-home">Changer de boutique</button></a>
+            </div>
+        </div>
+    </div>
+</header>

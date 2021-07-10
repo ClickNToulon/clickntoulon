@@ -4,43 +4,57 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'product'} %}
-    <main class="main-container py-10">
-        <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="container-md py-10">
+        <div class="row gy-4">
             {% for product in products %}
-                <div class="fr-col-12 fr-col-md-3">
-                    <div class="fr-card fr-enlarge-link">
-                        <div class="fr-card__body">
-                            {% if product.dealprice != null %}
-                                <ul class="fr-tags-group fr-card__detail">
-                                    <li>
-                                        <span class="fr-tag deal_price product-price">{{ product.price | format_currency('EUR') }}</span>
-                                    </li>
-                                    <li>
-                                        <span class="fr-tag product-price tag-danger">{{ product.dealprice | format_currency('EUR') }}</span>
-                                    </li>
-                                </ul>
-                            {% else %}
-                                <ul class="fr-tags-group fr-card__detail">
-                                    <li>
-                                    <span class="fr-tag product-price">
-                                        {{ product.price | format_currency('EUR') }}
-                                    </span>
-                                    </li>
-                                </ul>
-                            {% endif %}
-                            <h4 class="fr-card__title">
-                                <a href="{{ path('product_show', {id: product.id}) }}" class="fr-card__link">{{ product.name }}</a>
-                            </h4>
-                            <p class="fr-card__desc">{{ product.description }}</p>
+                <div class="col-12 col-md-3">
+                    <div class="card card-bleed mb-6 mb-xl-0 shadow-light-lg home-product">
+                        <a class="card-img-top" href="{{ path('product_show', {id: product.id}) }}">
+                            <img src="{{ asset('uploads/products/' ~ product.image) }}" alt="..." class="img-fluid" style="border-top-left-radius: 10px;border-top-right-radius: 10px">
+                        </a>
+                        <div class="position-relative w-100">
+                            <div class="shape shape-fluid-x shape-bottom text-white">
+                                <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"></path></svg>                    </div>
                         </div>
-                        <div class="fr-card__img">
-                            <img src="{% if product.image != null %}{{ asset('uploads/products/' ~ product.image) }}{% else %}{{ asset('images/1.jpg') }}{% endif %}" class="fr-responsive-img" alt="Image produit n°{{ product.id }}">
-                        </div>
+                        <a class="card-body" href="{{ path('product_show', {id: product.id}) }}">
+                            <h3>
+                                {{ product.name }}
+                            </h3>
+                            <p class="mb-0 text-muted text-justify">
+                                {{ product.description | u.truncate(150, '...', false) }}
+                            </p>
+                        </a>
+                        <a class="card-meta w-100" href="{{ path('product_show', {id: product.id}) }}">
+                            <hr class="card-meta-divider w-100">
+                            <div class="meta-info d-flex justify-content-center align-items-center">
+                                {% if product.dealprice != null %}
+                                    <ul class="fr-tags-group fr-card__detail me-auto p-4">
+                                        <li>
+                                            <span class="fr-tag deal_price product-price">{{ product.price | format_currency('EUR') }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="fr-tag product-price tag-danger">{{ product.dealprice | format_currency('EUR') }}</span>
+                                        </li>
+                                    </ul>
+                                {% else %}
+                                    <ul class="fr-tags-group fr-card__detail me-auto p-4">
+                                        <li>
+                                        <span class="fr-tag product-price">
+                                            {{ product.price | format_currency('EUR') }}
+                                        </span>
+                                        </li>
+                                    </ul>
+                                {% endif %}
+                                <p class="h6 text-uppercase text-muted mb-0 ms-auto me-3 arrow-icon">
+                                    <i class="arrow-right"></i>
+                                </p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             {% endfor %}
         </div>
         {{ knp_pagination_render(products) }}
-    </main>
+    </div>
     {% include 'footer.html.twig' %}
 {% endblock %}

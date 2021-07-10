@@ -1,16 +1,31 @@
-<div class="nav nav-pills" id="myTab" role="tablist">
-    <div class="container nav-profile">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link {% if active == 'orders' %}active{% endif %}" id="profil" data-toggle="tab" href="{{ path('seller_index', {id: shop.id}) }}" role="tab" aria-controls="profil" aria-selected="true"><i class="bi-box-seam"></i> Commandes en cours</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link {% if active == 'products' %}active{% endif %}" id="edit_product" data-toggle="tab" href="{{ path('seller_edit_products', {id: shop.id}) }}" role="tab" aria-controls="edit_product" aria-selected="false"><i class="bi-pen"></i> Ajouter/&Eacute;diter un produit</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link {% if active == 'categories' %}active{% endif %}" id="edit_category" data-toggle="tab" href="{{ path('seller_categories', {id: shop.id}) }}" role="tab" aria-controls="edit_catgeory" aria-selected="false"><i class="bi-tags"></i> Ajouter/&Eacute;diter une cat&eacute;gorie</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link {% if active == 'edit' %}active{% endif %}" id="edit" data-toggle="tab" href="{{ path('seller_edit', {id: shop.id}) }}" role="tab" aria-controls="edit" aria-selected="false"><i class="bi-shop-window"></i> &Eacute;diter les informations de ma boutique</a>
-        </li>
+<div class="card card-bleed border-bottom border-bottom-md-0 shadow-light-lg">
+    <div class="collapse d-md-block" id="sidenavCollapse">
+        <div class="card-body">
+            <h6 class="fw-bold text-uppercase mb-3">
+                Ma boutique
+            </h6>
+            <ul class="card-list tab-list list text-gray-700 mb-6 seller-tabs">
+                <li class="list-item {% if active == 'orders' %}active{% endif %}">
+                    <a class="list-link text-reset" href="{{ path('seller_index', {id: shop.id}) }}">
+                        <i class="bi-box-seam"></i> Commandes en cours
+                    </a>
+                </li>
+                <li class="list-item {% if active == 'products' %}active{% endif %}">
+                    <a class="list-link text-reset" href="{{ path('seller_edit_products', {id: shop.id}) }}">
+                        <i class="bi-pen"></i> Ajouter/&Eacute;diter un produit
+                    </a>
+                </li>
+                <li class="list-item {% if active == 'categories' %}active{% endif %}">
+                    <a class="list-link text-reset" href="{{ path('seller_categories', {id: shop.id}) }}">
+                        <i class="bi-tags"></i> Ajouter/&Eacute;diter une cat&eacute;gorie
+                    </a>
+                </li>
+                <li class="list-item {% if active == 'edit' %}active{% endif %}">
+                    <a class="list-link text-reset" href="{{ path('seller_edit', {id: shop.id}) }}">
+                        <i class="bi-shop-window"></i> &Eacute;diter les informations de ma boutique
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

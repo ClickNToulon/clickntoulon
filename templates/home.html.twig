@@ -34,10 +34,14 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="d-flex flex-row justify-content-center">
-                        <img class="d-block" src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/logo-home.svg') }}{% endif %}" alt="" width="125" height="125">
-                        <h1 class="display-5 fw-bold align-self-center">Bienvenue {{ user.fullName }}</h1>
+                        <img class="d-block me-3" src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/logo-home.svg') }}{% endif %}" alt="" width="125" height="125">
+                        <h1 class="display-5 fw-bold align-self-center">
+                            Bienvenue
+                            <br>
+                            {{ user.fullName }}
+                        </h1>
                     </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <div class="d-grid gap-4 d-md-flex justify-content-md-center">
                         <a href="{{ path('user_orders') }}"><button class="fr-btn btn-home">Mes commandes</button></a>
                         <a href="{{ path('user_edit') }}"><button class="fr-btn fr-btn--secondary btn-home-outline">Mes informations</button></a>
                         <a href="{{ path('basket_index') }}"><button class="fr-btn fr-btn--secondary btn-home-outline">Mon panier</button></a>
@@ -47,33 +51,28 @@
         </div>
     {% endif %}
 
-    <div class="fr-container fr-container--fluid">
-        <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="container-md">
+        <div class="row gx-4">
             {% for shop in shops %}
-                <div class="fr-col-12 fr-col-md-6">
-                    <div class="fr-card fr-enlarge-link">
-                        <div class="fr-card__body">
-                            <ul class="fr-tags-group fr-card__detail">
-                                <li>
-                                    <span class="fr-tag">
-                                        <i class="bi-tags-fill me-1"></i>{{ shop.tagName }}
-                                    </span>
-                                </li>
-                                <li>
-                                    {% if shop.status == 2 %}
-                                        <span class="fr-tag">Boutique partenaire <span class="admin-badge ms-1 me-0"><i class="fad fa-badge-check"></i></span></span>
-                                    {% elseif shop.status == 1 %}
-                                        <span class="fr-tag">Boutique vérifiée</span>
-                                    {% else %}
-                                        <span class="fr-tag">Boutique non vérifiée</span>
-                                    {% endif %}
-                                </li>
-                            </ul>
-                            <h4 class="fr-card__title">
-                                <a href="{{ path('shop_show', {slug: shop.slug}) }}" class="fr-card__link">{{ shop.name }}</a>
-                            </h4>
-                            <p class="fr-card__desc">{{ shop.description | u.truncate(150, '...', false) }}</p>
-                            <p class="mb-1"><i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
+                <div class="col-12 col-md-6">
+                    <div class="card card-bleed mb-6 mb-xl-0 shadow-light-lg home-shop">
+                        <a class="card-img-top" href="{{ path('shop_show', {slug: shop.slug}) }}">
+                            <img src="{{ asset('uploads/shops/' ~ shop.cover) }}" alt="..." class="img-fluid" style="border-top-left-radius: 10px;border-top-right-radius: 10px">
+                        </a>
+                        <div class="position-relative w-100">
+                            <div class="shape shape-fluid-x shape-bottom text-white">
+                                <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"></path></svg>                    </div>
+                        </div>
+                        <a class="card-body" href="{{ path('shop_show', {slug: shop.slug}) }}">
+                            <h3 class="mb-2">
+                                {{ shop.name | u.truncate(40, '...', false) }}
+                            </h3>
+                            <p class="mb-2 text-black text-justify">
+                                {{ shop.description | u.truncate(150, '...', false) }}
+                            </p>
+                            <p class="mb-1 text-black text-justify">
+                                <i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}
+                            </p>
                             {% set splitArray = shop.phone|split('', 1) %}
                             {% set first = splitArray|first %}
                             {% set firstArray =  [0, first] | join('') %}
@@ -82,54 +81,95 @@
                             {% set lastArray = [firstArray, splitArray] |join('') %}
                             {% set finalSplit = lastArray|split('', 2) %}
                             {% set formattedString = finalSplit|join(' ') %}
-                            <p class="mb-1"><i class="bi-telephone"></i> Téléphone : {{ formattedString }}</p>
+                            <p class="mb-1 text-black text-justify">
+                                <i class="bi-telephone"></i> Téléphone : {{ formattedString }}
+                            </p>
                             {% if shop.email != null %}
-                                <p class="mb-1"><i class="bi-envelope"></i> Email : {{ shop.email }}</p>
+                                <p class="mb-1 text-black text-justify">
+                                    <i class="bi-envelope"></i> Email : {{ shop.email }}
+                                </p>
                             {% endif %}
-                        </div>
-                        <div class="fr-card__img">
-                            <img src="{{ asset('uploads/shops/') ~ shop.cover }}" class="fr-responsive-img" alt="">
-                        </div>
+                        </a>
+                        <a class="card-meta w-100" href="{{ path('shop_show', {slug: shop.slug}) }}">
+                            <hr class="card-meta-divider w-100">
+                            <div class="meta-info d-flex justify-content-center align-items-center">
+                                <ul class="fr-tags-group fr-card__detail p-2 ps-3">
+                                    <li>
+                                    <span class="fr-tag">
+                                        <i class="bi-tags-fill me-1"></i>{{ shop.tagName }}
+                                    </span>
+                                    </li>
+                                    <li>
+                                        {% if shop.status == 2 %}
+                                            <span class="fr-tag">Boutique partenaire <span class="admin-badge ms-1 me-0"><i class="fad fa-badge-check"></i></span></span>
+                                        {% elseif shop.status == 1 %}
+                                            <span class="fr-tag">Boutique vérifiée</span>
+                                        {% else %}
+                                            <span class="fr-tag">Boutique non vérifiée</span>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                                <p class="h6 text-uppercase text-muted ms-auto me-4 mb-2 arrow-icon">
+                                    <i class="arrow-right"></i>
+                                </p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
-    <div class="fr-container fr-container--fluid py-10">
-        <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="container-md py-10">
+        <div class="row gy-4">
             {% for product in products %}
-                <div class="fr-col-12 fr-col-md-3">
-                    <div class="fr-card fr-enlarge-link">
-                        <div class="fr-card__body">
-                            {% if product.dealprice != null %}
-                                <ul class="fr-tags-group fr-card__detail">
-                                    <li>
-                                        <span class="fr-tag deal_price product-price">{{ product.price | format_currency('EUR') }}</span>
-                                    </li>
-                                    <li>
-                                        <span class="fr-tag product-price tag-danger">{{ product.dealprice | format_currency('EUR') }}</span>
-                                    </li>
-                                </ul>
-                            {% else %}
-                                <ul class="fr-tags-group fr-card__detail">
-                                    <li>
-                                    <span class="fr-tag product-price">
-                                        {{ product.price | format_currency('EUR') }}
-                                    </span>
-                                    </li>
-                                </ul>
-                            {% endif %}
-                            <h4 class="fr-card__title">
-                                <a href="{{ path('product_show', {id: product.id}) }}" class="fr-card__link">{{ product.name }}</a>
-                            </h4>
-                            <p class="fr-card__desc">{{ product.description }}</p>
+                <div class="col-12 col-md-3">
+                    <div class="card card-bleed mb-6 mb-xl-0 shadow-light-lg home-product">
+                        <a class="card-img-top" href="{{ path('product_show', {id: product.id}) }}">
+                            <img src="{{ asset('uploads/products/' ~ product.image) }}" alt="..." class="img-fluid">
+                        </a>
+                        <div class="position-relative w-100">
+                            <div class="shape shape-fluid-x shape-bottom text-white">
+                                <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"></path></svg>                    </div>
                         </div>
-                        <div class="fr-card__img">
-                            <img src="{% if product.image != null %}{{ asset('uploads/products/' ~ product.image) }}{% else %}{{ asset('images/1.jpg') }}{% endif %}" class="fr-responsive-img" alt="Image produit n°{{ product.id }}">
-                        </div>
+                        <a class="card-body" href="{{ path('product_show', {id: product.id}) }}">
+                            <h3>
+                                {{ product.name }}
+                            </h3>
+                            <p class="mb-0 text-muted text-justify">
+                                {{ product.description | u.truncate(150, '...', false) }}
+                            </p>
+                        </a>
+                        <a class="card-meta w-100" href="{{ path('product_show', {id: product.id}) }}">
+                            <hr class="card-meta-divider w-100">
+                            <div class="meta-info d-flex justify-content-center align-items-center">
+                                {% if product.dealprice != null %}
+                                    <ul class="fr-tags-group fr-card__detail me-auto p-4">
+                                        <li>
+                                            <span class="fr-tag deal_price product-price">{{ product.price | format_currency('EUR') }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="fr-tag product-price tag-danger">{{ product.dealprice | format_currency('EUR') }}</span>
+                                        </li>
+                                    </ul>
+                                {% else %}
+                                    <ul class="fr-tags-group fr-card__detail me-auto p-4">
+                                        <li>
+                                        <span class="fr-tag product-price">
+                                            {{ product.price | format_currency('EUR') }}
+                                        </span>
+                                        </li>
+                                    </ul>
+                                {% endif %}
+                                <p class="h6 text-uppercase text-muted mb-0 ms-auto me-3 arrow-icon">
+                                    <i class="arrow-right"></i>
+                                </p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             {% endfor %}
+            <div class="row">
+            </div>
         </div>
         <div class="text-center">
             <a href="{{ path('product_index') }}"><button class="fr-btn fr-btn--secondary fr-btn--lg btn-home-outline">Voir plus de produits</button></a>

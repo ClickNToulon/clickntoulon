@@ -440,40 +440,13 @@ footer {
   margin-right: 0 !important;
   border-top: 2.5px solid #232F3E;
   color: #ffffff;
-}
-
-footer div.row {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 5rem !important;
-}
-
-div.col-md {
-  margin: 0 3rem !important;
-}
-
-.footer-logos {
-  margin-left: 10px !important;
-}
-
-.copy {
-  bottom: 0 !important;
-  font-size: 16px;
-}
-
-.footer-title {
-  margin-bottom: 10px !important;
+  padding-bottom: 1.5rem !important;
 }
 
 footer a {
   color: #ffffff;
   font-weight: 500;
   font-size: 18px;
-}
-
-.footer-brand {
-  max-height: 10rem;
-  width: 10rem;
 }
 
 @media (min-width: 768px) {
@@ -2195,6 +2168,8 @@ div.nav-profile li.nav-item a.active {
   grid-gap: 4px;
   grid-auto-flow: dense;
   width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .checkboxs div {
@@ -2994,12 +2969,6 @@ a.pagination-link:hover {
   margin: 10px !important;
 }
 
-.user-update .col-12 .form-group input[type="password"], .user-update .col-12 .form-group input[type="text"], .user-update .col-12 .form-group textarea {
-  border-top: 1px solid #F5b027 !important;
-  border-right: 1px solid #F5b027 !important;
-  border-left: 1px solid #F5b027 !important;
-}
-
 .user-update .col-12 .form-group label {
   color: black !important;
 }
@@ -3062,7 +3031,7 @@ a.pagination-link:hover {
   padding-top: 4rem!important;
 }
 
-.user-header {
+.user-header, .seller-header {
   background-color: #1B2A4E !important;
   color: white !important;
 }
@@ -3076,4 +3045,90 @@ a.pagination-link:hover {
 .card-product-info .card-body {
   flex: 1 1 auto;
   padding: 2rem !important;
+}
+
+.home-product img {
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  max-width: 100% !important;
+  max-height: 307px !important;
+}
+
+.home-shop img {
+  max-width: 100% !important;
+  max-height: 357px !important;
+}
+
+.card-meta .arrow-icon {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+}
+
+.card-meta .arrow-icon::after {
+  font: normal normal normal 1.5rem/1 dsfr-icons;
+  content: "";
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  margin-top: auto;
+  margin-left: auto;
+  color: #F5b027 !important;
+}
+
+.card-meta:hover i.arrow-right{
+  color: #F5b027 !important;
+}
+
+.card-meta-divider {
+  opacity: 1 !important;
+  background-color: #EAEDED;
+}
+
+.shop-choose {
+  height: calc(100vh - 397.97px);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.shop-choose-form {
+  margin-top: 20px;
+}
+
+.shop-choose-form .button-submit button {
+  width: 100%;
+}
+
+.seller-header button:hover {
+  background-color: transparent !important;
+}
+
+.seller-tabs a:before {
+  left: 0 !important;
+}
+
+.seller-orders {
+  min-height: 228px;
+}
+
+.pb-4-5 {
+  padding-bottom: 2.7rem !important;
+}
+
+.seller-products, .seller-categories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem !important;
+  padding-bottom: 0 !important;
+}
+
+.seller-products .fr-table, .seller-categories .fr-table {
+  width: 100%;
+}
+
+.seller-products button.btn-form, .seller-categories button.btn-form {
+  margin-bottom: 0 !important;
 }

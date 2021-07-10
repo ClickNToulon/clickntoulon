@@ -4,9 +4,9 @@
 
 {% block body %}
 {% include 'navbar.html.twig' with {'active' :'my-shop'} %}
-<div class="form form-login">
+<div class="shop-choose">
     <h2>Choisir une boutique</h2>
-    {{ form_start(form, {attr: {class: 'user-modify form-choose'}}) }}
+    {{ form_start(form, {attr: {class: 'shop-choose-form'}}) }}
         {{ form_row(form.select) }}
         <div class="button-submit">
             <button class="btn btn-form" type="submit" name="select">Choisir</button>
