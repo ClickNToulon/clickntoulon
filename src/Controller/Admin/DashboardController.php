@@ -8,8 +8,6 @@ use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\Shop;
 use App\Entity\User;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
@@ -25,7 +23,7 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        return $this->render('admin/dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
@@ -33,21 +31,20 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTitle('Administration - TouSolidaires')
             ->setFaviconPath('images/logo.svg')
-            ->setTranslationDomain('forms')
+            ->setTranslationDomain('admin')
             ->disableUrlSignatures()
-            ->generateRelativeUrls()
-            ->renderSidebarMinimized();
+            ->generateRelativeUrls();
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Shops', 'fa fa-store-alt', Shop::class);
-        yield MenuItem::linkToCrud('Products', 'fa fa-box-open', Product::class);
-        yield MenuItem::linkToCrud('Users', 'fa fa-users', User::class);
-        yield MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class);
-        yield MenuItem::linkToCrud('Baskets', 'fa fa-shopping-cart', Basket::class);
-        yield MenuItem::linkToCrud('Orders', 'fa fa-shipping-fast', Order::class);
+        yield MenuItem::linktoDashboard('Accueil', 'bi-house-fill');
+        yield MenuItem::linkToCrud('Users', 'bi-people-fill', User::class);
+        yield MenuItem::linkToCrud('Shops', 'bi-shop-window', Shop::class);
+        yield MenuItem::linkToCrud('Products', 'bi-box-seam', Product::class);
+        yield MenuItem::linkToCrud('Categories', 'bi-tags-fill', Category::class);
+        yield MenuItem::linkToCrud('Baskets', 'bi-cart-fill', Basket::class);
+        yield MenuItem::linkToCrud('Orders', 'bi-truck', Order::class);
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu

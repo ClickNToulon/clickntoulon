@@ -1,25 +1,30 @@
-<div class="mt-5 mb-5">
-    <div class="user-profile">
-        <img src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/user.png') }}{% endif %}" alt="User" class="user-profile-image">
-        <div class="user-profile-info">
-            <h1 class="pb-2 h1">{{ user.username }}</h1>
-            <div class="user-profile-status">
-                <h4 class="lead fw-normal">
-                    {% if user is defined and user != null and is_granted('ROLE_ADMIN') %}
-                        <span class="fr-tag fr-tag-admin">Administrateur <span class="admin-badge"><i class="fad fa-badge-check"></i></span></span>
-                    {% elseif user is defined and user != null and is_granted('ROLE_MERCHANT') %}
-                        <span class="badge rounded-pill bg-secondary">Commerçant <i class="bi-shop-window px-1"></i></span>
-                    {% elseif user is defined and user != null and is_granted('ROLE_USER') %}
-                        <span class="badge rounded-pill bg-secondary">Compte standard</span>
+<header class="pb-11 pt-9 d-none d-md-block user-header">
+    <div class="container-md">
+        <div class="row align-items-center">
+            <div class="col d-flex flex-row justify-content-center">
+                <img src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/user.png') }}{% endif %}" alt="User" class="user-profile-image">
+                <div class="user-profile-info">
+                    <h1 class="pb-2 h1">{{ user.fullName }}</h1>
+                    <div class="user-profile-status">
+                        <h4 class="lead fw-normal">
+                            {% if user is defined and user != null and is_granted('ROLE_ADMIN') %}
+                                <span class="fr-tag fr-tag-admin">Administrateur <span class="admin-badge"><i class="fad fa-badge-check"></i></span></span>
+                            {% elseif user is defined and user != null and is_granted('ROLE_MERCHANT') %}
+                                <span class="badge rounded-pill bg-secondary">Commerçant <i class="bi-shop-window px-1"></i></span>
+                            {% elseif user is defined and user != null and is_granted('ROLE_USER') %}
+                                <span class="badge rounded-pill bg-secondary">Compte standard</span>
+                            {% endif %}
+                        </h4>
+                        <h4 class="lead fw-normal">
+                            <span class="badge rounded-pill since text-white-75"><i class="bi-calendar3"></i>  Inscrit depuis le {{ user.createdat | format_datetime('short', 'none', locale='fr') }}</span>
+                        </h4>
+                    </div>
+                    {% if is_granted('ROLE_MERCHANT') %}
+                        <a href="{{ path('seller_create') }}"><button class="btn btn-form">Créer votre boutique</button></a>
                     {% endif %}
-                </h4>
-                <h4 class="lead fw-normal">
-                    <span class="badge rounded-pill since"><i class="bi-calendar3"></i>  Inscrit depuis le {{ user.createdat | format_datetime('short', 'none', locale='fr') }}</span>
-                </h4>
+                </div>
+
             </div>
-            {% if is_granted('ROLE_MERCHANT') %}
-                <a href="{{ path('seller_create') }}"><button class="btn btn-form">Créer votre boutique</button></a>
-            {% endif %}
-        </div>
-    </div>
-</div>
+        </div> <!-- / .row -->
+    </div> <!-- / .container -->
+</header>

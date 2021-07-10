@@ -37,7 +37,7 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', ['last_email' => $lastUsername, 'error' => $error]);
     }
 
     /**
@@ -74,7 +74,7 @@ class SecurityController extends AbstractController
                 $em->flush();
                 $title = "Veuillez vérifier votre compte chez TouSolidaires";
                 $options = [];
-                array_push($options, $user->getUsername(), $user->getId());
+                array_push($options, $user->getFullName(), $user->getId());
                 (new MailerController)->send($mailer, $user->getEmail(), $title, $options, 'signup');
                 return $this->redirectToRoute('app_login');
             } catch (UniqueConstraintViolationException $e) {

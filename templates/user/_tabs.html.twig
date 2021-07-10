@@ -1,14 +1,26 @@
-<div class="nav nav-pills container-fluid">
-    <div class="container-fluid nav-profile">
-        <li class="nav-item" role="presentation">
-            <a href="{{ path('user_orders') }}" {% if active == 'orders' %}class="active"{% endif %}>
-                <i class="bi-box-seam"></i>Mes Commandes
-            </a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a href="{{ path('user_edit') }}" {% if active == 'edit' %}class="active"{% endif %}>
-                <i class="bi-pen"></i>Editer mes informations
-            </a>
-        </li>
+<div class="card card-bleed border-bottom border-bottom-md-0 shadow-light-lg">
+    <!-- Collapse -->
+    <div class="collapse d-md-block" id="sidenavCollapse">
+        <div class="card-body">
+
+            <!-- Heading -->
+            <h6 class="fw-bold text-uppercase mb-3">
+                Mon compte
+            </h6>
+
+            <!-- List -->
+            <ul class="card-list tab-list list text-gray-700 mb-6">
+                <li class="list-item {% if active == 'orders' %}active{% endif %}">
+                    <a class="list-link text-reset" href="{{ path('user_orders') }}">
+                        Mes commandes
+                    </a>
+                </li>
+                <li class="list-item {% if active == 'edit' %}active{% endif %}">
+                    <a class="list-link text-reset" href="{{ path('user_edit') }}">
+                        &Eacute;diter mes informations
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

@@ -17,7 +17,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  * @ApiResource()
  */
 class User implements UserInterface
@@ -33,7 +32,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank()
      */
-    private $username;
+    private $fullName;
 
     /**
      * @ORM\Column(type="json")
@@ -116,12 +115,27 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string) $this->fullName;
     }
 
     public function setUsername(string $username): self
     {
-        $this->username = $username;
+        $this->fullName = $username;
+
+        return $this;
+    }
+
+    /**
+     * The user full name.
+     */
+    public function getFullName(): string
+    {
+        return (string) $this->fullName;
+    }
+
+    public function setFullName(string $fullName): self
+    {
+        $this->fullName = $fullName;
 
         return $this;
     }

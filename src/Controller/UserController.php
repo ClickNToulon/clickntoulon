@@ -176,7 +176,7 @@ class UserController extends AbstractController
             if ($avatarFile) {
                 $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename, '-', 'fr');
-                $newFilename = sprintf("%s-%s-%s.%s", $safeFilename, $user->getUsername(), $user->getId(), $avatarFile->guessExtension());
+                $newFilename = sprintf("%s-%s-%s.%s", $safeFilename, $user->getFullName(), $user->getId(), $avatarFile->guessExtension());
 
                 // Move the file to the directory where brochures are stored
                 try {

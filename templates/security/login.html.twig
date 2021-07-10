@@ -3,42 +3,69 @@
 {% block title  'Connexion - TouSolidaires'%}
 
 {% block body %}
-    {% include 'navbar.html.twig' with {'active': 'login'} %}
-    <div class="toast-container position-absolute p-3">
-        {% if error %}
-        <div role="alert" class="fr-alert fr-alert--error show" id="alert">
-            <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
-        </div>
-        <script>
-            const alert = document.querySelector("#alert")
-            console.log(alert)
-            setTimeout(() => {
-                alert.classList.remove('show')
-            }, 10000);
-        </script>
-        {% endif %}
-    </div>
-    <div class="form form-login">
-        <h2>Connexion</h2>
-        <form method="post" class="forms">
-            <label for="inputUsername">Nom d'Utilisateur</label>
-            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="fr-input form-control" required autofocus>
-            <label for="inputPassword">Mot de passe</label>
-            <input type="password" name="password" id="inputPassword" class="fr-input form-control last-input" required>
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <div class="form-actions">
-                <div class="checkbox">
-                    <input class="form-check-input" type="checkbox" name="_remember_me">
-                    <label class="form-check-label" for="checkbox">
-                        Se souvenir de moi
-                    </label>
+    <section class="login w-100 h-100">
+        <div class="fr-container d-flex flex-column h-100">
+            <div class="row align-items-center justify-content-center gx-0 h-100">
+                <div class="col-12 col-md-6 col-lg-4 py-8 py-md-11 h-100 d-flex justify-content-center flex-column">
+
+                    <!-- Heading -->
+                    <h1 class="mb-3 fw-bold">
+                        Se connecter
+                    </h1>
+
+                    <!-- Form -->
+                    <form class="login" method="post">
+                        {% if error %}
+                            <div role="alert" class="fr-alert fr-alert--error mb-3" id="alert">
+                                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                            </div>
+                        {% endif %}
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label class="form-label" for="inputEmail">
+                                Addresse Mail
+                            </label>
+                            <input type="email" class="fr-input form-control" id="inputEmail" name="email" required autofocus>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group mb-2">
+                            <label class="form-label" for="inputPassword">
+                                Mot de passe
+                            </label>
+                            <input type="password" name="password" id="inputPassword" class="fr-input form-control last-input" required>
+                        </div>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <div class="form-actions">
+                            <div class="checkbox">
+                                <input class="form-check-input" type="checkbox" name="_remember_me">
+                                <label class="form-check-label" for="checkbox">
+                                    Se souvenir de moi
+                                </label>
+                            </div>
+                            <a href="" class="text-black">Mot de passe oublié ?</a>
+                        </div>
+
+
+                        <!-- Submit -->
+                        <div>
+                            <button class="btn btn-form" type="submit">Connexion</button>
+                        </div>
+
+                    </form>
+
+                    <!-- Text -->
+                    <p class="mb-0 mt-2 fs-sm text-muted">
+                        Vous n'avez pas encore de compte ? <a href="{{ path('app_signup') }}">Créer votre compte</a>.
+                    </p>
+
                 </div>
-                <a href="" class="white">Mot de passe oublié ?</a>
-            </div>
-            <div class="buttons">
-                <button class="btn btn-form" type="submit">Connexion</button>
-            </div>
-        </form>
-    </div>
-    {% include 'footer.html.twig' %}
+                <div class="col-lg-7 offset-lg-1 d-none d-lg-flex flex-row justify-content-center login-image h-100">
+                    <!-- Image -->
+                    <div class="w-100"></div>
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
 {% endblock %}

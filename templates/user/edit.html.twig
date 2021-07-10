@@ -5,92 +5,157 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'user'} %}
     {% include 'user/_header.html.twig' %}
-    {% include 'user/_tabs.html.twig' with {active: 'edit'} %}
-    <div class="container">
-        <div class="toast-container position-absolute p-3">
-            {% for message in app.flashes('success') %}
-                <div role="alert" class="fr-alert fr-alert--success show" id="alert">
-                    <p>{{ message }}</p>
-                </div>
-                <script>
-                    const alert = document.querySelector("#alert")
-                    console.log(alert)
-                    setTimeout(() => {
-                        alert.classList.remove('show')
-                    }, 10000);
-                </script>
-            {% endfor %}
-            {% for message in app.flashes('warning') %}
-                <div role="alert" class="fr-alert fr-alert--danger show" id="alert">
-                    <p>{{ message }}</p>
-                </div>
-                <script>
-                    const alert = document.querySelector("#alert")
-                    console.log(alert)
-                    setTimeout(() => {
-                        alert.classList.remove('show')
-                    }, 10000);
-                </script>
-            {% endfor %}
-        </div>
-        {{ form_start(form_password, {attr: {class: 'user-modify'}}) }}
-            <h3 class="password-update"><i class="bi-lock"></i> Mot de passe</h3>
-            <div class="stack forms form-modify password-form">
-                {{ form_row(form_password.password) }}
+    <div class="toast-container position-absolute p-3">
+        {% for message in app.flashes('success') %}
+            <div role="alert" class="fr-alert fr-alert--success show" id="alert">
+                <p>{{ message }}</p>
             </div>
-            <div class="button-submit">
-                <button type="submit" class="btn btn-form">Modifier mon mot de passe</button>
+            <script>
+                const alert = document.querySelector("#alert")
+                console.log(alert)
+                setTimeout(() => {
+                    alert.classList.remove('show')
+                }, 10000);
+            </script>
+        {% endfor %}
+        {% for message in app.flashes('warning') %}
+            <div role="alert" class="fr-alert fr-alert--danger show" id="alert">
+                <p>{{ message }}</p>
             </div>
-        {{ form_end(form_password) }}
-        {{ form_start(form_avatar, {attr: {class: 'user-modify'}}) }}.
-            <h3 class="user-modify-title"><i class="bi-person-bounding-box"></i> Photo de profil</h3>
-            <div class="forms user_upload_profile form-modify">
-                <img src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/user.png') }}{% endif %}" width="150" height="150">
-                {{ form_errors(form_avatar) }}
-                {{ form_widget(form_avatar) }}
-            </div>
-            <div class="button-submit">
-                <button type="submit" class="btn btn-form profile">Changer de photo de profil</button>
-            </div>
-        {{ form_end(form_avatar) }}
-        {{ form_start(form_profile, {attr: {class: 'user-modify'}}) }}
-            <h3 class="user-modify-title"><i class="bi-person-lines-fill"></i> Mes informations</h3>
-            <div class="forms form-modify">
-                <div class="fr-alert fr-alert--info fr-alert--sm">
-                    <p>Tous les champs doivent être remplis</p>
-                </div>
-                <div class="row first">
-                    <div class="col-12 form-row">
-                        {{ form_row(form_profile.username) }}
-                        {{ form_row(form_profile.email) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 form-row form-address">
-                        {{ form_row(form_profile.address) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 form-row">
-                        {{ form_row(form_profile.postal_code) }}
-                        {{ form_row(form_profile.city) }}
-                    </div>
-                </div>
-            </div>
-            <div class="button-submit">
-                <button type="submit" class="btn btn-form">Modifier mon profil</button>
-            </div>
-        {{ form_end(form_profile) }}
-        {{ form_start(form_delete, {attr: {class: 'user-modify last'}}) }}
-        <h3 class="danger-zone"><i class="bi-trash"></i> Danger Zone</h3>
-        <p class="danger-zone-txt">Vous n'&ecirc;tes pas satisfait du contenu propos&eacute; sur le site ?<br>
-            Ou vous souhaitez supprimer toutes les informations associ&eacute;es à votre compte ?</p>
-        <i class="danger-zone-txt">Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es relatives &agrave; votre profil, ainsi que toutes vos commandes pass&eacute;es sur le site.</i>
-        {{ form_row(form_delete.id) }}
-        <div class="button-submit">
-            <button type="submit" class="btn btn-form btn-danger"><i class="bi-trash"></i> Supprimer mon profil</button>
-        </div>
-        {{ form_end(form_delete) }}
+            <script>
+                const alert = document.querySelector("#alert")
+                console.log(alert)
+                setTimeout(() => {
+                    alert.classList.remove('show')
+                }, 10000);
+            </script>
+        {% endfor %}
     </div>
+    <main class="pb-8 pb-md-11 mt-md-n6">
+        <div class="container-md">
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    {% include 'user/_tabs.html.twig' with {active: 'edit'} %}
+                </div>
+                <div class="col-12 col-md-9">
+                    <div class="card card-bleed card-form shadow-light-lg mb-5">
+                        <div class="card-header">
+                            <!-- Heading -->
+                            <h4 class="mb-0">
+                                <i class="bi-lock"></i> Mot de passe
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            {{ form_start(form_password, {attr: {class: 'user-update'}}) }}
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_row(form_password.password) }}
+                                </div>
+                                <div class="col-12">
+                                    <div class="button-submit">
+                                        <button type="submit" class="btn btn-form">Modifier mon mot de passe</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form_password) }}
+                        </div>
+                    </div>
+                    <div class="card card-bleed shadow-light-lg mb-5">
+                        <div class="card-header">
+                            <!-- Heading -->
+                            <h4 class="mb-0">
+                                <i class="bi-person-bounding-box"></i> Photo de profil
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            {{ form_start(form_avatar, {attr: {class: 'user-update'}}) }}
+                            <div class="row">
+                                <div class="col-12">
+                                    <img src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/user.png') }}{% endif %}"
+                                         width="150" height="150">
+                                </div>
+                                <div class="col-12">
+                                    {{ form_errors(form_avatar) }}
+                                    {{ form_widget(form_avatar) }}
+                                </div>
+                                <div class="col-12">
+                                    <div class="button-submit">
+                                        <button type="submit" class="btn btn-form profile">Changer de photo de profil
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form_avatar) }}
+                        </div>
+                    </div>
+                    <div class="card card-bleed shadow-light-lg mb-5">
+                        <div class="card-header">
+                            <!-- Heading -->
+                            <h4 class="mb-0">
+                                <i class="bi-person-lines-fill"></i> Mes informations
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            {{ form_start(form_profile, {attr: {class: 'user-update'}}) }}
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_row(form_profile.fullName) }}
+                                    {{ form_row(form_profile.email) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_row(form_profile.address) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_row(form_profile.postal_code) }}
+                                    {{ form_row(form_profile.city) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-submit">
+                            <button type="submit" class="btn btn-form">Modifier mon profil</button>
+                        </div>
+                        {{ form_end(form_profile) }}
+                    </div>
+                    <div class="card card-bleed shadow-light-lg mb-5">
+                        <div class="card-header">
+                            <!-- Heading -->
+                            <h4 class="mb-0 text-danger-zone">
+                                <i class="bi-trash"></i> Danger Zone
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            {{ form_start(form_delete, {attr: {class: 'user-update'}}) }}
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="danger-zone-txt">Vous n'&ecirc;tes pas satisfait du contenu propos&eacute;
+                                        sur le site ?<br>
+                                        Ou vous souhaitez supprimer toutes les informations associ&eacute;es à votre
+                                        compte ?</p>
+                                </div>
+                                <div class="col-12">
+                                    <p class="danger-zone-txt">Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es
+                                        relatives &agrave; votre profil, ainsi que toutes vos commandes pass&eacute;es
+                                        sur le site.</p>
+                                    {{ form_row(form_delete.id) }}
+                                </div>
+                                <div class="col-12">
+                                    <div class="button-submit">
+                                        <button type="submit" class="btn btn-form btn-danger"><i class="bi-trash"></i>
+                                            Supprimer mon profil
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form_delete) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
     {% include 'footer.html.twig' %}
 {% endblock %}

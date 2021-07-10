@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Créer un produit - Administration - TouSolidaires' %}
+
+{% block body %}
+    <div class="d-flex flex-row">
+        {% include 'admin/sidebar.html.twig' with {'active': 'products'} %}
+        <div class="fr-container fr-container--fluid">
+            {{ form_start(form, {attr: {class: 'user-modify'}}) }}
+            <h3 class="user-modify-title"><i class="bi-shop-window"></i> Informations du nouveau produit</h3>
+            <div class="forms form-modify">
+                <div class="fr-alert fr-alert--info fr-alert--sm">
+                    <p>Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultatif</p>
+                </div>
+                <div class="row first">
+                    <div class="col-12 form-row add_product">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.categories) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 form-row form-address">
+                        {{ form_row(form.description) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 form-row">
+                        {{ form_row(form.price) }}
+                        {{ form_row(form.deal_price) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 form-row">
+                        {{ form_row(form.deal_start) }}
+                        {{ form_row(form.deal_end) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 form-row">
+                        {{ form_row(form.image) }}
+                    </div>
+                </div>
+            </div>
+            <div class="button-submit">
+                <button type="submit" class="btn btn-form" name="add_shop">Créer la boutique</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

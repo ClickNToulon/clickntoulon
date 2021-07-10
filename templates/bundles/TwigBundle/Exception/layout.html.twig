@@ -5,16 +5,49 @@
     <meta name="robots" content="noindex,nofollow,noarchive" />
     <title>An Error Occurred: {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="/css/error.css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="icon" href="{{ asset('images/logo.svg') }}">
+    <style>
+        section.section-border {
+            height: 100vh !important;
+        }
+
+        section .container {
+            margin: 0 300px !important;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h1>Oops! An Error Occurred</h1>
-    <h2>The server returned a "{% block error %}{% endblock %}".</h2>
+    <section class="section-border border-primary h-100">
+        <div class="container d-flex flex-column h-100">
+            <div class="row align-items-center justify-content-center gx-0 h-100">
+                <div class="col-12 col-md-5 col-lg-4 py-8 py-md-11">
 
-    <p>
-        Something is broken. Please let us know what you were doing when this error occurred.
-        We will fix it as soon as possible. Sorry for any inconvenience caused.
-    </p>
-</div>
+                    <!-- Heading -->
+                    <h1 class="display-3 fw-bold text-center">
+                        Uh Oh.
+                    </h1>
+
+                    <h4 class="mb-5 text-center text-black">
+                        {% block error %}{% endblock %}
+                    </h4>
+
+                    <!-- Text -->
+                    <p class="mb-5 text-center text-muted">
+                        Nous avons rencontré une erreur, mais nous allons nous en occuper
+                    </p>
+
+                    <!-- Link -->
+                    <div class="text-center">
+                        <a class="btn btn-home" href="{{ path('home') }}">
+                            Retour en sécurité
+                        </a>
+                    </div>
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
 </body>
 </html>

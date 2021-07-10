@@ -3,65 +3,74 @@
 {% block title 'Boutiques - Administration - TouSolidaires' %}
 
 {% block body %}
-    {% include 'admin/navbar.html.twig' with {'active': 'shops'} %}
-    <div class="fr-container fr-container--fluid py-5">
-        <h3 class="mb-2">Boutiques</h3>
-        <div class="fr-table fr-table--bordered">
-            <table class="table table-light table-stripped">
-                <thead class="thead-light">
-                <tr>
-                    <th>N°</th>
-                    <th>ID Gérant</th>
-                    <th>Nom</th>
-                    <th>Téléphone</th>
-                    <th>Addresse</th>
-                    <th>Banni</th>
-                    <th>Status</th>
-                    <th>Créé le</th>
-                    <th>Mis à jour le</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for shop in shops %}
-                    {% set splitArray = shop.phone|split('', 1) %}
-                    {% set first = splitArray|first %}
-                    {% set firstArray =  [0, first] | join('') %}
-                    {% set splitArray = splitArray|slice(1) %}
-                    {% set splitArray = splitArray|join('') %}
-                    {% set lastArray = [firstArray, splitArray] |join('') %}
-                    {% set finalSplit = lastArray|split('', 2) %}
-                    {% set formattedString = finalSplit|join(' ') %}
+    <div class="d-flex flex-row">
+        {% include 'admin/sidebar.html.twig' with {'active': 'shops'} %}
+        <div class="fr-container fr-container--fluid py-3">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <h1>Boutiques</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <a href="{{ path('admin_create_shop') }}"><button type="button" class="fr-btn fr-btn--secondary btn-home-outline"><i class="bi-plus-circle"></i> Ajouter une boutique</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="fr-table fr-table--bordered admin-table">
+                <table class="table table-light table-stripped">
+                    <thead class="thead-light">
                     <tr>
-                        <td>{{ shop.id }}</td>
-                        <td>{{ shop.ownerId }}</td>
-                        <td>{{ shop.name | u.truncate(30, '...', false) }}</td>
-                        <td>{{ formattedString }}</td>
-                        <td>{{ shop.address }} {{ shop.postalCode }} {{ shop.city }}</td>
-                        <td>{% if shop.banned == 0 %}Non banni{% else %}Banni{% endif %}</td>
-                        <td>{% if shop.status == 2 %}Partenaire{% elseif shop.status == 1 %}Vérifié{% else %}Non vérifié{% endif %}</td>
-                        <td>{{ shop.createdAt | format_datetime('short', 'short', locale='fr') }}</td>
-                        <td>{{ shop.updatedAt | format_datetime('short', 'short', locale='fr') }}</td>
-                        <td><a href="{{ path('admin_shops_ban', {id: shop.id}) }}"><button class="btn btn-danger btn-no-mt">Bannir</button></a></td>
+                        <th>N°</th>
+                        <th>ID Gérant</th>
+                        <th>Nom</th>
+                        <th>Téléphone</th>
+                        <th>Addresse</th>
+                        <th>Banni</th>
+                        <th>Status</th>
+                        <th>Créé le</th>
+                        <th>Mis à jour le</th>
+                        <th>Action</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Total : {{ total }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                </tfoot>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for shop in shops %}
+                        {% set splitArray = shop.phone|split('', 1) %}
+                        {% set first = splitArray|first %}
+                        {% set firstArray =  [0, first] | join('') %}
+                        {% set splitArray = splitArray|slice(1) %}
+                        {% set splitArray = splitArray|join('') %}
+                        {% set lastArray = [firstArray, splitArray] |join('') %}
+                        {% set finalSplit = lastArray|split('', 2) %}
+                        {% set formattedString = finalSplit|join(' ') %}
+                        <tr>
+                            <td>{{ shop.id }}</td>
+                            <td>{{ shop.ownerId }}</td>
+                            <td>{{ shop.name | u.truncate(30, '...', false) }}</td>
+                            <td>{{ formattedString }}</td>
+                            <td>{{ shop.address }} {{ shop.postalCode }} {{ shop.city }}</td>
+                            <td>{% if shop.banned == 0 %}Non banni{% else %}Banni{% endif %}</td>
+                            <td>{% if shop.status == 2 %}Partenaire{% elseif shop.status == 1 %}Vérifié{% else %}Non vérifié{% endif %}</td>
+                            <td>{{ shop.createdAt | format_datetime('short', 'short', locale='fr') }}</td>
+                            <td>{{ shop.updatedAt | format_datetime('short', 'short', locale='fr') }}</td>
+                            <td><a href="{{ path('admin_shops_ban', {id: shop.id}) }}"><button class="btn btn-danger btn-no-mt">Bannir</button></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total : {{ total }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            {{ knp_pagination_render(shops) }}
         </div>
-        {{ knp_pagination_render(shops) }}
     </div>
 {% endblock %}

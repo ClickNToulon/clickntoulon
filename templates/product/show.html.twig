@@ -6,53 +6,32 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'product'} %}
-    <main class="main-container py-10">
-        <div class="product-container-2">
-            <div class="card card-product">
-                <div class="card-body-shop card-body-product">
-                    <div class="card-column">
-                        <div class="timetable-day timetable-day-product">
-                            <h4>{{ shop.name }}</h4>
-                            <i><a href="{{ path('shop_show', {slug: shop.slug}) }}">Voir la boutique</a></i>
-                        </div>
-                        <div class="timetable-day timetable-day-product">
-                            <h4>Adresse</h4>
-                            <p class="mb-0">{{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
-                        </div>
-                        <div class="timetable-day timetable-day-product">
-                            <h4>Nous contacter</h4>
-                            <p class="mt-2 mb-1">Téléphone : <a href="tel:+33{{ shop.phone }}" target="_blank">+33{{ shop.phone }}</a></p>
-                            <p class="mb-1">Email : <a href="mailto:{{ shop.email }}" target="_blank">{{ shop.email }}</a></p>
-                            <h4 class="mb-2 mt-3">Moyens de paiement acceptés par le commerçant</h4>
-                            {% for payment in payments %}
-                                <a title="{{ payment[1] }}"><i class="{{ payment[0] }} px-1"></i></a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="shop-info">
-                <h1 class="pb-3">{{ product.name }}</h1>
-                <p class="text-justify">{{ product.description }}</p>
-                {% set address = "%address% %zip% %city%"| replace({'%address%': shop.address, '%zip%': shop.postalcode, '%city%': shop.city}) %}
-                <div class="shop-info-details">
-                    <figure class="fr-content-media" role="group" aria-label="Photo © Légende de l'image">
-                        <div class="fr-content-media__img">
-                            <img src="{{ asset('/uploads/products/') ~ product.image }}" alt="description alternative à l‘image">
-                        </div>
-                        <figcaption class="fr-content-media__caption">Photo © {{ shop.name }}</figcaption>
-                    </figure>
-                    <div class="pl-5 w-100 h-100">
-                        <h4>Prix à l'unité</h4>
+    <section class="pt-9 pt-md-11">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-md">
+
+                    <!-- Link -->
+                    <a href="{{ path('product_index') }}" class="fw-bold fs-sm text-decoration-none mb-3">
+                        <i class="bi-arrow-right me-1"></i> Tous les produits
+                    </a>
+
+                    <!-- Heading -->
+                    <h1 class="display-4 mb-2">
+                        {{ product.name }}
+                    </h1>
+
+                    <!-- Text -->
+                    <p class="fs-lg text-gray-700 mb-5 mb-md-0">
                         {% if product.dealprice != null %}
-                            <ul class="fr-tags-group fr-card__detail">
-                                <li>
-                                    <span class="fr-tag deal_price product-price">{{ product.price | format_currency('EUR') }}</span>
-                                </li>
-                                <li>
-                                    <span class="fr-tag product-price tag-danger">{{ product.dealprice | format_currency('EUR') }}</span>
-                                </li>
-                            </ul>
+                        <ul class="fr-tags-group fr-card__detail">
+                            <li>
+                                <span class="fr-tag deal_price product-price">{{ product.price | format_currency('EUR') }}</span>
+                            </li>
+                            <li>
+                                <span class="fr-tag product-price tag-danger">{{ product.dealprice | format_currency('EUR') }}</span>
+                            </li>
+                        </ul>
                         {% else %}
                             <ul class="fr-tags-group fr-card__detail">
                                 <li>
@@ -63,36 +42,135 @@
                             </ul>
                         {% endif %}
                         {% if product.dealStart != null and product.dealEnd != null %}
-							{% set dealstart = product.dealStart | format_datetime(pattern="dd'/'MM'/'yy 'à' HH'h'mm", locale="fr") %}
+                            {% set dealstart = product.dealStart | format_datetime(pattern="dd'/'MM'/'yy 'à' HH'h'mm", locale="fr") %}
                             {% set dealend = product.dealEnd | format_datetime(pattern="dd'/'MM'/'yy 'à' HH'h'mm", locale="fr") %}
                             <span>La promotion commence le {{ dealstart }} et se termine le {{ dealend }}</span>
                         {% endif %}
-                        {{ form_start(form, {'attr': {'class': 'form-add-product'}}) }}
-                            {{ form_row(form.product_id, {'value': product.id}) }}
-                            {{ form_row(form.shop_id, {'value': shop.id}) }}
-                            {{ form_row(form.quantity, {'value': quantity}) }}
-                            <div class="button-submit">
-                                <button type="submit" class="btn btn-add btn-no-mt" name="edit">Ajouter au panier</button>
-                            </div>
-                        {{ form_end(form) }}
-						<br>
-						<h4>Catégories</h4>
-						<ul class="fr-tags-group categories">
-                            {% if categories is not empty %}
-                                {% for category in categories %}
-                            	<li>
-                                   <span class="fr-tag">{{ category }}</span>
+                    </p>
+
+                </div>
+                <div class="col-auto d-flex flex-row">
+
+                    <!-- Buttons -->
+                    {{ form_start(form, {'attr': {'class': 'form-add-product'}}) }}
+                    {{ form_row(form.product_id, {'value': product.id}) }}
+                    {{ form_row(form.shop_id, {'value': shop.id}) }}
+                    {{ form_row(form.quantity, {'value': quantity}) }}
+                    <div class="button-submit">
+                        <button type="submit" class="btn btn-add btn-no-mt" name="edit">Ajouter au panier</button>
+                    </div>
+                    {{ form_end(form) }}
+
+                </div>
+            </div> <!-- / .row -->
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- Divider -->
+                    <hr class="my-5 my-md-8 border-dark product-separator w-100">
+
+                </div>
+            </div> <!-- / .row -->
+            <div class="row">
+                <div class="col-12 col-md-8 product-info">
+
+                    <h3 class="mb-2 mt-0">
+                        Photo du produit
+                    </h3>
+
+                    <!-- Text -->
+                    <figure class="fr-content-media" role="group" aria-label="Photo © Légende de l'image">
+                        <div class="fr-content-media__img">
+                            <img src="{{ asset('/uploads/products/') ~ product.image }}" class="rounded" alt="description alternative à l‘image">
+                        </div>
+                        <figcaption class="fr-content-media__caption">Photo © {{ shop.name }}</figcaption>
+                    </figure>
+
+                    <!-- Heading -->
+                    <h3>
+                        Description du produit
+                    </h3>
+
+                    <!-- Text -->
+                    <p class="text-gray-800 mb-6 mb-md-8">
+                        {{ product.description }}
+                    </p>
+
+                    <h3 class="mb-2">
+                        Catégorie
+                    </h3>
+
+                    <ul class="fr-tags-group categories mb-5">
+                        {% if categories is not empty %}
+                            {% for category in categories %}
+                                <li>
+                                    <span class="fr-tag">{{ category }}</span>
                                 </li>
-                                {% endfor %}
-                            {% else %}
+                            {% endfor %}
+                        {% else %}
                             <p>Le produit n'a pas de catégorie</p>
-                            {% endif %}
-						</ul>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4">
+
+                    <!-- Card -->
+                    <div class="card card-bleed shadow-light-lg mb-5 card-product-info">
+                        <div class="card-body">
+
+                            <!-- Heading -->
+                            <h4 class="mb-2">
+                                {{ shop.name }}
+                            </h4>
+
+                            <!-- Text -->
+                            <p class="fs-sm text-gray-800 mb-3">
+                                {{ shop.description | u.truncate(150, '...', false) }}
+                            </p>
+
+                            <!-- Heading -->
+                            <h6 class="fw-bold text-uppercase text-gray-700 mb-2">
+                                Contact
+                            </h6>
+
+                            <!-- Text -->
+                            <p class="fs-sm mb-1">
+                                <i class="bi-geo-alt"></i> Adresse : {{ shop.address }} {{ shop.postalCode }} {{ shop.city }}
+                            </p>
+                            <p class="fs-sm mb-1">
+                                <a href="mailto:{{ shop.email }}" target="_blank"><i class="bi-envelope"></i> Email : {{ shop.email }}</a>
+                            </p>
+                            {% set splitArray = shop.phone|split('', 1) %}
+                            {% set first = splitArray|first %}
+                            {% set firstArray =  [0, first] | join('') %}
+                            {% set splitArray = splitArray|slice(1) %}
+                            {% set splitArray = splitArray|join('') %}
+                            {% set lastArray = [firstArray, splitArray] |join('') %}
+                            {% set finalSplit = lastArray|split('', 2) %}
+                            {% set formattedString = finalSplit|join(' ') %}
+                            <p class="fs-sm mb-3">
+                                <a href="tel:{{ shop.phone }}" target="_blank"><i class="bi-telephone"></i>Téléphone : {{ formattedString }}</a>
+                            </p>
+
+                            <!-- Heading -->
+                            <h6 class="fw-bold text-uppercase text-gray-700 mb-2">
+                                Moyens de payment acceptés
+                            </h6>
+
+                            <!-- Text -->
+                            <div class="d-flex flex-row">
+                            {% for payment in payments %}
+                                <p class="fs-sm mb-0">
+                                    <a title="{{ payment[1] }}"><i class="{{ payment[0] }} px-1"></i></a>
+                                </p>
+                            {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </main>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
     {% include 'footer.html.twig' %}
 {% endblock %}
 

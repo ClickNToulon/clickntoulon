@@ -3,54 +3,63 @@
 {% block title 'Utilisateurs - Administration - TouSolidaires' %}
 
 {% block body %}
-    {% include 'admin/navbar.html.twig' with {'active': 'users'} %}
-    <div class="fr-container fr-container--fluid py-5">
-        <h3 class="mb-2">Utilisateurs</h3>
-        <div class="fr-table fr-table--bordered">
-            <table class="table table-light table-stripped">
-                <thead class="thead-light">
-                    <tr>
-                        <th>N°</th>
-                        <th>Nom</th>
-                        <th>Email</th>
-                        <th>Addresse</th>
-                        <th>Banni</th>
-                        <th>Vérifié</th>
-                        <th>Créé le</th>
-                        <th>Mis à jour le</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in users %}
+    <div class="d-flex flex-row">
+        {% include 'admin/sidebar.html.twig' with {'active': 'users'} %}
+        <div class="fr-container fr-container--fluid py-5">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <h1>Utilisateurs</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <a href="{{ path('admin_create_user') }}"><button type="button" class="fr-btn fr-btn--secondary btn-home-outline"><i class="bi-plus-circle"></i> Ajouter une boutique</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="fr-table fr-table--bordered">
+                <table class="table table-light table-stripped">
+                    <thead class="thead-light">
                         <tr>
-                            <td>{{ user.id }}</td>
-                            <td>{{ user.username }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.address }} {{ user.postalCode }} {{ user.city }}</td>
-                            <td>{% if user.banned == 0 %}Non banni{% else %}Banni{% endif %}</td>
-                            <td>{% if user.isVerified == 1 %}Vérifié{% else %}Non vérifié{% endif %}</td>
-                            <td>{{ user.createdAt | format_datetime('short', 'short', locale='fr') }}</td>
-                            <td>{{ user.updatedAt | format_datetime('short', 'short', locale='fr') }}</td>
-                            <td><a href="{{ path('admin_users_ban', {id: user.id}) }}"><button class="btn btn-danger btn-no-mt">Bannir</button></a></td>
+                            <th>N°</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Addresse</th>
+                            <th>Banni</th>
+                            <th>Vérifié</th>
+                            <th>Créé le</th>
+                            <th>Mis à jour le</th>
+                            <th>Action</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Total : {{ total }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.address }} {{ user.postalCode }} {{ user.city }}</td>
+                                <td>{% if user.banned == 0 %}Non banni{% else %}Banni{% endif %}</td>
+                                <td>{% if user.isVerified == 1 %}Vérifié{% else %}Non vérifié{% endif %}</td>
+                                <td>{{ user.createdAt | format_datetime('short', 'short', locale='fr') }}</td>
+                                <td>{{ user.updatedAt | format_datetime('short', 'short', locale='fr') }}</td>
+                                <td><a href="{{ path('admin_users_ban', {id: user.id}) }}"><button class="btn btn-danger btn-no-mt">Bannir</button></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total : {{ total }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            {{ knp_pagination_render(users) }}
         </div>
-        {{ knp_pagination_render(users) }}
     </div>
 {% endblock %}

@@ -1,0 +1,29 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white pt-5 h-100 sidebar-admin">
+    <a href="/" class="d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <img src="{{ asset('images/logo.svg') }}" alt="" width="40" height="40" class="me-1">
+        <span class="fs-4">Administration</span>
+    </a>
+    <hr class="w-100 admin-hr">
+    <ul class="nav nav-pills flex-column mb-auto sidebar-admin-nav">
+        <li class="nav-item link-home">
+            <a href="{{ path('admin_index') }}" class="nav-link {% if active == 'home' %}active{% endif %}">{% if active == 'home' %}<i class="bi-house-fill"></i> Accueil{% else %}<i class="bi-house"></i> Accueil{% endif %}</a>
+        </li>
+        <li class="nav-item link-shop">
+            <a class="nav-link {% if active == 'users' %}active{% endif %}" href="{{ path('admin_users') }}">{% if active == 'users' %}<i class="bi-people-fill"></i> Utilisateurs{% else %}<i class="bi-people"></i> Utilisateurs{% endif %}</a>
+        </li>
+        <li class="nav-item link-products">
+            <a class="nav-link {% if active == 'shops' %}active{% endif %}" href="{{ path('admin_shops') }}"><i class="bi-shop-window"></i> Boutiques</a>
+        </li>
+        <li class="nav-item link-products">
+            <a class="nav-link {% if active == 'products' %}active{% endif %}" href="{{ path('admin_products') }}">{% if active == 'products' %}<i class="bi-grid-fill"></i> Produits{% else %}<i class="bi-grid"></i> Produits{% endif %}</a>
+        </li>
+    </ul>
+    <hr class="w-100 admin-hr">
+    <div class="d-flex flex-row justify-content-between">
+        <p class="d-flex align-items-center text-white mb-0">
+            <img src="{{ asset('uploads/users/' ~ user.avatar) }}" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong>{{ user.username }}</strong>
+        </p>
+        <a href="{{ path('app_logout') }}"><button class="btn btn-danger btn-no-mt admin-button">Déconnexion</button></a>
+    </div>
+</div>

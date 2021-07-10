@@ -2,7 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Product;
+use App\Entity\Shop;
+use App\Entity\User;
+use App\Form\ProductType;
 use App\Form\SearchForm;
+use App\Form\ShopType;
+use App\Form\UserType;
 use App\Repository\BasketRepository;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
@@ -118,11 +124,31 @@ class AdminController extends AbstractController
             $request->query->getInt('page', 1),
             12
         );
-        $total = count($users->getItems());
+        $total = count((array)$users->getItems());
         return $this->render('admin/users.html.twig', [
             'user' => $this->getUser(),
             'users' => $users,
             'total' => $total
+        ]);
+    }
+
+    /**
+     * @Route("/admin-test/utilisateurs/creation", name="admin_create_user")
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return Response
+     */
+    public function add_user(Request $request): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            dump($user);
+        }
+        return $this->render('admin/add_user.html.twig', [
+            'user' => $this->getUser(),
+            'form' => $form->createView()
         ]);
     }
 
@@ -152,14 +178,33 @@ class AdminController extends AbstractController
         $shops = $this->paginator->paginate(
             $this->shopRepository->findAllQuery(),
             $request->query->getInt('page', 1),
-            12
+            10
         );
-        $total = count($shops->getItems());
-        dump($shops);
+        $total = count((array)$shops->getItems());
         return $this->render('admin/shops.html.twig', [
             'user' => $this->getUser(),
             'shops' => $shops,
             'total' => $total
+        ]);
+    }
+
+    /**
+     * @Route("/admin-test/boutiques/creation", name="admin_create_shop")
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return Response
+     */
+    public function add_shop(Request $request): Response
+    {
+        $shop = new Shop();
+        $form = $this->createForm(ShopType::class, $shop);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            dump($shop);
+        }
+        return $this->render('admin/add_shop.html.twig', [
+            'user' => $this->getUser(),
+            'form' => $form->createView()
         ]);
     }
 
@@ -189,14 +234,34 @@ class AdminController extends AbstractController
         $products = $this->paginator->paginate(
             $this->productRepository->findAllQuery(),
             $request->query->getInt('page', 1),
-            12
+            10
         );
-        $total = count($products->getItems());
+        $total = count((array)$products->getItems());
         dump($products);
         return $this->render('admin/products.html.twig', [
             'user' => $this->getUser(),
             'products' => $products,
             'total' => $total
+        ]);
+    }
+
+    /**
+     * @Route("/admin-test/produits/creation", name="admin_create_product")
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return Response
+     */
+    public function add_product(Request $request): Response
+    {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product, ['id' => 1]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            dump($product);
+        }
+        return $this->render('admin/add_product.html.twig', [
+            'user' => $this->getUser(),
+            'form' => $form->createView()
         ]);
     }
 

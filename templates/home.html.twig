@@ -26,29 +26,25 @@
         </div>
     </div>
     {% else %}
-    <div class="px-4 py-5 my-5 mb-0 text-center">
-        <img class="d-block mx-auto mb-4" src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/logo-home.svg') }}{% endif %}" alt="" width="150" height="150">
-        <h1 class="display-5 fw-bold">Bienvenue {{ user.username }}</h1>
-        <div class="col-lg-6 mx-auto">
-            <div class="fr-btns-group fr-btns-group--inline">
-                <li>
-                    <a href="{{ path('user_orders') }}">
-                        <button class="fr-btn btn-home">Mes commandes</button>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('user_edit') }}">
-                        <button class="fr-btn fr-btn--secondary btn-home-outline">Mes informations</button>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('basket_index') }}">
-                        <button class="fr-btn fr-btn--secondary btn-home-outline">Mon panier</button>
-                    </a>
-                </li>
+        <div class="container-fluid hero">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img src="{{ asset('images/logo-home.svg') }}" class="d-block mx-lg-auto img-fluid" alt="Logo Noir"
+                         width="500" height="450" loading="lazy">
+                </div>
+                <div class="col-lg-6">
+                    <div class="d-flex flex-row justify-content-center">
+                        <img class="d-block" src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/logo-home.svg') }}{% endif %}" alt="" width="125" height="125">
+                        <h1 class="display-5 fw-bold align-self-center">Bienvenue {{ user.fullName }}</h1>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="{{ path('user_orders') }}"><button class="fr-btn btn-home">Mes commandes</button></a>
+                        <a href="{{ path('user_edit') }}"><button class="fr-btn fr-btn--secondary btn-home-outline">Mes informations</button></a>
+                        <a href="{{ path('basket_index') }}"><button class="fr-btn fr-btn--secondary btn-home-outline">Mon panier</button></a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     {% endif %}
 
     <div class="fr-container fr-container--fluid">

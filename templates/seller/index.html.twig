@@ -28,7 +28,7 @@
                     {% for order in orders %}
                         <tr>
                             <td>{{ order.id }}</td>
-                            <td>{{ orders_buyers[order.id].username }}</td>
+                            <td>{{ orders_buyers[order.id].fullName }}</td>
                             <td>{{ products_id[order.id] }}</td>
                             <td>{{ quantities[order.id] }}</td>
                             <td>{{ order.status }}</td>

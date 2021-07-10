@@ -69,7 +69,6 @@ class ShopController extends AbstractController
     {
         $user = $this->getUser();
         $timetable = $tableRepository->findById($shop);
-        dump($timetable);
         $payments_shop = $shop->getPayments();
         $payments_icons = new Payment();
         $payments = [];

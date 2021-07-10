@@ -117,7 +117,7 @@ class SellerController extends AbstractController
         $this->em->flush();
         $title = "Votre commande numéro " . $order_infos['id'] . " a été acceptée par le commerçant";
         $options = [];
-        array_push($options, $user->getUsername(), $order_infos['id'], $order_infos['day'], $order_infos['begin'], $order_infos['end']);
+        array_push($options, $user->getFullName(), $order_infos['id'], $order_infos['day'], $order_infos['begin'], $order_infos['end']);
         if(isset($order_infos['message']) && $order_infos['message'] !== null) {
             array_push($options, $order_infos['message']);
         }
@@ -161,7 +161,7 @@ class SellerController extends AbstractController
         $this->em->flush();
         $title = "Votre commande numéro " . $order_infos['id'] . " est prête chez le commerçant";
         $options = [];
-        array_push($options, $user->getUsername(), $order_infos['id'], $order_infos['day'], $order_infos['begin'], $order_infos['end']);
+        array_push($options, $user->getFullName(), $order_infos['id'], $order_infos['day'], $order_infos['begin'], $order_infos['end']);
         (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderready');
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
@@ -202,7 +202,7 @@ class SellerController extends AbstractController
         $this->em->flush();
         $title = "Votre commande numéro " . $order_infos['id'] . " a été annulée par le commerçant";
         $options = [];
-        array_push($options, $user->getUsername(), $order_infos['id']);
+        array_push($options, $user->getFullName(), $order_infos['id']);
         if(isset($order_infos['message']) && $order_infos['message'] !== null) {
             array_push($options, $order_infos['message']);
         }
@@ -441,9 +441,7 @@ class SellerController extends AbstractController
         $form_delete->handleRequest($request);
 
         if($form_delete->isSubmitted() && $form_delete->isValid()) {
-            dump($request->request);
             $category_id = $request->request->all('category_id');
-            dump($category_id);
             foreach ($category_id as $key => $value) {
                 $category_id = $category_id[$key];
             }
@@ -453,7 +451,6 @@ class SellerController extends AbstractController
         }
 
         $categories = $categoryRepository->findAllByShop($shop);
-        dump($categories);
         $total_categories = count($categories);
         return $this->render("seller/categories.html.twig", [
             'user' => $user,
@@ -486,7 +483,6 @@ class SellerController extends AbstractController
         if($form_update_product->isSubmitted() && $form_update_product->isValid()) {
             $data = $request->request->all('product');
             $image = $form_update_product->get('image')->getData();
-            dump($data);
             $price = floatval(str_replace(",",".",$data['price']));
             $deal_price = floatval(str_replace(",",".",$data['deal_price']));
             $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
@@ -524,7 +520,6 @@ class SellerController extends AbstractController
 
                 $product->setImage($newFilename);
             }
-            dump($product);
             $this->em->persist($product);
             $this->em->flush();
         }

@@ -1,0 +1,81 @@
+City: Ville
+Address: Adresse
+Postal code: Code postal
+Price: Prix
+Title: Nom
+Description: Description
+Email: Adresse Mail
+Full name: Nom Complet
+Password: Mot de passe
+Repeat Password: Confirmer le mot de passe
+Remember me: Se souvenir de moi
+New Password: Nouveau mot de passe
+User: Utilisateur
+ID: ID
+Postal Code: Code postal
+Created At: Créé le
+Dashboard: Dashboard
+Users: Utilisateurs
+Shops: Boutiques
+Shop: Boutique
+Updated At: Mis à jour le
+Avatar: Photo de profil
+Banned: Banni
+Is Verified: Compte vérifié
+Name: Nom
+Phone: Numéro de téléphone
+Products: Produits
+Product: Produit
+Shop Id: ID Boutique
+Deal Price: Prix promo
+Deal Start: Début promo
+Deal End: Fin promo
+Deal price: Prix promo
+Deal start: Début promo
+Deal end: Fin promo
+Owner Id: ID Propriétaire
+Tag: Type
+Boulangerie - Pâtisserie: Boulangerie - Pâtisserie
+Boucher: Boucher
+Bijouterie - Horlogerie: Bijouterie - Horlogerie
+Épicerie: Épicerie
+Quincaillerie: Quincaillerie
+Librairie: Librairie
+Musée: Musée
+Fleuriste: Fleuriste
+Pharmacie: Pharmacie
+Poisonnerie: Poisonnerie
+Fromagerie: Fromagerie
+Chocolaterie: Chocolaterie
+Restaurant: Restaurant
+Brasserie: Brasserie
+Station-Service: Station-Service
+Crèmerie: Crèmerie
+Droguerie: Droguerie
+Papeterie: Papeterie
+Friperie: Friperie
+Cover: Cover
+Image: Image
+Categories: Catégories
+Rechercher: Rechercher
+Baskets: Paniers
+Orders: Commandes
+Accueil: Accueil
+Full Name: Nom Complet
+Roles: Roles
+Products Id: ID Produits
+Quantity: Quantité
+Day: Jour
+Time Begin: Début
+Time End: FIn
+Buyer Id: ID utilisateur
+Total: Total
+Category: Catégorie
+Basket: Panier
+Order: Commande
+Utilisateurs - Administration - TouSolidaires: Utilisateurs - Administration - TouSolidaires
+Boutiques - Administration - TouSolidaires: Boutiques - Administration - TouSolidaires
+Produits - Administration - TouSolidaires: Produits - Administration - TouSoildaires
+Commandes - Administration - TouSolidaires: Commandes - Administration - TouSolidaires
+Paniers - Administration - TouSolidaires: Paniers - Administration - TouSolidaires
+Catégories - Administration - TouSolidaires: Catégories - Administration - TouSolidaires

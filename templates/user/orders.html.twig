@@ -5,25 +5,29 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'user'} %}
     {% include 'user/_header.html.twig' %}
-    {% include 'user/_tabs.html.twig' with {active: 'orders'} %}
-    <div class="tab-content fr-container">
-        <div class="tab-pane active">
-            <h3 class="mb-3">Mes dernières commandes</h3>
-            <div class="fr-grid-row fr-grid-row--gutters mb-2">
-                {% if orders is not null %}
-                    {% for order in orders %}
-                        {% for shop in shops %}
-                            {% if shop.id == order.shopid %}
-                                <div class="fr-col-12 fr-col-md-3">
-                                    <div class="fr-card fr-enlarge-link fr-card--orders">
+    <main class="pb-8 pb-md-11 mt-md-n6">
+        <div class="container-md">
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    {% include 'user/_tabs.html.twig' with {active: 'orders'} %}
+                </div>
+                <div class="col-12 col-md-9">
+                    {% if orders is not null %}
+                        {% for order in orders %}
+                            {% for shop in shops %}
+                                {% if shop.id == order.shopid %}
+                                    <div class="fr-card fr-enlarge-link fr-card--orders mb-5">
                                         <div class="fr-card__body">
                                             <h4 class="fr-card__title">
-                                                <a href="{{ path('user_order', {id: order.id}) }}" class="fr-card__link">Commande n°{{ order.id }}</a>
+                                                <a href="{{ path('user_order', {id: order.id}) }}"
+                                                   class="fr-card__link">Commande n°{{ order.id }}</a>
                                             </h4>
                                             <div class="fr-card__desc order-desc">
                                                 <div class="order-info">
                                                     <h4 class="order-shop-title">{{ shop.name }}</h4>
-                                                    <p class="card-text order-address mb-1"><i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
+                                                    <p class="card-text order-address mb-1"><i class="bi-geo"></i>
+                                                        Adresse
+                                                        : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
                                                     {% set splitArray = shop.phone|split('', 1) %}
                                                     {% set first = splitArray|first %}
                                                     {% set firstArray =  [0, first] | join('') %}
@@ -32,23 +36,28 @@
                                                     {% set lastArray = [firstArray, splitArray] |join('') %}
                                                     {% set finalSplit = lastArray|split('', 2) %}
                                                     {% set formattedString = finalSplit|join(' ') %}
-                                                    <p class="card-text mb-3"><i class="bi-telephone"></i> Téléphone : {{ formattedString }}</p>
+                                                    <p class="card-text mb-3"><i class="bi-telephone"></i> Téléphone
+                                                        : {{ formattedString }}</p>
                                                 </div>
                                                 {% if order.timebegin != null and order.timeend != null %}
-                                                    <p class="card-text mb-0"><i class="bi-calendar3"></i> Date de retrait : {{ order.day | format_date(locale="fr") }}</p>
+                                                    <p class="card-text mb-0"><i class="bi-calendar3"></i> Date de
+                                                        retrait : {{ order.day | format_date(locale="fr") }}</p>
                                                     <p class="card-text"><i class="bi-clock"></i> Horaire de retrait :
                                                         {{ order.timeBegin | format_time('short',pattern="HH'h'mm", locale='fr') }}
                                                         - {{ order.timeEnd | format_time('short',pattern="HH'h'mm", locale='fr') }}
                                                     </p>
                                                 {% elseif order.status == 0 %}
-                                                    <p class="card-text">La date et le créneau de retrait vous seront communiqués une fois la commande validée par le commerçant.</p>
+                                                    <p class="card-text">La date et le créneau de retrait vous seront
+                                                        communiqués une fois la commande validée par le commerçant.</p>
                                                 {% else %}
-                                                    <p class="card-text">La date et le créneau de retrait vous ont été communiqués par un autre moyen par le commerçant.</p>
+                                                    <p class="card-text">La date et le créneau de retrait vous ont été
+                                                        communiqués par un autre moyen par le commerçant.</p>
                                                 {% endif %}
                                             </div>
                                             <li class="list-group-item border-0 p-0 m-0 orders-total">
                                                 <span class="text-black">Total (Euro) :</span>
-                                                <strong class="font-weight-bolder">{{ order.total | number_format(2,',',' ') }} €</strong>
+                                                <strong class="font-weight-bolder">{{ order.total | number_format(2,',',' ') }}
+                                                    €</strong>
                                             </li>
                                             <ul class="list-unstyled multi-steps mb-2">
                                                 <li class="{% if order.status != 5 %}is-active orders-active{% else %}orders-active-end{% endif %}">
@@ -65,15 +74,16 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
-                            {% endif %}
+                                {% endif %}
+                            {% endfor %}
                         {% endfor %}
-                    {% endfor %}
-                {% else %}
-                    <h4>Pas de commandes récentes</h4>
-                {% endif %}
+                    {% else %}
+                        <h4>Pas de commandes récentes</h4>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
+        </div>
+    </main>
     {% include 'footer.html.twig' %}
 {% endblock %}
