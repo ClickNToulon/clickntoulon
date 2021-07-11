@@ -6,123 +6,172 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'shop'} %}
-    <div class="h-100 w-100 shop-img">
-        <img src="{% if shop.cover %}{{ asset('uploads/shops/' ~ shop.cover) }}{% else %}{{ asset('images/1.jpg') }}{% endif %}" class="w-100 h-100" alt="Shop image">
-    </div>
-    <main class="main-container shop-container">
-        <div class="shop-container-2">
-            <div class="card-shop">
-                <h3 class="card-title card-title-shop"><i class="bi-clock"></i> Horaires d'ouverture</h3>
-                <div class="card-body-shop">
-                    <div class="card-column">
-                        {% if timetable == null %}
-                        <div class="timetable-day">
-                            <p class="timetable-day-p me-3 text-justify">Le commerçant n'a pas encore renseigné ses horaires d'ouverture. Nous vous invitons à prendre contact avec lui par les moyens mis à votre disposition (répertoriés sur cette page).</p>
+    <section class="pt-9 pt-md-11">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-md">
+                    <a href="{{ path('shop_index') }}" class="fw-bold fs-sm text-decoration-none mb-3">
+                        <i class="bi-arrow-right me-1"></i> Toutes les boutiques
+                    </a>
+                    <h1 class="display-4 mb-2">
+                        {{ shop.name }}
+                    </h1>
+                    <p class="fs-lg text-gray-700 mb-5 mb-md-0">
+                        <i class="bi-geo-alt"></i> Adresse : {{ shop.address }} {{ shop.postalCode }} {{ shop.city }}
+                    </p>
+                </div>
+                <div class="col-auto d-flex flex-row">
+                    <div class="card card-bleed shadow-light-lg card-product-info">
+                        <div class="card-body">
+                            <h4 class="mb-2">
+                                Contact
+                            </h4>
+                            <p class="fs-sm mb-1">
+                                <a href="mailto:{{ shop.email }}" target="_blank"><i class="bi-envelope"></i> Email : {{ shop.email }}</a>
+                            </p>
+                            {% set splitArray = shop.phone|split('', 1) %}
+                            {% set first = splitArray|first %}
+                            {% set firstArray =  [0, first] | join('') %}
+                            {% set splitArray = splitArray|slice(1) %}
+                            {% set splitArray = splitArray|join('') %}
+                            {% set lastArray = [firstArray, splitArray] |join('') %}
+                            {% set finalSplit = lastArray|split('', 2) %}
+                            {% set formattedString = finalSplit|join(' ') %}
+                            <p class="fs-sm mb-3">
+                                <a href="tel:{{ shop.phone }}" target="_blank"><i class="bi-telephone"></i>Téléphone : {{ formattedString }}</a>
+                            </p>
+                            <h4 class="mb-2">
+                                Moyens de payment acceptés
+                            </h4>
+                            <div class="d-flex flex-row">
+                                {% for payment in payments %}
+                                    <p class="fs-sm mb-0">
+                                        <a class="payments" title="{{ payment[1] }}"><i class="{{ payment[0] }} px-1"></i></a>
+                                    </p>
+                                {% endfor %}
+                            </div>
                         </div>
-                        {% else %}
-                        <div class="timetable-day">
-                            <h6>Lundi</h6>
-                            <p class="timetable-day-p">
-                                Matin : {% if timetable.monamop == null and timetable.monamcl == null %} Fermé {% else %}{{ timetable.monamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.monamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                            <p class="timetable-day-p">
-                                Après-midi : {% if timetable.monpmop == null and timetable.monpmcl == null %} Fermé {% else %}{{ timetable.monpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.monpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                        </div>
-                        <div class="timetable-day">
-                            <h6>Mardi</h6>
-                            <p class="timetable-day-p">
-                                Matin : {% if timetable.tueamop == null and timetable.tueamcl == null %} Fermé {% else %}{{ timetable.tueamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.tueamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                            <p class="timetable-day-p">
-                                Après-midi : {% if timetable.tuepmop == null and timetable.tuepmcl == null %} Fermé {% else %}{{ timetable.tuepmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.tuepmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                        </div>
-                        <div class="timetable-day">
-                            <h6>Mercredi</h6>
-                            <p class="timetable-day-p">
-                                Matin : {% if timetable.wedamop == null and timetable.wedamcl == null %} Fermé {% else %}{{ timetable.wedamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.wedamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                            <p class="timetable-day-p">
-                                Après-midi : {% if timetable.wedpmop == null and timetable.wedpmcl == null %} Fermé {% else %}{{ timetable.wedpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.wedpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                        </div>
-                        <div class="timetable-day">
-                            <h6>Jeudi</h6>
-                            <p class="timetable-day-p">
-                                Matin : {% if timetable.thuamop == null and timetable.thuamcl == null %} Fermé {% else %}{{ timetable.thuamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.thuamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                            <p class="timetable-day-p">
-                                Après-midi : {% if timetable.thupmop == null and timetable.thupmcl == null %} Fermé {% else %}{{ timetable.thupmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.thupmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                        </div>
-                        <div class="timetable-day">
-                            <h6>Vendredi</h6>
-                            <p class="timetable-day-p">
-                                Matin : {% if timetable.friamop == null and timetable.friamcl == null %} Fermé {% else %}{{ timetable.friamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.friamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                            <p class="timetable-day-p">
-                                Après-midi : {% if timetable.fripmop == null and timetable.fripmcl == null %} Fermé {% else %}{{ timetable.fripmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.fripmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                        </div>
-                        <div class="timetable-day">
-                            <h6>Samedi</h6>
-                            <p class="timetable-day-p">
-                                Matin : {% if timetable.satamop == null and timetable.satamcl == null %} Fermé {% else %}{{ timetable.satamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.satamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                            <p class="timetable-day-p">
-                                Après-midi : {% if timetable.satpmop == null and timetable.satpmcl == null %} Fermé {% else %}{{ timetable.satpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.satpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                        </div>
-                        <div class="timetable-day">
-                            <h6>Dimanche</h6>
-                            <p class="timetable-day-p">
-                                Matin : {% if timetable.sunamop == null and timetable.sunamcl == null %} Fermé {% else %}{{ timetable.sunamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.sunamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                            <p class="timetable-day-p">
-                                Après-midi : {% if timetable.sunpmop == null and timetable.sunpmcl == null %} Fermé {% else %}{{ timetable.sunpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.sunpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
-                            </p>
-                        </div>
-                        {% endif %}
                     </div>
                 </div>
             </div>
-            <div class="shop-info">
-                <h1 class="pb-3">{{ shop.name }}</h1>
-                <p class="text-justify">{{ shop.description }}</p>
-                {% set address = "%address% %zip% %city%"| replace({'%address%': shop.address, '%zip%': shop.postalcode, '%city%': shop.city}) %}
-                <div class="shop-info-details">
-                    <div class="mapouter"><div class="gmap_canvas">
-                            <iframe id="gmap_canvas" src="https://maps.google.com/maps?q={{ address | url_encode }}&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
-                        </div></div>
-                    <div class="pl-5 w-100 h-100">
-                        <h4 class="mb-2"><i class="bi-geo"></i> Adresse</h4>
-                        <p class="mb-3">{{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
-                        <h4>Nous contacter</h4>
-                        {% set splitArray = shop.phone|split('', 1) %}
-                        {% set first = splitArray|first %}
-                        {% set firstArray =  [0, first] | join('') %}
-                        {% set splitArray = splitArray|slice(1) %}
-                        {% set splitArray = splitArray|join('') %}
-                        {% set lastArray = [firstArray, splitArray] |join('') %}
-                        {% set finalSplit = lastArray|split('', 2) %}
-                        {% set formattedString = finalSplit|join(' ') %}
-                        <p class="mt-1 mb-1"><i class="bi-telephone"></i> Téléphone : <a href="tel:+33{{ shop.phone }}" target="_blank">{{ formattedString }}</a></p>
-                        {% if shop.email != null %}
-                        <p class="mb-2"><i class="bi-envelope"></i> Email : <a href="mailto:{{ shop.email }}" target="_blank">{{ shop.email }}</a></p>
-                        {% endif %}
-                        <h4 class="mt-3">Catégorie</h4>
-                        <span class="fr-tag mb-1 mt-1">{{ shop.tagName }}</span>
-                        <h4 class="mb-2">Moyens de paiement acceptés par le commerçant</h4>
-                        <div class="payments">
-                            {% for payment in payments %}
-                            <p class="payment" title="{{ payment[1] }}"><i class="{{ payment[0] }} px-1"></i></p>
-                            {% endfor %}
+            <div class="row">
+                <div class="col-12">
+                    <hr class="my-5 my-md-8 border-dark product-separator w-100">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-8 product-info">
+                    <h3 class="mb-2 mt-0">
+                        Devanture de la boutique
+                    </h3>
+                    <figure class="fr-content-media" role="group" aria-label="Photo © Légende de l'image">
+                        <div class="fr-content-media__img">
+                            <img src="{{ asset('/uploads/shops/') ~ shop.cover }}" class="rounded" alt="description alternative à l‘image">
+                        </div>
+                        <figcaption class="fr-content-media__caption">Photo © {{ shop.name }}</figcaption>
+                    </figure>
+                    <h3>
+                        Description de la boutique
+                    </h3>
+                    <p class="text-gray-800 mb-5 mb-md-8">
+                        {{ shop.description }}
+                    </p>
+                    <h3 class="mb-2">
+                        Catégorie
+                    </h3>
+                    <span class="fr-tag shop-tag mb-1 text-white">{{ shop.tagName }}</span>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="card card-bleed shadow-light-lg mb-3 card-product-info">
+                        <div class="card-body card-body-map">
+                            {% set address = "%address% %zip% %city%"| replace({'%address%': shop.address, '%zip%': shop.postalcode, '%city%': shop.city}) %}
+                            <div class="mapouter">
+                                <div class="gmap_canvas">
+                                    <iframe id="gmap_canvas" src="https://maps.google.com/maps?q={{ address | url_encode }}&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-bleed shadow-light-lg mb-5 card-product-info">
+                        <div class="card-body">
+                            <h4 class="mb-2">
+                                Horaires d'ouverture
+                            </h4>
+                            {% if timetable == null %}
+                                <div class="timetable-day">
+                                    <p class="timetable-day-p me-3 text-justify">Le commerçant n'a pas encore renseigné ses horaires d'ouverture. Nous vous invitons à prendre contact avec lui par les moyens mis à votre disposition (répertoriés sur cette page).</p>
+                                </div>
+                            {% else %}
+                                <div class="timetable-day">
+                                    <h6>Lundi</h6>
+                                    <p class="timetable-day-p">
+                                        Matin : {% if timetable.monamop == null and timetable.monamcl == null %} Fermé {% else %}{{ timetable.monamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.monamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                    <p class="timetable-day-p">
+                                        Après-midi : {% if timetable.monpmop == null and timetable.monpmcl == null %} Fermé {% else %}{{ timetable.monpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.monpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                </div>
+                                <div class="timetable-day">
+                                    <h6>Mardi</h6>
+                                    <p class="timetable-day-p">
+                                        Matin : {% if timetable.tueamop == null and timetable.tueamcl == null %} Fermé {% else %}{{ timetable.tueamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.tueamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                    <p class="timetable-day-p">
+                                        Après-midi : {% if timetable.tuepmop == null and timetable.tuepmcl == null %} Fermé {% else %}{{ timetable.tuepmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.tuepmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                </div>
+                                <div class="timetable-day">
+                                    <h6>Mercredi</h6>
+                                    <p class="timetable-day-p">
+                                        Matin : {% if timetable.wedamop == null and timetable.wedamcl == null %} Fermé {% else %}{{ timetable.wedamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.wedamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                    <p class="timetable-day-p">
+                                        Après-midi : {% if timetable.wedpmop == null and timetable.wedpmcl == null %} Fermé {% else %}{{ timetable.wedpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.wedpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                </div>
+                                <div class="timetable-day">
+                                    <h6>Jeudi</h6>
+                                    <p class="timetable-day-p">
+                                        Matin : {% if timetable.thuamop == null and timetable.thuamcl == null %} Fermé {% else %}{{ timetable.thuamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.thuamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                    <p class="timetable-day-p">
+                                        Après-midi : {% if timetable.thupmop == null and timetable.thupmcl == null %} Fermé {% else %}{{ timetable.thupmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.thupmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                </div>
+                                <div class="timetable-day">
+                                    <h6>Vendredi</h6>
+                                    <p class="timetable-day-p">
+                                        Matin : {% if timetable.friamop == null and timetable.friamcl == null %} Fermé {% else %}{{ timetable.friamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.friamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                    <p class="timetable-day-p">
+                                        Après-midi : {% if timetable.fripmop == null and timetable.fripmcl == null %} Fermé {% else %}{{ timetable.fripmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.fripmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                </div>
+                                <div class="timetable-day">
+                                    <h6>Samedi</h6>
+                                    <p class="timetable-day-p">
+                                        Matin : {% if timetable.satamop == null and timetable.satamcl == null %} Fermé {% else %}{{ timetable.satamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.satamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                    <p class="timetable-day-p">
+                                        Après-midi : {% if timetable.satpmop == null and timetable.satpmcl == null %} Fermé {% else %}{{ timetable.satpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.satpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                </div>
+                                <div class="timetable-day">
+                                    <h6>Dimanche</h6>
+                                    <p class="timetable-day-p">
+                                        Matin : {% if timetable.sunamop == null and timetable.sunamcl == null %} Fermé {% else %}{{ timetable.sunamop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.sunamcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                    <p class="timetable-day-p">
+                                        Après-midi : {% if timetable.sunpmop == null and timetable.sunpmcl == null %} Fermé {% else %}{{ timetable.sunpmop | format_time('short',pattern="HH'h'mm", locale='fr') }} - {{ timetable.sunpmcl | format_time('short',pattern="HH'h'mm", locale='fr') }}{% endif %}
+                                    </p>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
+    {% include 'footer.html.twig' %}
 {% endblock %}
 

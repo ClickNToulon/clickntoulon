@@ -45,7 +45,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-center show dropdown-menu-end dropdown-menu-lg-start dropdown-user" aria-labelledby="dropdown-user">
                         {% if user is defined and user != null and is_granted('ROLE_ADMIN') %}
-                            <li><a class="dropdown-item" href="{{ path('admin_index') }}" target="_blank"><i class="bi-shield-lock-fill"></i> Administration</a></li>
+                            <li><a class="dropdown-item" href="{{ path('admin') }}" target="_blank"><i class="bi-shield-lock-fill"></i> Administration</a></li>
                             <hr class="dropdown-divider">
                             <li><a class="dropdown-item" href="{{ path('user_edit') }}"><i class="bi-person-lines-fill"></i> Mes informations</a></li>
                             <li><a class="dropdown-item" href="{{ path('user_orders') }}"><i class="bi-bag-check-fill"></i> Mes commandes</a></li>

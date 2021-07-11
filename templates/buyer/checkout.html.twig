@@ -61,9 +61,7 @@
                     {% set now = "now"|date("Y-m-d", "Europe/Paris") %}
                     {{ form_widget(form.day, {attr: {value: now}}) }}
                     {{ form_row(form.total, {attr: {value: total}}) }}
-                    <div class="buttons">
-                        <button class="btn btn-form btn-no-mt" type="submit">Commander</button>
-                    </div>
+                    <button class="btn btn-form btn-no-mt" type="submit">Commander</button>
                     {{ form_end(form) }}
                 </div>
             </div>

@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class DashboardController extends AbstractDashboardController
 {
     /**
-     * @Route("/admin-easyadmin", name="admin")
+     * @Route("/admin", name="admin")
      */
     public function index(): Response
     {
