@@ -25,7 +25,7 @@
                 <div class="col-12 col-md-3">
                     {% include 'seller/_tabs.html.twig' with {active: 'edit'} %}
                 </div>
-                <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9 seller-edit">
                     <div class="card card-bleed card-form shadow-light-lg mb-5">
                         <div class="card-header">
                             <h4 class="mb-0">
@@ -34,8 +34,12 @@
                         </div>
                         <div class="card-body">
                             {{ form_start(form_update, {attr: {class: 'user-update'}}) }}
-                            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
-                                <p>Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultatif</p>
+                            <div class="row mb-2">
+                                <div class="col-12">
+                                    <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+                                        <p>Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultatif</p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -65,8 +69,12 @@
                                     {{ form_row(form_update.city) }}
                                 </div>
                             </div>
-                            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
-                                <p>Au moins un des sélecteurs ci-dessous doit être sélectionné</p>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+                                        <p>Au moins un des sélecteurs ci-dessous doit être sélectionné</p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -80,124 +88,162 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="button-submit">
-                                <button type="submit" class="btn btn-form" name="add_shop">Modifier ma boutique</button>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="button-submit mt-3">
+                                        <button type="submit" class="btn btn-form" name="add_shop">Modifier ma boutique</button>
+                                    </div>
+                                </div>
                             </div>
                             {{ form_end(form_update) }}
+                        </div>
+                    </div>
+                    <div class="card card-bleed shadow-light-lg mb-5 card-times">
+                        <div class="card-header">
+                            <h4 class="mb-0">
+                                <i class="bi-clock"></i> Horaires de ma boutique
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            {{ form_start(form_timetable, {attr: {class: 'user-update'}}) }}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+                                        <p>Pour indiquer un ouverture uniquement le matin, veuillez remplir seulement les champs réservés au matin, de même pour l'après-midi</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-12">
+                                    <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+                                        <p>Pour indiquer une horaire non-stop, remplissez uniquement les champs réservés à l'ouverture le matin (1er champ) et à la fermture l'après-midi (2ème champ)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <label for="mon_am_op" class="text-black">Lundi matin</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.monAmOp) }}
+                                    {{ form_row(form_timetable.monAmCl) }}
+                                </div>
+                                <label for="mon_pn_op" class="text-black">Lundi après-midi</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.monPmOp) }}
+                                    {{ form_row(form_timetable.monPmCl) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="mon_am_op" class="text-black">Mardi matin</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.tueAmOp) }}
+                                    {{ form_row(form_timetable.tueAmCl) }}
+                                </div>
+                                <label for="mon_pn_op" class="text-black">Mardi après-midi</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.tuePmOp) }}
+                                    {{ form_row(form_timetable.tuePmCl) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="mon_am_op" class="text-black">Mercredi matin</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.wedAmOp) }}
+                                    {{ form_row(form_timetable.wedAmCl) }}
+                                </div>
+                                <label for="mon_pn_op" class="text-black">Mercredi après-midi</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.wedPmOp) }}
+                                    {{ form_row(form_timetable.wedPmCl) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="mon_am_op" class="text-black">Jeudi matin</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.thuAmOp) }}
+                                    {{ form_row(form_timetable.thuAmCl) }}
+                                </div>
+                                <label for="mon_pn_op" class="text-black">Jeudi après-midi</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.thuPmOp) }}
+                                    {{ form_row(form_timetable.thuPmCl) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="mon_am_op" class="text-black">Vendredi matin</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.friAmOp) }}
+                                    {{ form_row(form_timetable.friAmCl) }}
+                                </div>
+                                <label for="mon_pn_op" class="text-black">Vendredi après-midi</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.friPmOp) }}
+                                    {{ form_row(form_timetable.friPmCl) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="mon_am_op" class="text-black">Samedi matin</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.satAmOp) }}
+                                    {{ form_row(form_timetable.satAmCl) }}
+                                </div>
+                                <label for="mon_pn_op" class="text-black">Samedi après-midi</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.satPmOp) }}
+                                    {{ form_row(form_timetable.satPmCl) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="mon_am_op" class="text-black">Dimanche matin</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.sunAmOp) }}
+                                    {{ form_row(form_timetable.sunAmCl) }}
+                                </div>
+                                <label for="mon_pn_op" class="text-black">Dimanche après-midi</label>
+                                <div class="col-12">
+                                    {{ form_row(form_timetable.sunPmOp) }}
+                                    {{ form_row(form_timetable.sunPmCl) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="button-submit">
+                                        <button type="submit" class="btn btn-form" name="edit">Modifier les horaires</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form_timetable) }}
+                        </div>
+                    </div>
+                    <div class="card card-bleed shadow-light-lg mb-5 seller-delete">
+                        <div class="card-header">
+                            <h4 class="mb-0 text-danger-zone">
+                                <i class="bi-trash"></i> Danger Zone
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            {{ form_start(form_delete, {attr: {class: 'user-update'}}) }}
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="danger-zone-txt">Vous n'êtes pas satisfait du contenu proposé sur le site ?<br>
+                                        Ou vous souhaitez supprimer toutes les informations associées à votre boutique ?</p>
+                                </div>
+                                <div class="col-12">
+                                    <p class="danger-zone-txt">Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es relatives à votre boutique,
+                                        ainsi que toutes les commandes passées sur le site qui ne sont encore livrées
+                                        (donc même celles en attente et en préparation).</p>
+                                </div>
+                                <div class="col-12">
+                                    <div class="button-submit">
+                                        <button type="submit" class="btn btn-form btn-danger" name="delete"><i class="bi-trash"></i> Supprimer ma boutique</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form_delete) }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-
-    {{ form_start(form_timetable, {attr: {class: 'user-modify'}}) }}
-    <h3 class="user-modify-title"><i class="bi-clock"></i> Horaires de ma boutique</h3>
-    <div class="forms form-modify form-time">
-        <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
-            <p>Pour indiquer un ouverture uniquement le matin, veuillez remplir seulement les champs réservés au matin, de même pour l'après-midi</p>
-        </div>
-        <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
-            <p>Pour indiquer une horaire non-stop, remplissez uniquement les champs réservés à l'ouverture le matin (1er champ) et à la fermture l'après-midi (2ème champ)</p>
-        </div>
-        <div class="row first">
-            <label for="mon_am_op">Lundi matin</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.monAmOp) }}
-                {{ form_row(form_timetable.monAmCl) }}
-            </div>
-            <label for="mon_pn_op">Lundi après-midi</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.monPmOp) }}
-                {{ form_row(form_timetable.monPmCl) }}
-            </div>
-        </div>
-        <div class="row">
-            <label for="mon_am_op">Mardi matin</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.tueAmOp) }}
-                {{ form_row(form_timetable.tueAmCl) }}
-            </div>
-            <label for="mon_pn_op">Mardi après-midi</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.tuePmOp) }}
-                {{ form_row(form_timetable.tuePmCl) }}
-            </div>
-        </div>
-        <div class="row">
-            <label for="mon_am_op">Mercredi matin</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.wedAmOp) }}
-                {{ form_row(form_timetable.wedAmCl) }}
-            </div>
-            <label for="mon_pn_op">Mercredi après-midi</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.wedPmOp) }}
-                {{ form_row(form_timetable.wedPmCl) }}
-            </div>
-        </div>
-        <div class="row">
-            <label for="mon_am_op">Jeudi matin</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.thuAmOp) }}
-                {{ form_row(form_timetable.thuAmCl) }}
-            </div>
-            <label for="mon_pn_op">Jeudi après-midi</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.thuPmOp) }}
-                {{ form_row(form_timetable.thuPmCl) }}
-            </div>
-        </div>
-        <div class="row">
-            <label for="mon_am_op">Vendredi matin</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.friAmOp) }}
-                {{ form_row(form_timetable.friAmCl) }}
-            </div>
-            <label for="mon_pn_op">Vendredi après-midi</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.friPmOp) }}
-                {{ form_row(form_timetable.friPmCl) }}
-            </div>
-        </div>
-        <div class="row">
-            <label for="mon_am_op">Samedi matin</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.satAmOp) }}
-                {{ form_row(form_timetable.satAmCl) }}
-            </div>
-            <label for="mon_pn_op">Samedi après-midi</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.satPmOp) }}
-                {{ form_row(form_timetable.satPmCl) }}
-            </div>
-        </div>
-        <div class="row">
-            <label for="mon_am_op">Dimanche matin</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.sunAmOp) }}
-                {{ form_row(form_timetable.sunAmCl) }}
-            </div>
-            <label for="mon_pn_op">Dimanche après-midi</label>
-            <div class="col-12 form-row">
-                {{ form_row(form_timetable.sunPmOp) }}
-                {{ form_row(form_timetable.sunPmCl) }}
-            </div>
-        </div>
-    </div>
-    <div class="button-submit">
-        <button type="submit" class="btn btn-form" name="edit">Modifier les horaires</button>
-    </div>
-    {{ form_end(form_timetable) }}
-
-    {{ form_start(form_delete, {attr: {class: 'user-modify last'}}) }}
-        <h3 class="danger-zone"><i class="bi-trash"></i> Danger Zone</h3>
-        <p class="danger-zone-txt">Vous n'êtes pas satisfait du contenu proposé sur le site ?<br>
-            Ou vous souhaitez supprimer toutes les informations associées à votre boutique ?</p>
-        <i class="danger-zone-txt">Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es relatives à votre boutique, ainsi que toutes les commandes passées sur le site qui ne sont encore livrées (donc même celles en attente et en préparation).</i>
-        <div class="button-submit">
-            <button type="submit" class="btn btn-form btn-danger" name="delete"><i class="bi-trash"></i> Supprimer ma boutique</button>
-        </div>
-    {{ form_end(form_delete) }}
     {% include 'footer.html.twig' %}
 {% endblock %}

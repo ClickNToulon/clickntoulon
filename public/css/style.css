@@ -2164,10 +2164,10 @@ div.nav-profile li.nav-item a.active {
 
 .checkboxs {
   display: grid;
-  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  grid-template-columns: repeat(3, minmax(175px, 1fr));
   grid-gap: 4px;
   grid-auto-flow: dense;
-  width: 100%;
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -2177,7 +2177,6 @@ div.nav-profile li.nav-item a.active {
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: row;
-  width: 100%;
 }
 
 .checkboxs div:last-child {
@@ -3123,12 +3122,52 @@ a.pagination-link:hover {
   justify-content: center;
   padding: 1rem !important;
   padding-bottom: 0 !important;
+  min-height: 228px !important;
 }
 
-.seller-products .fr-table, .seller-categories .fr-table {
+.seller-products .fr-table, .seller-categories .fr-table, .seller-orders .fr-table {
   width: 100%;
+  margin-bottom: 0 !important;
 }
 
-.seller-products button.btn-form, .seller-categories button.btn-form {
+.seller-products button.btn-form, .seller-categories button.btn-form, .seller-edit button.btn-form, .card-times button.btn-form, .seller-create button.btn-form {
   margin-bottom: 0 !important;
+}
+
+.seller-edit button.btn-form {
+  width: 350px;
+}
+
+.seller-edit .fr-alert, .seller-create .fr-alert {
+  width: auto !important;
+  display: flex !important;
+  align-self: center;
+}
+
+.card-times label {
+  padding: 0 6.25rem !important;
+  margin-bottom: 0 !important;
+}
+
+.seller-delete .danger-zone-txt {
+  width: 700px !important;
+}
+
+.seller-create {
+  width: 900px !important;
+}
+
+.add-product .fr-modal__header, .add-category .fr-modal__header {
+  padding-bottom: 0 !important;
+}
+
+.add-product .fr-modal__footer, .add-category .fr-modal__footer {
+  margin-top: 0 !important;
+}
+
+.add-product button.fr-btn.btn-form, .add-product button.fr-btn.btn-danger,
+.add-category button.fr-btn.btn-form, .add-category button.fr-btn.btn-danger {
+  width: 100% !important;
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
 }
