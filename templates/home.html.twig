@@ -19,7 +19,7 @@
                     Réalisé par des étudiants de l’ISEN de Toulon, le but est de venir en aide aux commerçants toulonnais.
                 </p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a href="{{ path('app_signup') }}"><button type="button" class="fr-btn btn-home">Créer votre compte</button></a>
+                    <a href="{{ path('app_signup') }}"><button type="button" class="fr-btn btn-home arrow-icon">Créer votre compte</button></a>
                     <a href="{{ path('about_index') }}"><button type="button" class="fr-btn fr-btn--secondary btn-home-outline">Qui sommes-nous ?</button></a>
                 </div>
             </div>
@@ -172,7 +172,9 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="{{ path('product_index') }}"><button class="fr-btn fr-btn--secondary fr-btn--lg btn-home-outline">Voir plus de produits</button></a>
+            <a href="{{ path('product_index') }}">
+                <button class="fr-btn fr-btn--secondary w-50 btn-home-outline arrow-icon">Voir plus de produits</button>
+            </a>
         </div>
     </div>
     {% include('footer.html.twig') %}

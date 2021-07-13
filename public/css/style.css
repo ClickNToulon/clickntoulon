@@ -876,6 +876,24 @@ hr.dropdown-divider {
 .user-profile-image {
   width: 150px;
   height: 150px;
+  border-radius: 50% !important;
+}
+
+.user-navbar-image {
+  border-radius: 50% !important;
+  margin-right: 3px;
+}
+
+.navbar-nav li a.user-link {
+  max-height: 2.4rem !important;
+  align-items: center !important;
+}
+
+.user-link div.infos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .h1 {
@@ -1844,4 +1862,38 @@ a.payments:not([href]):hover {
   background-color: #1B2A4E !important;
   width: 100%;
   height: 299px;
+}
+
+.btn-home-outline.arrow-icon::after {
+  font: normal normal normal 1.5rem/1 dsfr-icons;
+  content: "";
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  margin-top: auto;
+  margin-left: auto;
+  color: #F5b027 !important;
+}
+
+.btn-home-outline:hover.arrow-icon::after {
+  color: #FFF !important;
+  transition: color 0.7s ease;
+}
+
+.btn-home.arrow-icon::after {
+  font: normal normal normal 1.5rem/1 dsfr-icons;
+  content: "";
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  margin-top: auto;
+  margin-left: 5px;
+  color: #FFF !important;
+}
+
+.btn-home:hover.arrow-icon::after {
+  color: #F5b027 !important;
+  transition: color 0.7s ease;
+}
+
+.fr-btn:active {
+  background-image: none !important;
 }

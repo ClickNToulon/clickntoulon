@@ -16,7 +16,7 @@
                             {% endif %}
                         </h4>
                         <h4 class="lead fw-normal">
-                            <span class="badge rounded-pill since text-white-75"><i class="bi-calendar3"></i>  Inscrit depuis le {{ user.createdat | format_datetime('short', 'none', locale='fr') }}</span>
+                            <span class="badge rounded-pill since text-white-75"><i class="bi-calendar3"></i>  Inscrit depuis le {{ user.createdAt | format_datetime('short', 'none', locale='fr') }}</span>
                         </h4>
                     </div>
                     {% if is_granted('ROLE_MERCHANT') %}
