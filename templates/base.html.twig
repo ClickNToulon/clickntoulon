@@ -5,9 +5,10 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="icon" href="{{ asset('images/logo.svg') }}">
         {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('app') }}
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/dsfr.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
         {% endblock %}
-        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
