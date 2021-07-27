@@ -23,11 +23,6 @@ class Basket
     private ?int $owner_id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private ?int $shop_id;
-
-    /**
      * @ORM\Column(type="text")
      */
     private ?string $products_id;
@@ -36,6 +31,12 @@ class Basket
      * @ORM\Column(type="text")
      */
     private ?string $quantity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Shop::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $shop_id;
 
     public function getId(): ?int
     {
@@ -54,17 +55,6 @@ class Basket
         return $this;
     }
 
-    public function getShopId(): ?int
-    {
-        return $this->shop_id;
-    }
-
-    public function setShopId(int $shop_id): self
-    {
-        $this->shop_id = $shop_id;
-
-        return $this;
-    }
 
     public function getProductsId(): ?string
     {
@@ -86,6 +76,18 @@ class Basket
     public function setQuantity(string $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getShopId(): ?Shop
+    {
+        return $this->shop_id;
+    }
+
+    public function setShopId(?Shop $shop_id): self
+    {
+        $this->shop_id = $shop_id;
 
         return $this;
     }

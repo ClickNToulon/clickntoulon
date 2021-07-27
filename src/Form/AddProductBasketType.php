@@ -14,7 +14,7 @@ class AddProductBasketType extends AbstractType
     {
         $builder
             ->add('shop_id', HiddenType::class, [
-                "required" => true
+                "required" => false
             ])
             ->add('product_id', HiddenType::class, [
                 "required" => true

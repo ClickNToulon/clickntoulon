@@ -71,11 +71,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException("Addresse mail inconnue. Veuillez ressayer.");
+            throw new CustomUserMessageAuthenticationException("Unknown email address. Please retry.");
         }
 
         if($user->isVerified() == false) {
-            throw new CustomUserMessageAuthenticationException("Veuillez vérifier votre compte.");
+            throw new CustomUserMessageAuthenticationException("Account not verified. Please verify your email address.");
         }
 
         return $user;
