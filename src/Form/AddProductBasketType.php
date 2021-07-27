@@ -16,7 +16,7 @@ class AddProductBasketType extends AbstractType
             ->add('shop_id', HiddenType::class, [
                 "required" => false
             ])
-            ->add('product_id', HiddenType::class, [
+            ->add('products_id', HiddenType::class, [
                 "required" => true
             ])
             ->add('quantity', NumberType::class, [
@@ -30,7 +30,6 @@ class AddProductBasketType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => null,
             'translation_domain' => "basket"
         ]);
     }

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Email de réinitialisation du mot de passe envoyé - TouSolidaires{% endblock %}
+
+{% block body %}
+    <section class="login w-100 h-100">
+        <div class="fr-container d-flex flex-column h-100">
+            <div class="row align-items-center justify-content-center gx-0 h-100">
+                <div class="col-12 col-md-6 col-lg-4 py-8 py-md-11 h-100 d-flex justify-content-center flex-column">
+
+                    <!-- Heading -->
+                    <h1 class="mb-3 fw-bold">
+                        Mot de passe oublié
+                    </h1>
+
+                    <p>
+                        Si un compte a pu être trouvé avec cette adresse mail, nous vous avons envoyé un mail avec un lien pour réinitialiser votre mot de passe.
+                        Ce line expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+                    </p>
+                    <p>Si vous ne trouvez pas notre mail dans votre boîte de réception, vérifiez vos spams ou <a href="{{ path('app_forgot_password_request') }}">recommencez la demande</a>.</p>
+                </div>
+                <div class="col-lg-7 offset-lg-1 d-none d-lg-flex flex-row justify-content-center login-image h-100">
+                    <!-- Image -->
+                    <div class="w-100"></div>
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
+    <p>
+        If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+        This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+    </p>
+    <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+{% endblock %}
