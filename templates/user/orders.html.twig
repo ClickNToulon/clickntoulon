@@ -5,13 +5,14 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'user'} %}
     {% include 'user/_header.html.twig' %}
-    <main class="pb-8 pb-md-11 mt-md-n6">
-        <div class="container-md">
-            <div class="row">
-                <div class="col-12 col-md-3">
-                    {% include 'user/_tabs.html.twig' with {active: 'orders'} %}
-                </div>
-                <div class="col-12 col-md-9">
+    <section class="text-gray-400 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex justify-center flex-wrap -m-4">
+                {% include 'user/_tabs.html.twig' with {active: 'orders'} %}
+            </div>
+        </div>
+    </section>
+                {# <div class="col-12 col-md-9">
                     {% if orders is not null %}
                         {% for order in orders %}
                             {% for shop in shops %}
@@ -84,6 +85,6 @@
             </div>
         </div>
         </div>
-    </main>
+    </main> #}
     {% include 'footer.html.twig' %}
 {% endblock %}

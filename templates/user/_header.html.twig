@@ -1,29 +1,22 @@
-<header class="pb-11 pt-9 d-none d-md-block user-header">
-    <div class="container-md">
-        <div class="row align-items-center">
-            <div class="col d-flex flex-row justify-content-center">
-                <img src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/user.png') }}{% endif %}" alt="User" class="user-profile-image">
-                <div class="user-profile-info">
-                    <h1 class="pb-2 h1">{{ user.fullName }}</h1>
-                    <div class="user-profile-status">
-                        <h4 class="lead fw-normal">
-                            {% if user is defined and user != null and is_granted('ROLE_ADMIN') %}
-                                <span class="fr-tag fr-tag-admin">Administrateur <span class="admin-badge"><i class="fad fa-badge-check"></i></span></span>
-                            {% elseif user is defined and user != null and is_granted('ROLE_MERCHANT') %}
-                                <span class="badge rounded-pill bg-secondary">Commerçant <i class="bi-shop-window px-1"></i></span>
-                            {% elseif user is defined and user != null and is_granted('ROLE_USER') %}
-                                <span class="badge rounded-pill bg-secondary">Compte standard</span>
-                            {% endif %}
-                        </h4>
-                        <h4 class="lead fw-normal">
-                            <span class="badge rounded-pill since text-white-75"><i class="bi-calendar3"></i>  Inscrit depuis le {{ user.createdAt | format_datetime('short', 'none', locale='fr') }}</span>
-                        </h4>
-                    </div>
-                    {% if is_granted('ROLE_MERCHANT') %}
-                        <a href="{{ path('seller_create') }}"><button class="btn btn-form">Créer votre boutique</button></a>
-                    {% endif %}
-                </div>
+<section class="body-font">
+    <div class="container px-5 py-12 mx-auto">
+        <div class="flex justify-center items-center flex-wrap -m-4">
+            <img src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/user.png') }}{% endif %}" alt="User"
+                 class="bg-white dark:bg-gray-400 flex text-sm rounded-full focus:outline-none ring-2 ring-offset-4 ring-offset-white dark:ring-offset-gray-700 {% if user is not null and is_granted('ROLE_ADMIN') %}ring-yellow-400{% elseif user is not null and is_granted('ROLE_MERCHANT') %}ring-blue-600{% else %}ring-white{% endif %} rounded-full h-40 w-40">
+            <div class="ml-6 mt-3 text-center md:text-left flex flex-col">
+                <h1 class="mb-2.5 font-bold text-2xl text-black dark:text-white">{{ user.fullName }}</h1>
+                <h4 class="inline-flex items-center text-black dark:text-gray-200 font-medium text-sm mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span class="ml-0.5">
+                        Inscrit depuis le {{ user.createdAt | format_datetime('short', 'none', locale='fr') }}
+                    </span>
+                </h4>
+                {% if is_granted('ROLE_MERCHANT') %}
+                    <a href="{{ path('seller_create') }}"><button class="px-4 py-2 bg-green-700 text-white rounded-2xl font-medium">Créer votre boutique</button></a>
+                {% endif %}
             </div>
         </div>
     </div>
-</header>
+</section>

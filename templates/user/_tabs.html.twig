@@ -1,21 +1,4 @@
-<div class="card card-bleed border-bottom border-bottom-md-0 shadow-light-lg">
-    <div class="collapse d-md-block" id="sidenavCollapse">
-        <div class="card-body">
-            <h6 class="fw-bold text-uppercase mb-3">
-                Mon compte
-            </h6>
-            <ul class="card-list tab-list list text-gray-700 mb-6">
-                <li class="list-item {% if active == 'orders' %}active{% endif %}">
-                    <a class="list-link text-reset" href="{{ path('user_orders') }}">
-                        Mes commandes
-                    </a>
-                </li>
-                <li class="list-item {% if active == 'edit' %}active{% endif %}">
-                    <a class="list-link text-reset" href="{{ path('user_edit') }}">
-                        &Eacute;diter mes informations
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+<div class="flex flex-wrap items-center p-1 rounded-xl bg-white shadow dark:shadow-none dark:bg-gray-800 w-full mobile:w-auto">
+    <a class="tab {% if active == "orders" %}tab-active{% endif %}" href="{{ path('user_orders') }}">Mes commandes</a>
+    <a class="tab {% if active == "edit" %}tab-active{% endif %}" href="{{ path('user_edit') }}">Mes informations</a>
 </div>

@@ -13,9 +13,9 @@ class UpdateAvatarForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('avatar', FileType::class, [
-                'label' => false,
+                'label' => 'Avatar',
                 'attr' => [
-                    'class' => 'form-control mt-2 user-profile-photo'
+                    'class' => 'ml-5 bg-white dark:bg-gray-700 focus:bg-gray-800 text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ],
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
