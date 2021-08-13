@@ -1,4 +1,5 @@
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="fr" class="bg-white dark:bg-gray-700">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,8 +7,6 @@
         <link rel="icon" href="{{ asset('images/logo.svg') }}">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" type="text/css" href="{{ asset('css/dsfr.css') }}">
-            <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
         {% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
@@ -15,9 +14,5 @@
     </head>
     <body>
         {% block body %}{% endblock %}
-
-        <script src="{{ asset('js/icons.js') }}"></script>
-        <script type="module" src="{{ asset('js/dsfr.module.min.js') }}"></script>
-        <script nomodule src="{{ asset('js/dsfr.nomodule.js') }}"></script>
     </body>
 </html>

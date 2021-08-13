@@ -3,7 +3,7 @@
 {% block title 'Inscription - TouSolidaires' %}
 
 {% block body %}
-    <section class="login w-100 h-100">
+    {# <section class="login w-100 h-100">
         <div class="fr-container d-flex flex-column h-100">
             <div class="row align-items-center justify-content-center gx-0 h-100">
                 <div class="col-12 col-md-6 col-lg-4 py-8 py-md-11 h-100 d-flex justify-content-center flex-column">
@@ -50,6 +50,63 @@
                 <div class="col-lg-7 offset-lg-1 d-none d-lg-flex flex-row justify-content-center login-image h-100">
                     <!-- Image -->
                     <div class="w-100"></div>
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>#}
+    <section>
+        <div class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center gx-0 min-vh-100">
+                <div class="col-12 col-lg-4 col-lg-4 py-8 py-md-11 signup">
+
+                    <!-- Heading -->
+                    <h1 class="mb-3 fw-bold">
+                        Créer votre compte
+                    </h1>
+
+                    <!-- Form -->
+                    {{ form_start(form, {attr: {class: 'login-form'}}) }}
+                    {% for message in app.flashes('warning') %}
+                        <div role="alert" class="fr-alert fr-alert--error mb-2" id="alert">
+                            <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                    {{ form_row(form.fullName) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.password.first, {attr: {class: 'fr-input'}}) }}
+                    {{ form_row(form.password.second, {attr: {class: 'fr-input last-input'}}) }}
+                    <div class="form-actions">
+                        <div class="checkbox">
+                            <input class="form-check-input" type="checkbox" id="checkbox" name="cgu" required="">
+                            <label class="form-check-label label-inscription" for="checkbox">
+                                J'accepte les <a href="" class="link-underline white">Conditions Générales d'Utilisation</a> de la plateforme
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-form" type="submit">Créer votre compte</button>
+                    </div>
+                    <div class="text-muted info-usage text-justify mt-2">
+                        Vos données personnelles (email, nom et prénom) ne sont utilisées qu'à des fins d'authentification et sont partagées uniquement avec les commerçants lorsque vous effectuez une commande chez eux.
+                        (<a href="" class="link-underline info-usage-link">En savoir plus</a>)
+                    </div>
+                    {{ form_end(form) }}
+
+                    <!-- Text -->
+                    <p class="mb-0 mt-2 fs-sm text-muted info-usage text-justify">
+                        Vous avez déjà un compte ? <a href="{{ path('app_login') }}">Connectez vous</a>.
+                    </p>
+
+                </div>
+                <div class="col-lg-7 offset-lg-1 align-self-stretch d-none d-lg-block position-relative">
+
+                    <!-- Image -->
+                    <div class="h-100 w-cover bg-cover test" style="background-image: url('https://landkit.goodthemes.co/assets/img/covers/cover-8.jpg');"></div>
+
+                    <!-- Shape -->
+                    <div class="shape shape-start shape-fluid-y shape-login">
+                        <svg viewBox="0 0 100 1544" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v386l-50 772v386H0V0z" fill="currentColor"></path></svg>            </div>
+
                 </div>
             </div> <!-- / .row -->
         </div> <!-- / .container -->

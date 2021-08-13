@@ -2,11 +2,16 @@
 
 {% block title  'Connexion - TouSolidaires'%}
 
+{% block javascripts %}
+    <script src="{{ asset('js/particles.js') }}" defer></script>
+    <script src="{{ asset('js/main.js') }}" defer></script>
+{% endblock %}
+
 {% block body %}
-    <section class="login w-100 h-100">
-        <div class="fr-container d-flex flex-column h-100">
-            <div class="row align-items-center justify-content-center gx-0 h-100">
-                <div class="col-12 col-md-6 col-lg-4 py-8 py-md-11 h-100 d-flex justify-content-center flex-column">
+    {# <section>
+        <div class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center gx-0 min-vh-100">
+                <div class="col-12 col-md-6 col-lg-4 py-8 py-md-11 login">
 
                     <!-- Heading -->
                     <h1 class="mb-3 fw-bold">
@@ -14,7 +19,7 @@
                     </h1>
 
                     <!-- Form -->
-                    <form class="login" method="post">
+                    <form class="login-form" method="post">
                         {% if error %}
                             <div role="alert" class="fr-alert fr-alert--error mb-3" id="alert">
                                 <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
@@ -23,7 +28,7 @@
                         <!-- Email -->
                         <div class="form-group">
                             <label class="form-label" for="inputEmail">
-                                Adresse Mail
+                                Addresse Mail
                             </label>
                             <input type="email" class="fr-input form-control" id="inputEmail" name="email" required autofocus>
                         </div>
@@ -39,12 +44,12 @@
 
                         <div class="form-actions">
                             <div class="checkbox">
-                                <input class="form-check-input" type="checkbox" name="_remember_me">
+                                <input class="form-check-input" type="checkbox" id="checkbox" name="_remember_me">
                                 <label class="form-check-label" for="checkbox">
                                     Se souvenir de moi
                                 </label>
                             </div>
-                            <a href="{{ path("app_forgot_password_request") }}" class="text-black">Mot de passe oublié ?</a>
+                            <a href="" class="text-black">Mot de passe oublié ?</a>
                         </div>
 
 
@@ -56,16 +61,52 @@
                     </form>
 
                     <!-- Text -->
-                    <p class="mb-0 mt-2 fs-sm text-muted">
+                    <p class="mb-0 mt-2 fs-sm text-muted info-usage">
                         Vous n'avez pas encore de compte ? <a href="{{ path('app_signup') }}">Créer votre compte</a>.
                     </p>
 
                 </div>
-                <div class="col-lg-7 offset-lg-1 d-none d-lg-flex flex-row justify-content-center login-image h-100">
+                <div class="col-lg-7 offset-lg-1 align-self-stretch d-none d-lg-block position-relative">
+
                     <!-- Image -->
-                    <div class="w-100"></div>
+                    <div class="h-100 w-cover bg-cover test" style="background-image: url('https://landkit.goodthemes.co/assets/img/covers/cover-9.jpg');"></div>
+
+                    <!-- Shape -->
+                    <div class="shape shape-start shape-fluid-y shape-login">
+                        <svg viewBox="0 0 100 1544" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v386l-50 772v386H0V0z" fill="currentColor"></path></svg>            </div>
+
                 </div>
             </div> <!-- / .row -->
         </div> <!-- / .container -->
-    </section>
+    </section>#}
+    <div class="min-h-screen max-h-screen bg-blue-400 dark:bg-gray-800 flex justify-center items-center" id="particles-js">
+        <div class="py-12 px-12 bg-white dark:bg-gray-600 rounded-2xl shadow-xl z-20 absolute">
+            <form method="post">
+                <div>
+                    <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer text-black dark:text-white">Connectez-vous</h1>
+                </div>
+                <div class="space-y-4">
+                    <label for="inputUsername"></label>
+                    <input type="email" placeholder="Nom d'utilisateur" name="email" id="inputEmail" autocomplete="email" required autofocus
+                           class="block text-sm py-3 px-4 rounded-lg w-full border dark:bg-gray-700 dark:border-gray-700 dark:text-white outline-none focus:bg-gray-800" />
+                    <label for="inputPassword"></label>
+                    <input placeholder="Mot de passe" type="password" name="password" id="inputPassword" autocomplete="current-password" required
+                           class="block text-sm py-3 px-4 rounded-lg w-full border dark:bg-gray-700 dark:border-gray-700 dark:text-white outline-none focus:bg-gray-800" />
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="_remember_me" name="_remember_me" type="checkbox" class="focus:ring-yellow-400 h-4 w-4 text-yellow-500 border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="_remember_me" class="font-medium text-gray-300">Se souvenir de moi</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-6">
+                    <button class="py-3 w-64 text-xl text-white bg-yellow-400 rounded-2xl" type="submit">Se connecter</button>
+                    <p class="mt-4 text-sm text-black dark:text-white">Vous n'avez pas de compte? <span class="underline cursor-pointer"> Inscrivez-vous</span></p>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
