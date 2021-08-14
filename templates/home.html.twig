@@ -108,7 +108,6 @@
             </div>
         </div>
     {% endif %}
-
     <section class="text-gray-400 body-font">
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-wrap -m-4">
@@ -116,12 +115,10 @@
             </div>
         </div>
     </section>
-
     <section class="text-gray-400 body-font">
         <div class="container px-5 py-24 mx-auto">
             <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                 {% include 'product/product_skeleton.html.twig' with {'products': products} %}
-                <!-- More products... -->
             </div>
             <div class="pt-5">
                 <a href="{{ path('product_index') }}" class="w-full md:w-1/2 md:mx-auto flex items-center justify-center px-10 py-4 border border-transparent text-base font-medium rounded-2xl text-white bg-yellow-600 hover:bg-yellow-700 md:py-3 md:text-lg md:px-8">
@@ -134,18 +131,6 @@
             </div>
         </div>
     </section>
-
-    {#
-        {% set splitArray = shop.phone|split('', 1) %}
-        {% set first = splitArray|first %}
-        {% set firstArray =  [0, first] | join('') %}
-        {% set splitArray = splitArray|slice(1) %}
-        {% set splitArray = splitArray|join('') %}
-        {% set lastArray = [firstArray, splitArray] |join('') %}
-        {% set finalSplit = lastArray|split('', 2) %}
-        {% set formattedString = finalSplit|join(' ') %}
-    #}
-
     <script>
         function closeBanner(bannerID) {
             document.getElementById(bannerID).classList.add('hidden');
@@ -157,6 +142,5 @@
             document.getElementById('home-logo').attributes.getNamedItem('src').value = "{{ asset('images/logo.svg') }}";
         }
     </script>
-
     {% include('footer.html.twig') %}
 {% endblock %}

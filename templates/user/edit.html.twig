@@ -5,32 +5,6 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'user'} %}
     {% include 'user/_header.html.twig' %}
-    {# <div class="toast-container position-absolute p-3">
-        {% for message in app.flashes('success') %}
-            <div role="alert" class="fr-alert fr-alert--success show" id="alert">
-                <p>{{ message }}</p>
-            </div>
-            <script>
-                const alert = document.querySelector("#alert")
-                console.log(alert)
-                setTimeout(() => {
-                    alert.classList.remove('show')
-                }, 10000);
-            </script>
-        {% endfor %}
-        {% for message in app.flashes('warning') %}
-            <div role="alert" class="fr-alert fr-alert--danger show" id="alert">
-                <p>{{ message }}</p>
-            </div>
-            <script>
-                const alert = document.querySelector("#alert")
-                console.log(alert)
-                setTimeout(() => {
-                    alert.classList.remove('show')
-                }, 10000);
-            </script>
-        {% endfor %}
-    </div>#}
     <section class="text-gray-400 body-font">
         <div class="container px-5 py-12 pt-6 mx-auto">
             <div class="flex justify-center flex-wrap -m-4">
@@ -112,13 +86,11 @@
                     </div>
                 </div>
             </div>
-
             <div class="block" aria-hidden="true">
                 <div class="py-5">
                     <div class="border-t border-gray-600 dark:border-gray-200"></div>
                 </div>
             </div>
-
             <div class="mt-0">
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
@@ -165,13 +137,11 @@
                     </div>
                 </div>
             </div>
-
             <div class="block" aria-hidden="true">
                 <div class="py-5">
                     <div class="border-t border-gray-200"></div>
                 </div>
             </div>
-
             <div class="mt-0">
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
@@ -214,13 +184,11 @@
                     </div>
                 </div>
             </div>
-
             <div class="block" aria-hidden="true">
                 <div class="py-5">
                     <div class="border-t border-gray-200"></div>
                 </div>
             </div>
-
             <div class="mt-0">
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">

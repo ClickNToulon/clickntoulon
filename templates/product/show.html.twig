@@ -20,7 +20,6 @@
                             </svg>
                         </div>
                     </li>
-
                     <li class="text-sm">
                         <a href="{{ path('product_show', {'id': product.id}) }}" aria-current="page" class="font-medium text-black dark:text-white hover:text-yellow-500">
                             {{ product.name }}
@@ -28,7 +27,6 @@
                     </li>
                 </ol>
             </nav>
-
             <!-- Image gallery -->
             <div class="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
                 <div class="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
@@ -41,7 +39,6 @@
                     <img src="{{ asset('uploads/products/' ~ product.images[1]) }}" alt="Model wearing plain white basic tee." class="w-full h-full object-center object-cover rounded-lg">
                 </div>
             </div>
-
             <!-- Product info -->
             <div class="max-w-2xl mx-auto pt-10 pb-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-16 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
                 <div class="lg:col-span-2 lg:border-r lg:border-gray-300 lg:pr-8">
@@ -49,22 +46,18 @@
                         {{ product.name }}
                     </h1>
                 </div>
-
                 <!-- Options -->
                 <div class="mt-4 lg:mt-0 lg:row-span-3">
                     <h2 class="sr-only">Information du produit</h2>
                     <p class="text-3xl text-black dark:text-white">{{ product.price | format_currency('EUR') }}</p>
-
                     <form class="mt-10">
                         <button type="submit" class="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add to bag</button>
                     </form>
                 </div>
-
                 <div class="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-300 lg:pr-8">
                     <!-- Description and details -->
                     <div>
                         <h3 class="sr-only">Description</h3>
-
                         <div class="space-y-6">
                             <p class="text-base text-gray-600 dark:text-gray-200">{{ product.description }}</p>
                         </div>
