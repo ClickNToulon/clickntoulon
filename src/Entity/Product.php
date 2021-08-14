@@ -53,9 +53,9 @@ class Product
     private $deal_end;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="json")
      */
-    private $image;
+    private $images;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -156,14 +156,14 @@ class Product
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImages(): ?array
     {
-        return $this->image;
+        return $this->images;
     }
 
-    public function setImage(?string $image): self
+    public function setImages(?array $images): self
     {
-        $this->image = $image;
+        $this->images[] = $images;
 
         return $this;
     }

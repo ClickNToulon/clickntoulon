@@ -47,3 +47,11 @@
 .custom-file {
   @apply w-full;
 }
+
+.max-h-2xl {
+  max-height: 46rem !important;
+}
+
+.lg\:max-h-7xl {
+  max-height: 80rem !important
+}

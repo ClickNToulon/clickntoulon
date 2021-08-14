@@ -6,9 +6,34 @@
     {% include 'navbar.html.twig' with {'active': 'user'} %}
     {% include 'user/_header.html.twig' %}
     <section class="text-gray-400 body-font">
-        <div class="container px-5 py-24 mx-auto">
+        <div class="container px-5 py-12 pt-6 mx-auto">
             <div class="flex justify-center flex-wrap -m-4">
                 {% include 'user/_tabs.html.twig' with {active: 'orders'} %}
+            </div>
+        </div>
+        <div class="container px-5 mx-auto sm:max-w-7xl pb-12 max-w-full">
+            <div class="flex flex-wrap -my-6">
+                {% for order in orders %}
+                    <div class="py-8 px-4 lg:w-1/2">
+                        <div class="h-full flex items-start">
+                            <div class="w-12 flex-shrink-0 flex flex-col text-center leading-none">
+                                <span class="text-gray-400 pb-2 mb-2 border-b-2 border-gray-900">Jul</span>
+                                <span class="font-medium text-lg leading-none text-gray-300 title-font">18</span>
+                            </div>
+                            <div class="flex-grow pl-6">
+                                <h2 class="tracking-widest text-xs title-font font-medium text-indigo-400 mb-1">CATEGORY</h2>
+                                <h1 class="title-font text-xl font-medium text-white mb-3">The 400 Blows</h1>
+                                <p class="leading-relaxed mb-5">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
+                                <a class="inline-flex items-center">
+                                    <img alt="blog" src="https://dummyimage.com/103x103" class="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center">
+                                    <span class="flex-grow flex flex-col pl-3">
+                                        <span class="title-font font-medium text-white">Alper Kamu</span>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </section>

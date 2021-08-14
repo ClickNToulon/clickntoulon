@@ -6,7 +6,7 @@
     {% include 'navbar.html.twig' with {'active': 'product'} %}
     <section class="text-gray-400 body-font">
         <div class="container px-5 py-24 mx-auto">
-            <div class="flex flex-wrap -m-4">
+            <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                 {% include 'product/product_skeleton.html.twig' with {'products': products} %}
             </div>
             {{ knp_pagination_render(products) }}
