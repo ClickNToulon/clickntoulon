@@ -25,7 +25,7 @@ class ChooseShop extends AbstractType
                 },
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'fr-select'
+                    'class' => 'block w-full my-1 dark:bg-gray-800 dark:text-white rounded-md border-gray-300 dark:border-gray-900 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50'
                 ],
             ]);
     }

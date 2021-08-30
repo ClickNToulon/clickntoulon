@@ -3,15 +3,15 @@
 {% block title 'Choisir votre boutique - TouSolidaires' %}
 
 {% block body %}
-{% include 'navbar.html.twig' with {'active' :'my-shop'} %}
-<div class="shop-choose">
-    <h2>Choisir une boutique</h2>
-    {{ form_start(form, {attr: {class: 'shop-choose-form'}}) }}
-        {{ form_row(form.select) }}
-        <div class="button-submit">
-            <button class="btn btn-form" type="submit" name="select">Choisir</button>
-        </div>
-    {{ form_end(form) }}
-</div>
-{% include 'footer.html.twig' %}
+    {% include 'navbar.html.twig' with {'active' :'my-shop'} %}
+    <div class="flex flex-col mx-auto py-12 sm:py-24 px-2 max-w-7xl">
+        {{ form_start(form, {attr: {class: 'shop-choose-form'}}) }}
+            <h2 class="text-lg font-medium text-black dark:text-white sm:mb-3">Choisir une boutique</h2>
+            {{ form_row(form.select) }}
+            <button type="submit" name="select" class="inline-flex justify-center py-2 mt-3 px-4 w-full border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                Choisir
+            </button>
+        {{ form_end(form) }}
+    </div>
+    {% include 'footer.html.twig' %}
 {% endblock %}

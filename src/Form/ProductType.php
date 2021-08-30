@@ -25,19 +25,19 @@ class ProductType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => true,
                 'attr' => [
-                    'class' => 'fr-input'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-800 text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('price', NumberType::class, [
                 'required' => true,
                 'attr' => [
-                    'class' => 'fr-input'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-800 text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('description', TextareaType::class, [
                 'required' => true,
                 'attr' => [
-                    'class' => 'fr-input mb-24',
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-800 text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md',
                     'rows' => 3
                 ]
             ])
@@ -45,7 +45,7 @@ class ProductType extends AbstractType
                 'required' => false,
                 'mapped' => false,
                 'attr' => [
-                    'class' => 'fr-input'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-800 text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('deal_start', DateType::class, [
@@ -53,7 +53,7 @@ class ProductType extends AbstractType
                 'mapped' => false,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'fr-input'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-800 text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('deal_end', DateType::class, [
@@ -61,12 +61,12 @@ class ProductType extends AbstractType
                 'mapped' => false,
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'fr-input'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-800 text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('image',FileType::class, [
                 'attr' => [
-                    'class' => 'form-control last-password'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-800 text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ],
                 'mapped' => false,
                 'required' => true,
@@ -92,7 +92,7 @@ class ProductType extends AbstractType
                 },
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'fr-select'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-800 text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ],
             ]);
     }

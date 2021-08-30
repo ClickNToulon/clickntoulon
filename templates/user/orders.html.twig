@@ -17,12 +17,13 @@
                     <div class="py-8 px-4 lg:w-1/2">
                         <div class="h-full flex items-start">
                             <div class="w-12 flex-shrink-0 flex flex-col text-center leading-none">
-                                <span class="text-gray-400 pb-2 mb-2 border-b-2 border-gray-900">Jul</span>
-                                <span class="font-medium text-lg leading-none text-gray-300 title-font">18</span>
+                                <span class="text-gray-400 pb-2 mb-2 border-b-2 border-gray-900">{{ order.day | date('d') }}</span>
+                                <span class="font-medium text-lg leading-none text-gray-300 title-font pb-2 mb-2 border-b-2 border-gray-900">{{ order.day | date('M') }}</span>
+                                <span class="text-gray-300 text-lg leading-none title-font font-medium">{{ order.day | date('Y') }}</span>
                             </div>
                             <div class="flex-grow pl-6">
-                                <h2 class="tracking-widest text-xs title-font font-medium text-indigo-400 mb-1">CATEGORY</h2>
-                                <h1 class="title-font text-xl font-medium text-white mb-3">The 400 Blows</h1>
+                                <h2 class="tracking-widest text-sm title-font font-medium text-yellow-400 mb-1">Commande n°{{ order.id }}</h2>
+                                <h1 class="title-font text-xl font-medium text-white mb-3">{{  }}</h1>
                                 <p class="leading-relaxed mb-5">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
                                 <a class="inline-flex items-center">
                                     <img alt="blog" src="https://dummyimage.com/103x103" class="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center">

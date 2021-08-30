@@ -5,280 +5,374 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
     {% include 'seller/_header.html.twig' %}
-    <main class="pb-4-5 pb-md-11 mt-md-n6">
-        <div class="container-md">
-            <div class="row">
-                <div class="col-12 col-md-3">
-                    {% include 'seller/_tabs.html.twig' with {active: 'orders'} %}
-                </div>
-                <div class="col-12 col-md-9">
-                    <div class="card card-bleed shadow-light-lg mb-5 seller-orders">
-                        {% if orders != false %}
-                            <div class="fr-table fr-table--bordered">
-                                <table class="table table-light table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>N°</th>
-                                        <th>Nom client</th>
-                                        <th>ID Produits</th>
-                                        <th>Quantités</th>
-                                        <th>Statut</th>
-                                        <th class="last-th">Actions</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% set i = 0 %}
-                                    {% for order in orders %}
-                                        <tr>
-                                            <td>{{ order.id }}</td>
-                                            <td>{{ orders_buyers[order.id].fullName }}</td>
-                                            <td>{{ products_id[order.id] }}</td>
-                                            <td>{{ quantities[order.id] }}</td>
-                                            <td>{{ order.status }}</td>
-                                            <td class="last-td">
-                                                {% if order.status == 0 %}
-                                                    <button class="btn btn-form mg-t-0" data-fr-opened="false" aria-controls="order-confirm">Confirmer la commande</button>
-                                                    <dialog aria-labelledby="order-confirm-title" id="order-confirm" class="fr-modal align-items-center justify-content-center" role="dialog">
-                                                        <div class="fr-container--fluid fr-container-md dialog-w-100">
-                                                            <div class="fr-grid-row fr-grid-row--center">
-                                                                <div class="fr-col-12 fr-col-md-6 dark-bg">
-                                                                    <div class="fr-modal__body">
-                                                                        <div class="fr-modal__header">
-                                                                            <button class="fr-link--close fr-link" aria-controls="order-confirm">Fermer</button>
-                                                                        </div>
-                                                                        <div class="fr-modal__content forms">
-                                                                            <h1 id="order-confirm-title" class="fr-modal__title mb-2">
-                                                                                <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
-                                                                                Confirmer la commande n°{{ order.id }}
-                                                                            </h1>
-                                                                            <form action="{{ path('seller_orders_confirm', {id: shop.id, order: order.id}) }}" method="POST" name="order_confirm">
-                                                                                <input type="hidden" name="_token" value="{{ csrf_token('order_confirm') }}">
-                                                                                <input type="hidden" name="order_confirm[id]" id="order_confirm_id" value="{{ order.id }}" required>
-                                                                                <label for="order_confirm_day">Date de retrait de la commande</label>
+    <section class="text-gray-400 body-font">
+        <div class="container px-5 py-6 mx-auto">
+            <div class="flex justify-center flex-wrap -m-4">
+                {% include 'seller/_tabs.html.twig' with {active: 'orders'} %}
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <div class="overflow-x-auto">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-2 lg:px-6">
+                    {% if orders != false %}
+                    <div class="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 sm:rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-500 table-striped">
+                            <thead class="bg-gray-50 dark:bg-gray-800">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black dark:text-white uppercase tracking-wider">
+                                        N°
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black dark:text-white uppercase tracking-wider">
+                                        Nom client
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black dark:text-white uppercase tracking-wider">
+                                        ID Produits
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black dark:text-white uppercase tracking-wider">
+                                        Quantités
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black dark:text-white uppercase tracking-wider">
+                                        Status
+                                    </th>
+                                    <th scope="col" class="relative px-2 py-3">
+                                        <span class="sr-only">Actions</span>
+                                        <span class="sr-only">Annuler la commande</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-500">
+                            {% for order in orders %}
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-black dark:text-white">
+                                        {{ order.id }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full bg-gray-500 dark:bg-gray-700" src="{{ asset('uploads/users/' ~ orders_buyers[order.id].avatar) }}" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-black dark:text-white">
+                                                    {{ orders_buyers[order.id].fullName }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-black dark:text-white">
+                                        {{ products_id[order.id] }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-black dark:text-white">
+                                        {{ quantities[order.id] }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-black dark:text-white">
+                                        {% if order.status == 0 %}
+                                            <span class="px-2 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-400 text-black">
+                                                En attente de validation
+                                            </span>
+                                        {% elseif order.status == 1 %}
+                                            <span class="px-2 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-500 text-black">
+                                                Commande validée
+                                            </span>
+                                        {% elseif order.status == 2 %}
+                                            <span class="px-2 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-500 text-black">
+                                                En cours de préparation
+                                            </span>
+                                        {% elseif order.status == 3 %}
+                                            <span class="px-2 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-700 text-white">
+                                                Commande prête
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="pr-6 py-4 text-right text-sm font-medium">
+                                        {% if order.status == 0 %}
+                                            <a class="cursor-pointer text-black px-3 py-2 bg-yellow-400 rounded-lg mr-2" onclick="openModal('confirmModal{{ order.id }}')">Valider la commande</a>
+                                            <div class="hidden z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" id="confirmModal{{ order.id }}" role="dialog" aria-modal="true">
+                                                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                                                    <!-- Background overlay, show/hide based on modal state. -->
+                                                    <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                                    <!-- This element is to trick the browser into centering the modal contents. -->
+                                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                                                    <!-- Modal panel, show/hide based on modal state. -->
+                                                    <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                        <form action="{{ path('seller_orders_confirm', {id: shop.id, order: order.id}) }}" method="POST" name="order_confirm">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('order_confirm') }}">
+                                                            <input type="hidden" name="order_confirm[id]" id="order_confirm_id" value="{{ order.id }}" required>
+                                                            <div class="bg-white dark:bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                                <div class="sm:flex sm:items-start">
+                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-600 sm:mx-0 sm:h-10 sm:w-10">
+                                                                        <!-- Heroicon name: outline/check -->
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
+                                                                            Confirmer la commande n°{{ order.id }}
+                                                                        </h3>
+                                                                        <div class="mt-2">
+                                                                            <label class="block">
+                                                                                <span class="text-gray-700 dark:text-gray-200">Date de retrait de la commande</span>
                                                                                 {% set order_date = order.day|date("Y-m-d", "Europe/Paris") %}
-                                                                                <input type="date" name="order_confirm[day]" id="order_confirm_day" class="fr-input form-control" value="{{ order_date }}" required>
-                                                                                <label for="order_confirm_begin">Début</label>
-                                                                                <input type="time" name="order_confirm[begin]" id="order_confirm_begin" class="fr-input form-control" required>
-                                                                                <label for="order_confirm_end">Fin</label>
-                                                                                <input type="time" name="order_confirm[end]" id="order_confirm_end" class="fr-input form-control" required>
-                                                                                <label for="order_confirm_message">Votre message (optionel)</label>
-                                                                                <textarea name="order_confirm[message]" id="order_confirm_message" class="fr-input form-control" rows="3"></textarea>
-                                                                                <div class="fr-modal__footer order-confirm">
-                                                                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--inline-lg">
-                                                                                        <li>
-                                                                                            <button type="button" class="fr-btn btn-danger" aria-controls="order-confirm">
-                                                                                                Revenir en arrière
-                                                                                            </button>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <button type="submit" class="btn btn-form">
-                                                                                                Confirmer la commande
-                                                                                            </button>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </form>
+                                                                                <input type="date" value="{{ order_date }}" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_confirm[day]" id="order_confirm_day" required>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="mt-2">
+                                                                            <label class="block">
+                                                                                <span class="text-gray-700 dark:text-gray-200">Horaire de début</span>
+                                                                                <input type="time" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_confirm[begin]" id="order_confirm_begin" required>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="mt-2">
+                                                                            <label class="block">
+                                                                                <span class="text-gray-700 dark:text-gray-200">Horaire de fin</span>
+                                                                                <input type="time" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_confirm[end]" id="order_confirm_end" required>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="mt-2">
+                                                                            <label class="block">
+                                                                                <span class="text-gray-700 dark:text-gray-200">Votre message (optionel)</span>
+                                                                                <textarea name="order_cancel[message]" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" id="order_cancel_message" rows="3"></textarea>
+                                                                            </label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </dialog>
-                                                {% elseif order.status == 1 %}
-                                                    <button class="btn btn-form mg-t-0" data-fr-opened="false" aria-controls="order-prepared">Commande en cours de preparation</button>
-                                                    <dialog aria-labelledby="order-prepared-title" id="order-prepared" class="fr-modal align-items-center justify-content-center" role="dialog">
-                                                        <div class="fr-container--fluid fr-container-md dialog-w-100">
-                                                            <div class="fr-grid-row fr-grid-row--center">
-                                                                <div class="fr-col-12 fr-col-md-6 dark-bg">
-                                                                    <div class="fr-modal__body">
-                                                                        <div class="fr-modal__header">
-                                                                            <button class="fr-link--close fr-link" aria-controls="order-prepared">Fermer</button>
-                                                                        </div>
-                                                                        <div class="fr-modal__content forms">
-                                                                            <h1 id="order-prepared-title" class="fr-modal__title mb-2">
-                                                                                <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
-                                                                                Confirmer que la commande n°{{ order.id }} est en cours de préparation
-                                                                            </h1>
-                                                                            <form action="{{ path('seller_orders_prepared', {id: shop.id, order: order.id}) }}" method="POST" name="order_prepared">
-                                                                                <input type="hidden" name="_token" value="{{ csrf_token('order_prepared') }}">
-                                                                                <input type="hidden" name="order_prepared[id]" id="order_prepared_id" value="{{ order.id }}" required>
-                                                                                <p class="mt-3 text-white mb-0">Vous allez confirmer que le commande n°{{ order.id }} est en cours de préparation.</p>
-                                                                                <div class="fr-modal__footer">
-                                                                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--inline-lg">
-                                                                                        <li>
-                                                                                            <button type="button" class="fr-btn btn-danger" aria-controls="order-ready">
-                                                                                                Revenir en arrière
-                                                                                            </button>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <button type="submit" class="fr-btn btn-form">
-                                                                                                Confirmer
-                                                                                            </button>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </form>
+                                                            <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                                                    Confirmer
+                                                                </button>
+                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('confirmModal{{ order.id }}')">
+                                                                    Revenir en arrière
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% elseif order.status == 1 %}
+                                            <a class="cursor-pointer text-black px-3 py-2 bg-green-500 rounded-lg mr-2" onclick="openModal('preparedModal{{ order.id }}')">En cours de préparation</a>
+                                            <div class="hidden z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" id="preparedModal{{ order.id }}" role="dialog" aria-modal="true">
+                                                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                                                    <!-- Background overlay, show/hide based on modal state. -->
+                                                    <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                                    <!-- This element is to trick the browser into centering the modal contents. -->
+                                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                                                    <!-- Modal panel, show/hide based on modal state. -->
+                                                    <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                        <form action="{{ path('seller_orders_prepared', {id: shop.id, order: order.id}) }}" method="POST" name="order_prepared">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('order_prepared') }}">
+                                                            <input type="hidden" name="order_prepared[id]" id="order_prepared_id" value="{{ order.id }}" required>
+                                                            <div class="bg-white dark:bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                                <div class="sm:flex sm:items-start">
+                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-600 sm:mx-0 sm:h-10 sm:w-10">
+                                                                        <!-- Heroicon name: outline/clock -->
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
+                                                                            Confirmer que la commande n°{{ order.id }} est en cours de préparation
+                                                                        </h3>
+                                                                        <div class="mt-2">
+                                                                            <p class="text-md text-gray-500 dark:text-gray-300">
+                                                                                Vous allez confirmer que la commande n°{{ order.id }} est en cours de préparation.
+                                                                            </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </dialog>
-                                                {% elseif order.status == 2 %}
-                                                    <button class="btn btn-form mg-t-0" data-fr-opened="false" aria-controls="order-ready">Commande prête</button>
-                                                    <dialog aria-labelledby="order-ready-title" id="order-ready" class="fr-modal align-items-center justify-content-center" role="dialog">
-                                                        <div class="fr-container--fluid fr-container-md dialog-w-100">
-                                                            <div class="fr-grid-row fr-grid-row--center">
-                                                                <div class="fr-col-12 fr-col-md-6 dark-bg">
-                                                                    <div class="fr-modal__body">
-                                                                        <div class="fr-modal__header">
-                                                                            <button class="fr-link--close fr-link" aria-controls="order-ready">Fermer</button>
-                                                                        </div>
-                                                                        <div class="fr-modal__content forms">
-                                                                            <h1 id="order-ready-title" class="fr-modal__title mb-2">
-                                                                                <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
-                                                                                Confirmer que la commande n°{{ order.id }} est prête
-                                                                            </h1>
-                                                                            <form action="{{ path('seller_orders_ready', {id: shop.id, order: order.id}) }}" method="POST" name="order_ready">
-                                                                                <input type="hidden" name="_token" value="{{ csrf_token('order_ready') }}">
-                                                                                <input type="hidden" name="order_ready[id]" id="order_ready_id" value="{{ order.id }}" required>
+                                                            <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                                                    Confirmer
+                                                                </button>
+                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('preparedModal{{ order.id }}')">
+                                                                    Revenir en arrière
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% elseif order.status == 2 %}
+                                            <a class="cursor-pointer text-white px-3 py-2 bg-green-700 rounded-lg mr-2" onclick="openModal('readyModal{{ order.id }}')">Prête</a>
+                                            <div class="hidden z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" id="readyModal{{ order.id }}" role="dialog" aria-modal="true">
+                                                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                                                    <!-- Background overlay, show/hide based on modal state. -->
+                                                    <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                                    <!-- This element is to trick the browser into centering the modal contents. -->
+                                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                                                    <!-- Modal panel, show/hide based on modal state. -->
+                                                    <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                        <form action="{{ path('seller_orders_ready', {id: shop.id, order: order.id}) }}" method="POST" name="order_ready">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('order_ready') }}">
+                                                            <input type="hidden" name="order_ready[id]" id="order_ready_id" value="{{ order.id }}" required>
+                                                            <div class="bg-white dark:bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                                <div class="sm:flex sm:items-start">
+                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-600 sm:mx-0 sm:h-10 sm:w-10">
+                                                                        <!-- Heroicon name: outline/check -->
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
+                                                                            Confirmer que la commande n°{{ order.id }} est prête
+                                                                        </h3>
+                                                                        {% set order_date = order.day|date("Y-m-d", "Europe/Paris") %}
+                                                                        {% set order_begin = order.timeBegin | format_time('short', 'HH:mm', locale='fr') %}
+                                                                        {% set order_end = order.timeEnd | format_time('short', 'HH:mm', locale='fr') %}
+                                                                        <div class="mt-2">
+                                                                            <label class="block">
+                                                                                <span class="text-gray-700 dark:text-gray-100">Date de retrait de la commande</span>
                                                                                 {% set order_date = order.day|date("Y-m-d", "Europe/Paris") %}
-                                                                                {% set order_begin = order.timeBegin | format_time('short', 'HH:mm', locale='fr') %}
-                                                                                {% set order_end = order.timeEnd | format_time('short', 'HH:mm', locale='fr') %}
-                                                                                <input type="hidden" name="order_ready[day]" id="order_ready_day" value="{{ order_date }}">
-                                                                                <input type="hidden" name="order_ready[begin]" id="order_ready_begin" value="{{ order_begin }}">
-                                                                                <input type="hidden" name="order_ready[end]" id="order_ready_end" value="{{ order_end }}">
-                                                                                <p class="mt-3 text-white mb-0">Vous allez confirmer que la commande n°{{ order.id }} est prête.</p>
-                                                                                <div class="fr-modal__footer">
-                                                                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--inline-lg">
-                                                                                        <li>
-                                                                                            <button type="button" class="btn btn-danger" aria-controls="order-ready">
-                                                                                                Revenir en arrière
-                                                                                            </button>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <button type="submit" class="btn btn-form">
-                                                                                                Confirmer
-                                                                                            </button>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </form>
+                                                                                <input type="date" value="{{ order_date }}" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_ready[day]" id="order_ready_day" required>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="mt-2">
+                                                                            <label class="block">
+                                                                                <span class="text-gray-700 dark:text-gray-100">Horaire de début</span>
+                                                                                <input type="time" value="{{ order_begin }}" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_ready[begin]" id="order_ready_begin" required>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="mt-2">
+                                                                            <label class="block">
+                                                                                <span class="text-gray-700 dark:text-gray-100">Horaire de fin</span>
+                                                                                <input type="time" value="{{ order_end }}" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_ready[end]" id="order_ready_end" required>
+                                                                            </label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </dialog>
-                                                {% elseif order.status == 3 %}
-                                                    <button class="btn btn-form mg-t-0" data-fr-opened="false" aria-controls="order-pickup">Commande récupérée</button>
-                                                    <dialog aria-labelledby="order-pickup-title" id="order-pickup" class="fr-modal align-items-center justify-content-center" role="dialog">
-                                                        <div class="fr-container--fluid fr-container-md dialog-w-100">
-                                                            <div class="fr-grid-row fr-grid-row--center">
-                                                                <div class="fr-col-12 fr-col-md-6 dark-bg">
-                                                                    <div class="fr-modal__body">
-                                                                        <div class="fr-modal__header">
-                                                                            <button class="fr-link--close fr-link" aria-controls="order-pickup">Fermer</button>
-                                                                        </div>
-                                                                        <div class="fr-modal__content forms">
-                                                                            <h1 id="order-pickup-title" class="fr-modal__title mb-2">
-                                                                                <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
-                                                                                Confirmer que la commande n°{{ order.id }} a été récupérée
-                                                                            </h1>
-                                                                            <form action="{{ path('seller_orders_pickup', {id: shop.id, order: order.id}) }}" method="POST" name="order_pickup">
-                                                                                <input type="hidden" name="_token" value="{{ csrf_token('order_pickup') }}">
-                                                                                <input type="hidden" name="order_pickup[id]" id="order_pickup_id" value="{{ order.id }}" required>
-                                                                                <p class="mt-3 text-white mb-0">Vous allez confirmer que la commande n°{{ order.id }} a été récupérée.</p>
-                                                                                <div class="fr-modal__footer">
-                                                                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--inline-lg">
-                                                                                        <li>
-                                                                                            <button type="button" class="btn btn-danger" aria-controls="order-pickup">
-                                                                                                Revenir en arrière
-                                                                                            </button>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <button type="submit" class="btn btn-form">
-                                                                                                Confirmer
-                                                                                            </button>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </form>
+                                                            <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                                                    Confirmer
+                                                                </button>
+                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('readyModal{{ order.id }}')">
+                                                                    Revenir en arrière
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% elseif order.status == 3 %}
+                                            <a class="cursor-pointer text-white px-3 py-2 bg-green-700 rounded-lg mr-2" onclick="openModal('pickupModal{{ order.id }}')">Récupérée</a>
+                                            <div class="hidden z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" id="pickupModal{{ order.id }}" role="dialog" aria-modal="true">
+                                                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                                                    <!-- Background overlay, show/hide based on modal state. -->
+                                                    <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                                    <!-- This element is to trick the browser into centering the modal contents. -->
+                                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                                                    <!-- Modal panel, show/hide based on modal state. -->
+                                                    <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                        <form action="{{ path('seller_orders_pickup', {id: shop.id, order: order.id}) }}" method="POST" name="order_pickup">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('order_pickup') }}">
+                                                            <input type="hidden" name="order_pickup[id]" id="order_pickup_id" value="{{ order.id }}" required>
+                                                            <div class="bg-white dark:bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                                <div class="sm:flex sm:items-start">
+                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-600 sm:mx-0 sm:h-10 sm:w-10">
+                                                                        <!-- Heroicon name: outline/truck -->
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                            <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
+                                                                            Confirmer que la commande n°{{ order.id }} a été récupérée
+                                                                        </h3>
+                                                                        <div class="mt-2">
+                                                                            <p class="text-md text-gray-500 dark:text-gray-300">
+                                                                                Vous allez confirmer que la commande n°{{ order.id }} a été récupérée.
+                                                                            </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </dialog>
-                                                {% endif %}
-                                            </td>
-                                            <td class="last-td">
-                                                <button class="btn btn-form btn-danger mg-t-0" data-fr-opened="false" aria-controls="order-cancel">Annuler la commande</button></td>
-                                            <dialog aria-labelledby="order-cancel-title" id="order-cancel" class="fr-modal align-items-center justify-content-center" role="dialog">
-                                                <div class="fr-container--fluid fr-container-md dialog-w-100">
-                                                    <div class="fr-grid-row fr-grid-row--center">
-                                                        <div class="fr-col-12 fr-col-md-6 dark-bg">
-                                                            <div class="fr-modal__body">
-                                                                <div class="fr-modal__header">
-                                                                    <button class="fr-link--close fr-link" aria-controls="order-cancel">Fermer</button>
+                                                            <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                                                    Confirmer
+                                                                </button>
+                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('pickupModal{{ order.id }}')">
+                                                                    Revenir en arrière
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        <a class="cursor-pointer px-3 py-2 bg-red-600 rounded-lg text-white" onclick="openModal('cancelModal{{ order.id }}')">Annuler</a>
+                                    </td>
+                                    <div class="hidden z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" id="cancelModal{{ order.id }}" role="dialog" aria-modal="true">
+                                        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                                            <!-- Background overlay, show/hide based on modal state. -->
+                                            <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                            <!-- This element is to trick the browser into centering the modal contents. -->
+                                            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                                            <!-- Modal panel, show/hide based on modal state. -->
+                                            <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                <form action="{{ path('seller_orders_cancel', {id: shop.id, order: order.id}) }}" method="POST" name="order_cancel">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('order_cancel') }}">
+                                                    <input type="hidden" name="order_cancel[id]" id="order_cancel_id" value="{{ order.id }}" required>
+                                                    <div class="bg-white dark:bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                        <div class="sm:flex sm:items-start">
+                                                            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-600 sm:mx-0 sm:h-10 sm:w-10">
+                                                                <!-- Heroicon name: outline/exclamation -->
+                                                                <svg class="h-6 w-6 text-red-600 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                                                </svg>
+                                                            </div>
+                                                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
+                                                                    Annuler la commande n°{{ order.id }}
+                                                                </h3>
+                                                                <div class="mt-2">
+                                                                    <p class="text-md text-gray-500 dark:text-gray-300">
+                                                                        Vous allez confirmer que vous voulez annuler la commande n°{{ order.id }}.
+                                                                    </p>
                                                                 </div>
-                                                                <div class="fr-modal__content forms">
-                                                                    <h1 id="order-cancel-title" class="fr-modal__title mb-2">
-                                                                        <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
-                                                                        Annulation de la commande n°{{ order.id }}
-                                                                    </h1>
-                                                                    <form action="{{ path('seller_orders_cancel', {id: shop.id, order: order.id}) }}" method="POST" name="order_cancel">
-                                                                        <input type="hidden" name="_token" value="{{ csrf_token('order_cancel') }}">
-                                                                        <input type="hidden" name="order_cancel[id]" id="order_cancel_id" value="{{ order.id }}" required>
-                                                                        <label for="order_cancel_message">Votre message (optionel)</label>
-                                                                        <textarea name="order_cancel[message]" id="order_cancel_message" class="fr-input form-control" rows="3"></textarea>
-                                                                        <p class="mt-3 text-white mb-0">Vous allez confirmer que vous voulez annuler la commande n°{{ order.id }}.</p>
-                                                                        <div class="fr-modal__footer order-confirm w-100">
-                                                                            <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--inline-lg">
-                                                                                <li>
-                                                                                    <button type="button" class="btn btn-danger" aria-controls="order-cancel">
-                                                                                        Revenir en arrière
-                                                                                    </button>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <button type="submit" class="btn btn-form">
-                                                                                        Confirmer
-                                                                                    </button>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </form>
+                                                                <div class="mt-2">
+                                                                    <label class="block">
+                                                                        <span class="text-gray-700 dark:text-gray-200">Votre message (optionel)</span>
+                                                                        <textarea name="order_cancel[message]" class="mt-1 block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" id="order_cancel_message" rows="3"></textarea>
+                                                                    </label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </dialog>
-                                            {% set i = i + 1 %}
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <td class="text-bold">Total :  {{ total_orders }}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        {% else %}
-                            <h3 class="text-black">Vous n'avez pas de commandes en cours.</h3>
-                        {% endif %}
+                                                    <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                        <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                                            Confirmer
+                                                        </button>
+                                                        <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-100 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('cancelModal{{ order.id }}')">
+                                                            Revenir en arrière
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
+                    {% else %}
+                        <h1 class="text-center text-3xl py-10 px-2 mx-auto font-medium text-black dark:text-white">
+                            Vous n'avez pas de commandes en cours.
+                        </h1>
+                    {% endif %}
                 </div>
             </div>
         </div>
-    </main>
+    </section>
+    <script>
+        function openModal(modalID) {
+            document.getElementById(modalID).classList.toggle('hidden')
+            document.getElementById(modalID).classList.toggle('fixed')
+        }
+    </script>
     {% include 'footer.html.twig' %}
 {% endblock %}

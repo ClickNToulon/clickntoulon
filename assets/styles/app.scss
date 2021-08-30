@@ -55,3 +55,7 @@
 .lg\:max-h-7xl {
   max-height: 80rem !important
 }
+
+.shop-choose-form {
+  @apply max-w-xl w-full mx-auto
+}

@@ -2,3 +2,7 @@ Name: Nom du produit
 Description: Description
 Price: Prix
 Image: Photos
+Categories: Catégorie
+Deal price: Prix en promo
+Deal start: Début de la promo
+Deal end: Fin de la promo
