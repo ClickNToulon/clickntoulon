@@ -2,109 +2,71 @@
 
 {% block title  'Connexion - TouSolidaires'%}
 
-{% block javascripts %}
-    <script src="{{ asset('js/particles.js') }}" defer></script>
-    <script src="{{ asset('js/main.js') }}" defer></script>
-{% endblock %}
-
 {% block body %}
-    {# <section>
-        <div class="container d-flex flex-column">
-            <div class="row align-items-center justify-content-center gx-0 min-vh-100">
-                <div class="col-12 col-md-6 col-lg-4 py-8 py-md-11 login">
-
-                    <!-- Heading -->
-                    <h1 class="mb-3 fw-bold">
-                        Se connecter
-                    </h1>
-
-                    <!-- Form -->
-                    <form class="login-form" method="post">
-                        {% if error %}
-                            <div role="alert" class="fr-alert fr-alert--error mb-3" id="alert">
-                                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+    <div class="min-h-screen max-h-screen bg-white dark:bg-gray-700 flex justify-center items-center">
+        <div class="py-6 px-6 sm:py-12 sm:px-12 bg-gray-100 dark:bg-gray-600 rounded-2xl shadow-xl z-20 absolute max-w-full sm:max-w-sm lg:max-w-lg w-full">
+            {% if error %}
+                <div class="bg-yellow-600 rounded-xl mb-2" id="warningAlert">
+                    <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
+                        <div class="flex items-center justify-between flex-wrap">
+                            <div class="w-0 flex-1 flex items-center">
+                                <span class="flex p-2 rounded-lg bg-yellow-700">
+                                  <!-- Heroicon name: outline/exclamation -->
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                  </svg>
+                                </span>
+                                <p class="ml-3 font-medium text-white">
+                                    <span class="inline">
+                                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                                    </span>
+                                </p>
                             </div>
-                        {% endif %}
-                        <!-- Email -->
-                        <div class="form-group">
-                            <label class="form-label" for="inputEmail">
-                                Addresse Mail
-                            </label>
-                            <input type="email" class="fr-input form-control" id="inputEmail" name="email" required autofocus>
-                        </div>
-
-                        <!-- Password -->
-                        <div class="form-group mb-2">
-                            <label class="form-label" for="inputPassword">
-                                Mot de passe
-                            </label>
-                            <input type="password" name="password" id="inputPassword" class="fr-input form-control last-input" required>
-                        </div>
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-                        <div class="form-actions">
-                            <div class="checkbox">
-                                <input class="form-check-input" type="checkbox" id="checkbox" name="_remember_me">
-                                <label class="form-check-label" for="checkbox">
-                                    Se souvenir de moi
-                                </label>
+                            <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
+                                <button type="button" class="flex p-2 rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1" onclick="closeAlert('warningAlert')">
+                                    <span class="sr-only">Fermer</span>
+                                    <!-- Heroicon name: outline/x -->
+                                    <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </div>
-                            <a href="" class="text-black">Mot de passe oublié ?</a>
                         </div>
-
-
-                        <!-- Submit -->
-                        <div>
-                            <button class="btn btn-form" type="submit">Connexion</button>
-                        </div>
-
-                    </form>
-
-                    <!-- Text -->
-                    <p class="mb-0 mt-2 fs-sm text-muted info-usage">
-                        Vous n'avez pas encore de compte ? <a href="{{ path('app_signup') }}">Créer votre compte</a>.
-                    </p>
-
+                    </div>
                 </div>
-                <div class="col-lg-7 offset-lg-1 align-self-stretch d-none d-lg-block position-relative">
-
-                    <!-- Image -->
-                    <div class="h-100 w-cover bg-cover test" style="background-image: url('https://landkit.goodthemes.co/assets/img/covers/cover-9.jpg');"></div>
-
-                    <!-- Shape -->
-                    <div class="shape shape-start shape-fluid-y shape-login">
-                        <svg viewBox="0 0 100 1544" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v386l-50 772v386H0V0z" fill="currentColor"></path></svg>            </div>
-
-                </div>
-            </div> <!-- / .row -->
-        </div> <!-- / .container -->
-    </section>#}
-    <div class="min-h-screen max-h-screen bg-blue-400 dark:bg-gray-800 flex justify-center items-center" id="particles-js">
-        <div class="py-12 px-12 bg-white dark:bg-gray-600 rounded-2xl shadow-xl z-20 absolute">
+                <script>
+                    function closeAlert(alertID) {
+                        document.getElementById(alertID).classList.toggle('hidden');
+                        document.getElementById(alertID).classList.toggle('block');
+                    }
+                </script>
+            {% endif %}
             <form method="post">
                 <div>
                     <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer text-black dark:text-white">Connectez-vous</h1>
                 </div>
                 <div class="space-y-4">
                     <label for="inputUsername"></label>
-                    <input type="email" placeholder="Nom d'utilisateur" name="email" id="inputEmail" autocomplete="email" required autofocus
-                           class="block text-sm py-3 px-4 rounded-lg w-full border dark:bg-gray-700 dark:border-gray-700 dark:text-white outline-none focus:bg-gray-800" />
+                    <input type="email" placeholder="Adresse Mail" name="email" id="inputEmail" autocomplete="email" required
+                           class="bg-white px-4 py-3 dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" />
                     <label for="inputPassword"></label>
                     <input placeholder="Mot de passe" type="password" name="password" id="inputPassword" autocomplete="current-password" required
-                           class="block text-sm py-3 px-4 rounded-lg w-full border dark:bg-gray-700 dark:border-gray-700 dark:text-white outline-none focus:bg-gray-800" />
+                           class="bg-white px-4 py-3 dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" />
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <div class="flex items-start">
-                        <div class="flex items-center h-5">
-                            <input id="_remember_me" name="_remember_me" type="checkbox" class="focus:ring-yellow-400 h-4 w-4 text-yellow-500 border-gray-300 rounded">
-                        </div>
-                        <div class="ml-3 text-sm">
-                            <label for="_remember_me" class="font-medium text-gray-300">Se souvenir de moi</label>
+                    <div class="inline-flex items-start">
+                        <div>
+                            <div>
+                                <label class="inline-flex items-center align-middle">
+                                    <input type="checkbox" class="rounded border-gray-400 dark:border-gray-300 text-yellow-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-offset-0 focus:ring-yellow-200 focus:ring-opacity-50" name="_remember_me">
+                                    <span class="ml-2 text-gray-600 dark:text-white font-medium">Se souvenir de moi</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="text-center mt-6">
-                    <button class="py-3 w-64 text-xl text-white bg-yellow-400 rounded-2xl" type="submit">Se connecter</button>
-                    <p class="mt-4 text-sm text-black dark:text-white">Vous n'avez pas de compte? <span class="underline cursor-pointer"> Inscrivez-vous</span></p>
+                <div class="text-center mt-3">
+                    <button class="py-3 w-full text-xl text-white bg-yellow-400 rounded-2xl" type="submit">Se connecter</button>
+                    <p class="mt-4 text-sm text-black dark:text-white">Vous n'avez pas de compte? <a class="underline" href="{{ path('app_signup') }}"> Inscrivez-vous</a></p>
                 </div>
             </form>
         </div>

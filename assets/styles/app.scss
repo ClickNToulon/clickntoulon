@@ -7,10 +7,6 @@
 
 @import "~tailwindcss/utilities";
 
-#particles-js canvas {
-  height: 100vh;
-}
-
 .tab {
   @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-black dark:text-white font-medium rounded-xl mx-1 my-0.5;
 

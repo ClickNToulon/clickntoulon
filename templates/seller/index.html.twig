@@ -105,7 +105,7 @@
                                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                                                         </svg>
                                                                     </div>
-                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                                                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
                                                                             Confirmer la commande n°{{ order.id }}
                                                                         </h3>
@@ -113,25 +113,25 @@
                                                                             <label class="block">
                                                                                 <span class="text-gray-700 dark:text-gray-200">Date de retrait de la commande</span>
                                                                                 {% set order_date = order.day|date("Y-m-d", "Europe/Paris") %}
-                                                                                <input type="date" value="{{ order_date }}" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_confirm[day]" id="order_confirm_day" required>
+                                                                                <input type="date" value="{{ order_date }}" class="bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md mt-1" name="order_confirm[day]" id="order_confirm_day" required>
                                                                             </label>
                                                                         </div>
                                                                         <div class="mt-2">
                                                                             <label class="block">
                                                                                 <span class="text-gray-700 dark:text-gray-200">Horaire de début</span>
-                                                                                <input type="time" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_confirm[begin]" id="order_confirm_begin" required>
+                                                                                <input type="time" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" name="order_confirm[begin]" id="order_confirm_begin" required>
                                                                             </label>
                                                                         </div>
                                                                         <div class="mt-2">
                                                                             <label class="block">
                                                                                 <span class="text-gray-700 dark:text-gray-200">Horaire de fin</span>
-                                                                                <input type="time" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_confirm[end]" id="order_confirm_end" required>
+                                                                                <input type="time" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" name="order_confirm[end]" id="order_confirm_end" required>
                                                                             </label>
                                                                         </div>
                                                                         <div class="mt-2">
                                                                             <label class="block">
                                                                                 <span class="text-gray-700 dark:text-gray-200">Votre message (optionel)</span>
-                                                                                <textarea name="order_cancel[message]" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" id="order_cancel_message" rows="3"></textarea>
+                                                                                <textarea name="order_cancel[message]" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" id="order_cancel_message" rows="3"></textarea>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -170,7 +170,7 @@
                                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                                         </svg>
                                                                     </div>
-                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                                                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
                                                                             Confirmer que la commande n°{{ order.id }} est en cours de préparation
                                                                         </h3>
@@ -215,7 +215,7 @@
                                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                                                         </svg>
                                                                     </div>
-                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                                                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
                                                                             Confirmer que la commande n°{{ order.id }} est prête
                                                                         </h3>
@@ -226,19 +226,19 @@
                                                                             <label class="block">
                                                                                 <span class="text-gray-700 dark:text-gray-100">Date de retrait de la commande</span>
                                                                                 {% set order_date = order.day|date("Y-m-d", "Europe/Paris") %}
-                                                                                <input type="date" value="{{ order_date }}" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_ready[day]" id="order_ready_day" required>
+                                                                                <input type="date" value="{{ order_date }}" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" name="order_ready[day]" id="order_ready_day" required>
                                                                             </label>
                                                                         </div>
                                                                         <div class="mt-2">
                                                                             <label class="block">
                                                                                 <span class="text-gray-700 dark:text-gray-100">Horaire de début</span>
-                                                                                <input type="time" value="{{ order_begin }}" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_ready[begin]" id="order_ready_begin" required>
+                                                                                <input type="time" value="{{ order_begin }}" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" name="order_ready[begin]" id="order_ready_begin" required>
                                                                             </label>
                                                                         </div>
                                                                         <div class="mt-2">
                                                                             <label class="block">
                                                                                 <span class="text-gray-700 dark:text-gray-100">Horaire de fin</span>
-                                                                                <input type="time" value="{{ order_end }}" class="mt-1 text-black dark:text-white block w-full bg-white dark:bg-gray-800 rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" name="order_ready[end]" id="order_ready_end" required>
+                                                                                <input type="time" value="{{ order_end }}" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" name="order_ready[end]" id="order_ready_end" required>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -278,7 +278,7 @@
                                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
                                                                         </svg>
                                                                     </div>
-                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                                                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
                                                                             Confirmer que la commande n°{{ order.id }} a été récupérée
                                                                         </h3>

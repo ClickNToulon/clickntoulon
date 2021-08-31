@@ -14,7 +14,7 @@
         <div class="container px-5 mx-auto sm:max-w-7xl pb-12 max-w-full">
             <div class="flex flex-wrap -my-6">
                 {% for order in orders %}
-                    <div class="py-8 px-4 lg:w-1/2">
+                    {# <div class="py-8 px-4 lg:w-1/2">
                         <div class="h-full flex items-start">
                             <div class="w-12 flex-shrink-0 flex flex-col text-center leading-none">
                                 <span class="text-gray-400 pb-2 mb-2 border-b-2 border-gray-900">{{ order.day | date('d') }}</span>
@@ -23,7 +23,7 @@
                             </div>
                             <div class="flex-grow pl-6">
                                 <h2 class="tracking-widest text-sm title-font font-medium text-yellow-400 mb-1">Commande n°{{ order.id }}</h2>
-                                <h1 class="title-font text-xl font-medium text-white mb-3">{{  }}</h1>
+                                <h1 class="title-font text-xl font-medium text-white mb-3">{{ order.id }}</h1>
                                 <p class="leading-relaxed mb-5">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
                                 <a class="inline-flex items-center">
                                     <img alt="blog" src="https://dummyimage.com/103x103" class="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center">
@@ -33,12 +33,81 @@
                                 </a>
                             </div>
                         </div>
+                    </div>#}
+                    <div class="bg-white dark:bg-gray-800 shadow dark:shadow-none overflow-hidden rounded-xl my-2">
+                        <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between">
+                            <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
+                                <div class="col-span-1 flex flex-col">
+                                    <h3 class="font-medium text-sm text-black dark:text-white">N° de commande</h3>
+                                    <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{{ order.id }}</p>
+                                </div>
+                                <div class="col-span-1 flex flex-col">
+                                    <h3 class="font-medium text-sm text-black dark:text-white">Date</h3>
+                                    <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{{ order.day | format_date(locale='fr') }}</p>
+                                </div>
+                                <div class="col-span-1 flex flex-col">
+                                    <h3 class="font-medium text-sm text-black dark:text-white">Total</h3>
+                                    <p class="font-bold text-sm mt-1 text-gray-700 dark:text-gray-100">{{ order.total | format_currency('EUR') }}</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 flex items-center">
+                                <div class="col-span-1">
+                                    <a href="{{ path('user_order', {id: order.id}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-gray-600 hover:bg-gray-700 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 focus:ring-offset-white dark:focus:ring-offset-gray-800">
+                                        En voir plus
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% if products[order.id] is iterable  %}
+                            {% set i = 0 %}
+                            {% set quantity = order.quantity | split(',') %}
+                            {% for product in products[order.id] %}
+                                <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 space-y-6">
+                                    <div class="flex sm:flex-row flex-col">
+                                        <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
+                                            <img class="rounded" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
+                                        </div>
+                                        <div class="flex flex-col px-4">
+                                            <div class="flex flex-row justify-between mb-2">
+                                                <h1 class="font-medium text-black dark:text-white text-lg">{{ product.name }} (x{{ quantity[i] }})</h1>
+                                                <h1 class="font-medium text-black dark:text-white text-base">{{ product.price | format_currency('EUR') }}</h1>
+                                                {% set i = i + 1 %}
+                                            </div>
+                                            <div class="h-full relative">
+                                                <p class="text-base text-black dark:text-white">
+                                                    {{ product.description }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 space-y-6">
+                                <div class="flex flex-row">
+                                    <div class="w-1/3">
+                                        <img class="rounded" src="{{ asset('uploads/products/' ~ products[order.id].images[0]) }}" alt="">
+                                    </div>
+                                    <div class="flex flex-col px-4">
+                                        <div class="flex flex-row justify-between mb-2">
+                                            <h1 class="font-medium text-black dark:text-white text-lg">{{ products[order.id].name }}  (x{{ order.quantity }})</h1>
+                                            <h1 class="font-medium text-black dark:text-white text-base">{{ products[order.id].price | format_currency('EUR') }}</h1>
+                                        </div>
+                                        <div class="h-full relative">
+                                            <p class="text-base text-black dark:text-white">
+                                                {{ products[order.id].description }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
-                {% endfor %}
+                    {% endfor %}
             </div>
         </div>
     </section>
-                {# <div class="col-12 col-md-9">
+    {# <div class="col-12 col-md-9">
                     {% if orders is not null %}
                         {% for order in orders %}
                             {% for shop in shops %}

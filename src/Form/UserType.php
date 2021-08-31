@@ -16,18 +16,34 @@ class UserType extends AbstractType
     {
         $builder
             ->add('fullName', TextType::class, [
+                'label' => false,
                 'attr' => [
-                    'class' => 'fr-input last-input'
+                    'class' => 'bg-white px-4 py-3 dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md',
+                    'placeholder' => 'Full name'
                 ]
             ])
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
+                'first_options'  => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Password',
+                        'class' => 'bg-white px-4 py-3 dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
+                    ]
+                ],
+                'second_options' => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Repeat Password',
+                        'class' => 'bg-white px-4 py-3 dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
+                    ]
+                ],
             ))
             ->add('email', TextType::class, [
+                'label' => false,
                 'attr' => [
-                    'class' => 'fr-input last-input'
+                    'placeholder' => 'Email',
+                    'class' => 'bg-white px-4 py-3 dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
         ;
