@@ -4,145 +4,95 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'basket'} %}
-    {# {% set i = 0 %}
-    {% set total = 0 %}
-    <div class="baskets">
-        {% if baskets == null %}
-            <div class="fr-container fr-container--fluid pt-4 pb-2">
-                <h3>Vous n'avez aucun article dans votre panier</h3>
-            </div>
-        {% else %}
-        {% for basket in baskets %}
-            <div class="fr-container fr-container--fluid pt-4 pb-2 text-center">
-                {% for shop in shops %}
-                    {% if basket.shopId == shop.id %}
-                        <div class="fr-grid-row fr-grid-row--gutters">
-                            <div class="fr-col-6">
-                                <h3>Boutique : {{ shop.name }}</h3>
-                            </div>
-                            <div class="fr-col-6">
-                                <a href="{{ path('basket_checkout', {id: shop.id}) }}"><button class="btn-form btn-no-mt">Passez la commande</button></a>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-            {% for product in products %}
-                {% if product.id in basket.productsId %}
-                    <div class="fr-container fr-container--fluid pb-3">
-                        <div class="fr-grid-row fr-grid-row--gutters">
-                            <div class="fr-col-4 text-center">
-                                <img src="{{ asset("uploads/products/" ~ product.images[0] ) }}" alt="{{ product.name }}" height="150px">
-                            </div>
-                            <div class="fr-col-4 text-center">
-                                <b>{{ product.name }}</b>
-                            </div>
-                            <div class="fr-col-2 d-flex text-center">
-                                <div>
-                                    <p>Quantité</p>
-                                    <div class="btn-group">
-                                        <button id="delete_{{ i }}" class="btn btn-sm btn-outline-secondary">-</button>
-                                        <input id="quantity_{{ i }}" class="btn btn-sm btn-outline-secondary" value="{{ quantities[i] }}">
-                                        <button id="add_{{ i }}" class="btn btn-sm btn-outline-secondary">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="fr-col-2 text-center">
-                                <p>Prix</p>
-                                {% set p = product.price * quantities[i] %}
-                                {% set total = total + p %}
-                                <b id="price_{{ i }}">{{ p|number_format(2,',',' ') }} €</b>
-                            </div>
-                        </div>
-                        <script>
-                            const input_{{ i }} = document.querySelector("#quantity_{{ i }}");
-                            const delete_btn_{{ i }} = document.querySelector("#delete_{{ i }}");
-                            const add_{{ i }} = document.querySelector("#add_{{ i }}");
-                            add_{{ i }}.onclick = function () {
-                                const value = Number(input_{{ i }}.value) + 1
-                                input_{{ i }}.value = value
-                                let p = {{ product.price }} * input_{{ i }}.value
-                                const price_{{ i }} = document.querySelector("#price_{{ i }}")
-                                price_{{ i }}.innerHTML = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(p)
-                            }
-                            delete_btn_{{ i }}.onclick = function () {
-                                const value = Number(input_{{ i }}.value) - 1
-                                input_{{ i }}.value = value
-                                let p = {{ product.price }} * input_{{ i }}.value
-                                const price_{{ i }} = document.querySelector("#price_{{ i }}")
-                                price_{{ i }}.innerHTML = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(p)
-                            }
-                        </script>
-                        {% set i = i+1 %}
-                    </div>
-                    {% endif %}
-                {% endfor %}
-        {% endfor %}
-        <div class="fr-container fr-container--fluid pb-4 text-center">
-            <b>Total : {{ total|number_format(2,',',' ') }} €</b>
-        </div>
-        {% endif %}
-    </div>#}
     {% for basket in baskets %}
         {% set i = 0 %}
         {% set total = 0 %}
-        <div class="bg-white dark:bg-gray-700 w-full px-5 lg:px-20 py-6 lg:py-12">
-            <div class="flex flex-col lg:flex-row space-x-0 lg:space-x-4 h-full w-full">
-                <div class="w-full lg:w-2/3 order-last lg:order-first bg-white dark:bg-gray-800 px-3 py-2 rounded-xl">
-                    <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between">
-                    {% for shop in shops %}
-                        {% if basket.shopId == shop.id %}
-                            <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
-                                <div class="col-span-3 flex flex-col">
-                                    <h3 class="font-medium text-lg text-black dark:text-white">{{ shop.name }}</h3>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 flex items-center">
-                                <div class="col-span-1">
-                                    <a href="{{ path('shop_show', {slug: shop.slug}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-gray-600 hover:bg-gray-700 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 focus:ring-offset-white dark:focus:ring-offset-gray-800">
-                                        Voir la boutique
-                                    </a>
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                    </div>
-                    {% for product in products[basket.id] %}
-                        <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 space-y-6">
-                            <div class="flex sm:flex-row flex-col">
-                                <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
-                                    <img class="rounded" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
-                                </div>
-                                <div class="flex flex-col px-4">
-                                    <div class="flex flex-row justify-between mb-2">
-                                        <h1 class="font-medium text-black dark:text-white text-lg">{{ product.name }} (x{{ quantities[basket.id][i] }})</h1>
-                                        <h1 class="font-medium text-black dark:text-white text-base">{{ product.price | format_currency('EUR') }}</h1>
-                                        {% set total = total + product.price * quantities[basket.id][i] %}
-                                        {% set i = i + 1 %}
-                                    </div>
-                                    <div class="h-full relative">
-                                        <p class="text-base text-black dark:text-white">
-                                            {{ product.description }}
-                                        </p>
+        {% for shop in shops %}
+            {% if basket.shopId == shop.id %}
+                <form action="" method="post" class="bg-white dark:bg-gray-700 w-full px-5 lg:px-20 py-6 lg:py-12" id="form{{ basket.id }}">
+                    <div class="flex flex-col lg:flex-row space-x-0 lg:space-x-4 h-full w-full">
+                        <div class="w-full lg:w-2/3 order-last lg:order-first bg-white dark:bg-gray-800 px-3 py-2 rounded-xl">
+                            <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between">
+                                <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
+                                    <div class="col-span-3 flex flex-col">
+                                        <h3 class="font-medium text-lg text-black dark:text-white">{{ shop.name }}</h3>
                                     </div>
                                 </div>
+                                <div class="grid grid-cols-1 flex items-center">
+                                    <div class="col-span-1">
+                                        <a href="{{ path('shop_show', {slug: shop.slug}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-gray-600 hover:bg-gray-700 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 focus:ring-offset-white dark:focus:ring-offset-gray-800">
+                                            Voir la boutique
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% for product in products[basket.id] %}
+                                <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 space-y-6">
+                                    <div class="flex sm:flex-row flex-col">
+                                        <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
+                                            <img class="rounded" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
+                                        </div>
+                                        <div class="flex flex-col px-4">
+                                            <div class="flex flex-row justify-between mb-2 items-center">
+                                                <h1 class="font-medium text-black dark:text-white text-lg">{{ product.name }}</h1>
+                                                <div class="">
+                                                    {% set k = 0 %}
+                                                    <select name="quantity_{{ product.id }}" id="quantity" class="bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 block w-full sm:text-sm border border-gray-700 rounded-md" onchange="submitForm('form{{ basket.id }}')">
+                                                        {% for k in 1..100 %}
+                                                            <option value="{{ k }}" {% if k == quantities[basket.id][i] %}selected{% endif %}>{{ k }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <input type="hidden" name="product_{{ product.id }}" value="{{ product.id }}">
+                                                    <input type="hidden" name="basket_id" value="{{ basket.id }}">
+                                                </div>
+                                                {% if product.dealprice != null %}
+                                                    <div class="flex flex-row space-x-2">
+                                                        <h1 class="font-medium text-black dark:text-white text-base line-through">
+                                                            {{ product.price | format_currency('EUR') }}
+                                                        </h1>
+                                                        <h1 class="font-bold text-red-600 dark:text-red-500 text-base">
+                                                            {{ product.dealprice | format_currency('EUR') }}
+                                                        </h1>
+                                                    </div>
+                                                    {% set total = total + product.dealprice * quantities[basket.id][i] %}
+                                                {% else %}
+                                                    <h1 class="font-medium text-black dark:text-white text-base">
+                                                        {{ product.price | format_currency('EUR') }}
+                                                    </h1>
+                                                    {% set total = total + product.price * quantities[basket.id][i] %}
+                                                {% endif %}
+                                                {% set i = i + 1 %}
+                                            </div>
+                                            <div class="h-full">
+                                                <p class="text-base text-black dark:text-white text-justify">
+                                                    {{ product.description }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class=" w-full lg:w-1/3 max-h-28 order-first mb-3 lg:mb-0 lg:order-last bg-gray-100 dark:bg-gray-800 rounded-xl px-6 py-4 flex items-center flex-col">
+                            <div class="flex justify-between w-full">
+                                <h2 class="font-medium text-lg text-black dark:text-white">Total du panier</h2>
+                                <p class="font-medium text-lg text-gray-900 dark:text-gray-200">{{ total | format_currency('EUR') }}</p>
+                            </div>
+                            <div class="w-full pt-3">
+                                <a href="{{ path('basket_checkout', {id: shop.id}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-800">
+                                    Passez la commande
+                                </a>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
-                <div class=" w-full lg:w-1/3 max-h-28 order-first mb-3 lg:mb-0 lg:order-last bg-gray-100 dark:bg-gray-800 rounded-xl px-6 py-4 flex items-center flex-col">
-                    <div class="flex justify-between w-full">
-                        <h2 class="font-medium text-lg text-black dark:text-white">Total du panier</h2>
-                        <p class="font-medium text-lg text-gray-900 dark:text-gray-200">{{ total | format_currency('EUR') }}</p>
                     </div>
-                    <div class="w-full pt-3">
-                        <a href="{{ path('basket_checkout', {id: basket.id}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-800">
-                            Passez la commande
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </form>
+            {% endif %}
+        {% endfor %}
     {% endfor %}
+    <script>
+        function submitForm(basketID) {
+            document.getElementById(basketID).submit();
+        }
+    </script>
     {% include 'footer.html.twig' %}
 {% endblock %}

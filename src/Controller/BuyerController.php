@@ -38,10 +38,24 @@ class BuyerController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @param ShopRepository $shopRepository
      * @param ProductRepository $productRepository
+     * @param Request $request
+     * @param BasketRepository $basketRepository
      * @return Response
      */
-    public function basket(ShopRepository $shopRepository, ProductRepository $productRepository): Response
+    public function basket(ShopRepository $shopRepository, ProductRepository $productRepository, Request $request, BasketRepository $basketRepository): Response
     {
+        if($request->getMethod() == 'POST') {
+            $data = $request->request->all();
+            $basket = $basketRepository->find($data['basket_id']);
+            $basket_products = explode(',', $basket->getProductsId());
+            foreach ($basket_products as $bp) {
+                $form_quantities[$bp] = $data['quantity_'. $bp];
+            }
+            $form_quantities = implode(',', $form_quantities);
+            $basket->setQuantity($form_quantities);
+            $this->em->persist($basket);
+            $this->em->flush();
+        }
         $user = $this->getUser();
         $baskets = $this->repository->findByUser($user->getId());
         $shops = [];
