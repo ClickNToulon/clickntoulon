@@ -9,7 +9,6 @@ use App\Entity\Category;
 use App\Entity\Payment;
 use App\Entity\Product;
 use App\Form\AddProductBasketType;
-use App\Form\UpdateProductQuantityBasket;
 use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
@@ -20,7 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ProductController extends AbstractController
 {
@@ -28,36 +26,48 @@ class ProductController extends AbstractController
     /**
      * @var ProductRepository
      */
-    private $repository;
+    private ProductRepository $repository;
     /**
      * @var PaginatorInterface
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
     /**
      * @var BasketRepository
      */
-    private $basketRepository;
+    private BasketRepository $basketRepository;
 
-    public function __construct(ProductRepository $repository, PaginatorInterface $paginator, basketrepository $basketRepo)
+    public function __construct(ProductRepository $repository, PaginatorInterface $paginator, BasketRepository $basketRepository)
     {
         $this->repository = $repository;
         $this->paginator = $paginator;
-        $this->basketRepository = $basketRepo;
+        $this->basketRepository = $basketRepository;
     }
 
     /**
      * @Route("/produits", name="product_index")
      * @param Request $request
+     * @param ShopRepository $shopRepository
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request, ShopRepository $shopRepository): Response
     {
         $user = $this->getUser();
+
+        $shopSlug = $request->query->get('boutique');
+        $shop = null;
+        $query = $this->repository->findAllQuery();
+        if ($shopSlug) {
+            $shop = $shopRepository->findOneBy(['slug' => $shopSlug]);
+            if (null !== $shop) {
+                $query = $this->repository->findAllByShopQuery($shop);
+            }
+        }
         $products = $this->paginator->paginate(
-            $this->repository->findAllQuery(),
+            $query,
             $request->query->getInt('page', 1),
             12
         );
+        dump($products);
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'user' => $user

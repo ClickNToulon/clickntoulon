@@ -49,7 +49,20 @@
                 <!-- Options -->
                 <div class="mt-4 lg:mt-0 lg:row-span-3">
                     <h2 class="sr-only">Information du produit</h2>
-                    <p class="text-3xl text-black dark:text-white">{{ product.price | format_currency('EUR') }}</p>
+                    {% if product.dealprice != null %}
+                        <div class="flex flex-row space-x-2">
+                            <h1 class="font-medium text-black dark:text-white text-3xl line-through">
+                                {{ product.price | format_currency('EUR') }}
+                            </h1>
+                            <h1 class="font-bold text-red-600 dark:text-red-500 text-3xl">
+                                {{ product.dealprice | format_currency('EUR') }}
+                            </h1>
+                        </div>
+                    {% else %}
+                        <h1 class="font-medium text-black dark:text-white text-3xl">
+                            {{ product.price | format_currency('EUR') }}
+                        </h1>
+                    {% endif %}
                     <form class="mt-10">
                         <button type="submit" class="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add to bag</button>
                     </form>
