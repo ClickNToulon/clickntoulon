@@ -80,9 +80,9 @@ Commande n°{{ order.id }} - TouSolidaires
     </div> #}
 
     <section class="bg-white dark:bg-gray-700 m-2">
-        <div class="px-5 sm:py-24 py-12 mx-auto w-full flex flex-wrap">
-            <div class="flex flex-wrap w-full h-full">
-                <div class="lg:w-2/5 md:w-1/2 md:pr-10 md:py-6 w-full h-full">
+        <div class="sm:container px-5 sm:py-24 py-12 mx-auto flex flex-wrap">
+            <div class="flex flex-wrap">
+                <div class="lg:w-2/5 md:w-1/2 md:pr-10 md:py-6">
                     <div class="flex relative pb-12">
                         <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
                             <div class="h-full w-1 {% if order.status > 0%}bg-green-500{% else %}bg-gray-300 dark:bg-gray-800{% endif%} pointer-events-none"></div>
@@ -146,10 +146,10 @@ Commande n°{{ order.id }} - TouSolidaires
                         </div>
                     </div>
                 </div>
-                <div class="lg:w-3/5 md:w-1/2 w-full rounded-lg md:mt-0 mt-12 dark:bg-gray-800">
+                <div class="lg:w-3/5 md:w-1/2 rounded-lg md:mt-0 mt-12 dark:bg-gray-800">
                     <div class="flex flex-col p-4 w-full">
                         <div class="text-center w-full">
-                            <h1 class="text-2xl text-black dark:text-white font-medium">Commande n°{{ order.id }}</h1>
+                            <h1 class="text-2xl text-black dark:text-white font-medium">Commande n°{{ order.number }}</h1>
                         </div>
                         <div class="pt-3 flex flex-col">
                             <div class="flex flex-col">

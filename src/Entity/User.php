@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use DateTime;
 use DateTimeInterface;
@@ -109,16 +108,15 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+
+    public function getUserIdentifier(): string
     {
         return (string) $this->fullName;
     }
 
-    public function setUsername(string $username): self
+    public function getUsername(): string
     {
-        $this->fullName = $username;
-
-        return $this;
+        return (string) $this->fullName;
     }
 
     /**

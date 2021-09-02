@@ -14,32 +14,12 @@
         <div class="container px-5 mx-auto sm:max-w-7xl pb-12 max-w-full">
             <div class="flex flex-wrap -my-6">
                 {% for order in orders %}
-                    {# <div class="py-8 px-4 lg:w-1/2">
-                        <div class="h-full flex items-start">
-                            <div class="w-12 flex-shrink-0 flex flex-col text-center leading-none">
-                                <span class="text-gray-400 pb-2 mb-2 border-b-2 border-gray-900">{{ order.day | date('d') }}</span>
-                                <span class="font-medium text-lg leading-none text-gray-300 title-font pb-2 mb-2 border-b-2 border-gray-900">{{ order.day | date('M') }}</span>
-                                <span class="text-gray-300 text-lg leading-none title-font font-medium">{{ order.day | date('Y') }}</span>
-                            </div>
-                            <div class="flex-grow pl-6">
-                                <h2 class="tracking-widest text-sm title-font font-medium text-yellow-400 mb-1">Commande n°{{ order.id }}</h2>
-                                <h1 class="title-font text-xl font-medium text-white mb-3">{{ order.id }}</h1>
-                                <p class="leading-relaxed mb-5">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
-                                <a class="inline-flex items-center">
-                                    <img alt="blog" src="https://dummyimage.com/103x103" class="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center">
-                                    <span class="flex-grow flex flex-col pl-3">
-                                        <span class="title-font font-medium text-white">Alper Kamu</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>#}
                     <div class="bg-white dark:bg-gray-800 shadow dark:shadow-none overflow-hidden rounded-xl my-2">
                         <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between">
                             <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
                                 <div class="col-span-1 flex flex-col">
                                     <h3 class="font-medium text-sm text-black dark:text-white">N° de commande</h3>
-                                    <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{{ order.id }}</p>
+                                    <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{# {{ order.id }}#} {{ order.number }}</p>
                                 </div>
                                 <div class="col-span-1 flex flex-col">
                                     <h3 class="font-medium text-sm text-black dark:text-white">Date</h3>
@@ -52,7 +32,7 @@
                             </div>
                             <div class="grid grid-cols-1 flex items-center">
                                 <div class="col-span-1">
-                                    <a href="{{ path('user_order', {id: order.id}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-gray-600 hover:bg-gray-700 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 focus:ring-offset-white dark:focus:ring-offset-gray-800">
+                                    <a href="{{ path('user_order', {number: order.number}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-gray-600 hover:bg-gray-700 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 focus:ring-offset-white dark:focus:ring-offset-gray-800">
                                         En voir plus
                                     </a>
                                 </div>
