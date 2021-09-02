@@ -86,14 +86,14 @@ class ProductController extends AbstractController
         foreach ($baskets as $b) {
             if($b->getShopId() == $product->getShopId()) {
                 $products = $b->getProductsId();
-                $products_array = explode(";", $products);
+                $products_array = explode(",", $products);
                 $limit = count($products_array);
                 for ($i = 0; $i < $limit; $i++) {
                     if ($inside == false) {
                         if ($products_array[$i] == $id) {
                             $inside = true;
                             $quantities = $b->getQuantity();
-                            $quantity = explode(";", $quantities);
+                            $quantity = explode(",", $quantities);
                             $return = (int)$quantity[$i] + 1;
                         }
                     }
@@ -131,13 +131,13 @@ class ProductController extends AbstractController
             $category = $categoryRepository->find($id);
             $categories[] = $category->getName();
         }
-        $form = $this->createForm(AddProductBasketType::class, new Basket());
         if ($user != null) {
             $baskets = $this->basketRepository->findByUser($user->getId());
             $quantity = $this->checkBaskets($baskets, $product);
         } else {
             $quantity = 1;
         }
+        $form = $this->createForm(AddProductBasketType::class);
         return $this->render('product/show.html.twig', [
             'form' => $form->createView(),
             'product' => $product,
@@ -145,7 +145,7 @@ class ProductController extends AbstractController
             'user' => $user,
             'payments' => $payments,
             'categories' => $categories,
-            'quantity' => $quantity
+            'p_quantity' => $quantity
         ]);
     }
 

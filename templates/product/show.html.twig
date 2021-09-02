@@ -63,9 +63,20 @@
                             {{ product.price | format_currency('EUR') }}
                         </h1>
                     {% endif %}
-                    <form class="mt-10">
-                        <button type="submit" class="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add to bag</button>
-                    </form>
+                    {{ form_start(form, {'attr': {'class': 'mt-5'}, 'action': path('basket_add'), 'method': 'POST'}) }}
+                        {{ form_row(form.products_id, {'value': product.id}) }}
+                        {{ form_row(form.shop_id, {'value': shop.id}) }}
+                        <label for="add_product_basket_quantity" class="block text-base font-medium text-gray-600 dark:text-white">Quantité</label>
+                        {% set k = 0 %}
+                        <select name="add_product_basket[quantity]" id="add_product_basket_quantity" class="bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md">
+                            {% for k in 1..100 %}
+                                <option value="{{ k }}" {% if k == p_quantity %}selected{% endif %}>{{ k }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="inline-flex w-full justify-center py-2 px-4 mt-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700">
+                            Ajouter au panier
+                        </button>
+                    {{ form_end(form) }}
                 </div>
                 <div class="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-300 lg:pr-8">
                     <!-- Description and details -->

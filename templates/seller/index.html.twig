@@ -43,8 +43,8 @@
                             <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-500">
                             {% for order in orders %}
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-black dark:text-white">
-                                        {{ order.id }}
+                                    <td class="px-6 py-4 whitespace-nowrap text-black dark:text-white text-sm">
+                                        {{ order.number }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
@@ -107,7 +107,7 @@
                                                                     </div>
                                                                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                                                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
-                                                                            Confirmer la commande n°{{ order.id }}
+                                                                            Confirmer la commande n°{{ order.number }}
                                                                         </h3>
                                                                         <div class="mt-2">
                                                                             <label class="block">
@@ -138,7 +138,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm">
                                                                     Confirmer
                                                                 </button>
                                                                 <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('confirmModal{{ order.id }}')">
@@ -172,18 +172,18 @@
                                                                     </div>
                                                                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                                                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
-                                                                            Confirmer que la commande n°{{ order.id }} est en cours de préparation
+                                                                            Confirmer que la commande n°{{ order.number }} est en cours de préparation
                                                                         </h3>
                                                                         <div class="mt-2">
                                                                             <p class="text-md text-gray-500 dark:text-gray-300">
-                                                                                Vous allez confirmer que la commande n°{{ order.id }} est en cours de préparation.
+                                                                                Vous allez confirmer que la commande n°{{ order.number }} est en cours de préparation.
                                                                             </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm">
                                                                     Confirmer
                                                                 </button>
                                                                 <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('preparedModal{{ order.id }}')">
@@ -217,7 +217,7 @@
                                                                     </div>
                                                                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                                                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
-                                                                            Confirmer que la commande n°{{ order.id }} est prête
+                                                                            Confirmer que la commande n°{{ order.number }} est prête
                                                                         </h3>
                                                                         {% set order_date = order.day|date("Y-m-d", "Europe/Paris") %}
                                                                         {% set order_begin = order.timeBegin | format_time('short', 'HH:mm', locale='fr') %}
@@ -245,7 +245,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm">
                                                                     Confirmer
                                                                 </button>
                                                                 <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('readyModal{{ order.id }}')">
@@ -280,18 +280,18 @@
                                                                     </div>
                                                                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                                                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
-                                                                            Confirmer que la commande n°{{ order.id }} a été récupérée
+                                                                            Confirmer que la commande n°{{ order.number }} a été récupérée
                                                                         </h3>
                                                                         <div class="mt-2">
                                                                             <p class="text-md text-gray-500 dark:text-gray-300">
-                                                                                Vous allez confirmer que la commande n°{{ order.id }} a été récupérée.
+                                                                                Vous allez confirmer que la commande n°{{ order.number }} a été récupérée.
                                                                             </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm">
                                                                     Confirmer
                                                                 </button>
                                                                 <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('pickupModal{{ order.id }}')">
@@ -326,11 +326,11 @@
                                                             </div>
                                                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                                                 <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
-                                                                    Annuler la commande n°{{ order.id }}
+                                                                    Annuler la commande n°{{ order.number }}
                                                                 </h3>
                                                                 <div class="mt-2">
                                                                     <p class="text-md text-gray-500 dark:text-gray-300">
-                                                                        Vous allez confirmer que vous voulez annuler la commande n°{{ order.id }}.
+                                                                        Vous allez confirmer que vous voulez annuler la commande n°{{ order.number }}.
                                                                     </p>
                                                                 </div>
                                                                 <div class="mt-2">
@@ -343,7 +343,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                        <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                                        <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm">
                                                             Confirmer
                                                         </button>
                                                         <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-100 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('cancelModal{{ order.id }}')">

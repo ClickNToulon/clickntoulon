@@ -4,7 +4,6 @@ namespace App\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,12 +17,6 @@ class AddProductBasketType extends AbstractType
             ])
             ->add('products_id', HiddenType::class, [
                 "required" => true
-            ])
-            ->add('quantity', NumberType::class, [
-                "required" => true,
-                "attr" => [
-                    "class" => "fr-input"
-                ]
             ]);
     }
 
