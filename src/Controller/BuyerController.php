@@ -121,6 +121,16 @@ class BuyerController extends AbstractController
                     $this->em->flush();
                 }
             }
+            if($done != true) {
+                dump($data);
+                $basket  = new Basket();
+                $basket->setQuantity($data['quantity'])
+                    ->setProductsId($data['products_id'])
+                    ->setOwnerId($user->getId())
+                    ->setShopId($data['shop_id']);
+                $this->em->persist($basket);
+                $this->em->flush();
+            }
         }
         return $this->redirectToRoute('basket_index');
     }
@@ -139,7 +149,6 @@ class BuyerController extends AbstractController
         $user = $this->getUser();
         $basket = $this->repository->findByUserAndShop($user->getId(), $shop->getId());
         $basket = $basket[0];
-        dump($basket);
         $products = [];
         $quantities = [];
         $products_id = explode(",", $basket->getProductsId());
