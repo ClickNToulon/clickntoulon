@@ -3,55 +3,64 @@
 {% block title 'Inscription - TouSolidaires' %}
 
 {% block body %}
-    <section class="login w-100 h-100">
-        <div class="fr-container d-flex flex-column h-100">
-            <div class="row align-items-center justify-content-center gx-0 h-100">
-                <div class="col-12 col-md-6 col-lg-4 py-8 py-md-11 h-100 d-flex justify-content-center flex-column">
-
-                    <!-- Heading -->
-                    <h1 class="mb-3 fw-bold">
-                        Créer votre compte
-                    </h1>
-
-                    <!-- Form -->
-                    {{ form_start(form, {attr: {class: 'login'}}) }}
-                        {% for message in app.flashes('warning') %}
-                            <div role="alert" class="fr-alert fr-alert--error mb-2" id="alert">
-                                <p>{{ message }}</p>
+    <div class="min-h-screen max-h-screen bg-white dark:bg-gray-800 flex justify-center items-center">
+        <div class="py-6 px-6 sm:py-12 sm:px-12 bg-gray-100 dark:bg-gray-600 rounded-2xl shadow-xl z-20 absolute sm:max-w-sm lg:max-w-lg w-full">
+            {% for message in app.flashes('warning') %}
+                <div class="bg-yellow-600 rounded-xl mb-2">
+                    <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
+                        <div class="flex items-center justify-between flex-wrap">
+                            <div class="w-0 flex-1 flex items-center">
+                                <span class="flex p-2 rounded-lg bg-yellow-700">
+                                  <!-- Heroicon name: outline/exclamation -->
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                  </svg>
+                                </span>
+                                <p class="ml-3 font-medium text-white">
+                                    <span class="inline">
+                                        {{ message }}
+                                    </span>
+                                </p>
                             </div>
-                        {% endfor %}
-                        {{ form_row(form.fullName) }}
-                        {{ form_row(form.email) }}
-                        {{ form_row(form.password.first, {attr: {class: 'fr-input'}}) }}
-                        {{ form_row(form.password.second, {attr: {class: 'fr-input last-input'}}) }}
-                        <div class="form-actions">
-                            <div class="checkbox">
-                                <input class="form-check-input" type="checkbox" id="checkbox" name="cgu" required="">
-                                <label class="form-check-label label-inscription" for="checkbox">
-                                    J'accepte les <a href="{{ path('about_cgu') }}" class="link-underline white">Conditions Générales d'Utilisation</a> de la plateforme
-                                </label>
+                            <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
+                                <button type="button" class="flex p-2 rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1">
+                                    <span class="sr-only">Fermer</span>
+                                    <!-- Heroicon name: outline/x -->
+                                    <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {{ form_start(form) }}
+            <div>
+                <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer text-black dark:text-white">Inscrivez-vous</h1>
+            </div>
+            <div class="space-y-4">
+                {{ form_row(form.fullName) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.password.first) }}
+                {{ form_row(form.password.second) }}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="inline-flex items-start">
+                    <div>
                         <div>
-                            <button class="btn btn-form" type="submit">Créer votre compte</button>
+                            <label class="inline-flex items-center align-middle">
+                                <input type="checkbox" class="rounded border-gray-400 dark:border-gray-300 text-yellow-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-offset-0 focus:ring-yellow-200 focus:ring-opacity-50" id="checkbox" name="cgu" required>
+                                <span class="ml-2 text-gray-600 dark:text-white font-medium">J'accepte les Conditions Générales de la plateforme</span>
+                            </label>
                         </div>
-                        <div class="text-muted mt-2">
-                            Vos données personnelles (email, nom et prénom) ne sont utilisées qu'à des fins d'authentification et sont partagées uniquement avec les commerçants lorsque vous effectuez une commande chez eux.
-                            (<a href="{{ path('about_confidentialite') }}" class="link-underline info-usage-link">En savoir plus</a>)
-                        </div>
-                    {{ form_end(form) }}
-
-                    <!-- Text -->
-                    <p class="mb-0 mt-2 fs-sm text-muted">
-                        Vous avez déjà un compte ? <a href="{{ path('app_login') }}">Connectez vous</a>.
-                    </p>
-
+                    </div>
                 </div>
-                <div class="col-lg-7 offset-lg-1 d-none d-lg-flex flex-row justify-content-center login-image h-100">
-                    <!-- Image -->
-                    <div class="w-100"></div>
-                </div>
-            </div> <!-- / .row -->
-        </div> <!-- / .container -->
-    </section>
+            </div>
+            <div class="text-center mt-3">
+                <button class="py-3 w-full text-xl text-white bg-yellow-400 rounded-2xl" type="submit">S'inscrire</button>
+                <p class="mt-4 text-sm text-black dark:text-white">Vous avez déjà un compte? <a class="underline" href="{{ path('app_login') }}"> Connectez-vous</a></p>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}

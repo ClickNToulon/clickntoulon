@@ -18,28 +18,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UserController extends AbstractController
 {
     /**
-     * @var UserPasswordEncoderInterface
+     * @var UserPasswordHasherInterface
      */
-    private UserPasswordEncoderInterface $passwordEncoder;
+    private UserPasswordHasherInterface $passwordHasher;
 
     /**
      * @var EntityManagerInterface
      */
     private EntityManagerInterface $em;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em) {
-        $this->passwordEncoder = $passwordEncoder;
+    private $requestStack;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $em, RequestStack $requestStack) {
+        $this->passwordHasher = $passwordHasher;
         $this->em = $em;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -144,7 +148,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->get('password')->getData();
             $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $data))
+            $user->setPassword($this->passwordHasher->hashPassword($user, $data))
                 ->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance));
             $this->em->flush();
             $this->addFlash('success', 'Votre mot de passe a bien été mis à jour');
@@ -241,7 +245,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $session = $this->get('session');
+            $session = $this->requestStack->getSession();
             $session = new Session();
             $session->invalidate();
             $this->em->remove($user);

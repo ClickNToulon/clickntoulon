@@ -3,12 +3,16 @@
         "@symfony/stimulus-bridge": "^2.0.0",
         "@symfony/ux-chartjs": "file:vendor/symfony/ux-chartjs/Resources/assets",
         "@symfony/webpack-encore": "^1.0.0",
+        "autoprefixer": "^10.3.4",
         "chart.js": "^2.9.4",
         "core-js": "^3.0.0",
+        "postcss": "^8.3.6",
+        "postcss-loader": "^5.0.0",
         "regenerator-runtime": "^0.13.2",
-        "sass": "^1.35.2",
+        "sass": "^1.39.0",
         "sass-loader": "^12.0.0",
         "stimulus": "^2.0.0",
+        "tailwindcss": "^2.2.9",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -20,12 +24,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@popperjs/core": "^2.9.2",
-        "bootstrap": "^5.0.2"
-    },
-    "name": "tousolidaires",
-    "version": "1.0.0",
-    "main": "index.js",
-    "repository": "https://github.com/qbtl/tousolidaires-symfony.git",
-    "author": "Corentin THIBAUD <corentin.thibaud@isen.yncrea.fr>"
+        "@tailwindcss/aspect-ratio": "^0.2.1",
+        "@tailwindcss/forms": "^0.3.3",
+        "glob-all": "^3.2.1",
+        "purgecss-webpack-plugin": "^4.0.3"
+    }
 }

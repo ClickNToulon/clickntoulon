@@ -2,20 +2,20 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -36,7 +36,7 @@ class User implements UserInterface
     private $roles;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="text")
      */
     private $password;
 
@@ -109,16 +109,15 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+
+    public function getUserIdentifier(): string
     {
         return (string) $this->fullName;
     }
 
-    public function setUsername(string $username): self
+    public function getUsername(): string
     {
-        $this->fullName = $username;
-
-        return $this;
+        return (string) $this->fullName;
     }
 
     /**

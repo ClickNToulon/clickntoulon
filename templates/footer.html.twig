@@ -1,84 +1,35 @@
-<div class="position-relative">
-    <div class="shape shape-bottom shape-fluid-x text-dark">
-        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="#1B2A4E"></path></svg>      </div>
-</div>
-<footer class="fr-footer" role="contentinfo" id="">
-    <div class="fr-container">
-        <div class="fr-footer__body">
-            <div class="fr-footer__brand">
-                <a href="/" title="Retour à l’accueil">
-                    <img src="{{ asset('images/logo.svg') }}" alt="" width="150" height="150">
-                </a>
-                <ul class="ms-3 d-flex flex-column">
-                    <li class="mb-1">
-                        <a href="https://instagram.com/tousolidaires_toulon/" title="Instagram">
-                            <img src="{{ asset('images/instagram.svg') }}" alt="">
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="" title="Twitter">
-                            <img src="{{ asset('images/twitter.svg') }}" alt="">
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="" title="Facebook">
-                            <img src="{{ asset('images/facebook.svg') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" title="Pinterest">
-                            <img src="{{ asset('images/pinterest.svg') }}" alt="">
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="fr-footer__content">
-                <p class="fr-footer__content-desc">
-                    TouSolidaires est une plateforme associative qui fonctionne 24h/24 7j/7.
-                    <br>
-                    Réalisé par des étudiants de l’ISEN de Toulon, le but est de venir en aide aux commerçants toulonnais.
-                </p>
-                <ul class="fr-footer__content-list">
-                    <li class="fr-footer__content-item">
-                        <a class="fr-link fr-footer__content-link fr-link--icon-left" href="{{ path('search') }}"><i class="bi-search me-2"></i>  Rechercher</a>
-                    </li>
-                    <li class="fr-footer__content-item">
-                        <a class="fr-link fr-footer__content-link fr-link--icon-left" href="{{ path('shop_index') }}"><i class="bi-shop-window me-2"></i>Les boutiques</a>
-                    </li>
-                    <li class="fr-footer__content-item">
-                        <a class="fr-footer__content-link fr-link fr-link--icon-left" href="{{ path('product_index') }}"><i class="bi-box-seam me-2"></i>Les produits</a>
-                    </li>
-                    <li class="fr-footer__content-item">
-                        {% if user is defined and user != null %}
-                            <a class="fr-footer__content-link fr-link fr-link--icon-left" href="{{ path('app_logout') }}"><i class="bi-box-arrow-right me-2"></i> Déconnexion</a>
-                        {% else %}
-                            <a class="fr-footer__content-link fr-link fr-link--icon-left" href="{{ path('app_login') }}"><i class="bi-box-arrow-in-right me-2"></i> Connexion</a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="fr-footer__bottom">
-            <ul class="fr-footer__bottom-list">
-                <li class="fr-footer__bottom-item">
-                    <a class="fr-footer__bottom-link" href="{{ asset('sitemap.xml') }}">Plan du site</a>
-                </li>
-                <li class="fr-footer__bottom-item">
-                    <a class="fr-footer__bottom-link" href="{{ path('about_index') }}">Qui sommes-nous ?</a>
-                </li>
-                <li class="fr-footer__bottom-item">
-                    <a class="fr-footer__bottom-link" href="{{ path('about_team') }}">Notre équipe</a>
-                </li>
-                <li class="fr-footer__bottom-item">
-                    <a class="fr-footer__bottom-link" href="{{ path('about_cgu') }}">Conditions Générales d'Utilisation</a>
-                </li>
-                <li class="fr-footer__bottom-item">
-                    <a class="fr-footer__bottom-link" href="{{ path('about_confidentialite') }}">Politique de confidentialité</a>
-                </li>
-            </ul>
-            <div class="fr-footer__bottom-copy">
-                <p>Le site TouSolidaires est sous license MIT</p>
-            </div>
-        </div>
+<footer class="text-gray-400 bg-white shadow-xl border-t-2 border-gray-300 dark:border-t-0 dark:shadow-none dark:bg-gray-800 body-font m-2 rounded-2xl">
+    <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+        <a class="flex title-font font-medium items-center md:justify-start justify-center dark:text-white text-black">
+            <img src="{{ asset('images/logo.svg') }}" alt="" id="footer-logo" class="w-10 h-10 text-white p-2 bg-gray-600 shadow dark:shadow-none dark:bg-gray-900 rounded-full">
+            <span class="ml-3 text-xl">TouSolidaires</span>
+        </a>
+        <p class="text-sm text-gray-700 dark:text-white text-center sm:text-left sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">© 2021 TouSolidaires —
+            <a href="https://instagram.com/tousolidaires_toulon" class="text-gray-500 dark:text-gray-300 ml-1" target="_blank" rel="noopener noreferrer">@tousolidaires_toulon</a>
+        </p>
+        <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+      <a class="text-gray-400">
+        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+        </svg>
+      </a>
+      <a class="ml-3 text-gray-400">
+        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+          <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+        </svg>
+      </a>
+      <a class="ml-3 text-gray-400">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+        </svg>
+      </a>
+      <a class="ml-3 text-gray-400">
+        <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+          <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+          <circle cx="4" cy="4" r="2" stroke="none"></circle>
+        </svg>
+      </a>
+    </span>
     </div>
 </footer>

@@ -5,13 +5,89 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'user'} %}
     {% include 'user/_header.html.twig' %}
-    <main class="pb-8 pb-md-11 mt-md-n6">
-        <div class="container-md">
-            <div class="row">
-                <div class="col-12 col-md-3">
-                    {% include 'user/_tabs.html.twig' with {active: 'orders'} %}
-                </div>
-                <div class="col-12 col-md-9">
+    <section class="text-gray-400 body-font">
+        <div class="container px-5 py-12 pt-6 mx-auto">
+            <div class="flex justify-center flex-wrap -m-4">
+                {% include 'user/_tabs.html.twig' with {active: 'orders'} %}
+            </div>
+        </div>
+        <div class="container px-5 mx-auto sm:max-w-7xl pb-12 max-w-full">
+            <div class="flex flex-wrap -my-6">
+                {% for order in orders %}
+                    <div class="bg-white dark:bg-gray-800 shadow dark:shadow-none overflow-hidden rounded-xl my-2">
+                        <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between">
+                            <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
+                                <div class="col-span-1 flex flex-col">
+                                    <h3 class="font-medium text-sm text-black dark:text-white">N° de commande</h3>
+                                    <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{# {{ order.id }}#} {{ order.number }}</p>
+                                </div>
+                                <div class="col-span-1 flex flex-col">
+                                    <h3 class="font-medium text-sm text-black dark:text-white">Date</h3>
+                                    <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{{ order.day | format_date(locale='fr') }}</p>
+                                </div>
+                                <div class="col-span-1 flex flex-col">
+                                    <h3 class="font-medium text-sm text-black dark:text-white">Total</h3>
+                                    <p class="font-bold text-sm mt-1 text-gray-700 dark:text-gray-100">{{ order.total | format_currency('EUR') }}</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 flex items-center">
+                                <div class="col-span-1">
+                                    <a href="{{ path('user_order', {number: order.number}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-gray-600 hover:bg-gray-700 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 focus:ring-offset-white dark:focus:ring-offset-gray-800">
+                                        En voir plus
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% if products[order.id] is iterable  %}
+                            {% set i = 0 %}
+                            {% set quantity = order.quantity | split(',') %}
+                            {% for product in products[order.id] %}
+                                <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 space-y-6">
+                                    <div class="flex sm:flex-row flex-col">
+                                        <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
+                                            <img class="rounded" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
+                                        </div>
+                                        <div class="flex flex-col px-4">
+                                            <div class="flex flex-row justify-between mb-2">
+                                                <h1 class="font-medium text-black dark:text-white text-lg">{{ product.name }} (x{{ quantity[i] }})</h1>
+                                                <h1 class="font-medium text-black dark:text-white text-base">{{ product.price | format_currency('EUR') }}</h1>
+                                                {% set i = i + 1 %}
+                                            </div>
+                                            <div class="h-full relative">
+                                                <p class="text-base text-black dark:text-white">
+                                                    {{ product.description }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 space-y-6">
+                                <div class="flex flex-row">
+                                    <div class="w-1/3">
+                                        <img class="rounded" src="{{ asset('uploads/products/' ~ products[order.id].images[0]) }}" alt="">
+                                    </div>
+                                    <div class="flex flex-col px-4">
+                                        <div class="flex flex-row justify-between mb-2">
+                                            <h1 class="font-medium text-black dark:text-white text-lg">{{ products[order.id].name }}  (x{{ order.quantity }})</h1>
+                                            <h1 class="font-medium text-black dark:text-white text-base">{{ products[order.id].price | format_currency('EUR') }}</h1>
+                                        </div>
+                                        <div class="h-full relative">
+                                            <p class="text-base text-black dark:text-white">
+                                                {{ products[order.id].description }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {# <div class="col-12 col-md-9">
                     {% if orders is not null %}
                         {% for order in orders %}
                             {% for shop in shops %}
@@ -84,6 +160,6 @@
             </div>
         </div>
         </div>
-    </main>
+    </main> #}
     {% include 'footer.html.twig' %}
 {% endblock %}

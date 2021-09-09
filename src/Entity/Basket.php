@@ -33,8 +33,7 @@ class Basket
     private ?string $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Shop::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer")
      */
     private $shop_id;
 
@@ -80,12 +79,12 @@ class Basket
         return $this;
     }
 
-    public function getShopId(): ?Shop
+    public function getShopId(): ?int
     {
         return $this->shop_id;
     }
 
-    public function setShopId(?Shop $shop_id): self
+    public function setShopId(?int $shop_id): self
     {
         $this->shop_id = $shop_id;
 

@@ -69,6 +69,16 @@ class Order
      */
     private $total;
 
+    /**
+     * @ORM\Column(type="string", length=12)
+     */
+    private $number;
+
+    public function __construct()
+    {
+        $this->number = strtoupper(bin2hex(random_bytes(6)));
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -190,6 +200,18 @@ class Order
     public function setTotal(float $total): self
     {
         $this->total = $total;
+
+        return $this;
+    }
+
+    public function getNumber(): ?string
+    {
+        return $this->number;
+    }
+
+    public function setNumber(string $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }

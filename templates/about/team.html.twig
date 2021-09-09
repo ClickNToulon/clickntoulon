@@ -7,30 +7,30 @@
     <main class="container-md team py-5">
         <div class="team-grid">
             {% for admin in admins %}
-            <div class="card card-cover overflow-hidden text-white rounded-5 shadow-lg card-admin">
-                <div class="d-flex flex-column align-items-center justify-content-center h-100 p-5 text-white text-shadow-1">
-                    <div class="d-flex flex-row">
-                        <img src="{{ asset('/uploads/users/' ~ user.avatar) }}" alt="" class="admin-logo" width="200px">
-                        <div class="d-flex flex-column m-auto">
-                            <h2 class="display-6 lh-1 m-auto text-center mx-auto">{{ admin.username }}</h2>
-                            <ul class="d-flex list-unstyled align-items-left mt-3 flex-column ms-3">
-                                <li class="d-flex align-items-center text-justify">
-                                    <i class="bi-geo-fill me-2"></i>
-                                    <p class="mb-1">{{ admin.address }} {{ admin.postalcode }} {{ admin.city }}</p>
-                                </li>
-                                <li class="d-flex align-items-center text-left">
-                                    <i class="bi-envelope me-2"></i>
-                                    <a class="mb-1 text-white" href="mailto:{{ admin.email }}" target="_blank">{{ admin.email }}</a>
-                                </li>
-                                <li class="d-flex align-items-center text-left">
-                                    <i class="bi-calendar3 me-2"></i>
-                                    <p class="mb-1">Inscrit depuis le {{ admin.createdat | format_datetime('short', 'none', locale='fr') }}</p>
-                                </li>
-                            </ul>
+                <div class="card card-cover overflow-hidden text-white rounded-5 shadow-lg card-admin">
+                    <div class="d-flex flex-column align-items-center justify-content-center h-100 p-5 text-white text-shadow-1">
+                        <div class="d-flex flex-row">
+                            <img src="{{ asset('/uploads/users/' ~ user.avatar) }}" alt="" class="admin-logo" width="200px">
+                            <div class="d-flex flex-column m-auto">
+                                <h2 class="display-6 lh-1 m-auto text-center mx-auto">{{ admin.username }}</h2>
+                                <ul class="d-flex list-unstyled align-items-left mt-3 flex-column ms-3">
+                                    <li class="d-flex align-items-center text-justify">
+                                        <i class="bi-geo-fill me-2"></i>
+                                        <p class="mb-1">{{ admin.address }} {{ admin.postalcode }} {{ admin.city }}</p>
+                                    </li>
+                                    <li class="d-flex align-items-center text-left">
+                                        <i class="bi-envelope me-2"></i>
+                                        <a class="mb-1 text-white" href="mailto:{{ admin.email }}" target="_blank">{{ admin.email }}</a>
+                                    </li>
+                                    <li class="d-flex align-items-center text-left">
+                                        <i class="bi-calendar3 me-2"></i>
+                                        <p class="mb-1">Inscrit depuis le {{ admin.createdat | format_datetime('short', 'none', locale='fr') }}</p>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
     </main>

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Twig\Error\LoaderError;
@@ -22,14 +23,12 @@ use Twig\Error\LoaderError;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/connexion", name="app_login")
-     * @param AuthenticationUtils $authenticationUtils
-     * @return Response
+     * @Route("/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser() && $this->getUser()->isVerified() !== false) {
-            return $this->redirectToRoute('home');
+        if ($this->getUser()) {
+             return $this->redirectToRoute('app_home');
         }
 
         // get the login error if there is one
@@ -37,28 +36,27 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_email' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
-     * @Route("/deconnexion", name="app_logout")
-     * @throws LogicException
+     * @Route("/logout", name="app_logout")
      */
     public function logout()
     {
-        throw new LogicException('Methode qui peut être nulle');
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
     /**
      * @Route("/inscription", name="app_signup")
      * @param Request $request
-     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param UserPasswordHasherInterface $passwordHasher
      * @param EntityManagerInterface $em
      * @param MailerInterface $mailer
      * @return RedirectResponse|Response
      * @throws LoaderError
      */
-    public function signUp(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em, MailerInterface $mailer)
+    public function signUp(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $em, MailerInterface $mailer)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
@@ -69,7 +67,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
+                $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
                 $em->persist($user);
                 $em->flush();
                 $title = "Veuillez vérifier votre compte chez TouSolidaires";

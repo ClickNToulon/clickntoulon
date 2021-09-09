@@ -4,178 +4,141 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'home'} %}
-    {% if user is defined and user == null %}
-    <div class="container-fluid hero">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-            <div class="col-10 col-sm-8 col-lg-6">
-                <img src="{{ asset('images/logo-home.svg') }}" class="d-block mx-lg-auto img-fluid" alt="Logo Noir"
-                     width="500" height="450" loading="lazy">
-            </div>
-            <div class="col-lg-6">
-                <h1 class="display-5 fw-bold lh-1 mb-3">TouSolidaires, le site des achats solidaires</h1>
-                <p class="lead">
-                    TouSolidaires est une plateforme associative qui fonctionne 24h/24 7j/7.
-                    <br>
-                    Réalisé par des étudiants de l’ISEN de Toulon, le but est de venir en aide aux commerçants toulonnais.
-                </p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a href="{{ path('app_signup') }}"><button type="button" class="fr-btn btn-home arrow-icon">Créer votre compte</button></a>
-                    <a href="{{ path('about_index') }}"><button type="button" class="fr-btn fr-btn--secondary btn-home-outline">Qui sommes-nous ?</button></a>
+    <div class="bg-yellow-700 rounded-2xl m-2" id="banner">
+        <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between flex-wrap">
+                <div class="w-0 flex-1 flex items-center">
+                    <span class="flex p-2 rounded-lg bg-yellow-800">
+                      <!-- Heroicon name: outline/speakerphone -->
+                      <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+                      </svg>
+                    </span>
+                    <p class="ml-3 font-medium text-white truncate">
+                      <span class="md:hidden">
+                        Nouvelle version !
+                      </span>
+                        <span class="hidden md:inline">
+                        Nouvelle version ! C'est avec plaisir que l'on vous dévoile la nouvelle version
+                      </span>
+                    </p>
+                </div>
+                <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
+                    <a href="#" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-800 hover:bg-yellow-900">
+                        En savoir plus
+                    </a>
+                </div>
+                <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
+                    <button type="button" class="-mr-1 flex p-2 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-white sm:-mr-2" onclick="closeBanner('banner')">
+                        <span class="sr-only">Fermer</span>
+                        <!-- Heroicon name: outline/x -->
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+    {% if user is defined and user == null %}
+        <div class="relative bg-white overflow-hidden dark:bg-gray-700 mx-2 rounded-2xl">
+            <div class="max-w-7xl h-full mx-auto">
+                <div class="dark:bg-gray-700 relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                    <div><div class="relative md:pt-6 sm:px-6 lg:px-8"></div></div>
+                    <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                        <div class="sm:text-center lg:text-left">
+                            <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 dark:text-gray-100 sm:text-5xl md:text-6xl">
+                                <span class="block text-yellow-500 xl:inline">TouSolidaires,</span>
+                                <span class="block xl:inline">le site des achats solidaires</span>
+                            </h1>
+                            <p class="mt-3 text-base text-gray-500 dark:text-gray-100 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                                TouSolidaires est une plateforme associative qui fonctionne 24h/24 7j/7.
+                                <br>
+                                Réalisé par des étudiants de l’ISEN de Toulon, le but est de venir en aide aux commerçants toulonnais.
+                            </p>
+                            <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                                <div class="rounded-2xl">
+                                    <a href="{{ path('app_signup') }}" class="w-full flex items-center justify-center px-10 py-4 border border-transparent text-base font-medium rounded-2xl text-white bg-yellow-600 hover:bg-yellow-700 md:py-3 md:text-lg md:px-8 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 focus:ring-offset-white dark:focus:ring-offset-gray-700">
+                                        Créer votre compte
+                                    </a>
+                                </div>
+                                <div class="mt-3 sm:mt-0 sm:ml-3">
+                                    <a href="{{ path('about_index') }}" class="w-full flex items-center justify-center px-10 py-4 border border-transparent text-base font-medium rounded-2xl dark:text-white bg-yellow-500 hover:bg-yellow-600 md:py-3 md:text-lg md:px-8 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700">
+                                        Qui sommes-nous ?
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+                <img class="h-56 w-full sm:h-72 md:h-96 lg:h-full lg:w-1/2 mx-auto rounded-t-2xl lg:rounded-none" src="{{ asset('images/logo-home.svg') }}" id="home-logo" alt="">
+            </div>
+        </div>
     {% else %}
-        <div class="container-fluid hero">
-            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-                <div class="col-10 col-sm-8 col-lg-6">
-                    <img src="{{ asset('images/logo-home.svg') }}" class="d-block mx-lg-auto img-fluid" alt="Logo Noir"
-                         width="500" height="450" loading="lazy">
+        <div class="relative bg-white overflow-hidden dark:bg-gray-700 mx-2 rounded-2xl">
+            <div class="max-w-7xl h-full mx-auto">
+                <div class="dark:bg-gray-700 relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                    <div><div class="relative md:pt-6 sm:px-6 lg:px-8"></div></div>
+                    <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                        <div class="sm:text-center lg:text-left">
+                            <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 dark:text-gray-100 sm:text-5xl md:text-6xl">
+                                <span class="block xl:inline">Bienvenue,</span>
+                                <span class="block text-yellow-500 xl:inline">{{ user.fullName }}</span>
+                            </h1>
+                            <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                                <div class="rounded-2xl">
+                                    <a href="{{ path('user_orders') }}" class="w-full flex items-center justify-center px-5 py-2 border border-transparent text-base font-medium rounded-2xl text-white bg-yellow-600 hover:bg-yellow-700 md:text-lg md:px-8 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 focus:ring-offset-white dark:focus:ring-offset-gray-700">
+                                        Mes commandes
+                                    </a>
+                                </div>
+                                <div class="mt-3 sm:mt-0 sm:ml-3">
+                                    <a href="{{ path('basket_index') }}" class="w-full flex items-center justify-center px-5 py-2 border border-transparent text-base font-medium rounded-2xl dark:text-white bg-yellow-500 hover:bg-yellow-600 md:text-lg md:px-8 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700">
+                                        Mon panier
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
                 </div>
-                <div class="col-lg-6">
-                    <div class="d-flex flex-row justify-content-center">
-                        <img class="d-block me-3" src="{% if user.avatar %}{{ asset('uploads/users/') ~ user.avatar }}{% else %}{{ asset('images/logo-home.svg') }}{% endif %}" alt="" width="125" height="125">
-                        <h1 class="display-5 fw-bold align-self-center">
-                            Bienvenue
-                            <br>
-                            {{ user.fullName }}
-                        </h1>
-                    </div>
-                    <div class="d-grid gap-4 d-md-flex justify-content-md-center">
-                        <a href="{{ path('user_orders') }}"><button class="fr-btn btn-home">Mes commandes</button></a>
-                        <a href="{{ path('user_edit') }}"><button class="fr-btn fr-btn--secondary btn-home-outline">Mes informations</button></a>
-                        <a href="{{ path('basket_index') }}"><button class="fr-btn fr-btn--secondary btn-home-outline">Mon panier</button></a>
-                    </div>
-                </div>
+            </div>
+            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+                <img class="h-56 w-full sm:h-72 md:h-96 lg:h-full lg:w-1/2 mx-auto rounded-t-2xl lg:rounded-none" src="{{ asset('images/logo-home.svg') }}" id="home-logo" alt="">
             </div>
         </div>
     {% endif %}
-
-    <div class="container-md">
-        <div class="row gx-4">
-            {% for shop in shops %}
-                <div class="col-12 col-md-6">
-                    <div class="card card-bleed mb-6 mb-xl-0 shadow-light-lg home-shop">
-                        <a class="card-img-top" href="{{ path('shop_show', {slug: shop.slug}) }}">
-                            <img src="{{ asset('uploads/shops/' ~ shop.cover) }}" alt="..." class="img-fluid" style="border-top-left-radius: 10px;border-top-right-radius: 10px">
-                        </a>
-                        <div class="position-relative w-100">
-                            <div class="shape shape-fluid-x shape-bottom text-white">
-                                <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"></path></svg>                    </div>
-                        </div>
-                        <a class="card-body" href="{{ path('shop_show', {slug: shop.slug}) }}">
-                            <h3 class="mb-2">
-                                {{ shop.name | u.truncate(40, '...', false) }}
-                            </h3>
-                            <p class="mb-2 text-black text-justify">
-                                {{ shop.description | u.truncate(150, '...', false) }}
-                            </p>
-                            <p class="mb-1 text-black text-justify">
-                                <i class="bi-geo"></i> Adresse : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}
-                            </p>
-                            {% set splitArray = shop.phone|split('', 1) %}
-                            {% set first = splitArray|first %}
-                            {% set firstArray =  [0, first] | join('') %}
-                            {% set splitArray = splitArray|slice(1) %}
-                            {% set splitArray = splitArray|join('') %}
-                            {% set lastArray = [firstArray, splitArray] |join('') %}
-                            {% set finalSplit = lastArray|split('', 2) %}
-                            {% set formattedString = finalSplit|join(' ') %}
-                            <p class="mb-1 text-black text-justify">
-                                <i class="bi-telephone"></i> Téléphone : {{ formattedString }}
-                            </p>
-                            {% if shop.email != null %}
-                                <p class="mb-1 text-black text-justify">
-                                    <i class="bi-envelope"></i> Email : {{ shop.email }}
-                                </p>
-                            {% endif %}
-                        </a>
-                        <a class="card-meta w-100" href="{{ path('shop_show', {slug: shop.slug}) }}">
-                            <hr class="card-meta-divider w-100">
-                            <div class="meta-info d-flex justify-content-center align-items-center">
-                                <ul class="fr-tags-group fr-card__detail p-2 ps-3">
-                                    <li>
-                                    <span class="fr-tag">
-                                        <i class="bi-tags-fill me-1"></i>{{ shop.tagName }}
-                                    </span>
-                                    </li>
-                                    <li>
-                                        {% if shop.status == 2 %}
-                                            <span class="fr-tag">Boutique partenaire <span class="admin-badge ms-1 me-0"><i class="fad fa-badge-check"></i></span></span>
-                                        {% elseif shop.status == 1 %}
-                                            <span class="fr-tag">Boutique vérifiée</span>
-                                        {% else %}
-                                            <span class="fr-tag">Boutique non vérifiée</span>
-                                        {% endif %}
-                                    </li>
-                                </ul>
-                                <p class="h6 text-uppercase text-muted ms-auto me-4 mb-2 arrow-icon">
-                                    <i class="arrow-right"></i>
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-    <div class="container-md py-10">
-        <div class="row gy-4">
-            {% for product in products %}
-                <div class="col-12 col-md-3">
-                    <div class="card card-bleed mb-6 mb-xl-0 shadow-light-lg home-product">
-                        <a class="card-img-top" href="{{ path('product_show', {id: product.id}) }}">
-                            <img src="{{ asset('uploads/products/' ~ product.image) }}" alt="..." class="img-fluid">
-                        </a>
-                        <div class="position-relative w-100">
-                            <div class="shape shape-fluid-x shape-bottom text-white">
-                                <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"></path></svg>                    </div>
-                        </div>
-                        <a class="card-body" href="{{ path('product_show', {id: product.id}) }}">
-                            <h3>
-                                {{ product.name }}
-                            </h3>
-                            <p class="mb-0 text-muted text-justify">
-                                {{ product.description | u.truncate(150, '...', false) }}
-                            </p>
-                        </a>
-                        <a class="card-meta w-100" href="{{ path('product_show', {id: product.id}) }}">
-                            <hr class="card-meta-divider w-100">
-                            <div class="meta-info d-flex justify-content-center align-items-center">
-                                {% if product.dealprice != null %}
-                                    <ul class="fr-tags-group fr-card__detail me-auto p-4">
-                                        <li>
-                                            <span class="fr-tag deal_price product-price">{{ product.price | format_currency('EUR') }}</span>
-                                        </li>
-                                        <li>
-                                            <span class="fr-tag product-price tag-danger">{{ product.dealprice | format_currency('EUR') }}</span>
-                                        </li>
-                                    </ul>
-                                {% else %}
-                                    <ul class="fr-tags-group fr-card__detail me-auto p-4">
-                                        <li>
-                                        <span class="fr-tag product-price">
-                                            {{ product.price | format_currency('EUR') }}
-                                        </span>
-                                        </li>
-                                    </ul>
-                                {% endif %}
-                                <p class="h6 text-uppercase text-muted mb-0 ms-auto me-3 arrow-icon">
-                                    <i class="arrow-right"></i>
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="row">
+    <section class="text-gray-400 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap -m-4">
+                {% include 'shop/shop_skeleton.html.twig' with {'shops': shops} %}
             </div>
         </div>
-        <div class="text-center">
-            <a href="{{ path('product_index') }}">
-                <button class="fr-btn fr-btn--secondary w-50 btn-home-outline arrow-icon">Voir plus de produits</button>
-            </a>
+    </section>
+    <section class="text-gray-400 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                {% include 'product/product_skeleton.html.twig' with {'products': products} %}
+            </div>
+            <div class="pt-5">
+                <a href="{{ path('product_index') }}" class="w-full md:w-1/2 md:mx-auto flex items-center justify-center px-10 py-4 border border-transparent text-base font-medium rounded-2xl text-white bg-yellow-600 hover:bg-yellow-700 md:py-3 md:text-lg md:px-8">
+                    Voir plus de produits
+                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
+    <script>
+        function closeBanner(bannerID) {
+            document.getElementById(bannerID).classList.add('hidden');
+        }
+        const userPrefersDark2 = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if(userPrefersDark2){
+            document.getElementById('home-logo').attributes.getNamedItem('src').value = "{{ asset('images/logo.svg') }}";
+        }
+    </script>
     {% include('footer.html.twig') %}
 {% endblock %}

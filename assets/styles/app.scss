@@ -1,5 +1,57 @@
-body {
-    background-color: lightgray;
+@charset "UTF-8";
+
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
+@import "~tailwindcss/base";
+
+@import "~tailwindcss/components";
+
+@import "~tailwindcss/utilities";
+
+.tab {
+    @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-black dark:text-white font-medium rounded-xl mx-1 my-0.5;
+
+    &:focus {
+        @apply ring-2 ring-offset-2 ring-gray-400 dark:ring-yellow-600 outline-none rounded-lg ring-offset-white dark:ring-offset-gray-800;
+    }
+
+    &:hover {
+        @apply dark:bg-gray-600;
+    }
 }
 
-@import "~bootstrap/scss/bootstrap.scss";
+.tab-active {
+    @apply bg-yellow-500 text-black rounded-xl dark:text-black;
+
+    &:hover {
+        @apply dark:bg-yellow-600;
+    }
+}
+
+.tab:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px
+}
+
+.tab:focus-visible {
+    box-shadow: inset 0 0 0 2px currentColor
+}
+
+.custom-file-input::-webkit-file-upload-button {
+    @apply rounded-md outline-none shadow-none border-none font-medium p-1 bg-white text-black dark:text-white dark:bg-gray-800 px-2;
+}
+
+.custom-file {
+    @apply w-full;
+}
+
+.max-h-2xl {
+    max-height: 46rem !important;
+}
+
+.lg\:max-h-7xl {
+    max-height: 80rem !important
+}
+
+.shop-choose-form {
+    @apply max-w-xl w-full mx-auto
+}
