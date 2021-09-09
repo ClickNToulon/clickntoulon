@@ -36,30 +36,30 @@
                 </div>
             {% endfor %}
             {{ form_start(form) }}
-            <div>
-                <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer text-black dark:text-white">Inscrivez-vous</h1>
-            </div>
-            <div class="space-y-4">
-                {{ form_row(form.fullName) }}
-                {{ form_row(form.email) }}
-                {{ form_row(form.password.first) }}
-                {{ form_row(form.password.second) }}
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <div class="inline-flex items-start">
-                    <div>
+                <div>
+                    <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer text-black dark:text-white">Inscrivez-vous</h1>
+                </div>
+                <div class="space-y-4">
+                    {{ form_row(form.fullName) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.password.first) }}
+                    {{ form_row(form.password.second) }}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <div class="inline-flex items-start">
                         <div>
-                            <label class="inline-flex items-center align-middle">
-                                <input type="checkbox" class="rounded border-gray-400 dark:border-gray-300 text-yellow-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-offset-0 focus:ring-yellow-200 focus:ring-opacity-50" id="checkbox" name="cgu" required>
-                                <span class="ml-2 text-gray-600 dark:text-white font-medium">J'accepte les Conditions Générales de la plateforme</span>
-                            </label>
+                            <div>
+                                <label class="inline-flex items-center align-middle">
+                                    <input type="checkbox" class="rounded border-gray-400 dark:border-gray-300 text-yellow-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-offset-0 focus:ring-yellow-200 focus:ring-opacity-50" id="checkbox" name="cgu" required>
+                                    <span class="ml-2 text-gray-600 dark:text-white font-medium">J'accepte les Conditions Générales de la plateforme</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="text-center mt-3">
-                <button class="py-3 w-full text-xl text-white bg-yellow-400 rounded-2xl" type="submit">S'inscrire</button>
-                <p class="mt-4 text-sm text-black dark:text-white">Vous avez déjà un compte? <a class="underline" href="{{ path('app_login') }}"> Connectez-vous</a></p>
-            </div>
+                <div class="text-center mt-3">
+                    <button class="py-3 w-full text-xl text-white bg-yellow-400 rounded-2xl" type="submit">S'inscrire</button>
+                    <p class="mt-4 text-sm text-black dark:text-white">Vous avez déjà un compte? <a class="underline" href="{{ path('app_login') }}"> Connectez-vous</a></p>
+                </div>
             {{ form_end(form) }}
         </div>
     </div>

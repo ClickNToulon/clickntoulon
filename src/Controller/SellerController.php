@@ -7,9 +7,11 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\Shop;
+use App\Entity\User;
 use App\Form\CategoryType;
 use App\Form\ChooseShop;
 use App\Form\DeleteCategory;
+use App\Form\DeleteProductForm;
 use App\Form\ProductType;
 use App\Form\ShopDeleteForm;
 use App\Form\ShopTimeTableUpdate;
@@ -30,6 +32,7 @@ use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,8 +73,12 @@ class SellerController extends AbstractController
     public function index(Shop $shop, OrderRepository $orderRepository, UserRepository $userRepository, Request $request): Response
     {
         $user = $this->getUser();
-        $shopsUser = $this->shopRepository->findAllByUser($user->getId());
-        if (!in_array($shop, $shopsUser)) {
+        if($user instanceof User) {
+            $shopsUser = $this->shopRepository->findAllByUser($user->getId());
+            if (!in_array($shop, $shopsUser)) {
+                return new Response($this->render('bundles/TwigBundle/Exception/error403.html.twig'), Response::HTTP_FORBIDDEN);
+            }
+        } else {
             return new Response($this->render('bundles/TwigBundle/Exception/error403.html.twig'), Response::HTTP_FORBIDDEN);
         }
         $orders = $orderRepository->getAllShop($shop->getId());
@@ -115,9 +122,9 @@ class SellerController extends AbstractController
             ->setStatus(1);
         $this->em->persist($order);
         $this->em->flush();
-        $title = "Votre commande numéro " . $order_infos['id'] . " a été acceptée par le commerçant";
+        $title = "Votre commande numéro " . $order->getNumber() . " a été acceptée par le commerçant";
         $options = [];
-        array_push($options, $user->getFullName(), $order_infos['id'], $order_infos['day'], $order_infos['begin'], $order_infos['end']);
+        array_push($options, $user->getFullName(), $order->getNumber(), $order_infos['day'], $order_infos['begin'], $order_infos['end']);
         if(isset($order_infos['message']) && $order_infos['message'] !== null) {
             array_push($options, $order_infos['message']);
         }
@@ -159,9 +166,9 @@ class SellerController extends AbstractController
         $order->setStatus(3);
         $this->em->persist($order);
         $this->em->flush();
-        $title = "Votre commande numéro " . $order_infos['id'] . " est prête chez le commerçant";
+        $title = "Votre commande numéro " . $order->getNumber() . " est prête chez le commerçant";
         $options = [];
-        array_push($options, $user->getFullName(), $order_infos['id'], $order_infos['day'], $order_infos['begin'], $order_infos['end']);
+        array_push($options, $user->getFullName(), $order->getNumber(), $order_infos['day'], $order_infos['begin'], $order_infos['end']);
         (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderready');
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
@@ -200,9 +207,9 @@ class SellerController extends AbstractController
         $order->setStatus(6);
         $this->em->persist($order);
         $this->em->flush();
-        $title = "Votre commande numéro " . $order_infos['id'] . " a été annulée par le commerçant";
+        $title = "Votre commande numéro " . $order->getNumber() . " a été annulée par le commerçant";
         $options = [];
-        array_push($options, $user->getFullName(), $order_infos['id']);
+        array_push($options, $user->getFullName(), $order->getNumber());
         if(isset($order_infos['message']) && $order_infos['message'] !== null) {
             array_push($options, $order_infos['message']);
         }
@@ -530,5 +537,21 @@ class SellerController extends AbstractController
             'product' => $product,
             'form' => $form_update_product->createView()
         ]);
+    }
+
+    /**
+     * @Route("/ma-boutique/{id}/produits/{product}/supprimer", name="seller_delete_product", requirements={"id": "[0-9\-]*", "product": "[0-9\-]*"})
+     * @param ShopRepository $shopRepository
+     * @param ProductRepository $productRepository
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function delete_product(ShopRepository $shopRepository, ProductRepository $productRepository, Request $request): RedirectResponse
+    {
+        $product = $productRepository->find($request->attributes->get('product'));
+        $shop = $shopRepository->find($request->attributes->get('id'));
+        $this->em->remove($product);
+        $this->em->flush();
+        return $this->redirectToRoute('seller_edit_products', ["id" => $shop->getId(), "product" => $product->getId()]);
     }
 }

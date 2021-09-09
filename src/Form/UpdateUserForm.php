@@ -16,27 +16,27 @@ class UpdateUserForm extends AbstractType
         $builder
             ->add('fullName', TextType::class, [
                 'attr' => [
-                    'class' => 'fr-input last-input'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('email', TextType::class, [
                 'attr' => [
-                    'class' => 'fr-input last-input'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('address', TextareaType::class, [
                 'attr' => [
-                    'class' => 'fr-input last-input'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('postal_code', TextType::class, [
                 'attr' => [
-                    'class' => 'fr-input last-input'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('city', TextType::class, [
                 'attr' => [
-                    'class' => 'fr-input last-input'
+                    'class' => 'tbg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
         ;

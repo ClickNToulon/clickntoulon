@@ -135,7 +135,9 @@
         function closeBanner(bannerID) {
             document.getElementById(bannerID).classList.add('hidden');
         }
+
         const userPrefersDark2 = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
         if(userPrefersDark2){
             document.getElementById('home-logo').attributes.getNamedItem('src').value = "{{ asset('images/logo.svg') }}";
         }

@@ -207,10 +207,12 @@
         document.getElementById(menuOpenID).classList.toggle('hidden');
         document.getElementById(menuOpenID).classList.toggle('block');
     }
+
     function openDropdown(collapseID) {
         document.getElementById(collapseID).classList.toggle('hidden');
         document.getElementById(collapseID).classList.toggle('block');
     }
+
     const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     if(userPrefersDark){
         document.getElementById('navbar-logo').attributes.getNamedItem('src').value = "{{ asset('images/logo.svg') }}";

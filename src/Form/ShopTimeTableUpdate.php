@@ -26,7 +26,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('monAmCl', TimeType::class, [
@@ -35,7 +35,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('monPmOp', TimeType::class, [
@@ -44,7 +44,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('monPmCl', TimeType::class, [
@@ -53,7 +53,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('tueAmOp', TimeType::class, [
@@ -62,7 +62,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('tueAmCl', TimeType::class, [
@@ -71,7 +71,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('tuePmOp', TimeType::class, [
@@ -80,7 +80,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('tuePmCl', TimeType::class, [
@@ -89,7 +89,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('wedAmOp', TimeType::class, [
@@ -98,7 +98,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('wedAmCl', TimeType::class, [
@@ -107,7 +107,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('wedPmOp', TimeType::class, [
@@ -116,7 +116,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('wedPmCl', TimeType::class, [
@@ -125,7 +125,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('thuAmOp', TimeType::class, [
@@ -134,7 +134,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('thuAmCl', TimeType::class, [
@@ -143,7 +143,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('thuPmOp', TimeType::class, [
@@ -152,7 +152,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('thuPmCl', TimeType::class, [
@@ -161,7 +161,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('friAmOp', TimeType::class, [
@@ -170,7 +170,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('friAmCl', TimeType::class, [
@@ -179,7 +179,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('friPmOp', TimeType::class, [
@@ -188,7 +188,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('friPmCl', TimeType::class, [
@@ -197,7 +197,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('satAmOp', TimeType::class, [
@@ -206,7 +206,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('satAmCl', TimeType::class, [
@@ -215,7 +215,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('satPmOp', TimeType::class, [
@@ -224,7 +224,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('satPmCl', TimeType::class, [
@@ -233,7 +233,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('sunAmOp', TimeType::class, [
@@ -242,7 +242,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('sunAmCl', TimeType::class, [
@@ -251,7 +251,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('sunPmOp', TimeType::class, [
@@ -260,7 +260,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
             ->add('sunPmCl', TimeType::class, [
@@ -269,7 +269,7 @@ class ShopTimeTableUpdate extends AbstractType
                 'widget' => 'single_text',
                 'label' => false,
                 'attr' => [
-                    'class' => 'fr-input mb-0'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ]);
     }

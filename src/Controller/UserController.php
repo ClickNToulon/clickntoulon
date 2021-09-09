@@ -95,29 +95,50 @@ class UserController extends AbstractController
      * @param ShopRepository $shopRepository
      * @return Response
      */
-    public function orders(OrderRepository $orderRepository, ShopRepository $shopRepository): Response
+    public function orders(OrderRepository $orderRepository, ShopRepository $shopRepository, ProductRepository $productRepository): Response
     {
         $user = $this->getUser();
         $orders = $orderRepository->findLast4ByUser($user->getId());
+        $products_id = [];
+        $products = [];
+        foreach ($orders as $key => $value) {
+            $products_id[$value->getId()] = $value->getProductsId();
+            foreach ($products_id as $key2 => $value2) {
+                if(preg_match('/\b,\b/', $value2)) {
+                    $value3 = [];
+                    $value3[] = explode(',', $value2);
+                    foreach ($value3 as $key4[0] => $value4) {
+                        foreach ($value4 as $value5) {
+                            $products[$value->getId()][] = $productRepository->find($value5);
+                        }
+                    }
+                } else {
+                    $products[$value->getId()] = $productRepository->find($value2);
+                }
+            }
+        }
         $shops = $shopRepository->findAll();
         return $this->render('user/orders.html.twig', [
             'user' => $user,
             'orders' => $orders,
-            'shops' => $shops
+            'shops' => $shops,
+            'products' => $products
         ]);
     }
 
 
     /**
-     * @Route("/profil/mes-commandes/{id}", name="user_order", requirements={"id": "[0-9\-]*"})
-     * @param Order $order
+     * @Route("/profil/mes-commandes/{number}", name="user_order", requirements={"id": "[0-9\-]*"})
+     * @param OrderRepository $orderRepository
      * @param ShopRepository $shopRepository
      * @param ProductRepository $productRepository
+     * @param Request $request
      * @return Response
      */
-    public function order(Order $order, ShopRepository $shopRepository, ProductRepository $productRepository): Response
+    public function order(OrderRepository $orderRepository, ShopRepository $shopRepository, ProductRepository $productRepository, Request $request): Response
     {
         $user = $this->getUser();
+        $order = $orderRepository->findOneByNumber(['number' => $request->attributes->get('number')]);
         $products = [];
         $products_id = explode(",", $order->getProductsId());
         foreach ($products_id as $key => $value) {

@@ -45,4 +45,13 @@ class OrderRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findByNumber(string $number)
+    {
+        return $this->createQueryBuilder('o')
+            ->where('o.number = :number AND o.status < 6')
+            ->setParameter('number', $number)
+            ->getQuery()
+            ->getResult();
+    }
 }

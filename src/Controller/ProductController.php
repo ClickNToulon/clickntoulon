@@ -9,7 +9,6 @@ use App\Entity\Category;
 use App\Entity\Payment;
 use App\Entity\Product;
 use App\Form\AddProductBasketType;
-use App\Form\UpdateProductQuantityBasket;
 use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
@@ -20,7 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ProductController extends AbstractController
 {
@@ -28,36 +26,48 @@ class ProductController extends AbstractController
     /**
      * @var ProductRepository
      */
-    private $repository;
+    private ProductRepository $repository;
     /**
      * @var PaginatorInterface
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
     /**
      * @var BasketRepository
      */
-    private $basketRepository;
+    private BasketRepository $basketRepository;
 
-    public function __construct(ProductRepository $repository, PaginatorInterface $paginator, basketrepository $basketRepo)
+    public function __construct(ProductRepository $repository, PaginatorInterface $paginator, BasketRepository $basketRepository)
     {
         $this->repository = $repository;
         $this->paginator = $paginator;
-        $this->basketRepository = $basketRepo;
+        $this->basketRepository = $basketRepository;
     }
 
     /**
      * @Route("/produits", name="product_index")
      * @param Request $request
+     * @param ShopRepository $shopRepository
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request, ShopRepository $shopRepository): Response
     {
         $user = $this->getUser();
+
+        $shopSlug = $request->query->get('boutique');
+        $shop = null;
+        $query = $this->repository->findAllQuery();
+        if ($shopSlug) {
+            $shop = $shopRepository->findOneBy(['slug' => $shopSlug]);
+            if (null !== $shop) {
+                $query = $this->repository->findAllByShopQuery($shop);
+            }
+        }
         $products = $this->paginator->paginate(
-            $this->repository->findAllQuery(),
+            $query,
             $request->query->getInt('page', 1),
             12
         );
+        dump($products);
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'user' => $user
@@ -76,14 +86,14 @@ class ProductController extends AbstractController
         foreach ($baskets as $b) {
             if($b->getShopId() == $product->getShopId()) {
                 $products = $b->getProductsId();
-                $products_array = explode(";", $products);
+                $products_array = explode(",", $products);
                 $limit = count($products_array);
                 for ($i = 0; $i < $limit; $i++) {
                     if ($inside == false) {
                         if ($products_array[$i] == $id) {
                             $inside = true;
                             $quantities = $b->getQuantity();
-                            $quantity = explode(";", $quantities);
+                            $quantity = explode(",", $quantities);
                             $return = (int)$quantity[$i] + 1;
                         }
                     }
@@ -121,13 +131,13 @@ class ProductController extends AbstractController
             $category = $categoryRepository->find($id);
             $categories[] = $category->getName();
         }
-        $form = $this->createForm(AddProductBasketType::class, new Basket());
         if ($user != null) {
             $baskets = $this->basketRepository->findByUser($user->getId());
             $quantity = $this->checkBaskets($baskets, $product);
         } else {
             $quantity = 1;
         }
+        $form = $this->createForm(AddProductBasketType::class);
         return $this->render('product/show.html.twig', [
             'form' => $form->createView(),
             'product' => $product,
@@ -135,7 +145,7 @@ class ProductController extends AbstractController
             'user' => $user,
             'payments' => $payments,
             'categories' => $categories,
-            'quantity' => $quantity
+            'p_quantity' => $quantity
         ]);
     }
 

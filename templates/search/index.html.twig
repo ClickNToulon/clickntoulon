@@ -12,43 +12,43 @@
                 </h2>
             </div>
             {{ form_start(search, {attr: {class: 'mt-8 space-y-3'}}) }}
-            <div class="rounded-md -space-y-px">
-                {{ form_row(search.q) }}
-            </div>
-            <div>
-                <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-700 focus:ring-yellow-500">
-                    Rechercher
-                </button>
-            </div>
+                <div class="rounded-md -space-y-px">
+                    {{ form_row(search.q) }}
+                </div>
+                <div>
+                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-700 focus:ring-yellow-500">
+                        Rechercher
+                    </button>
+                </div>
             {{ form_end(search) }}
         </div>
     </div>
 
     {% if word_searched | length > 0 %}
         {% if search_count != 0 %}
-            <section class="text-gray-400 body-font">
-                <div class="container px-5 py-24 pb-12 mx-auto">
-                    <h2 class="font-medium text-gray-200 text-2xl text-center mb-4">{{ search_count }} {% if search_count > 1 %} Résultats {% else %} Résultat {% endif %}</h2>
-                    <h4 class="font-medium text-gray-300 text-lg text-center mb-4">{{ search_shop_count }} {% if search_shop_count > 1 %} Résultats {% else %} Résultat {% endif %} correspondent à des boutiques</h4>
-                    <div class="flex flex-wrap -m-4">
-                        {% include 'shop/shop_skeleton.html.twig' with {'shops': search_shop_results} %}
-                    </div>
+        <section class="text-gray-400 body-font">
+            <div class="container px-5 py-24 pb-12 mx-auto">
+                <h2 class="font-medium text-gray-200 text-2xl text-center mb-4">{{ search_count }} {% if search_count > 1 %} Résultats {% else %} Résultat {% endif %}</h2>
+                <h4 class="font-medium text-gray-300 text-lg text-center mb-4">{{ search_shop_count }} {% if search_shop_count > 1 %} Résultats {% else %} Résultat {% endif %} correspondent à des boutiques</h4>
+                <div class="flex flex-wrap -m-4">
+                    {% include 'shop/shop_skeleton.html.twig' with {'shops': search_shop_results} %}
                 </div>
-            </section>
-            <section class="text-gray-400 body-font">
-                <div class="container px-5 pt-12 py-24 mx-auto">
-                    <h4 class="font-medium text-gray-300 text-lg text-center mb-4">{{ search_product_count }} {% if search_product_count > 1 %} Résultats {% else %} Résultat {% endif %} correspondent à des produits</h4>
-                    <div class="flex flex-wrap -m-4">
-                        {% include 'product/product_skeleton.html.twig' with {'products': search_product_results} %}
-                    </div>
+            </div>
+        </section>
+        <section class="text-gray-400 body-font">
+            <div class="container px-5 pt-12 py-24 mx-auto">
+                <h4 class="font-medium text-gray-300 text-lg text-center mb-4">{{ search_product_count }} {% if search_product_count > 1 %} Résultats {% else %} Résultat {% endif %} correspondent à des produits</h4>
+                <div class="flex flex-wrap -m-4">
+                    {% include 'product/product_skeleton.html.twig' with {'products': search_product_results} %}
                 </div>
-            </section>
+            </div>
+        </section>
         {% else %}
             <div class="d-flex align-items-center flex-column">
                 <h4 class="results-count">Il n’y a aucun résultat pour {{ word_searched }}</h4>
                 <h6 class="results-count">Vérifiez l’orthographe des mots saisis ou complétez-les par un nouveau mot clé</h6>
             </div>
         {% endif %}
-        </div>
+    </div>
     {% endif %}
 {% endblock %}

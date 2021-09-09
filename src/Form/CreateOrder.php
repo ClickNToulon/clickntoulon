@@ -39,7 +39,7 @@ class CreateOrder extends AbstractType
                 'mapped' => true,
                 'required' => true,
                 'attr' => [
-                    'class' => 'fr-input'
+                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md font-medium'
                 ],
                 'widget' => 'single_text',
             ])
