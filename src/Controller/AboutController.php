@@ -24,21 +24,6 @@ class AboutController extends AbstractController
     }
 
     /**
-     * @Route("/notre-equipe", name="about_team")
-     * @param UserRepository $userRepository
-     * @return Response
-     */
-    public function team(UserRepository $userRepository): Response
-    {
-        $user = $this->getUser();
-        $admins = $userRepository->findAdmins();
-        return $this->render('about/team.html.twig', [
-            'admins' => $admins,
-            'user' => $user
-        ]);
-    }
-
-    /**
      * @Route("/conditions", name="about_cgu")
      * @return Response
      */

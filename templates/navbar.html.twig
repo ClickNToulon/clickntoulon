@@ -93,48 +93,44 @@
                         From: "transform opacity-100 scale-100"
                         To: "transform opacity-0 scale-95"
                     -->
-                    <div class="origin-top-right hidden absolute z-50 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white shadow-lg dark:bg-gray-600 ring-1 ring-black ring-opacity-5 focus:outline-none flex items-center flex-col" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" id="user-menu">
+                    <div class="origin-top-right hidden absolute z-50 right-0 mt-2 w-48 rounded-md shadow-lg bg-white shadow-lg dark:bg-gray-600 ring-1 ring-black ring-opacity-5 focus:outline-none flex items-center flex-col" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" id="user-menu">
                         <!-- Active: "bg-gray-100", Not Active: "" -->
                         {% if user is defined and user is not null %}
                             {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('admin') }}" class="block p-2 mb-1 text-sm text-white font-medium bg-green-700 rounded-lg inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-0" target="_blank">
+                                <a href="{{ path('admin') }}" class="block w-full justify-center p-2 text-sm text-white font-medium bg-green-700 inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-0" target="_blank">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                                     </svg>
                                     <span class="ml-0.5">Administration</span>
                                 </a>
-                                <hr class="h-1 w-full text-gray-400">
                             {% endif %}
-                            <a href="{{ path('user_edit') }}" class="block p-2 mb-1 text-sm text-black font-medium bg-yellow-400 rounded-lg inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-0">
+                            <a href="{{ path('user_edit') }}" class="block w-full justify-center p-2 text-sm text-white font-medium bg-gray-700 inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <span class="ml-0.5">Votre profil</span>
                             </a>
-                            <hr class="h-1 w-full text-gray-400">
-                            <a href="{{ path('user_orders') }}" class="block p-2 mb-1 text-sm text-black font-medium bg-yellow-500 rounded-lg inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-0">
+                            <a href="{{ path('user_orders') }}" class="block w-full justify-center p-2 text-sm text-white font-medium bg-gray-700 inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
                                 </svg>
                                 <span class="ml-0.5">Vos commandes</span>
                             </a>
-                            <hr class="h-1 w-full text-gray-400">
-                            <a href="{{ path('app_logout') }}" class="block p-2 text-sm text-white font-medium bg-red-600 rounded-lg inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                            <a href="{{ path('app_logout') }}" class="block w-full justify-center p-2 text-sm text-white font-medium bg-red-600 rounded-b-lg inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                 </svg>
                                 <span class="ml-0.5">Déconnexion</span>
                             </a>
                         {% else %}
-                            <a href="{{ path('app_login') }}" class="block p-2 mb-1 text-sm text-black dark:text-white font-medium bg-green-600 rounded-lg inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                            <a href="{{ path('app_login') }}" class="block w-full justify-center p-2 text-sm text-black dark:text-white font-medium bg-green-600 rounded-t-lg inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                                 </svg>
                                 <span class="ml-0.5">Connexion</span>
                             </a>
-                            <hr class="h-1 w-full text-gray-400">
-                            <a href="{{ path('app_signup') }}" class="block p-2 text-sm text-black font-medium bg-yellow-400 rounded-lg inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-0">
+                            <a href="{{ path('app_signup') }}" class="block w-full justify-center p-2 text-sm text-black font-medium bg-yellow-400 rounded-b-lg inline-flex items-center" role="menuitem" tabindex="-1" id="user-menu-item-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                                 </svg>

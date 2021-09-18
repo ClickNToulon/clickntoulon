@@ -3,24 +3,33 @@
         <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-t-xl overflow-hidden group-hover:opacity-70 lg:h-80 lg:aspect-none">
             <img src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
         </div>
-        <div class="p-4 flex justify-between">
+        <div class="p-4 flex justify-between w-full">
             <div>
-                <h3 class="text-lg font-medium text-black dark:text-white">
-                    <a href="{{ path('product_show', {'id': product.id}) }}">
-                        <span aria-hidden="true" class="absolute inset-0"></span>
-                        {{ product.name }}
-                    </a>
-                </h3>
-                <p class="mt-1 text-sm text-gray-700 dark:text-gray-200">{{ product.description | u.truncate(100, '...', false) }}</p>
-            </div>
-            <div>
-                <p class="{% if product.dealprice is not null %}text-red-600 font-bold{% else %}font-medium text-black dark:text-white {% endif %}">
-                    {% if product.dealprice is not null %}
-                        {{ product.dealprice | format_currency('EUR') }}
-                    {% else %}
-                        {{ product.price | format_currency('EUR') }}
-                    {% endif %}
-                </p>
+                <div class="flex justify-between flex-col sm:flex-row">
+                    <h3 class="text-lg font-medium text-black dark:text-white">
+                        <a href="{{ path('product_show', {'id': product.id}) }}">
+                            <span aria-hidden="true" class="absolute inset-0"></span>
+                            {{ product.name }}
+                        </a>
+                    </h3>
+                    <div>
+                        {% if product.dealprice != null %}
+                            <div class="inline-flex flex-row space-x-2">
+                                <h1 class="font-medium text-black dark:text-white text-base line-through">
+                                    {{ product.price | format_currency('EUR') }}
+                                </h1>
+                                <h1 class="font-bold text-red-600 dark:text-red-500 text-base">
+                                    {{ product.dealprice | format_currency('EUR') }}
+                                </h1>
+                            </div>
+                        {% else %}
+                            <h1 class="font-medium text-black dark:text-white text-base">
+                                {{ product.price | format_currency('EUR') }}
+                            </h1>
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="mt-1 text-sm text-gray-700 dark:text-gray-200 w-full">{{ product.description | u.truncate(100, '...', false) }}</p>
             </div>
         </div>
     </div>

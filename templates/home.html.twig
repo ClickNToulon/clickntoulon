@@ -4,7 +4,7 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'home'} %}
-    <div class="bg-yellow-700 rounded-2xl m-2" id="banner">
+    {#<div class="bg-yellow-700 rounded-2xl m-2" id="banner">
         <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between flex-wrap">
                 <div class="w-0 flex-1 flex items-center">
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>#}
     {% if user is defined and user == null %}
         <div class="relative bg-white overflow-hidden dark:bg-gray-700 mx-2 rounded-2xl">
             <div class="max-w-7xl h-full mx-auto">

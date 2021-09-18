@@ -55,3 +55,7 @@
 .shop-choose-form {
   @apply max-w-xl w-full mx-auto
 }
+
+#user-menu a:first-of-type {
+  @apply rounded-t-lg;
+}
