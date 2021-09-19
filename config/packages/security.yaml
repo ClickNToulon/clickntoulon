@@ -22,7 +22,7 @@ services:
             $localFactory: '@limiter.username_ip_login'
 security:
     enable_authenticator_manager: true
-    encoders:
+    password_hashers:
         App\Entity\User:
             algorithm: bcrypt
 
