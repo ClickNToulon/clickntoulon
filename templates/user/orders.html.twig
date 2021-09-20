@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Mes commandes - TouSolidaires' %}
+{% block title 'Mes commandes - ClickNToulon' %}
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'user'} %}
@@ -87,79 +87,5 @@
             </div>
         </div>
     </section>
-    {# <div class="col-12 col-md-9">
-                    {% if orders is not null %}
-                        {% for order in orders %}
-                            {% for shop in shops %}
-                                {% if shop.id == order.shopid %}
-                                    <div class="fr-card fr-enlarge-link fr-card--orders mb-5">
-                                        <div class="fr-card__body">
-                                            <h4 class="fr-card__title">
-                                                <a href="{{ path('user_order', {id: order.id}) }}"
-                                                   class="fr-card__link">Commande n°{{ order.id }}</a>
-                                            </h4>
-                                            <div class="fr-card__desc order-desc">
-                                                <div class="order-info">
-                                                    <h4 class="order-shop-title">{{ shop.name }}</h4>
-                                                    <p class="card-text order-address mb-1"><i class="bi-geo"></i>
-                                                        Adresse
-                                                        : {{ shop.address }} {{ shop.postalcode }} {{ shop.city }}</p>
-                                                    {% set splitArray = shop.phone|split('', 1) %}
-                                                    {% set first = splitArray|first %}
-                                                    {% set firstArray =  [0, first] | join('') %}
-                                                    {% set splitArray = splitArray|slice(1) %}
-                                                    {% set splitArray = splitArray|join('') %}
-                                                    {% set lastArray = [firstArray, splitArray] |join('') %}
-                                                    {% set finalSplit = lastArray|split('', 2) %}
-                                                    {% set formattedString = finalSplit|join(' ') %}
-                                                    <p class="card-text mb-3"><i class="bi-telephone"></i> Téléphone
-                                                        : {{ formattedString }}</p>
-                                                </div>
-                                                {% if order.timebegin != null and order.timeend != null %}
-                                                    <p class="card-text mb-0"><i class="bi-calendar3"></i> Date de
-                                                        retrait : {{ order.day | format_date(locale="fr") }}</p>
-                                                    <p class="card-text"><i class="bi-clock"></i> Horaire de retrait :
-                                                        {{ order.timeBegin | format_time('short',pattern="HH'h'mm", locale='fr') }}
-                                                        - {{ order.timeEnd | format_time('short',pattern="HH'h'mm", locale='fr') }}
-                                                    </p>
-                                                {% elseif order.status == 0 %}
-                                                    <p class="card-text">La date et le créneau de retrait vous seront
-                                                        communiqués une fois la commande validée par le commerçant.</p>
-                                                {% else %}
-                                                    <p class="card-text">La date et le créneau de retrait vous ont été
-                                                        communiqués par un autre moyen par le commerçant.</p>
-                                                {% endif %}
-                                            </div>
-                                            <li class="list-group-item border-0 p-0 m-0 orders-total">
-                                                <span class="text-black">Total (Euro) :</span>
-                                                <strong class="font-weight-bolder">{{ order.total | number_format(2,',',' ') }}
-                                                    €</strong>
-                                            </li>
-                                            <ul class="list-unstyled multi-steps mb-2">
-                                                <li class="{% if order.status != 5 %}is-active orders-active{% else %}orders-active-end{% endif %}">
-                                                    {% if order.status == 0 %}
-                                                        Commande en attente de validation par le commerçant
-                                                    {% elseif order.status == 1 %}
-                                                        Commande en cours de préparation
-                                                    {% elseif order.status == 2 %}
-                                                        Commande prête
-                                                    {% elseif order.status == 3 or order.status == 4 %}
-                                                        Commande récupérée
-                                                    {% endif %}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-                        {% endfor %}
-                    {% else %}
-                        <h4>Pas de commandes récentes</h4>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        </div>
-    </main> #}
     {% include 'footer.html.twig' %}
 {% endblock %}

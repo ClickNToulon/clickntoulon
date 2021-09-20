@@ -25,6 +25,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 class UserController extends AbstractController
 {
@@ -93,6 +96,7 @@ class UserController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @param OrderRepository $orderRepository
      * @param ShopRepository $shopRepository
+     * @param ProductRepository $productRepository
      * @return Response
      */
     public function orders(OrderRepository $orderRepository, ShopRepository $shopRepository, ProductRepository $productRepository): Response
@@ -104,13 +108,12 @@ class UserController extends AbstractController
         foreach ($orders as $key => $value) {
             $products_id[$value->getId()] = $value->getProductsId();
             foreach ($products_id as $key2 => $value2) {
-                if(preg_match('/\b,\b/', $value2)) {
+                if(str_contains($value2, ',') == true) {
                     $value3 = [];
-                    $value3[] = explode(',', $value2);
-                    foreach ($value3 as $key4[0] => $value4) {
-                        foreach ($value4 as $value5) {
-                            $products[$value->getId()][] = $productRepository->find($value5);
-                        }
+                    $value3 = explode(',', $value2);
+                    $products[$value->getId()] = [];
+                    foreach ($value3 as $key4 => $value4) {
+                        $products[$value->getId()][] = $productRepository->find($value4);
                     }
                 } else {
                     $products[$value->getId()] = $productRepository->find($value2);

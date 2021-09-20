@@ -1,3 +1,3 @@
-# TouSolidaires avec Symfony
+# ClickNToulon avec Symfony
 
-Ce repository servira de base pour transférer TouSolidaires vers Symfony.
+Ce repository servira de base pour transférer ClickNToulon vers Symfony.

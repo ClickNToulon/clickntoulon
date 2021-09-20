@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Ma boutique - TouSolidaires' %}
+{% block title 'Ma boutique - ClickNToulon' %}
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
@@ -26,10 +26,7 @@
                                         Nom client
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black dark:text-white uppercase tracking-wider">
-                                        ID Produits
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black dark:text-white uppercase tracking-wider">
-                                        Quantités
+                                        Détail de la commande
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black dark:text-white uppercase tracking-wider">
                                         Status
@@ -58,11 +55,88 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-black dark:text-white">
-                                        {{ products_id[order.id] }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-black dark:text-white">
-                                        {{ quantities[order.id] }}
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <a class="cursor-pointer text-black px-3 py-2 bg-yellow-400 rounded-lg mr-2 font-medium" onclick="openModal('detailsModal{{ order.id }}')">Détail de la commande</a>
+                                        <div class="hidden z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" id="detailsModal{{ order.id }}" role="dialog" aria-modal="true">
+                                            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                                                <!-- Background overlay, show/hide based on modal state. -->
+                                                <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                                <!-- This element is to trick the browser into centering the modal contents. -->
+                                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                                                <!-- Modal panel, show/hide based on modal state. -->
+                                                <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-7xl sm:w-full">
+                                                    <div>
+                                                        <div class="bg-white dark:bg-gray-700 px-4 pt-4 pb-4 sm:p-6 sm:pb-4">
+                                                            <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between shadow dark:shadow-none dark:bg-gray-800 rounded-t-lg">
+                                                                <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
+                                                                    <div class="col-span-1 flex flex-col">
+                                                                        <h3 class="font-medium text-sm text-black dark:text-white">N° de commande</h3>
+                                                                        <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{{ order.number }}</p>
+                                                                    </div>
+                                                                    <div class="col-span-1 flex flex-col">
+                                                                        <h3 class="font-medium text-sm text-black dark:text-white">Date</h3>
+                                                                        <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{{ order.day | format_date(locale='fr') }}</p>
+                                                                    </div>
+                                                                    <div class="col-span-1 flex flex-col">
+                                                                        <h3 class="font-medium text-sm text-black dark:text-white">Total</h3>
+                                                                        <p class="font-bold text-sm mt-1 text-gray-700 dark:text-gray-100">{{ order.total | format_currency('EUR') }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {% if products[order.id] is iterable %}
+                                                                {% set i = 0 %}
+                                                                {% set order_quantities = quantities[order.id] | split(',') %}
+                                                                {% for product in products[order.id] %}
+                                                                    <div class="border-t border-gray-200 dark:border-white px-4 py-5 sm:px-6 space-y-6 max-w-full shadow dark:shadow-none dark:bg-gray-800 order_details_panel">
+                                                                        <div class="flex sm:flex-row flex-col">
+                                                                            <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
+                                                                                <img class="rounded" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
+                                                                            </div>
+                                                                            <div class="flex flex-col px-4 max-w-full">
+                                                                                <div class="flex flex-row justify-between mb-2">
+                                                                                    <h1 class="font-medium text-black dark:text-white text-lg">{{ product.name }} (x{{ order_quantities[i] }})</h1>
+                                                                                    <h1 class="font-medium text-black dark:text-white text-base">{{ product.price | format_currency('EUR') }}</h1>
+                                                                                    {% set i = i + 1 %}
+                                                                                </div>
+                                                                                <div class="h-full relative max-w-full">
+                                                                                    <p class="text-base text-black dark:text-white max-w-full w-full">
+                                                                                        {{ product.description | u.truncate(150, '...') }}
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 shadow dark:shadow-none dark:bg-gray-800 rounded-b-lg">
+                                                                    <div class="flex flex-row">
+                                                                        <div class="w-1/3">
+                                                                            <img class="rounded" src="{{ asset('uploads/products/' ~ products[order.id].images[0]) }}" alt="">
+                                                                        </div>
+                                                                        <div class="flex flex-col px-4">
+                                                                            <div class="flex flex-row justify-between mb-2">
+                                                                                <h1 class="font-medium text-black dark:text-white text-lg">{{ products[order.id].name }}  (x{{ order.quantity }})</h1>
+                                                                                <h1 class="font-medium text-black dark:text-white text-base">{{ products[order.id].price | format_currency('EUR') }}</h1>
+                                                                            </div>
+                                                                            <div class="h-full relative">
+                                                                                <p class="text-base text-black dark:text-white">
+                                                                                    {{ products[order.id].description | u.truncate(150, '...') }}
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                            <button class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('detailsModal{{ order.id }}')">
+                                                                Fermer les détails
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-black dark:text-white">
                                         {% if order.status == 0 %}

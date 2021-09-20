@@ -11,7 +11,6 @@ use App\Entity\User;
 use App\Form\CategoryType;
 use App\Form\ChooseShop;
 use App\Form\DeleteCategory;
-use App\Form\DeleteProductForm;
 use App\Form\ProductType;
 use App\Form\ShopDeleteForm;
 use App\Form\ShopTimeTableUpdate;
@@ -70,7 +69,7 @@ class SellerController extends AbstractController
      * @return Response
      * @throws Exception
      */
-    public function index(Shop $shop, OrderRepository $orderRepository, UserRepository $userRepository, Request $request): Response
+    public function index(Shop $shop, OrderRepository $orderRepository, UserRepository $userRepository, ProductRepository $productRepository, Request $request): Response
     {
         $user = $this->getUser();
         if($user instanceof User) {
@@ -85,10 +84,23 @@ class SellerController extends AbstractController
         $orders_buyers = [];
         $quantities = [];
         $products_id = [];
+        $products = [];
         foreach ($orders as $key => $value) {
             $orders_buyers[$value->getId()] = $userRepository->find($value->getBuyerId());
             $quantities[$value->getId()] = $value->getQuantity();
             $products_id[$value->getId()] = $value->getProductsId();
+            foreach ($products_id as $key2 => $value2) {
+                if(str_contains($value2, ',') == true) {
+                    $value3 = [];
+                    $value3 = explode(',', $value2);
+                    $products[$value->getId()] = [];
+                    foreach ($value3 as $key4 => $value4) {
+                        $products[$value->getId()][] = $productRepository->find($value4);
+                    }
+                } else {
+                    $products[$value->getId()] = $productRepository->find($value2);
+                }
+            }
         }
         $total_orders = count($orders);
         return $this->render('seller/index.html.twig', [
@@ -98,7 +110,7 @@ class SellerController extends AbstractController
             'orders_buyers' => $orders_buyers,
             'total_orders' => $total_orders,
             'quantities' => $quantities,
-            'products_id' => $products_id,
+            'products' => $products
         ]);
     }
 

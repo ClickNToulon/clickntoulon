@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Les produits - TouSolidaires' %}
+{% block title 'Les produits - ClickNToulon' %}
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'product'} %}
@@ -11,7 +11,7 @@
                     {% include 'product/product_skeleton.html.twig' with {'products': products} %}
                 {% else %}
                     <h1 class="text-center col-span-1 sm:col-span-2 lg:col-span-4 w-full text-black dark:text-white font-medium text-3xl">
-                        Aucun produit de la boutique à afficher pour le moment
+                        Aucun produit à afficher pour le moment
                     </h1>
                 {% endif %}
             </div>

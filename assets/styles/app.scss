@@ -59,3 +59,7 @@
 #user-menu a:first-of-type {
   @apply rounded-t-lg;
 }
+
+.order_details_panel:last-of-type {
+  @apply rounded-b-lg;
+}
