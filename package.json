@@ -27,9 +27,9 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "name": "tousolidaires",
+    "name": "clickntoulon",
     "version": "1.0.0",
     "main": "index.js",
-    "repository": "https://github.com/qbtl/tousolidaires-symfony.git",
+    "repository": "https://github.com/ClickNToulon/clickntoulon.git",
     "author": "Corentin THIBAUD <corentin.thibaud@isen.yncrea.fr>"
 }
