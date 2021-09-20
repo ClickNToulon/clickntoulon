@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -51,13 +52,13 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="app_signup")
      * @param Request $request
-     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param UserPasswordHasherInterface $passwordEncoder
      * @param EntityManagerInterface $em
      * @param MailerInterface $mailer
      * @return RedirectResponse|Response
      * @throws LoaderError
      */
-    public function signUp(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em, MailerInterface $mailer)
+    public function signUp(Request $request, UserPasswordHasherInterface $passwordEncoder, EntityManagerInterface $em, MailerInterface $mailer)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
@@ -68,7 +69,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
+                $user->setPassword($passwordEncoder->hashPassword($user, $user->getPassword()));
                 $em->persist($user);
                 $em->flush();
                 $title = "Veuillez vérifier votre compte chez TouSolidaires";

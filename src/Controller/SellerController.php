@@ -65,9 +65,9 @@ class SellerController extends AbstractController
      * @param Shop $shop
      * @param OrderRepository $orderRepository
      * @param UserRepository $userRepository
+     * @param ProductRepository $productRepository
      * @param Request $request
      * @return Response
-     * @throws Exception
      */
     public function index(Shop $shop, OrderRepository $orderRepository, UserRepository $userRepository, ProductRepository $productRepository, Request $request): Response
     {

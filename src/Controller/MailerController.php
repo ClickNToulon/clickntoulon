@@ -39,9 +39,9 @@ class MailerController extends AbstractController
         $twigBodyRenderer = new BodyRenderer($twig);
 
         $email = (new TemplatedEmail())
-            ->from(new Address("donotreply.tousolidaires@gmail.com", "TouSolidaires"))
+            ->from(new Address("clickntoulon@yncrea.fr", "ClickNToulon"))
             ->to(new Address($to))
-            ->replyTo(new Address('tousolidaires@yncrea.fr', "TouSolidaires"))
+            ->replyTo(new Address('clickntoulon@yncrea.fr', "ClickNToulon"))
             ->subject($subject)
             ->htmlTemplate('emails/' . $template . '.html.twig')
             ->context([

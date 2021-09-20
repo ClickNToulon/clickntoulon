@@ -13,9 +13,7 @@
                         Inscrit depuis le {{ user.createdAt | format_datetime('short', 'none', locale='fr') }}
                     </span>
                 </h4>
-                {% if is_granted('ROLE_MERCHANT') %}
-                    <a href="{{ path('seller_create') }}"><button class="px-4 py-2 bg-green-700 text-white rounded-2xl font-medium">Créer votre boutique</button></a>
-                {% endif %}
+                <a href="{{ path('seller_create') }}"><button class="px-4 py-2 bg-green-700 text-white rounded-2xl font-medium">Créer votre boutique</button></a>
             </div>
         </div>
     </div>
