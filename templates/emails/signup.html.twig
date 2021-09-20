@@ -3,9 +3,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width">
         <title>{{ email.subject }}</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     </head>
     <body>
         <img src="{{ email.image('@images/logo.jpg') }}" class="text-center mx-auto" alt="Logo ClickNToulon" width="150" height="150">
