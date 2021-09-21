@@ -32,7 +32,7 @@ class MailerController extends AbstractController
         }
         $loader = new FilesystemLoader(__DIR__.'/../../templates/');
         $loader->addPath(__DIR__.'/../../public/images', 'images');
-        $loader->addPath(__DIR__.'/../../public/css', 'css');
+        $loader->addPath(__DIR__.'/../../public/build', 'css');
         $twig = new TwigEnvironment($loader);
         $twig->addExtension(new CssInlinerExtension());
 

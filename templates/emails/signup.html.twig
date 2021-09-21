@@ -3,18 +3,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width">
         <title>{{ email.subject }}</title>
-        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        <link rel="stylesheet" href="/public/build/app.css">
     </head>
     <body>
+        {% apply inline_css('@css/app.css') %}
         <img src="{{ email.image('@images/logo.jpg') }}" class="text-center mx-auto" alt="Logo ClickNToulon" width="150" height="150">
         <p class="text-black dark:text-white text-lg font-medium">Bonjour {{ name }} !</p>
         <br>
         <p class="text-black dark:text-white text-base">Votre compte a bien été créé sur la plateforme ClickNToulon. Pour y accéder, vous devez valider cette adresse mail. Nous vous invitons à le faire en cliquant sur le bouton ci-dessous ou en copiant le lien pour vous y rendre depuis votre navigateur.</p>
         <br>
-        <a href="{{ path('app_verify_email', {id: id}) }}" class="px-3 py-2 bg-yellow-500 text-black">Valider mon adresse mail</a>
+        <a href="https://tousolidaires.prinv.isen.fr/verifier/profil/{{ id }}" class="px-3 py-2 bg-yellow-500 text-black">Valider mon adresse mail</a>
         <br>
         <p class="text-black dark:text-white text-base">Voici le lien à coller dans votre navigateur:</p>
-        <p class="text-black dark:text-white text-base">{{ path('app_verify_email', {id: id}) }}</p>
+        <p class="text-black dark:text-white text-base">https://tousolidaires.prinv.isen.fr/verifier/profil/{{ id }}</p>
         <br>
         <p class="text-black dark:text-white text-sm">Solidairement,</p>
         <p class="text-black dark:text-white text-sm">L'équipe ClickNToulon</p>
