@@ -4,8 +4,8 @@
             <img src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="" class="w-full h-full object-center object-cover lg:w-full lg:h-full">
         </div>
         <div class="p-4 flex justify-between w-full">
-            <div>
-                <div class="flex justify-between flex-col sm:flex-row">
+            <div class="w-full">
+                <div class="flex justify-between flex-col sm:flex-row w-full">
                     <h3 class="text-lg font-medium text-black dark:text-white">
                         <a href="{{ path('product_show', {'id': product.id}) }}">
                             <span aria-hidden="true" class="absolute inset-0"></span>

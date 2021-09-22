@@ -434,8 +434,8 @@
                         </table>
                     </div>
                     {% else %}
-                        <h1 class="text-center text-3xl py-10 px-2 mx-auto font-medium text-black dark:text-white">
-                            Vous n'avez pas de commandes en cours.
+                        <h1 class="text-center text-3xl py-10 px-2 mx-auto font-medium text-black dark:text-white sm:containe">
+                            Vous n'avez pas de commandes en cours
                         </h1>
                     {% endif %}
                 </div>
@@ -448,5 +448,11 @@
             document.getElementById(modalID).classList.toggle('fixed')
         }
     </script>
-    {% include 'footer.html.twig' %}
+    {% if orders != null %}
+        {% include 'footer.html.twig' %}
+    {% else %}
+        <div class="sm:absolute sm:bottom-0 w-full">
+            {% include 'footer.html.twig' %}
+        </div>
+    {% endif %}
 {% endblock %}

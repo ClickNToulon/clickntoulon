@@ -195,8 +195,8 @@
                             </table>
                         </div>
                     {% else %}
-                        <h1 class="text-center text-3xl py-3 px-2 mx-auto font-medium text-black dark:text-white">
-                            Vous n'avez pas de produits. Vous pouvez en rajouter d&egrave;s maintenant.
+                        <h1 class="text-center text-3xl py-3 px-2 mx-auto font-medium text-black dark:text-white sm:container">
+                            Vous n'avez pas de produits mais vous pouvez en ajouter d&egrave;s maintenant
                         </h1>
                     {% endif %}
                 </div>
@@ -209,5 +209,11 @@
             document.getElementById(modalID).classList.toggle('fixed')
         }
     </script>
-    {% include 'footer.html.twig' %}
+    {% if products != null %}
+        {% include 'footer.html.twig' %}
+    {% else %}
+        <div class="sm:absolute sm:bottom-0 w-full">
+            {% include 'footer.html.twig' %}
+        </div>
+    {% endif %}
 {% endblock %}

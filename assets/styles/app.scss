@@ -63,3 +63,7 @@
 .order_details_panel:last-of-type {
   @apply rounded-b-lg;
 }
+
+.h-screen-custom {
+  height: calc(100vh - 192px) !important;
+}
