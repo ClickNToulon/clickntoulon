@@ -97,40 +97,50 @@ class BuyerController extends AbstractController
         $data = $request->request->all();
         $data = $data['add_product_basket'];
         $done = false;
-        foreach ($baskets as $b) {
-            if ($done != true) {
-                if ($b->getShopId() == $data['shop_id']) {
-                    $b->setOwnerId($user->getId());
-                    $products = explode(",", $b->getProductsId());
-                    $quantity = explode(",", $b->getQuantity());
-                    $limit = count($products);
-                    for ($i = 0; $i < $limit; $i++) {
-                        if ($products[$i] == $data['products_id']) {
-                            $done = true;
-                            $quantity[$i] = $data['quantity'];
+        if($baskets !== []) {
+            foreach ($baskets as $b) {
+                if ($done != true) {
+                    if ($b->getShopId() == $data['shop_id']) {
+                        $b->setOwnerId($user->getId());
+                        $products = explode(",", $b->getProductsId());
+                        $quantity = explode(",", $b->getQuantity());
+                        $limit = count($products);
+                        for ($i = 0; $i < $limit; $i++) {
+                            if ($products[$i] == $data['products_id']) {
+                                $done = true;
+                                $quantity[$i] = $data['quantity'];
+                            }
                         }
+                        if ($done != true) {
+                            array_push($products, $data['products_id']);
+                            array_push($quantity, $data['quantity']);
+                            $done = true;
+                        }
+                        $b->setProductsId(implode(",", $products));
+                        $b->setQuantity(implode(",", $quantity));
+                        $this->em->persist($b);
+                        $this->em->flush();
                     }
-                    if ($done != true) {
-                        array_push($products, $data['products_id']);
-                        array_push($quantity, $data['quantity']);
-                        $done = true;
-                    }
-                    $b->setProductsId(implode(",", $products));
-                    $b->setQuantity(implode(",", $quantity));
-                    $this->em->persist($b);
+                }
+                if($done != true) {
+                    dump($data);
+                    $basket  = new Basket();
+                    $basket->setQuantity($data['quantity'])
+                        ->setProductsId($data['products_id'])
+                        ->setOwnerId($user->getId())
+                        ->setShopId($data['shop_id']);
+                    $this->em->persist($basket);
                     $this->em->flush();
                 }
             }
-            if($done != true) {
-                dump($data);
-                $basket  = new Basket();
-                $basket->setQuantity($data['quantity'])
-                    ->setProductsId($data['products_id'])
-                    ->setOwnerId($user->getId())
-                    ->setShopId($data['shop_id']);
-                $this->em->persist($basket);
-                $this->em->flush();
-            }
+        } else {
+            $basket  = new Basket();
+            $basket->setQuantity($data['quantity'])
+                ->setProductsId($data['products_id'])
+                ->setOwnerId($user->getId())
+                ->setShopId($data['shop_id']);
+            $this->em->persist($basket);
+            $this->em->flush();
         }
         return $this->redirectToRoute('basket_index');
     }

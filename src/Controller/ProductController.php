@@ -67,7 +67,6 @@ class ProductController extends AbstractController
             $request->query->getInt('page', 1),
             12
         );
-        dump($products);
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'user' => $user

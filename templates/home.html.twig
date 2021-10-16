@@ -73,8 +73,8 @@
                     </main>
                 </div>
             </div>
-            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-                <img class="h-56 w-full sm:h-72 md:h-96 lg:h-full lg:w-1/2 mx-auto rounded-t-2xl lg:rounded-none" src="{{ asset('images/logo-home.svg') }}" id="home-logo" alt="">
+            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex justify-center items-center">
+                <img class="h-56 w-full sm:h-72 md:h-96 mx-auto lg:w-1/2 rounded-t-2xl lg:rounded-none" src="{{ asset('images/clickntoulon.svg') }}" id="home-logo" alt="">
             </div>
         </div>
     {% else %}
@@ -104,8 +104,8 @@
                     </main>
                 </div>
             </div>
-            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-                <img class="h-56 w-full sm:h-72 md:h-96 lg:h-full lg:w-1/2 mx-auto rounded-t-2xl lg:rounded-none" src="{{ asset('images/logo-home.svg') }}" id="home-logo" alt="">
+            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex justify-center items-center">
+                <img class="h-56 w-full sm:h-72 md:h-96 lg:w-1/2 mx-auto rounded-t-2xl lg:rounded-none" src="{{ asset('images/clickntoulon.svg') }}" id="home-logo" alt="">
             </div>
         </div>
     {% endif %}
@@ -135,12 +135,6 @@
     <script>
         function closeBanner(bannerID) {
             document.getElementById(bannerID).classList.add('hidden');
-        }
-
-        const userPrefersDark2 = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        if(userPrefersDark2){
-            document.getElementById('home-logo').attributes.getNamedItem('src').value = "{{ asset('images/logo.svg') }}";
         }
     </script>
     {% include('footer.html.twig') %}
