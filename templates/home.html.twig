@@ -109,15 +109,23 @@
             </div>
         </div>
     {% endif %}
+    {% if products is defined and products != [] and shops is defined and shops != [] %}
     <section class="text-gray-400 body-font">
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-wrap -m-4">
-                {% include 'shop/shop_skeleton.html.twig' with {'shops': shops} %}
+                {% if shops is defined and shops != [] %}
+                    {% include 'shop/shop_skeleton.html.twig' with {'shops': shops} %}
+                {% else %}
+                    <div class="sm:container px-5 py-5 mx-auto">
+                        <h1 class="text-black dark:text-white font-medium text-4xl text-center">Aucune boutique présente sur ClickNToulon actuellement...</h1>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </section>
     <section class="text-gray-400 body-font">
         <div class="container px-5 py-24 mx-auto">
+            {% if products is defined and products != [] %}
             <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                 {% include 'product/product_skeleton.html.twig' with {'products': products} %}
             </div>
@@ -130,12 +138,29 @@
                     </svg>
                 </a>
             </div>
+            {% else %}
+                <div class="sm:container px-5 py-5 mx-auto">
+                    <h1 class="text-black dark:text-white font-medium text-4xl text-center">Aucun produit disponible sur ClickNToulon actuellement...</h1>
+                </div>
+            {% endif %}
         </div>
     </section>
+    {% include('footer.html.twig') %}
+    {% else %}
+        <section class="text-gray-400 body-font">
+            <div class="container px-5 py-24 mx-auto">
+                <div class="sm:container px-5 py-5 mx-auto">
+                    <h1 class="text-black dark:text-white font-medium text-4xl text-center">Aucun produit ni aucune boutique disponible sur ClickNToulon actuellement...</h1>
+                </div>
+            </div>
+        </section>
+        <div class="absolute bottom-0 w-full">
+            {% include 'footer.html.twig' %}
+        </div>
+    {% endif %}
     <script>
         function closeBanner(bannerID) {
             document.getElementById(bannerID).classList.add('hidden');
         }
     </script>
-    {% include('footer.html.twig') %}
 {% endblock %}
