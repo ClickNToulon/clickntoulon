@@ -5,7 +5,7 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'shop'} %}
     {% if shops.items != null %}
-        <section class="text-gray-400 body-font">
+        <section class="text-gray-400 body-font realtive">
             <div class="container px-5 py-24 mx-auto">
                 <div class="flex flex-wrap -m-4">
                     {% include 'shop/shop_skeleton.html.twig' with {'shops': shops} %}

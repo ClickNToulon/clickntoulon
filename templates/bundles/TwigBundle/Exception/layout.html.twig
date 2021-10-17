@@ -3,51 +3,31 @@
 <head>
     <meta charset="utf-8" />
     <meta name="robots" content="noindex,nofollow,noarchive" />
-    <title>An Error Occurred: {% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="/css/error.css">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="icon" href="{{ asset('images/logo.svg') }}">
-    <style>
-        section.section-border {
-            height: 100vh !important;
-        }
-
-        section .container {
-            margin: 0 300px !important;
-        }
-    </style>
+    <title>Une erreur est survenue : {% block title %}{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_css_files('app') }}
+    {% endblock %}
+    <link rel="icon" href="{{ asset('images/clickntoulon.svg') }}">
 </head>
 <body>
-    <section class="section-border border-primary h-100">
-        <div class="container d-flex flex-column h-100">
-            <div class="row align-items-center justify-content-center gx-0 h-100">
-                <div class="col-12 col-md-5 col-lg-4 py-8 py-md-11">
-
-                    <!-- Heading -->
-                    <h1 class="display-3 fw-bold text-center">
-                        Uh Oh.
-                    </h1>
-
-                    <h4 class="mb-5 text-center text-black">
-                        {% block error %}{% endblock %}
-                    </h4>
-
-                    <!-- Text -->
-                    <p class="mb-5 text-center text-muted">
-                        Nous avons rencontré une erreur, mais nous allons nous en occuper
-                    </p>
-
-                    <!-- Link -->
-                    <div class="text-center">
-                        <a class="btn btn-home" href="{{ path('home') }}">
-                            Retour en sécurité
-                        </a>
-                    </div>
-
-                </div>
-            </div> <!-- / .row -->
-        </div> <!-- / .container -->
+    <section class="w-100 min-h-screen bg-white dark:bg-gray-700">
+        <div class="container flex flex-col items-center justify-center px-5 py-5">
+            <!-- Heading -->
+            <h1 class="text-center text-2xl text-black dark:text-white">
+                Uh Oh.
+            </h1>
+            <h4 class="mb-5 text-center text-base text-black dark:text-white">
+                {% block error %}{% endblock %}
+            </h4>
+            <!-- Text -->
+            <p class="mb-5 text-center text-base text-black dark:text-white">
+                Nous avons rencontré une erreur, mais nous allons nous en occuper
+            </p>
+            <!-- Link -->
+            <a class="btn btn-home" href="{{ path('home') }}">
+                Retour en sécurité
+            </a>
+        </div>
     </section>
 </body>
 </html>

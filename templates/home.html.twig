@@ -73,7 +73,7 @@
                     </main>
                 </div>
             </div>
-            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex justify-center items-center">
+            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex justify-center items-center relative">
                 <img class="h-56 w-full sm:h-72 md:h-96 mx-auto lg:w-1/2 rounded-t-2xl lg:rounded-none" src="{{ asset('images/clickntoulon.svg') }}" id="home-logo" alt="">
             </div>
         </div>
@@ -109,7 +109,6 @@
             </div>
         </div>
     {% endif %}
-    {% if products is defined and products != [] and shops is defined and shops != [] %}
     <section class="text-gray-400 body-font">
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-wrap -m-4">
@@ -146,21 +145,9 @@
         </div>
     </section>
     {% include('footer.html.twig') %}
-    {% else %}
-        <section class="text-gray-400 body-font">
-            <div class="container px-5 py-24 mx-auto">
-                <div class="sm:container px-5 py-5 mx-auto">
-                    <h1 class="text-black dark:text-white font-medium text-4xl text-center">Aucun produit ni aucune boutique disponible sur ClickNToulon actuellement...</h1>
-                </div>
-            </div>
-        </section>
-        <div class="absolute bottom-0 w-full">
-            {% include 'footer.html.twig' %}
-        </div>
-    {% endif %}
-    <script>
+    {#<script>
         function closeBanner(bannerID) {
             document.getElementById(bannerID).classList.add('hidden');
         }
-    </script>
+    </script>#}
 {% endblock %}
