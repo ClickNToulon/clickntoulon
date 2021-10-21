@@ -420,7 +420,7 @@ class SellerController extends AbstractController
 
                 }
 
-                $product->setImage($newFilename);
+                $product->setImages([$newFilename]);
             }
             $this->em->persist($product);
             $this->em->flush();
