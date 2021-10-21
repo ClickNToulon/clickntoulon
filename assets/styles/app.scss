@@ -7,6 +7,25 @@
 
 @import "~tailwindcss/utilities";
 
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+* {
+  font-family: 'Lato', sans-serif !important;
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html::-webkit-scrollbar-thumb {
+  @apply bg-yellow-500;
+}
+
+html::-webkit-scrollbar-track {
+  @apply bg-white dark:bg-gray-700;
+}
+
 .tab {
   @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-black dark:text-white font-medium rounded-xl mx-1 my-0.5;
 

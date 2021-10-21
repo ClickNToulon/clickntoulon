@@ -79,7 +79,7 @@
                 <!-- Profile dropdown -->
                 <div class="relative">
                     <div>
-                        <button type="button" class="bg-white dark:bg-gray-400 flex text-sm rounded-full focus:outline-none ring-2 ring-offset-2 ring-offset-white dark:ring-offset-gray-800 {% if user is not null and is_granted('ROLE_ADMIN') %}ring-yellow-400{% elseif user is not null and is_granted('ROLE_MERCHANT') %}ring-blue-600{% else %}ring-white{% endif %}" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onclick="openDropdown('user-menu')">
+                        <button type="button" class="bg-white dark:bg-gray-400 flex text-sm rounded-full focus:outline-none ring-2 ring-offset-2 ring-offset-white dark:ring-offset-gray-800 {% if user is not null and is_granted('ROLE_ADMIN') %}ring-yellow-400{% elseif user is not null and is_granted('ROLE_MERCHANT') %}ring-blue-600{% else %}ring-gray-600 dark:ring-white{% endif %}" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onclick="openDropdown('user-menu')">
                             <span class="sr-only">Open user menu</span>
                             <img class="h-8 w-8 rounded-full" src="{% if user is not null and user.avatar != null and user.avatar != "" %}{{ asset('uploads/users/' ~ user.avatar) }}{% else %}{{ asset('images/user.png') }}{% endif %}" alt="">
                         </button>

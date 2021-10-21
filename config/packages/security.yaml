@@ -68,4 +68,5 @@ security:
         - { path: ^/api, roles: ROLE_ADMIN }
     role_hierarchy:
         ROLE_MERCHANT: ROLE_USER
+        ROLE_MODERATOR: ROLE_USER
         ROLE_ADMIN: [ ROLE_MERCHANT, ROLE_MODERATOR ]
