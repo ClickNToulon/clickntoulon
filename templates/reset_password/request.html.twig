@@ -19,13 +19,17 @@
                         <div class="fr-alert fr-alert--error mb-3" role="alert" id="alert">{{ flashError }}</div>
                     {% endfor %}
 
-                    <!-- Email -->
+                    <!-- Email
                     <div class="form-group">
                         <label class="form-label" for="inputEmail">
                             Adresse Mail
                         </label>
                         <input type="email" class="fr-input form-control" id="inputEmail" name="email" required autofocus>
                     </div>
+                    -->
+                    {{ form_row(requestForm.email) }}
+
+                    {{ form_widget(requestForm._token) }}
 
                     <div class="form-actions">
                         <a href="{{ path("app_login") }}" class="text-black">Connexion</a>

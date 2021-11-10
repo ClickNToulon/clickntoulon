@@ -69,7 +69,7 @@ class SecurityController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /*try {
+            try {
                 $user->setPassword($passwordEncoder->hashPassword($user, $user->getPassword()));
                 $em->persist($user);
                 $em->flush();
@@ -80,8 +80,8 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app_login');
             } catch (UniqueConstraintViolationException $e) {
                 $this->addFlash('warning', "Nom d'utilisateur ou adresse mail déjà utilisé");
-            }*/
-            $this->addFlash('warning', "L'inscription sur ClickNToulon n'est pas encore ouverte.");
+            }
+            //$this->addFlash('warning', "L'inscription sur ClickNToulon n'est pas encore ouverte.");
         }
         return $this->render('security/signup.html.twig', [
             'form' => $form->createView()

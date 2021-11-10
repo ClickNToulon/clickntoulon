@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\BodyRenderer;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +24,7 @@ class MailerController extends AbstractController
      * @param $template
      * @throws LoaderError
      */
-    public function send(MailerInterface $mailer, $to, $subject, $options, $template)
+    public function send(MailerInterface $mailer, string $to, string $subject, array $options, string $template)
     {
         for ($i=0; $i < 6; $i++) {
             if(!isset($options[$i])) {

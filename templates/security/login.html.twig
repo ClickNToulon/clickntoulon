@@ -52,6 +52,7 @@
                     <label for="inputPassword"></label>
                     <input placeholder="Mot de passe" type="password" name="password" id="inputPassword" autocomplete="current-password" required
                            class="bg-white px-4 py-3 dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" />
+                    <sub><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié?</a></sub><br>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <div class="inline-flex items-start">
                         <div>
