@@ -9,23 +9,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ChooseShop extends AbstractType
+class ChooseShopForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $id = $options['id'];
+        $owner = $options['user'];
         $builder
             ->add('select', EntityType::class, [
                 'class' => Shop::class,
                 'mapped' => false,
                 'required' => true,
                 'label' => false,
-                'query_builder' => function(ShopRepository $em) use($id) {
-                    return $em->choose($id);
+                'query_builder' => function(ShopRepository $em) use($owner) {
+                    return $em->choose($owner);
                 },
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
+                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 ],
             ]);
     }
@@ -37,6 +37,6 @@ class ChooseShop extends AbstractType
             'data_class' => Shop::class,
             'translation_domain' => 'forms'
             ])
-            ->setRequired('id');;
+            ->setRequired('user');;
     }
 }

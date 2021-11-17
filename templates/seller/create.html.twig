@@ -80,27 +80,19 @@
                                 <div class="grid grid-cols-2 gap-6">
                                     <div class="col-span-2 sm:col-span-1">
                                         <label for="shop_postal_code" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form.postal_code) }}
+                                            {{ form_label(form.postalCode) }}
                                         </label>
                                         <div class="mt-1 flex rounded-md shadow-sm">
-                                            {{ form_widget(form.postal_code) }}
+                                            {{ form_widget(form.postalCode) }}
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_city" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form.city) }}
+                                        <label for="shop_cover" class="block text-base font-medium text-gray-600 dark:text-white">
+                                            {{ form_label(form.image) }}
                                         </label>
-                                        <div class="mt-1 flex rounded-md shadow-sm">
-                                            {{ form_widget(form.city) }}
+                                        <div class="mt-1">
+                                            {{ form_widget(form.image) }}
                                         </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="shop_cover" class="block text-base font-medium text-gray-600 dark:text-white">
-                                        {{ form_label(form.cover) }}
-                                    </label>
-                                    <div class="mt-1">
-                                        {{ form_widget(form.cover) }}
                                     </div>
                                 </div>
                             </div>

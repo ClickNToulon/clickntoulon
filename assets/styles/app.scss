@@ -23,27 +23,19 @@ html::-webkit-scrollbar-thumb {
 }
 
 html::-webkit-scrollbar-track {
-  @apply bg-white dark:bg-gray-700;
+  @apply bg-white;
+}
+
+header {
+  height: calc(100vh - 64px);
 }
 
 .tab {
-  @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-black dark:text-white font-medium rounded-xl mx-1 my-0.5;
-
-  &:focus {
-    @apply ring-2 ring-offset-2 ring-gray-400 dark:ring-yellow-600 outline-none rounded-lg ring-offset-white dark:ring-offset-gray-800;
-  }
-
-  &:hover {
-    @apply dark:bg-gray-600;
-  }
+  @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-black font-bold rounded-lg mx-1 my-0.5;
 }
 
 .tab-active {
-  @apply bg-yellow-500 text-black rounded-xl dark:text-black;
-
-  &:hover {
-    @apply dark:bg-yellow-600;
-  }
+  @apply bg-yellow-500 text-black font-bold rounded-lg;
 }
 
 .tab:focus {
@@ -55,28 +47,12 @@ html::-webkit-scrollbar-track {
   box-shadow: inset 0 0 0 2px currentColor
 }
 
-.custom-file-input::-webkit-file-upload-button {
-  @apply rounded-md outline-none shadow-none border-none font-medium p-1 bg-white text-black dark:text-white dark:bg-gray-800 px-2;
-}
-
-.custom-file {
-  @apply w-full;
-}
-
 .max-h-2xl {
   max-height: 46rem !important;
 }
 
 .lg\:max-h-7xl {
   max-height: 80rem !important
-}
-
-.shop-choose-form {
-  @apply max-w-xl w-full mx-auto
-}
-
-#user-menu a:first-of-type {
-  @apply rounded-t-lg;
 }
 
 .order_details_panel:last-of-type {

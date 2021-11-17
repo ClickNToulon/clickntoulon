@@ -3,50 +3,25 @@
 {% block title %}Mot de passe oublié - ClickNToulon{% endblock %}
 
 {% block body %}
-<section class="login w-100 h-100">
-    <div class="fr-container d-flex flex-column h-100">
-        <div class="row align-items-center justify-content-center gx-0 h-100">
-            <div class="col-12 col-md-6 col-lg-4 py-8 py-md-11 h-100 d-flex justify-content-center flex-column">
-
-                <!-- Heading -->
-                <h1 class="mb-3 fw-bold">
-                    Mot de passe oublié
-                </h1>
-
-                <!-- Form -->
-                <form class="login" method="post">
-                    {% for flashError in app.flashes('reset_password_error') %}
-                        <div class="fr-alert fr-alert--error mb-3" role="alert" id="alert">{{ flashError }}</div>
-                    {% endfor %}
-
-                    <!-- Email
-                    <div class="form-group">
-                        <label class="form-label" for="inputEmail">
-                            Adresse Mail
-                        </label>
-                        <input type="email" class="fr-input form-control" id="inputEmail" name="email" required autofocus>
+    <div class="min-h-screen max-h-screen bg-white flex justify-center items-center">
+        <div class="py-6 px-6 sm:py-12 sm:px-12 shadow-2xl rounded-2xl shadow-xl z-20 absolute max-w-full sm:max-w-sm lg:max-w-lg w-full">
+            {{ form_start(requestForm) }}
+                <div>
+                    <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer text-black">Mot de passe oublié</h1>
+                </div>
+                <div>
+                    <div class="relative mb-4">
+                        {{ form_row(requestForm.email) }}
                     </div>
-                    -->
-                    {{ form_row(requestForm.email) }}
-
-                    {{ form_widget(requestForm._token) }}
-
-                    <div class="form-actions">
-                        <a href="{{ path("app_login") }}" class="text-black">Connexion</a>
+                    <div class="relative mb-4">
+                        {{ form_row(requestForm._token) }}
                     </div>
-
-                    <!-- Submit -->
-                    <div>
-                        <button class="btn btn-form" type="submit">Demander un lien</button>
-                    </div>
-
-                </form>
-            </div>
-            <div class="col-lg-7 offset-lg-1 d-none d-lg-flex flex-row justify-content-center login-image h-100">
-                <!-- Image -->
-                <div class="w-100"></div>
-            </div>
-        </div> <!-- / .row -->
-    </div> <!-- / .container -->
-</section>
+                </div>
+                <div class="text-center mt-3">
+                    <button class="py-2 px-3 w-auto text-xl text-white font-medium bg-yellow-500 rounded-2xl" type="submit">Demander un lien</button>
+                    <p class="mt-4 text-black">Vous avez déjà un compte ? <a class="underline hover:text-yellow-500" href="{{ path('app_login') }}"> Connectez-vous</a></p>
+                </div>
+            {{ form_end(requestForm) }}
+        </div>
+    </div>
 {% endblock %}

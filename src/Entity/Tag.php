@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
+use App\Repository\TagRepository;
+use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @ORM\Entity(repositoryClass=TagRepository::class)
  */
-class Category
+class Tag
 {
     /**
      * @ORM\Id
@@ -22,18 +23,12 @@ class Category
      */
     private string $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Shop::class, inversedBy="categories")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private Shop $shop;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -41,18 +36,6 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getShop(): ?Shop
-    {
-        return $this->shop;
-    }
-
-    public function setShop(Shop $shop): self
-    {
-        $this->shop = $shop;
 
         return $this;
     }

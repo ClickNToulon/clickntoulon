@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\OrderRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -20,19 +21,21 @@ class Order
     private ?int $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=12)
      */
-    private ?int $basket_id;
+    private string $orderNumber;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private ?int $buyer_id;
+    private User $buyer;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Shop::class, inversedBy="orders")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private ?int $shop_id;
+    private Shop $shop;
 
     /**
      * @ORM\Column(type="date")
@@ -40,24 +43,19 @@ class Order
     private ?DateTimeInterface $day;
 
     /**
-     * @ORM\Column(type="time", nullable=true)
+     * @ORM\Column(type="array")
      */
-    private ?DateTimeInterface $time_begin;
+    private ?array $products;
 
     /**
-     * @ORM\Column(type="time", nullable=true)
+     * @ORM\Column(type="array")
      */
-    private ?DateTimeInterface $time_end;
+    private ?array $quantity;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="float")
      */
-    private string $products_id;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private string $quantity;
+    private ?float $total;
 
     /**
      * @ORM\Column(type="integer")
@@ -65,18 +63,11 @@ class Order
     private ?int $status;
 
     /**
-     * @ORM\Column(type="float")
+     * @throws Exception
      */
-    private $total;
-
-    /**
-     * @ORM\Column(type="string", length=12)
-     */
-    private $number;
-
     public function __construct()
     {
-        $this->number = strtoupper(bin2hex(random_bytes(6)));
+        $this->orderNumber = strtoupper(bin2hex(random_bytes(6)));
     }
 
     public function getId(): ?int
@@ -84,110 +75,74 @@ class Order
         return $this->id;
     }
 
-    public function getBasketId(): ?int
+    public function getOrderNumber(): ?string
     {
-        return $this->basket_id;
+        return $this->orderNumber;
     }
 
-    public function setBasketId(int $basket_id): self
+    public function setOrderNumber(string $orderNumber): self
     {
-        $this->basket_id = $basket_id;
+        $this->orderNumber = $orderNumber;
 
         return $this;
     }
 
-    public function getBuyerId(): ?int
+    public function getBuyer(): User
     {
-        return $this->buyer_id;
+        return $this->buyer;
     }
 
-    public function setBuyerId(int $buyer_id): self
+    public function setBuyer(User $buyer): self
     {
-        $this->buyer_id = $buyer_id;
+        $this->buyer = $buyer;
 
         return $this;
     }
 
-    public function getShopId(): ?int
+    public function getShop(): Shop
     {
-        return $this->shop_id;
+        return $this->shop;
     }
 
-    public function setShopId(int $shop_id): self
+    public function setShop(Shop $shop): self
     {
-        $this->shop_id = $shop_id;
+        $this->shop = $shop;
 
         return $this;
     }
 
-    public function getDay(): ?DateTimeInterface
+    public function getDay(): ?\DateTimeInterface
     {
         return $this->day;
     }
 
-    public function setDay(DateTimeInterface $day): self
+    public function setDay(\DateTimeInterface $day): self
     {
         $this->day = $day;
 
         return $this;
     }
 
-    public function getTimeBegin(): ?DateTimeInterface
+    public function getProducts(): array
     {
-        return $this->time_begin;
+        return $this->products;
     }
 
-    public function setTimeBegin(?DateTimeInterface $time_begin): self
+    public function setProducts(?array $products): self
     {
-        $this->time_begin = $time_begin;
+        $this->products = $products;
 
         return $this;
     }
 
-    public function getTimeEnd(): ?DateTimeInterface
-    {
-        return $this->time_end;
-    }
-
-    public function setTimeEnd(?DateTimeInterface $time_end): self
-    {
-        $this->time_end = $time_end;
-
-        return $this;
-    }
-
-    public function getProductsId(): ?string
-    {
-        return $this->products_id;
-    }
-
-    public function setProductsId(string $products_id): self
-    {
-        $this->products_id = $products_id;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?string
+    public function getQuantity(): array
     {
         return $this->quantity;
     }
 
-    public function setQuantity(string $quantity): self
+    public function setQuantity(?array $quantity): self
     {
         $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }
@@ -204,14 +159,14 @@ class Order
         return $this;
     }
 
-    public function getNumber(): ?string
+    public function getStatus(): ?int
     {
-        return $this->number;
+        return $this->status;
     }
 
-    public function setNumber(string $number): self
+    public function setStatus(int $status): self
     {
-        $this->number = $number;
+        $this->status = $status;
 
         return $this;
     }

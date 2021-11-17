@@ -1,39 +1,44 @@
 {% for product in products %}
-    <div class="group relative bg-white shadow dark:bg-gray-800 dark:shadow-none rounded-xl">
-        <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-t-xl overflow-hidden group-hover:opacity-70 lg:h-80 lg:aspect-none">
+    <div class="w-full relative">
+        {% if product.unitPriceDiscount != null and product.unitPriceDiscount != 0 %}
+            <span class="bg-red-500 rounded-full text-white font-semibold px-3 py-2 absolute -right-4 z-50 -top-4 flex items-center justify-center">
+                Promo
+            </span>
+        {% endif %}
+        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-xl">
             {% if product.images is iterable and product.images[0] != null and product.images != null %}
-                <img src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="" class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+                <img class="h-72 w-full object-cover object-center" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="blog">
             {% else %}
-                <img src="{{ asset('images/clickntoulon.svg') }}" alt="" class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+                <img src="{{ asset('images/clickntoulon.svg') }}" alt="" class="lg:h-48 md:h-36 w-full object-cover object-center">
             {% endif %}
-        </div>
-        <div class="p-4 flex justify-between w-full">
-            <div class="w-full">
-                <div class="flex justify-between flex-col sm:flex-row w-full">
-                    <h3 class="text-lg font-medium text-black dark:text-white">
-                        <a href="{{ path('product_show', {'id': product.id}) }}">
-                            <span aria-hidden="true" class="absolute inset-0"></span>
-                            {{ product.name }}
-                        </a>
-                    </h3>
-                    <div>
-                        {% if product.dealprice != null %}
-                            <div class="inline-flex flex-row space-x-2">
-                                <h1 class="font-medium text-black dark:text-white text-base line-through">
-                                    {{ product.price | format_currency('EUR') }}
-                                </h1>
-                                <h1 class="font-bold text-red-600 dark:text-red-500 text-base">
-                                    {{ product.dealprice | format_currency('EUR') }}
-                                </h1>
-                            </div>
-                        {% else %}
-                            <h1 class="font-medium text-black dark:text-white text-base">
-                                {{ product.price | format_currency('EUR') }}
+            <div class="p-6">
+                <div class="flex justify-between w-full">
+                    <h1 class="title-font text-lg font-semibold text-black mb-3 mr-auto w-full">{{ product.name }}</h1>
+                    {% if product.unitPriceDiscount != null %}
+                        <div class="inline-flex flex-row space-x-2 w-full justify-end">
+                            <h1 class="font-semibold text-black text-base line-through">
+                                {{ product.unitPrice | format_currency('EUR') }}
                             </h1>
-                        {% endif %}
-                    </div>
+                            <h1 class="font-semibold text-red-600 text-base">
+                                {% set dealPrice = product.unitPrice * (1 - product.unitPriceDiscount) %}
+                                {{ dealPrice | format_currency('EUR') }}
+                            </h1>
+                        </div>
+                    {% else %}
+                        <h1 class="font-semibold text-black text-base text-right">
+                            {{ product.unitPrice | format_currency('EUR') }}
+                        </h1>
+                    {% endif %}
                 </div>
-                <p class="mt-1 text-sm text-gray-700 dark:text-gray-200 w-full">{{ product.description | u.truncate(100, '...', false) }}</p>
+                <p class="font-semibold text-black mb-3 truncate">{{ product.description }}
+                <div class="flex items-center flex-wrap ">
+                    <a href="{{ path('product_show', {'id': product.id}) }}" class="text-yellow-500 inline-flex items-center md:mb-2 lg:mb-0 font-semibold text-lg">Voir le produit
+                        <svg class="w-6 h-6 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14"></path>
+                            <path d="M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

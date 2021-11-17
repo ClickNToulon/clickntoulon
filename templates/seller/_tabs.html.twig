@@ -1,4 +1,4 @@
-<div class="flex flex-wrap items-center p-1 rounded-xl bg-white shadow-xl border-yellow-500 border-2 dark:border-none dark:shadow-none dark:bg-gray-800 w-full sm:w-auto">
+<div class="flex flex-wrap items-center p-1 rounded-lg bg-white shadow-xl border-yellow-500 border-2 w-full sm:w-auto">
     <a class="tab w-full sm:w-auto {% if active == "orders" %}tab-active{% endif %}" href="{{ path('seller_index', {id: shop.id}) }}">Comamndes en cours</a>
     <a class="tab w-full sm:w-auto {% if active == "products" %}tab-active{% endif %}" href="{{ path('seller_edit_products', {id: shop.id}) }}">Ajouter/&Eacute;diter un produit</a>
     <a class="tab w-full sm:w-auto {% if active == "categories" %}tab-active{% endif %}" href="{{ path('seller_categories', {id: shop.id}) }}">Ajouter/&Eacute;diter une catégorie</a>

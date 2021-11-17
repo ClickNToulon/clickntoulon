@@ -14,29 +14,51 @@ class UpdateUserForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fullName', TextType::class, [
+            ->add('name', TextType::class, [
+                'label' => 'Name',
+                'label_attr' => [
+                    'class' => 'block text-base font-bold text-black'
+                ],
                 'attr' => [
-                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
+                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
+                ]
+            ])
+            ->add('surname', TextType::class, [
+                'label' => 'Surname',
+                'label_attr' => [
+                    'class' => 'block text-base font-bold text-black'
+                ],
+                'attr' => [
+                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 ]
             ])
             ->add('email', TextType::class, [
+                'label' => 'Email',
+                'label_attr' => [
+                    'class' => 'block text-base font-bold text-black'
+                ],
                 'attr' => [
-                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
+                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 ]
             ])
             ->add('address', TextareaType::class, [
+                'label' => 'Address',
+                'label_attr' => [
+                    'class' => 'block text-base font-bold text-black'
+                ],
+                'required' => false,
                 'attr' => [
-                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
+                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 ]
             ])
-            ->add('postal_code', TextType::class, [
+            ->add('postalCode', TextType::class, [
+                'label' => 'Postal code',
+                'label_attr' => [
+                    'class' => 'block text-base font-bold text-black'
+                ],
+                'required' => false,
                 'attr' => [
-                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
-                ]
-            ])
-            ->add('city', TextType::class, [
-                'attr' => [
-                    'class' => 'tbg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
+                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 ]
             ])
         ;
@@ -46,7 +68,7 @@ class UpdateUserForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'user'
         ]);
     }
 }

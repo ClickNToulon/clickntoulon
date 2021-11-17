@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Order;
+use App\Entity\Shop;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,28 +21,28 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    public function findAllByUser($id)
+    public function findAllByUser(User $buyer)
     {
         return $this->createQueryBuilder('o')
-            ->where('o.buyer_id = :user_id')
-            ->setParameter('user_id', $id)
+            ->where('o.buyer = :user')
+            ->setParameter('user', $buyer)
             ->getQuery()
             ->getResult();
     }
 
-    public function getAllShop($id) {
+    public function getAllShop(Shop $shop) {
         return $this->createQueryBuilder('o')
-            ->where('o.shop_id = :shop_id and o.status < 4')
-            ->setParameter('shop_id', $id)
+            ->where('o.shop = :shop and o.status < 4')
+            ->setParameter('shop', $shop)
             ->getQuery()
             ->getResult();
     }
 
-    public function findLast4ByUser($id)
+    public function findLast4ByUser(User $buyer)
     {
         return $this->createQueryBuilder('o')
-            ->where('o.buyer_id = :user_id AND o.status < 6')
-            ->setParameter('user_id', $id)
+            ->where('o.buyer = :user AND o.status < 6')
+            ->setParameter('user', $buyer)
             ->setMaxResults(4)
             ->getQuery()
             ->getResult();

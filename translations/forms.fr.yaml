@@ -5,7 +5,7 @@ Price: Prix
 Title: Nom
 Description: Description
 Email: Adresse Mail
-Full name: Nom Complet
+Name: Nom
 Password: Mot de passe
 Repeat Password: Confirmer le mot de passe
 Remember me: Se souvenir de moi
@@ -17,13 +17,10 @@ Created At: Créé le
 Dashboard: Dashboard
 Users: Utilisateurs
 Shops: Boutiques
-Shop: Boutique
 Updated At: Mis à jour le
 Avatar: Photo de profil
 Banned: Banni
 Is Verified: Compte vérifié
-Name: Nom de la boutique
-Phone: Numéro de téléphone
 Products: Produits
 Product: Produit
 Shop Id: ID Boutique
@@ -33,29 +30,7 @@ Deal End: Fin promo
 Deal price: Prix promo
 Deal start: Début promo
 Deal end: Fin promo
-Owner Id: ID Propriétaire
-Tag: Type
-Boulangerie - Pâtisserie: Boulangerie - Pâtisserie
-Boucher: Boucher
-Bijouterie - Horlogerie: Bijouterie - Horlogerie
-Épicerie: Épicerie
-Quincaillerie: Quincaillerie
-Librairie: Librairie
-Musée: Musée
-Fleuriste: Fleuriste
-Pharmacie: Pharmacie
-Poisonnerie: Poisonnerie
-Fromagerie: Fromagerie
-Chocolaterie: Chocolaterie
-Restaurant: Restaurant
-Brasserie: Brasserie
-Station-Service: Station-Service
-Crèmerie: Crèmerie
-Droguerie: Droguerie
-Papeterie: Papeterie
-Friperie: Friperie
 Nom d'utilisateur inconnu.: Nom d'utilisateur inconnu.
-Cover: Cover
 Votre message (optionel): Votre message (optionel)
 Begin: Début
 End: Fin

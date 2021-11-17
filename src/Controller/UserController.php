@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
 use App\Form\DeleteUserForm;
 use App\Form\UpdatePasswordForm;
-use App\Form\UpdateAvatarForm;
 use App\Form\UpdateUserForm;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
@@ -15,8 +13,6 @@ use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,9 +21,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 class UserController extends AbstractController
 {
@@ -41,7 +34,7 @@ class UserController extends AbstractController
      */
     private EntityManagerInterface $em;
 
-    private $requestStack;
+    private RequestStack $requestStack;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $em, RequestStack $requestStack) {
         $this->passwordHasher = $passwordHasher;
@@ -67,11 +60,6 @@ class UserController extends AbstractController
             return $response;
         }
 
-        [$formAvatar, $responseAvatar] = $this->createFormAvatar($request, $slugger);
-        if ($responseAvatar) {
-            return $responseAvatar;
-        }
-
         [$formInfo, $responseInfo] = $this->createFormInfos($request);
         if ($responseInfo) {
             return $responseInfo;
@@ -84,7 +72,6 @@ class UserController extends AbstractController
 
         return $this->render('user/edit.html.twig', [
             'form_password' => $formPassword->createView(),
-            'form_avatar' => $formAvatar->createView(),
             'form_profile' => $formInfo->createView(),
             'form_delete' => $formDelete->createView(),
             'user' => $user
@@ -102,11 +89,11 @@ class UserController extends AbstractController
     public function orders(OrderRepository $orderRepository, ShopRepository $shopRepository, ProductRepository $productRepository): Response
     {
         $user = $this->getUser();
-        $orders = $orderRepository->findLast4ByUser($user->getId());
+        $orders = $orderRepository->findLast4ByUser($user);
         $products_id = [];
         $products = [];
         foreach ($orders as $key => $value) {
-            $products_id[$value->getId()] = $value->getProductsId();
+            $products_id[$value->getId()] = $value->getProducts();
             foreach ($products_id as $key2 => $value2) {
                 if(str_contains($value2, ',') == true) {
                     $value3 = [];
@@ -141,14 +128,18 @@ class UserController extends AbstractController
     public function order(OrderRepository $orderRepository, ShopRepository $shopRepository, ProductRepository $productRepository, Request $request): Response
     {
         $user = $this->getUser();
-        $order = $orderRepository->findOneByNumber(['number' => $request->attributes->get('number')]);
+        $order = $orderRepository->findOneBy(['number' => $request->attributes->get('number')]);
         $products = [];
-        $products_id = explode(",", $order->getProductsId());
+        $products_id = [];
+        $order_products = $order->getProducts();
+        foreach ($order_products as $order_product) {
+            $products_id[] = $order_product->getId();
+        }
         foreach ($products_id as $key => $value) {
             $products[] = $productRepository->find($value);
         }
-        $products_quantity = explode(",", $order->getQuantity());
-        $shop = $shopRepository->find($order->getShopId());
+        $products_quantity = $order->getQuantity();
+        $shop = $shopRepository->find($order->getShop()->getId());
         return $this->render('user/order.html.twig', [
             'user' => $user,
             'order' => $order,
@@ -177,55 +168,6 @@ class UserController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Votre mot de passe a bien été mis à jour');
 
-            return [$form, $this->redirectToRoute('user_edit')];
-        }
-
-        return [$form, null];
-    }
-
-    /**
-     * @param Request $request
-     * @param SluggerInterface $slugger
-     * @return array
-     * @throws Exception
-     */
-    private function createFormAvatar(Request $request, SluggerInterface $slugger): array
-    {
-        $user = $this->getUser();
-        $form = $this->createForm(UpdateAvatarForm::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $brochureFile */
-            $avatarFile = $form->get('avatar')->getData();
-
-            // this condition is needed because the 'brochure' field is not required
-            // so the PDF file must be processed only when a file is uploaded
-            if ($avatarFile) {
-                $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename, '-', 'fr');
-                $newFilename = sprintf("%s-%s-%s.%s", $safeFilename, $user->getFullName(), $user->getId(), $avatarFile->guessExtension());
-
-                // Move the file to the directory where brochures are stored
-                try {
-                    $avatarFile->move(
-                        $this->getParameter('uploads/users'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-
-                }
-
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
-                $user->setAvatar($newFilename)
-                    ->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance));
-            }
-
-            $this->em->persist($user);
-            $this->em->flush();
-            $this->addFlash('success', 'Votre photo de profil a bien été mis à jour');
             return [$form, $this->redirectToRoute('user_edit')];
         }
 

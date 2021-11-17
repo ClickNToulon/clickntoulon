@@ -4,12 +4,11 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTime;
-use DateTimeInterface;
 use DateTimeZone;
+use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\{PasswordAuthenticatedUserInterface, UserInterface};
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -22,71 +21,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=45, unique=true)
      * @Assert\NotBlank()
      */
-    private $fullName;
+    private string $name;
+
+    /**
+     * @ORM\Column(type="string", length=45, unique=true)
+     * @Assert\NotBlank()
+     */
+    private string $surname;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles;
+    private array $roles;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $address;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $postal_code;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updated_at;
+    private ?string $address;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $avatar;
+    private ?int $postalCode;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private DateTime $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private DateTime $updatedAt;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $banned = false;
+    private bool $isBanned = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isVerified = false;
-
+    private bool $isVerified = false;
 
     /**
      * @throws Exception
@@ -94,8 +88,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
-        $this->created_at = new DateTime('now', $dateTimeZoneFrance);
-        $this->updated_at = new DateTime('now', $dateTimeZoneFrance);
+        $this->createdAt = new DateTime('now', $dateTimeZoneFrance);
+        $this->updatedAt = new DateTime('now', $dateTimeZoneFrance);
         $this->roles = ['ROLE_USER'];
     }
 
@@ -112,27 +106,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->fullName;
+        return (string) $this->email;
     }
 
     public function getUsername(): string
     {
-        return (string) $this->fullName;
-    }
-
-    /**
-     * The user full name.
-     */
-    public function getFullName(): string
-    {
-        return (string) $this->fullName;
-    }
-
-    public function setFullName(string $fullName): self
-    {
-        $this->fullName = $fullName;
-
-        return $this;
+        return $this->name;
     }
 
     /**
@@ -173,15 +152,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @see UserInterface
      */
     public function getSalt(): ?string
-    {
-        return null;
-    }
+    {return null;}
 
     /**
      * @see UserInterface
      */
     public function eraseCredentials()
+    {}
+
+    public function getName(): ?string
     {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSurname(): ?string
+    {
+        return $this->surname;
+    }
+
+    public function setSurname(string $surname): self
+    {
+        $this->surname = $surname;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -201,86 +201,62 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress(?string $address): self
     {
         $this->address = $address;
 
         return $this;
     }
 
-    public function getPostalCode(): ?int
+    public function getPostalCode(): ?string
     {
-        return $this->postal_code;
+        return $this->postalCode;
     }
 
-    public function setPostalCode(?int $postal_code): self
+    public function setPostalCode(?string $postalCode): self
     {
-        $this->postal_code = $postal_code;
+        $this->postalCode = $postalCode;
 
         return $this;
     }
 
-    public function getCity(): ?string
+    public function getCreatedAt(): ?DateTime
     {
-        return $this->city;
+        return $this->createdAt;
     }
 
-    public function setCity(?string $city): self
+    public function setCreatedAt(DateTime $createdAt): self
     {
-        $this->city = $city;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTimeInterface
+    public function getUpdatedAt(): ?DateTime
     {
-        return $this->created_at;
+        return $this->updatedAt;
     }
 
-    public function setCreatedAt(DateTimeInterface $created_at): self
+    public function setUpdatedAt(DateTime $updatedAt): self
     {
-        $this->created_at = $created_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTimeInterface
+    public function getIsBanned(): ?bool
     {
-        return $this->updated_at;
+        return $this->isBanned;
     }
 
-    public function setUpdatedAt(DateTimeInterface $updated_at): self
+    public function setIsBanned(bool $isBanned): self
     {
-        $this->updated_at = $updated_at;
+        $this->isBanned = $isBanned;
 
         return $this;
     }
 
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
-
-    public function setAvatar(?string $avatar): self
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
-    public function getBanned(): ?bool
-    {
-        return $this->banned;
-    }
-
-    public function setBanned(bool $banned): self
-    {
-        $this->banned = $banned;
-
-        return $this;
-    }
-
-    public function isVerified(): bool
+    public function getIsVerified(): ?bool
     {
         return $this->isVerified;
     }

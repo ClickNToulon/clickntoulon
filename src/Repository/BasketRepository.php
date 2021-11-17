@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Basket;
+use App\Entity\Shop;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,21 +21,21 @@ class BasketRepository extends ServiceEntityRepository
         parent::__construct($registry, Basket::class);
     }
 
-    public function findByUser($id)
+    public function findByUser(User $owner)
     {
         return $this->createQueryBuilder('b')
-            ->where('b.owner_id = :user_id')
-            ->setParameter('user_id', $id)
+            ->where('b.owner = :user')
+            ->setParameter('user', $owner)
             ->getQuery()
             ->getResult();
     }
 
-    public function findByUserAndShop($user_id, $shop_id) {
+    public function findByUserAndShop(User $user, Shop $shop) {
         return $this->createQueryBuilder('b')
-            ->where('b.owner_id = :user_id AND b.shop_id = :shop_id')
+            ->where('b.owner = :user AND b.shop = :shop')
             ->setParameters([
-                'user_id' => $user_id,
-                'shop_id' => $shop_id
+                'user' => $user,
+                'shop' => $shop
             ])
             ->setMaxResults(1)
             ->getQuery()

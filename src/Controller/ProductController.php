@@ -8,7 +8,7 @@ use App\Entity\Basket;
 use App\Entity\Category;
 use App\Entity\Payment;
 use App\Entity\Product;
-use App\Form\AddProductBasketType;
+use App\Form\AddProductBasketForm;
 use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
@@ -83,7 +83,7 @@ class ProductController extends AbstractController
         $inside = false;
         $return = 0;
         foreach ($baskets as $b) {
-            if($b->getShopId() == $product->getShopId()) {
+            if($b->getShop() == $product->getShop()) {
                 $products = $b->getProductsId();
                 $products_array = explode(",", $products);
                 $limit = count($products_array);
@@ -116,7 +116,7 @@ class ProductController extends AbstractController
     public function shopProducts(Product $product, ShopRepository $shopRepository, CategoryRepository $categoryRepository): Response
     {
         $user = $this->getUser();
-        $shop = $shopRepository->findById($product->getShopId());
+        $shop = $shopRepository->findById($product->getShop()->getId());
         $payments_shop = $shop->getPayments();
         $payments_icons = new Payment();
         $payments = [];
@@ -131,12 +131,12 @@ class ProductController extends AbstractController
             $categories[] = $category->getName();
         }
         if ($user != null) {
-            $baskets = $this->basketRepository->findByUser($user->getId());
+            $baskets = $this->basketRepository->findByUser($user);
             $quantity = $this->checkBaskets($baskets, $product);
         } else {
             $quantity = 1;
         }
-        $form = $this->createForm(AddProductBasketType::class);
+        $form = $this->createForm(AddProductBasketForm::class);
         return $this->render('product/show.html.twig', [
             'form' => $form->createView(),
             'product' => $product,

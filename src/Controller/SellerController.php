@@ -5,28 +5,27 @@ namespace App\Controller;
 
 
 use App\Entity\Category;
+use App\Entity\OpeningHours;
 use App\Entity\Product;
 use App\Entity\Shop;
 use App\Entity\User;
-use App\Form\CategoryType;
-use App\Form\ChooseShop;
-use App\Form\DeleteCategory;
-use App\Form\ProductType;
+use App\Form\CategoryForm;
+use App\Form\ChooseShopForm;
+use App\Form\DeleteCategoryForm;
+use App\Form\ProductForm;
 use App\Form\ShopDeleteForm;
-use App\Form\ShopTimeTableUpdate;
-use App\Form\ShopType;
+use App\Form\ShopForm;
 use App\Form\ShopUpdateForm;
 use App\Repository\CategoryRepository;
+use App\Repository\OpeningHoursRepository;
 use App\Repository\OrderRepository;
 use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
-use App\Repository\ShopRepository;
-use App\Repository\TimeTableRepository;
+use App\Repository\ShopRepository;;
 use App\Repository\UserRepository;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NonUniqueResultException;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -80,12 +79,12 @@ class SellerController extends AbstractController
         } else {
             return new Response($this->render('bundles/TwigBundle/Exception/error403.html.twig'), Response::HTTP_FORBIDDEN);
         }
-        $orders = $orderRepository->getAllShop($shop->getId());
+        $orders = $orderRepository->getAllShop($shop);
         $orders_buyers = [];
         $quantities = [];
         $products_id = [];
         $products = [];
-        foreach ($orders as $key => $value) {
+        /*foreach ($orders as $key => $value) {
             $orders_buyers[$value->getId()] = $userRepository->find($value->getBuyerId());
             $quantities[$value->getId()] = $value->getQuantity();
             $products_id[$value->getId()] = $value->getProductsId();
@@ -101,7 +100,7 @@ class SellerController extends AbstractController
                     $products[$value->getId()] = $productRepository->find($value2);
                 }
             }
-        }
+        }*/
         $total_orders = count($orders);
         return $this->render('seller/index.html.twig', [
             'user' => $user,
@@ -120,27 +119,28 @@ class SellerController extends AbstractController
      * @param Shop $shop
      * @param OrderRepository $orderRepository
      * @param Request $request
+     * @param UserRepository $userRepository
      * @return Response
+     * @throws LoaderError
      * @throws Exception
      */
-    public function confirm_order(Shop $shop, OrderRepository $orderRepository, Request $request): Response
+    public function confirm_order(Shop $shop, OrderRepository $orderRepository, Request $request, UserRepository $userRepository): Response
     {
         $user = $this->getUser();
         $order = $orderRepository->find($request->attributes->get('order'));
         $order_infos = $request->request->all('order_confirm');
-        $order->setTimeBegin(new DateTime($order_infos['begin']))
-            ->setTimeEnd(new DateTime($order_infos['end']))
-            ->setDay(new DateTime($order_infos['day']))
+        $order->setDay(new DateTime($order_infos['day']))
             ->setStatus(1);
+        $order_user = $order->getBuyer();
         $this->em->persist($order);
         $this->em->flush();
-        $title = "Votre commande numéro " . $order->getNumber() . " a été acceptée par le commerçant";
+        $title = "Votre commande numéro " . $order->getOrderNumber() . " a été acceptée par le commerçant";
         $options = [];
-        array_push($options, $user->getFullName(), $order->getNumber(), $order_infos['day'], $order_infos['begin'], $order_infos['end']);
+        array_push($options, $order_user->getName(), $order->getOrderNumber(), $order_infos['day'], $order_infos['begin'], $order_infos['end']);
         if(isset($order_infos['message']) && $order_infos['message'] !== null) {
             array_push($options, $order_infos['message']);
         }
-        (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderaccept');
+        (new MailerController)->send($this->mailer, $order_user->getEmail(), $title, $options, 'orderaccept');
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
 
@@ -178,9 +178,9 @@ class SellerController extends AbstractController
         $order->setStatus(3);
         $this->em->persist($order);
         $this->em->flush();
-        $title = "Votre commande numéro " . $order->getNumber() . " est prête chez le commerçant";
+        $title = "Votre commande numéro " . $order->getOrderNumber() . " est prête chez le commerçant";
         $options = [];
-        array_push($options, $user->getFullName(), $order->getNumber(), $order_infos['day'], $order_infos['begin'], $order_infos['end']);
+        array_push($options, $user->getName(), $order->getOrderNumber(), $order_infos['day'], $order_infos['begin'], $order_infos['end']);
         (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderready');
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
@@ -219,9 +219,9 @@ class SellerController extends AbstractController
         $order->setStatus(6);
         $this->em->persist($order);
         $this->em->flush();
-        $title = "Votre commande numéro " . $order->getNumber() . " a été annulée par le commerçant";
+        $title = "Votre commande numéro " . $order->getOrderNumber() . " a été annulée par le commerçant";
         $options = [];
-        array_push($options, $user->getFullName(), $order->getNumber());
+        array_push($options, $user->getName(), $order->getOrderNumber());
         if(isset($order_infos['message']) && $order_infos['message'] !== null) {
             array_push($options, $order_infos['message']);
         }
@@ -238,8 +238,8 @@ class SellerController extends AbstractController
     public function choose(Request $request): Response
     {
         $user = $this->getUser();
-        $shops = $this->shopRepository->findAllByUser($user->getId());
-        $form = $this->createForm(ChooseShop::class, null, ['id' => $user->getId()]);
+        $shops = $this->shopRepository->findAllByUser($user);
+        $form = $this->createForm(ChooseShopForm::class, null, ['user' => $user]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -267,18 +267,18 @@ class SellerController extends AbstractController
     {
         $user = $this->getUser();
         $shop = new Shop();
-        $form = $this->createForm(ShopType::class, $shop);
+        $form = $this->createForm(ShopForm::class, $shop);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $cover = $form->get('cover')->getData();
-            if ($cover) {
-                $originalFilename = pathinfo($cover->getClientOriginalName(), PATHINFO_FILENAME);
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename, '-', 'fr');
-                $newFilename = sprintf("%s-%s-%s.%s", $safeFilename, $shop->getName(), $user->getId(), $cover->guessExtension());
+                $newFilename = sprintf("%s-%s-%s.%s", $safeFilename, $shop->getName(), $user->getId(), $image->guessExtension());
 
                 try {
-                    $cover->move(
+                    $image->move(
                         $this->getParameter('uploads/shops'),
                         $newFilename
                     );
@@ -286,19 +286,20 @@ class SellerController extends AbstractController
 
                 }
 
-                $shop->setCover($newFilename);
+                $shop->setImage($newFilename);
             }
             $default_payment = $paymentRepository->find(1);
             $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
             $shop
-                ->setOwnerId($user->getId())
+                ->setOwner($user)
                 ->setCreatedAt(new DateTime('now', $dateTimeZoneFrance))
                 ->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance))
                 ->setStatus(0)
-                ->setBanned(0)
+                ->setIsBanned(0)
                 ->setIsVerified(0)
                 ->addPayment($default_payment)
                 ->setSlug($shop->getSlug());
+            dump($shop->getPayments());
             $this->em->persist($shop);
             $this->em->flush();
             $this->addFlash('success', 'Votre boutique a bien été créée');
@@ -314,11 +315,11 @@ class SellerController extends AbstractController
      * @param Shop $shop
      * @param Request $request
      * @param PaymentRepository $paymentRepository
-     * @param TimeTableRepository $timeTableRepository
+     * @param OpeningHoursRepository $openingHoursRepository
      * @return Response
-     * @throws NonUniqueResultException
+     * @throws Exception
      */
-    public function edit(Shop $shop, Request $request, PaymentRepository $paymentRepository, TimeTableRepository $timeTableRepository): Response
+    public function edit(Shop $shop, Request $request, PaymentRepository $paymentRepository, OpeningHoursRepository $openingHoursRepository): Response
     {
         $user = $this->getUser();
         $form_update = $this->createForm(ShopUpdateForm::class, $shop);
@@ -327,10 +328,6 @@ class SellerController extends AbstractController
 
         $form_delete = $this->createForm(ShopDeleteForm::class, $shop);
         $form_delete->handleRequest($request);
-
-        $shop_timetable = $timeTableRepository->findById($shop);
-        $form_timetable = $this->createForm(ShopTimeTableUpdate::class, $shop_timetable);
-        $form_timetable->handleRequest($request);
 
         if ($form_update->isSubmitted() && $form_update->isValid()) {
             $payments_add = $request->request->all('payment');
@@ -360,25 +357,65 @@ class SellerController extends AbstractController
             $this->addFlash('success', 'Votre boutique a bien été modifiée');
         }
 
-        if($form_timetable->isSubmitted() && $form_timetable->isValid()) {
-            $data = $form_timetable->getData();
-            $this->em->persist($data);
-            $this->em->flush();
-        }
-
         if ($form_delete->isSubmitted() && $form_delete->isValid()) {
             $this->em->remove($shop);
             $this->em->flush();
-            return $this->redirectToRoute('seller_choose', );
+            return $this->redirectToRoute('seller_choose');
         }
+
+        $openingHours = $openingHoursRepository->findBy(["shop" => $shop]);
+
+        if($request->getMethod() === "POST" && $request->request->get('day') !== null) {
+            $data = $request->request->all();
+            $day = $data['day'];
+            unset($data['day']);
+            $k = 0;
+            foreach ($data as $key => $value) {
+                $data[$k] = $value;
+                $k = $k + 1;
+            }
+            $data = array_slice($data, 14, 14);
+            dump($data);
+            $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
+
+            foreach ($openingHours as $key => $value) {
+                $this->em->remove($value);
+            }
+            $this->em->flush();
+
+            // Pour les mêmes horaires tous les jours
+            for ($i = 0; $i < 14; $i++) {
+                $hours[$i] = new OpeningHours();
+                if(isset($data[$i]) and isset($data[$i+1])) {
+                    $hours[$i]->setShop($shop)
+                        ->setStart(new DateTime($data[$i]), $dateTimeZoneFrance)
+                        ->setEnd(new DateTime($data[$i+1]), $dateTimeZoneFrance)
+                        ->setDay($day);
+                    $this->em->persist($hours[$i]);
+                    $i = $i + 2;
+                } else {
+                    $hours[$i]->setShop($shop)
+                        ->setStart(null)
+                        ->setEnd(null)
+                        ->setDay($day);
+                    $this->em->persist($hours[$i]);
+                    $i = $i + 2;
+                }
+                $day = $day + 1;
+            }
+            $this->em->flush();
+        }
+
+        $openingHours = $shop->getFormattedWeekOpeningHours();
+        dump($openingHours);
 
         return $this->render('seller/edit.html.twig', [
             'shop' => $shop,
             'user' => $user,
             'form_update' => $form_update->createView(),
             'form_delete' => $form_delete->createView(),
-            'form_timetable' => $form_timetable->createView(),
-            'payments' => $payments
+            'payments' => $payments,
+            'openingHours' => $openingHours
         ]);
 
     }
@@ -396,16 +433,15 @@ class SellerController extends AbstractController
     {
         $user = $this->getUser();
         $product = new Product();
-        $form = $this->createForm(ProductType::class, $product, ['id' => $shop->getId()]);
+        $form = $this->createForm(ProductForm::class, $product, ['id' => $shop->getId()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->get('image')->getData();
             $product->setName($product->getName())
-                ->setStatus(0)
                 ->setDescription($product->getDescription())
-                ->setShopId($shop->getId())
-                ->setPrice($product->getPrice());
+                ->setShop($shop)
+                ->setUnitPrice($product->getUnitPrice());
             if ($image) {
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename, '-', 'fr');
@@ -447,7 +483,7 @@ class SellerController extends AbstractController
     {
         $user = $this->getUser();
         $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(CategoryForm::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -456,7 +492,7 @@ class SellerController extends AbstractController
             $this->em->flush();
         }
 
-        $form_delete = $this->createForm(DeleteCategory::class, $category);
+        $form_delete = $this->createForm(DeleteCategoryForm::class, $category);
         $form_delete->handleRequest($request);
 
         if($form_delete->isSubmitted() && $form_delete->isValid()) {
@@ -497,31 +533,20 @@ class SellerController extends AbstractController
         $user = $this->getUser();
         $product = $productRepository->find($request->attributes->get('product'));
         $shop = $shopRepository->find($request->attributes->get('id'));
-        $form_update_product = $this->createForm(ProductType::class, $product, ['id' => $shop->getId()]);
+        $form_update_product = $this->createForm(ProductForm::class, $product, ['id' => $shop->getId()]);
         $form_update_product->handleRequest($request);
         if($form_update_product->isSubmitted() && $form_update_product->isValid()) {
             $data = $request->request->all('product');
             $image = $form_update_product->get('image')->getData();
             $price = floatval(str_replace(",",".",$data['price']));
             $deal_price = floatval(str_replace(",",".",$data['deal_price']));
-            $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
             $product->setName($data['name'])
                 ->setDescription($data['description'])
-                ->setPrice($price);
+                ->setUnitPrice($price);
             if($deal_price == "") {
-                $product->setDealPrice(null);
+                $product->setUnitPriceDiscount(null);
             } else {
-                $product->setDealPrice($deal_price);
-            }
-            if($data['deal_start'] == "") {
-                $product->setDealStart(null);
-            } else {
-                $product->setDealStart(new DateTime($data['deal_start']));
-            }
-            if($data['deal_end'] == "") {
-                $product->setDealEnd(null);
-            } else {
-                $product->setDealEnd(new DateTime($data['deal_end']));
+                $product->setUnitPriceDiscount($deal_price);
             }
             if ($image) {
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);

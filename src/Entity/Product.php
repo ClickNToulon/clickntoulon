@@ -15,71 +15,58 @@ class Product
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Shop::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $shop_id;
+    private Shop $shop;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @ORM\Column(type="float", precision=2, scale=2)
      */
-    private $price;
+    private ?float $unitPrice;
 
     /**
      * @ORM\Column(type="float", nullable=true, precision=2, scale=2)
      */
-    private $deal_price;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $deal_start;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $deal_end;
+    private ?float $unitPriceDiscount;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $images;
+    private ?array $images;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\ManyToOne(targetEntity=ProductType::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $deleted_at;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $status;
+    private ?ProductType $type;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getShopId(): ?int
+    public function getShop(): ?Shop
     {
-        return $this->shop_id;
+        return $this->shop;
     }
 
-    public function setShopId(int $shop_id): self
+    public function setShop(?Shop $shop): self
     {
-        $this->shop_id = $shop_id;
+        $this->shop = $shop;
 
         return $this;
     }
@@ -108,50 +95,26 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getUnitPrice(): ?float
     {
-        return $this->price;
+        return $this->unitPrice;
     }
 
-    public function setPrice(float $price): self
+    public function setUnitPrice(float $unitPrice): self
     {
-        $this->price = $price;
+        $this->unitPrice = $unitPrice;
 
         return $this;
     }
 
-    public function getDealPrice(): ?float
+    public function getUnitPriceDiscount(): ?float
     {
-        return $this->deal_price;
+        return $this->unitPriceDiscount;
     }
 
-    public function setDealPrice(?float $deal_price): self
+    public function setUnitPriceDiscount(?float $unitPriceDiscount): self
     {
-        $this->deal_price = $deal_price;
-
-        return $this;
-    }
-
-    public function getDealStart(): ?\DateTimeInterface
-    {
-        return $this->deal_start;
-    }
-
-    public function setDealStart(?\DateTimeInterface $deal_start): self
-    {
-        $this->deal_start = $deal_start;
-
-        return $this;
-    }
-
-    public function getDealEnd(): ?\DateTimeInterface
-    {
-        return $this->deal_end;
-    }
-
-    public function setDealEnd(?\DateTimeInterface $deal_end): self
-    {
-        $this->deal_end = $deal_end;
+        $this->unitPriceDiscount = $unitPriceDiscount;
 
         return $this;
     }
@@ -161,33 +124,21 @@ class Product
         return $this->images;
     }
 
-    public function setImages(?array $images): self
+    public function setImages(array $images): self
     {
-        $this->images[] = $images;
+        $this->images = $images;
 
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeInterface
+    public function getType(): ?ProductType
     {
-        return $this->deleted_at;
+        return $this->type;
     }
 
-    public function setDeletedAt(?\DateTimeInterface $deleted_at): self
+    public function setType(?ProductType $type): self
     {
-        $this->deleted_at = $deleted_at;
-
-        return $this;
-    }
-
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): self
-    {
-        $this->status = $status;
+        $this->type = $type;
 
         return $this;
     }

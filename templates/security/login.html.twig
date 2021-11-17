@@ -3,8 +3,8 @@
 {% block title  'Connexion - ClickNToulon'%}
 
 {% block body %}
-    <div class="min-h-screen max-h-screen bg-white dark:bg-gray-700 flex justify-center items-center">
-        <div class="py-6 px-6 sm:py-12 sm:px-12 bg-gray-100 dark:bg-gray-600 rounded-2xl shadow-xl z-20 absolute max-w-full sm:max-w-sm lg:max-w-lg w-full">
+    <div class="min-h-screen max-h-screen bg-white flex justify-center items-center">
+        <div class="py-6 px-6 sm:py-12 sm:px-12 shadow-2xl rounded-2xl shadow-xl z-20 absolute max-w-full sm:max-w-sm lg:max-w-lg w-full">
             {% if error %}
                 <div class="bg-yellow-600 rounded-xl mb-2" id="warningAlert">
                     <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
@@ -43,31 +43,35 @@
             {% endif %}
             <form method="post">
                 <div>
-                    <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer text-black dark:text-white">Connectez-vous</h1>
+                    <h1 class="text-3xl font-bold text-center mb-4 text-black">Connectez-vous</h1>
                 </div>
-                <div class="space-y-4">
-                    <label for="inputEmail"></label>
-                    <input type="email" placeholder="Adresse Mail" name="email" id="inputEmail" autocomplete="email" required
-                           class="bg-white px-4 py-3 dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" />
-                    <label for="inputPassword"></label>
-                    <input placeholder="Mot de passe" type="password" name="password" id="inputPassword" autocomplete="current-password" required
-                           class="bg-white px-4 py-3 dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" />
-                    <sub><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié?</a></sub><br>
+                <div>
+                    <label for="email" class="block text-base font-bold text-black">Adresse Email</label>
+                    <input type="email" name="email" id="email" autocomplete="email" required
+                           class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-4 mt-1" />
+                    <label for="password" class="block text-base font-bold text-black">Mot de passe</label>
+                    <input type="password" name="password" id="password" autocomplete="current-password" required
+                           class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-4 mt-1" />
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <div class="inline-flex items-start">
+                    <div class="inline-flex w-full items-start justify-between">
                         <div>
                             <div>
                                 <label class="inline-flex items-center align-middle">
-                                    <input type="checkbox" class="rounded border-gray-400 dark:border-gray-300 text-yellow-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-offset-0 focus:ring-yellow-200 focus:ring-opacity-50" name="_remember_me">
-                                    <span class="ml-2 text-gray-600 dark:text-white font-medium">Se souvenir de moi</span>
+                                    <input type="checkbox" class="rounded border-gray-400 text-yellow-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-offset-0 focus:ring-yellow-200 focus:ring-opacity-50" name="_remember_me">
+                                    <span class="ml-2 text-black font-medium">Se souvenir de moi</span>
                                 </label>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <a href="{{ path('app_forgot_password_request') }}" class="text-black ml-auto underline hover:text-yellow-500">Mot de passe oublié ?</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="text-center mt-3">
-                    <button class="py-3 w-full text-xl text-white bg-yellow-400 rounded-2xl" type="submit">Se connecter</button>
-                    <p class="mt-4 text-sm text-black dark:text-white">Vous n'avez pas de compte? <a class="underline" href="{{ path('app_signup') }}"> Inscrivez-vous</a></p>
+                <div class="text-center mt-6">
+                    <button class="py-2 px-4 w-auto text-xl text-white bg-yellow-500 rounded-lg" type="submit">Se connecter</button>
+                    <p class="mt-4 text-base text-black">Vous n'avez pas de compte ? <a class="underline hover:text-yellow-500" href="{{ path('app_signup') }}"> Inscrivez-vous</a></p>
                 </div>
             </form>
         </div>

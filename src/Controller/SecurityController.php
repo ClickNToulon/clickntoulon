@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\UserForm;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use LogicException;
@@ -66,7 +66,7 @@ class SecurityController extends AbstractController
         }
 
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserForm::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             try {
@@ -75,7 +75,7 @@ class SecurityController extends AbstractController
                 $em->flush();
                 $title = "Veuillez vérifier votre compte chez ClickNToulon";
                 $options = [];
-                array_push($options, $user->getFullName(), $user->getId());
+                array_push($options, $user->getName(), $user->getId());
                 (new MailerController)->send($mailer, $user->getEmail(), $title, $options, 'signup');
                 return $this->redirectToRoute('app_login');
             } catch (UniqueConstraintViolationException $e) {
@@ -109,7 +109,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_signup');
         }
         // validate email confirmation link, sets User::isVerified=true and persists
-        if($user->IsVerified() == true) {
+        if($user->getIsVerified() == true) {
             $this->addFlash('warning', 'Votre compte a déjà été vérifié ou ce compte n\'existe pas. Veuillez ressayer ultérieurement.');
             return $this->render('security/verify_email.html.twig', [
                 'user' => $user,

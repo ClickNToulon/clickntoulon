@@ -35,7 +35,7 @@ class ProductRepository extends ServiceEntityRepository
     public function home()
     {
         return $this->createQueryBuilder('p')
-            ->where('p.status >= 0')
+            ->where('p.id >= 0')
             ->orderBy('p.id', 'DESC')
             ->setMaxResults(8)
             ->getQuery()
@@ -45,23 +45,23 @@ class ProductRepository extends ServiceEntityRepository
     public function findAllQuery(): Query
     {
         return $this->createQueryBuilder('p')
-            ->where('p.status >= 0')
+            ->where('p.id >= 0')
             ->getQuery();
     }
 
     public function findAllByShopQuery(Shop $shop): Query
     {
         return $this->createQueryBuilder('p')
-            ->where('p.shop_id = :shop_id')
-            ->setParameter('shop_id', $shop->getId())
+            ->where('p.shop = :shop')
+            ->setParameter('shop', $shop)
             ->getQuery();
     }
 
     public function findAllByShop(Shop $shop)
     {
         return $this->createQueryBuilder('p')
-            ->where('p.shop_id = :shop_id')
-            ->setParameter('shop_id', $shop->getId())
+            ->where('p.shop = :shop')
+            ->setParameter('shop', $shop)
             ->getQuery()
             ->getResult();
     }

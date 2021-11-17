@@ -2,28 +2,27 @@
 
 namespace App\Form;
 
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddProductBasketType extends AbstractType
+class DeleteCategoryForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('shop_id', HiddenType::class, [
-                "required" => false
-            ])
-            ->add('products_id', HiddenType::class, [
-                "required" => true
+            ->add('id', HiddenType::class, [
+                'mapped' => false
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'translation_domain' => "basket"
+            'data_class' => Category::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

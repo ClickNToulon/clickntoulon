@@ -6,11 +6,10 @@ namespace App\Controller;
 
 use App\Entity\Payment;
 use App\Entity\Shop;
+use App\Repository\OpeningHoursRepository;
 use App\Repository\PaymentRepository;
 use App\Repository\ShopRepository;
-use App\Repository\TimeTableRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,27 +59,26 @@ class ShopController extends AbstractController
     /**
      * @Route("/boutiques/{slug}", name="shop_show")
      * @param Shop $shop
-     * @param TimeTableRepository $tableRepository
      * @param PaymentRepository $paymentRepository
+     * @param OpeningHoursRepository $openingHoursRepository
      * @return Response
-     * @throws NonUniqueResultException
      */
-    public function showOne(Shop $shop, TimeTableRepository $tableRepository, PaymentRepository $paymentRepository): Response
+    public function showOne(Shop $shop, PaymentRepository $paymentRepository, OpeningHoursRepository $openingHoursRepository): Response
     {
         $user = $this->getUser();
-        $timetable = $tableRepository->findById($shop);
         $payments_shop = $shop->getPayments();
         $payments_icons = new Payment();
         $payments = [];
+        $hours = $shop->getFormattedWeekOpeningHours();
         foreach ($payments_shop as $k => $v) {
             $payment_shop = $v->getId();
             $payments[] = $payments_icons->getIcon($payment_shop);
         }
         return $this->render('shop/show.html.twig', [
             'shop' => $shop,
-            'timetable' => $timetable,
             'user' => $user,
-            'payments' => $payments
+            'payments' => $payments,
+            'hours' => $hours
         ]);
     }
 

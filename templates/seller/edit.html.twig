@@ -6,7 +6,7 @@
     {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
     {% include 'seller/_header.html.twig' %}
     <section class="text-gray-400 body-font">
-        <div class="container px-5 py-6 mx-auto">
+        <div class="sm:container px-5 py-6 mx-auto">
             <div class="flex justify-center flex-wrap -m-4 mb-4">
                 {% include 'seller/_tabs.html.twig' with {active: 'edit'} %}
             </div>
@@ -16,34 +16,30 @@
                 <div class="block md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
                         <div class="px-4 sm:px-0">
-                            <h3 class="text-lg font-medium leading-6 text-black dark:text-white inline-flex items-center">
+                            <h3 class="text-2xl font-bold uppercase text-black inline-flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <span class="ml-1">Votre boutique</span>
                             </h3>
-                            <p class="mt-1 text-base text-gray-600 dark:text-gray-300">
+                            <p class="mt-1 text-base text-black">
                                 Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultatif
                             </p>
                         </div>
                     </div>
                     <div class="mt-5 md:mt-0 md:col-span-2">
                         {{ form_start(form_update) }}
-                        <div class="shadow-xl sm:overflow-hidden rounded-2xl">
-                            <div class="px-4 py-5 bg-white dark:bg-gray-800 space-y-6 sm:p-6 rounded-t-2xl">
+                        <div class="shadow-2xl sm:overflow-hidden rounded-2xl">
+                            <div class="px-4 py-5 bg-white space-y-6 sm:p-6 rounded-t-2xl">
                                 <div class="grid grid-cols-2 gap-6">
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_update_form_name" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form_update.name) }}
-                                        </label>
+                                        {{ form_label(form_update.name) }}
                                         <div class="mt-1 flex rounded-md shadow-sm">
                                             {{ form_widget(form_update.name) }}
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_update_form_tag" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form_update.tag) }}
-                                        </label>
+                                        {{ form_label(form_update.tag) }}
                                         <div class="mt-1 flex rounded-md shadow-sm">
                                             {{ form_widget(form_update.tag) }}
                                         </div>
@@ -51,15 +47,13 @@
                                 </div>
                                 <div class="grid grid-cols-2 gap-6">
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_update_form_email" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form_update.email) }}
-                                        </label>
+                                        {{ form_label(form_update.email) }}
                                         <div class="mt-1 flex rounded-md shadow-sm">
                                             {{ form_widget(form_update.email) }}
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_update_form_phone" class="block text-base font-medium text-gray-600 dark:text-white">
+                                        <label for="shop_update_form_phone" class="block text-base font-bold text-gray-600 dark:text-white">
                                             {{ form_label(form_update.phone) }}
                                         </label>
                                         <div class="mt-1 flex rounded-md shadow-sm">
@@ -68,36 +62,22 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="shop_update_form_description" class="block text-base font-medium text-gray-600 dark:text-white">
-                                        {{ form_label(form_update.description) }}
-                                    </label>
+                                    {{ form_label(form_update.description) }}
                                     <div class="mt-1">
                                         {{ form_widget(form_update.description) }}
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="shop_update_form_address" class="block text-base font-medium text-gray-600 dark:text-white">
-                                        {{ form_label(form_update.address) }}
-                                    </label>
+                                    {{ form_label(form_update.address) }}
                                     <div class="mt-1">
                                         {{ form_widget(form_update.address) }}
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-6">
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_update_form_postal_code" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form_update.postal_code) }}
-                                        </label>
+                                        {{ form_label(form_update.postalCode) }}
                                         <div class="mt-1 flex rounded-md shadow-sm">
-                                            {{ form_widget(form_update.postal_code) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_update_form_city" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form_update.city) }}
-                                        </label>
-                                        <div class="mt-1 flex rounded-md shadow-sm">
-                                            {{ form_widget(form_update.city) }}
+                                            {{ form_widget(form_update.postalCode) }}
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +89,7 @@
                                                 <div>
                                                     <label class="inline-flex items-center align-middle">
                                                         <input type="checkbox" class="rounded border-gray-300 text-yellow-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-offset-0 focus:ring-yellow-200 focus:ring-opacity-50" name="payment[]" value="{{ payment.id }}" id="payment_{{ payment.id }}" {% if payment in shop.payments %}checked{% endif %}>
-                                                        <span class="ml-2 text-gray-600 dark:text-white font-medium">{{ payment.name }}</span>
+                                                        <span class="ml-2 text-black font-semibold">{{ payment.name }}</span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -118,8 +98,8 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div class="px-4 py-3 bg-white dark:bg-gray-800 text-right sm:px-6 rounded-b-2xl">
-                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-800">
+                            <div class="px-4 py-3 bg-white text-right sm:px-6 rounded-b-2xl">
+                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
                                     Sauvegarder les changements
                                 </button>
                             </div>
@@ -130,14 +110,14 @@
             </div>
             <div class="block" aria-hidden="true">
                 <div class="py-5">
-                    <div class="border-t border-gray-600 dark:border-gray-200"></div>
+                    <div class="border-t border-gray-600"></div>
                 </div>
             </div>
             <div class="mt-0">
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
                         <div class="px-4 sm:px-0">
-                            <h3 class="text-lg font-medium leading-6 text-black dark:text-white inline-flex items-center">
+                            <h3 class="text-2xl font-bold uppercase text-black inline-flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
@@ -146,255 +126,151 @@
                         </div>
                     </div>
                     <div class="mt-5 md:mt-0 md:col-span-2 w-full md:w-auto">
-                        {{ form_start(form_timetable) }}
-                        <div class="shadow-xl overflow-hidden rounded-2xl">
-                            <div class="px-4 py-5 bg-white dark:bg-gray-800 space-y-6 sm:p-6 rounded-t-2xl">
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Lundi Matin
+                        <form action="" method="post" name="test" id="test">
+                        <div class="shadow-2xl overflow-hidden rounded-2xl">
+                            <div class="px-4 py-5 bg-white space-y-6 sm:p-6 rounded-t-2xl">
+                                <div class="grid grid-cols-2 gap-2 gap-y-2" id="lundi">
+                                    <div class="col-span-2 flex flex-row">
+                                        <label class="block text-base font-semibold text-black">
+                                            Lundi
                                         </label>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeMondayOpen" class="text-black">Ouverture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.monAmOp) }}
+                                            <input type="time" name="TimeMondayOpen" id="TimeMondayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeMondayClose" class="text-black">Fermeture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.monAmCl) }}
+                                            <input type="time" name="TimeMondayClose" id="TimeMondayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
+                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="mardi">
                                     <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Lundi Après-midi
+                                        <label class="block text-base font-semibold text-black">
+                                            Mardi
                                         </label>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeTuesdayOpen" class="text-black">Ouverture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.monPmOp) }}
+                                            <input type="time" name="TimeTuesdayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeTuesdayClose" class="text-black">Fermeture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.monPmCl) }}
+                                            <input type="time" name="TimeTuesdayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
+                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="mercredi">
                                     <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Mardi Matin
+                                        <label class="block text-base font-semibold text-black">
+                                            Mercredi
                                         </label>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeWednesdayOpen" class="text-black">Ouverture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.tueAmOp) }}
+                                            <input type="time" name="TimeWednesdayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeWednesdayClose" class="text-black">Fermeture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.tueAmCl) }}
+                                            <input type="time" name="TimeWednesdayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
+                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="jeudi">
                                     <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Mardi Après-midi
+                                        <label class="block text-base font-semibold text-black">
+                                            Jeudi
                                         </label>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeThursdayOpen" class="text-black">Ouverture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.tuePmOp) }}
+                                            <input type="time" name="TImeThursdayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeThursdayClose" class="text-black">Fermeture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.tuePmCl) }}
+                                            <input type="time" name="TimeThursdayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
+                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="vendredi">
                                     <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Mercredi Matin
+                                        <label class="block text-base font-semibold text-black">
+                                            Vendredi
                                         </label>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeFridayOpen" class="text-black">Ouverture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.wedAmOp) }}
+                                            <input type="time" name="TimeFridayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeFridayClose" class="text-black">Fermeture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.wedAmCl) }}
+                                            <input type="time" name="TimeFridayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
+                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="samedi">
                                     <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Mercredi Après-midi
+                                        <label class="block text-base font-semibold text-black">
+                                            Samedi
                                         </label>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeSaturdayOpen" class="text-black">Ouverture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.wedPmOp) }}
+                                            <input type="time" name="TimeSaturdayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeSaturdayClose" class="text-black">Fermeture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.wedPmCl) }}
+                                            <input type="time" name="TimeSaturdayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
+                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="dimanche">
                                     <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Jeudi Matin
+                                        <label class="block text-base font-semibold text-black">
+                                            Dimanche
                                         </label>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeSundayOpen" class="text-black">Ouverture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.thuAmOp) }}
+                                            <input type="time" name="TimeSundayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
+                                        <label for="TimeSundayClose" class="text-black">Fermeture</label>
                                         <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.thuAmCl) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Jeudi Après-midi
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.thuPmOp) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.thuPmCl) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Vendredi Matin
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.friAmOp) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.friAmCl) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Vendredi Après-midi
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.friPmOp) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.friPmCl) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Samedi Matin
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.satAmOp) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.satAmCl) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Samedi Après-midi
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.satPmOp) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.satPmCl) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Dimanche Matin
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.sunAmOp) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.sunAmCl) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-medium text-gray-600 dark:text-white">
-                                            Dimanche Après-midi
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.sunPmOp) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <div class="flex rounded-md shadow-sm">
-                                            {{ form_widget(form_timetable.sunPmCl) }}
+                                            <input type="time" name="TimeSundayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="px-4 py-3 bg-white dark:bg-gray-800 text-right sm:px-6">
-                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-800">
+                            <input type="hidden" value="1" name="day">
+                            <div class="px-4 py-3 bg-white text-right sm:px-6">
+                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
                                     Sauvegarder les horaires
                                 </button>
                             </div>
                         </div>
-                        {{ form_end(form_timetable) }}
+                        </form>
                     </div>
                 </div>
             </div>
@@ -407,7 +283,7 @@
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
                         <div class="px-4 sm:px-0">
-                            <h3 class="text-lg font-medium leading-6 text-red-500 inline-flex items-center">
+                            <h3 class="text-2xl font-bold uppercase text-black inline-flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
                                 </svg>
@@ -417,15 +293,15 @@
                     </div>
                     <div class="mt-5 md:mt-0 md:col-span-2">
                         {{ form_start(form_delete) }}
-                        <div class="shadow-xl overflow-hidden rounded-2xl">
-                            <div class="px-4 py-5 bg-white dark:bg-gray-800 space-y-6 sm:p-6">
+                        <div class="shadow-2xl overflow-hidden rounded-2xl">
+                            <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                                 <div class="text-center flex items-center flex-col">
-                                    <p class="mt-2 text-black dark:text-white font-medium">
+                                    <p class="mt-2 text-black font-bold">
                                         Vous n'êtes pas satisfait du contenu proposé sur le site ?
                                         <br>
                                         Ou vous souhaitez supprimer toutes les informations associées à votre boutique ?
                                     </p>
-                                    <p class="mt-2 text-black dark:text-white font-medium">
+                                    <p class="mt-2 text-black font-bold">
                                         Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es relatives à votre boutique,
                                         ainsi que toutes les commandes passées sur le site qui ne sont encore livrées
                                         (donc même celles en attente et en préparation).
@@ -433,8 +309,8 @@
                                     {{ form_row(form_delete.id) }}
                                 </div>
                             </div>
-                            <div class="px-4 py-3 bg-white dark:bg-gray-800 text-right sm:px-6">
-                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-white dark:focus:ring-offset-gray-700">
+                            <div class="px-4 py-3 bg-white text-right sm:px-6">
+                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-white">
                                     Supprimer votre boutique
                                 </button>
                             </div>
@@ -445,5 +321,47 @@
             </div>
         </div>
     </section>
+    <script>
+        function openModal(modalID) {
+            document.getElementById(modalID).classList.toggle('hidden');
+            document.getElementById(modalID).classList.toggle('fixed');
+        }
+
+        function addHoraire(divID, buttonID) {
+            document.getElementById(buttonID).classList.add('hidden');
+            let div = document.createElement('div');
+            div.classList = 'col-span-2 sm:col-span-1';
+            div.id = `test-${divID}`;
+            div.innerHTML = `
+                <label>Ouverture</label>
+                <div class="flex rounded-md shadow-sm">
+                    <input type="time" name="test-${divID}3" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            `;
+            document.getElementById(divID).appendChild(div);
+            let div2 = document.createElement('div');
+            div2.classList = 'col-span-2 sm:col-span-1';
+            div2.innerHTML = `
+                <label>Fermeture</label>
+                <div class="flex rounded-md shadow-sm">
+                    <input type="time" name="test-${divID}4" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            `;
+            document.getElementById(divID).appendChild(div2);
+            let del = document.createElement('div');
+            del.classList = 'col-span-2 flex flex-row items-center justify-center';
+            del.id = divID + '-delete';
+            del.innerHTML =`<button type="button" onclick="suppHoraire('${divID}','${buttonID}')" class="px-3 py-2 dark:text-white text-black bg-yellow-600 mt-1 rounded-lg">Supprimer des horaires</button>`;
+            document.getElementById(divID).appendChild(del);
+        }
+
+        function suppHoraire(divID, buttonID) {
+            document.getElementById(divID).lastChild.remove();
+            document.getElementById(divID).lastChild.remove();
+            document.getElementById(divID).lastChild.remove();
+
+            document.getElementById(buttonID).classList.remove('hidden');
+        }
+    </script>
     {% include 'footer.html.twig' %}
 {% endblock %}

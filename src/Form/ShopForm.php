@@ -3,6 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Shop;
+use App\Entity\Tag;
+use App\Repository\CategoryRepository;
+use App\Repository\TagRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -14,7 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
 
-class ShopType extends AbstractType
+class ShopForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -44,17 +48,12 @@ class ShopType extends AbstractType
                     'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
-            ->add('postal_code', TextType::class, [
+            ->add('postalCode', TextType::class, [
                 'attr' => [
                     'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
             ])
-            ->add('city', TextType::class, [
-                'attr' => [
-                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
-                ]
-            ])
-            ->add('cover', FileType::class, [
+            ->add('image', FileType::class, [
                 'attr' => [
                     'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ],
@@ -67,8 +66,15 @@ class ShopType extends AbstractType
                     ])
                 ]
             ])
-            ->add('tag', ChoiceType::class, [
-                'choices' => $this->getChoices(),
+            ->add('tag', EntityType::class, [
+                'class' => Tag::class,
+                'mapped' => false,
+                'required' => true,
+                'label' => 'Tag',
+                'query_builder' => function(TagRepository $em) {
+                    return $em->findAllQuery();
+                },
+                'choice_label' => 'name',
                 'attr' => [
                     'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md'
                 ]
@@ -78,19 +84,10 @@ class ShopType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => Shop::class,
-            'translation_domain' => 'forms'
-        ]);
-    }
-
-    private function getChoices(): array
-    {
-        $choices = Shop::Tag;
-        $output = [];
-        foreach ($choices as $k => $v) {
-            $output[$v] = $k;
-        }
-        return $output;
+        $resolver
+            ->setDefaults([
+                'data_class' => Shop::class,
+                'translation_domain' => 'forms'
+            ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Shop;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
@@ -39,7 +40,7 @@ class ShopRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('s')
             ->where('s.name LIKE :param')
             ->setParameter('param', '%'.$search_param.'%')
-            ->andWhere('s.banned = false')
+            ->andWhere('s.isBanned != false')
             ->getQuery()
             ->getResult();
     }
@@ -47,7 +48,7 @@ class ShopRepository extends ServiceEntityRepository
     public function findAllQuery(): Query
     {
         return $this->createQueryBuilder('s')
-            ->where('s.banned != true')
+            ->where('s.isBanned != true')
             ->getQuery();
     }
 
@@ -65,12 +66,12 @@ class ShopRepository extends ServiceEntityRepository
      * @param $id
      * @return QueryBuilder
      */
-    public function choose($id): QueryBuilder
+    public function choose(User $owner): QueryBuilder
     {
         return $this
             ->createQueryBuilder('s')
-            ->where('s.owner_id = :id')
-            ->setParameter('id', $id);
+            ->where('s.owner = :owner')
+            ->setParameter('owner', $owner);
     }
 
     /**
@@ -85,11 +86,11 @@ class ShopRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findAllByUser($id)
+    public function findAllByUser($owner)
     {
         return $this->createQueryBuilder('s')
-            ->where('s.owner_id = :user_id')
-            ->setParameter('user_id', array($id))
+            ->where('s.owner = :user')
+            ->setParameter('user', $owner)
             ->getQuery()
             ->getResult();
     }

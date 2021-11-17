@@ -15,78 +15,61 @@ class Basket
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private ?int $owner_id;
+    private ?User $owner;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="array")
      */
-    private ?string $products_id;
+    private ?array $products;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="array")
      */
-    private ?string $quantity;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $shop_id;
+    private ?array $quantity;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getOwnerId(): ?int
+    public function getOwnerId(): User
     {
-        return $this->owner_id;
+        return $this->owner;
     }
 
-    public function setOwnerId(int $owner_id): self
+    public function setOwnerId(User $owner): self
     {
-        $this->owner_id = $owner_id;
+        $this->owner = $owner;
 
         return $this;
     }
 
 
-    public function getProductsId(): ?string
+    public function getProducts(): array
     {
-        return $this->products_id;
+        return $this->products;
     }
 
-    public function setProductsId(string $products_id): self
+    public function setProducts(array $products): self
     {
-        $this->products_id = $products_id;
+        $this->products = $products;
 
         return $this;
     }
 
-    public function getQuantity(): ?string
+    public function getQuantity(): array
     {
         return $this->quantity;
     }
 
-    public function setQuantity(string $quantity): self
+    public function setQuantity(array $quantity): self
     {
         $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getShopId(): ?int
-    {
-        return $this->shop_id;
-    }
-
-    public function setShopId(?int $shop_id): self
-    {
-        $this->shop_id = $shop_id;
 
         return $this;
     }

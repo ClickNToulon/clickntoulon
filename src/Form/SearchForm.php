@@ -20,7 +20,7 @@ class SearchForm extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr' => [
-                    'class' => 'bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md',
+                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out',
                     'name' => 'q',
                     'type' => 'search',
                     'placeholder' => 'Rechercher'
