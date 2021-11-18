@@ -90,29 +90,27 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         $orders = $orderRepository->findLast4ByUser($user);
-        $products_id = [];
+        $order_products = [];
         $products = [];
-        foreach ($orders as $key => $value) {
-            $products_id[$value->getId()] = $value->getProducts();
-            foreach ($products_id as $key2 => $value2) {
-                if(str_contains($value2, ',') == true) {
-                    $value3 = [];
-                    $value3 = explode(',', $value2);
-                    $products[$value->getId()] = [];
-                    foreach ($value3 as $key4 => $value4) {
-                        $products[$value->getId()][] = $productRepository->find($value4);
-                    }
-                } else {
-                    $products[$value->getId()] = $productRepository->find($value2);
-                }
+        $quantities = [];
+        foreach ($orders as $order) {
+            $order_products = $order->getProducts();
+            $order_quantities = $order->getQuantity();
+            foreach ($order_quantities as $quantity) {
+                $quantities[$order->getId()][] = $quantity;
+            }
+            foreach ($order_products as $op) {
+                $products[$order->getId()][] = $op;
             }
         }
         $shops = $shopRepository->findAll();
+        dump($quantities);
         return $this->render('user/orders.html.twig', [
             'user' => $user,
             'orders' => $orders,
             'shops' => $shops,
-            'products' => $products
+            'products' => $products,
+            'quantities' => $quantities
         ]);
     }
 
@@ -128,24 +126,24 @@ class UserController extends AbstractController
     public function order(OrderRepository $orderRepository, ShopRepository $shopRepository, ProductRepository $productRepository, Request $request): Response
     {
         $user = $this->getUser();
-        $order = $orderRepository->findOneBy(['number' => $request->attributes->get('number')]);
+        $order = $orderRepository->findOneBy(['orderNumber' => $request->attributes->get('number')]);
         $products = [];
-        $products_id = [];
         $order_products = $order->getProducts();
-        foreach ($order_products as $order_product) {
-            $products_id[] = $order_product->getId();
+        foreach ($order_products as $op) {
+            $products[] = $op;
         }
-        foreach ($products_id as $key => $value) {
-            $products[] = $productRepository->find($value);
+        $order_quantities = $order->getQuantity();
+        $quantities = [];
+        foreach ($order_quantities as $quantity) {
+            $quantities[] = $quantity;
         }
-        $products_quantity = $order->getQuantity();
         $shop = $shopRepository->find($order->getShop()->getId());
         return $this->render('user/order.html.twig', [
             'user' => $user,
             'order' => $order,
             'shop' => $shop,
             'products' => $products,
-            'quantities' => $products_quantity
+            'quantities' => $quantities
         ]);
     }
 

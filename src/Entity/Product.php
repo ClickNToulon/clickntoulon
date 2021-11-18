@@ -54,6 +54,11 @@ class Product
      */
     private ?ProductType $type;
 
+    public function __construct() {
+        $this->images = [];
+        $this->unitPriceDiscount = null;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

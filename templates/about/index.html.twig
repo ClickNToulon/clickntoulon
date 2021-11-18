@@ -6,111 +6,133 @@
     {% include 'navbar.html.twig' with {'active': 'about'} %}
     <div class="sm:container sm:mx-auto py-12 px-6">
         <img src="{{ asset('images/clickntoulon.svg') }}" alt="Logo ClickNToulon" width="300px" class="m-auto h-72">
-        <h1 class="text-center mt-2 text-black dark:text-white font-bold text-4xl">
-            Bienvenue sur la plateforme ClickNToulon
-        </h1>
-        <h6 class="text-center text-black dark:text-white text-lg font-bold mb-5">
-            <i>Made in Toulon for Toulon</i>
-        </h6>
-        <p class="text-black dark:text-white text-base font-medium mb-5">
+        <div class="text-center my-10">
+            <h2 class="sm:text-5xl text-3xl font-extrabold title-font text-black mb-4 uppercase">Bienvenue sur ClickNToulon</h2>
+            <p class="text-xl leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-black font-semibold italic">Made in Toulon for Toulon</p>
+            <div class="flex mt-6 justify-center">
+                <div class="w-2/3 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+            </div>
+        </div>
+        <p class="text-black text-lg font-semibold mb-5">
             ClickNToulon est une plateforme créée par Quentin BOITEL et Corentin THIBAUD,
             tous deux étudiants à l'ISEN Yncréa Méditerranée, ayant pour but de mettre en relation des clients
             et les commerçants toulonnais.
         </p>
-        <h2 class="text-4xl font-medium italic text-yellow-500 mb-5">
-            1. Pourquoi cette plateforme ?
-        </h2>
-        <p class="text-black dark:text-white text-lg italic mb-1">
+        <div class="text-center my-10">
+            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">1. Pourquoi cette plateforme ?</h2>
+            <div class="flex mt-6 justify-center">
+                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+            </div>
+        </div>
+        <p class="text-black text-lg italic mb-1 font-semibold">
             <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a> est une plateforme associative qui fonctionne 24h/24 7j/7,
             réalisé par des étudiants de l’ISEN de Toulon.
         </p>
-        <p class="text-black dark:text-white text-lg italic mb-1">
+        <p class="text-black text-lg italic mb-1 font-semibold">
             Notre force principale est le local. Nous connaissons très bien le marché de Toulon et ses avantages.
-            Pour cette raison, un commerçant membre de la plateforme <b>peut proposer des évolutions à la plateforme</b>.
+            Pour cette raison, un commerçant membre de la plateforme <b class="text-yellow-500">peut proposer des évolutions à la plateforme</b>.
             De plus, l’argent généré par la plateforme restera dans un circuit court le plus longtemps possible,
             profitant aux clients et aux commerçants.
         </p>
-        <p class="text-black dark:text-white text-lg italic mb-1">
-            Conformément aux plateformes traditionnelles, l’inscription est <b>gratuite</b> pour l'Utilisateur.
+        <p class="text-black text-lg italic mb-1 font-semibold">
+            Conformément aux plateformes traditionnelles, l’inscription est <b class="text-yellow-500">gratuite</b> pour l'Utilisateur.
         </p>
-        <p class="text-black dark:text-white text-lg italic mb-1">
+        <p class="text-black text-lg italic mb-1 font-semibold">
             Un commerçant pourra s’inscrire sur la plateforme gratuitement mais devra s'acquitter d'une somme de 5&euro; HT par an pour effectuer des ventes.
         </p>
-        <p class="text-black dark:text-white text-lg italic mb-5">
+        <p class="text-black text-lg italic mb-5 font-semibold">
             <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a> propose un contrôle total
             pour les commerçants sur leurs boutiques en ligne : vous choisissez vos produits, votre prix pratiqué
             et vous la personnalisez comme vous le souhaitez.
             Vous ne savez pas comment faire ? Notre équipe pourra venir vous aider à configurer vos produits
             et à attirer les clients qui feront la différence à la fin du mois.
         </p>
-        <h2 class="text-yellow-500 text-4xl italic font-medium mb-5">
-            2. Qui peut rejoindre ClickNToulon ?
-        </h2>
-        <p class="text-black dark:text-white text-lg italic mb-5">
+        <div class="text-center my-10">
+            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">2. Qui peut rejoindre ClickNToulon ?</h2>
+            <div class="flex mt-6 justify-center">
+                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+            </div>
+        </div>
+        <p class="text-black text-lg italic mb-5 font-semibold">
             Tous les commerces de la ville de Toulon de petite taille (Entreprise unipersonnelle, TPE, PME, SARL)
             et n’étant affilié à aucune marque de distribution peuvent rejoindre <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a>.
             Dans un futur proche, la plateforme sera ouverte à tous les commerces de l’agglomération toulonnaise.
         </p>
-        <h2 class="text-yellow-500 text-4xl italic font-medium mb-5">
-            3. Comment rejoindre ClickNToulon ?
-        </h2>
-        <p class="text-black dark:text-white text-lg italic mb-1">
+        <div class="text-center my-10">
+            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">3. Comment rejoindre ClickNToulon ?</h2>
+            <div class="flex mt-6 justify-center">
+                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+            </div>
+        </div>
+        <p class="text-black text-lg italic mb-1 font-semibold">
             Vous pouvez rejoindre <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a> en contactant un membre de l’équipe à l’adresse mail suivante :
             <a href="mailto:clickntoulon@ycnrea.fr" class="underline text-yellow-500">clickntoulon@yncrea.fr</a> et notre équipe vous répondra
             dans les plus brefs délais.
             <sup>*</sup>
         </p>
-        <p class="text-black dark:text-white text-lg italic mb-0.5">
+        <p class="text-black text-lg italic mb-0.5 font-semibold">
             Afin de gagner un maximum de temps, merci de nous envoyer :
         </p>
-        <ul class="text-black dark:text-white text-lg italic italic list-disc list-inside mb-1">
+        <ul class="text-black text-lg italic italic list-disc list-inside mb-1 font-semibold">
             <li>Nom de votre boutique</li>
             <li>Adresse de votre boutique</li>
             <li>Adresse mail du magasin (si différente de l'adresse mail utilisée pour nous contacter)</li>
             <li>Horaires du magasin</li>
             <li>Téléphone du magasin</li>
         </ul>
-        <p class="text-black dark:text-white text-lg italic mb-1">
+        <p class="text-black text-lg italic mb-1 font-semibold">
             Vous pouvez remplir le formulaire disponible sur notre site pour vous inscrire.
             Notre équipe vous recontactera dès réception de votre demande.
             <sup>*</sup>
         </p>
-        <small class="text-black dark:text-white text-sm mb-5">
+        <small class="text-black text-sm mb-5 font-semibold">
             * Nous faisons notre maximum, nous vous répondrons dans les 24 heures
             à la suite de votre demande au maximum.
         </small>
-        <p class="text-black dark:text-white text-lg italic mb-5">
+        <p class="text-black text-lg italic mb-5 font-semibold">
             &Agrave; ce moment-là, nous échangerons sur les besoins de votre boutique pour sa disponibilité en ligne.
         </p>
-        <h2 class="text-yellow-500 text-4xl italic font-medium mb-5">
-            4. Quels sont les produits que je peux mettre en ligne ?
-        </h2>
-        <p class="text-black dark:text-white text-lg italic mb-5">
+        <div class="text-center my-10">
+            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">4. Quels sont les produits que je peux mettre en ligne ?</h2>
+            <div class="flex mt-6 justify-center">
+                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+            </div>
+        </div>
+        <p class="text-black text-lg italic mb-5 font-semibold">
             Vous pouvez mettre en ligne tous les produits que possède votre boutique et du moment que ce produit est autorisé à être vendu en ligne,
             c'est-à-dire tous les produits que vous souhaitez et qui sont autorisés à la vente dans votre boutique sauf ceux contenant du tabac.
         </p>
-        <h2 class="text-yellow-500 text-4xl italic font-medium mb-5">
-            5. Puis-je mettre en ligne des produits ayant des restrictions de vente ?
-        </h2>
-        <p class="text-black dark:text-white text-lg italic mb-5">
+        <div class="text-center my-10">
+            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">5. Puis-je mettre en ligne des produits ayant des restrictions de vente ?</h2>
+            <div class="flex mt-6 justify-center">
+                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+            </div>
+        </div>
+        <p class="text-black text-lg italic mb-5 font-semibold">
             Si ce produit est autorisé par la loi à être vendu en ligne oui.
             En revanche, il sera demandé au commerçant de procéder à toutes les vérifications nécessaires
             avant de remettre le produit au client.
             <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a> ne pourra être tenu responsable
             en cas de vente illégale d’un certain produit.
         </p>
-        <h2 class="text-yellow-500 text-4xl italic font-medium mb-5">
-            6. Quelles sont les conditions appliquées sur la plateforme ?
-        </h2>
-        <p class="text-black dark:text-white text-lg italic mb-5">Vous retrouverez toutes nos conditions de ventes et d’utilisation sur notre site Internet.
+        <div class="text-center my-10">
+            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">6. Quelles sont les conditions appliquées sur la plateforme ?</h2>
+            <div class="flex mt-6 justify-center">
+                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+            </div>
+        </div>
+        <p class="text-black text-lg italic mb-5 font-semibold">Vous retrouverez toutes nos conditions de ventes et d’utilisation sur notre site Internet.
             Si, une des conditions de vente de votre boutique rentre en collision avec une des nôtres
             (hormis pour la liste de produits vendus, sur les restrictions de ventes et la présentation de votre boutique en ligne),
             les conditions de votre boutique s’appliquent.
         </p>
-        <h2 class="text-yellow-500 text-4xl italic font-medium mb-5">
-            7. Quelles sont les images que je peux mettre en ligne ?
-        </h2>
-        <p class="text-black dark:text-white text-lg italic mb-5">
+        <div class="text-center my-10">
+            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">7. Quelles sont les images que je peux mettre en ligne ?</h2>
+            <div class="flex mt-6 justify-center">
+                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+            </div>
+        </div>
+        <p class="text-black text-lg italic mb-5 font-semibold">
             Vous pouvez mettre en ligne des images de vos produits et de votre boutique uniquement.
             Toutes les images doivent être visible par tout le monde et n’incitant à aucune consommation dangereuse ou excessive d’un produit.
             Toute image contraire à cette règle se verra retiré par notre équipe.

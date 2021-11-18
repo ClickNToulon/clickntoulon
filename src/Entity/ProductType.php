@@ -27,7 +27,7 @@ class ProductType
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="type")
      */
-    private ArrayCollection $products;
+    private $products;
 
     public function __construct()
     {

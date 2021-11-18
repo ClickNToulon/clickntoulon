@@ -20,7 +20,7 @@
                                 {{ product.unitPrice | format_currency('EUR') }}
                             </h1>
                             <h1 class="font-semibold text-red-600 text-base">
-                                {% set dealPrice = product.unitPrice * (1 - product.unitPriceDiscount) %}
+                                {% set dealPrice = product.unitPrice * (1 - (product.unitPriceDiscount/100)) %}
                                 {{ dealPrice | format_currency('EUR') }}
                             </h1>
                         </div>

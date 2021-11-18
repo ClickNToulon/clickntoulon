@@ -5,39 +5,35 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
     <section class="text-gray-400 body-font">
-        <div class="container px-5 mx-auto sm:max-w-7xl py-8 max-w-full">
+        <div class="sm:container px-5 mx-auto sm:max-w-7xl py-8 max-w-full">
             <div class="w-full">
                 <div class="block md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
                         <div class="px-4 sm:px-0">
-                            <h3 class="text-lg font-medium leading-6 text-black dark:text-white inline-flex items-center">
+                            <h3 class="text-xl font-semibold leading-6 text-black inline-flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                 </svg>
                                 <span class="ml-1">Informations de ma boutique</span>
                             </h3>
-                            <p class="mt-1 text-base text-gray-600 dark:text-gray-300">
+                            <p class="mt-1 text-base text-black">
                                 Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultative
                             </p>
                         </div>
                     </div>
                     <div class="mt-5 md:mt-0 md:col-span-2">
                         {{ form_start(form) }}
-                        <div class="shadow sm:overflow-hidden rounded-2xl">
-                            <div class="px-4 py-5 bg-gray-800 space-y-6 sm:p-6 rounded-t-2xl">
+                        <div class="shadow-2xl sm:overflow-hidden rounded-lg">
+                            <div class="px-4 py-5 bg-white space-y-6 sm:p-6 rounded-t-lg">
                                 <div class="grid grid-cols-2 gap-6">
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_name" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form.name) }}
-                                        </label>
+                                        {{ form_label(form.name) }}
                                         <div class="mt-1 flex rounded-md shadow-sm">
                                             {{ form_widget(form.name) }}
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_email" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form.tag) }}
-                                        </label>
+                                        {{ form_label(form.tag) }}
                                         <div class="mt-1 flex rounded-md shadow-sm">
                                             {{ form_widget(form.tag) }}
                                         </div>
@@ -45,59 +41,47 @@
                                 </div>
                                 <div class="grid grid-cols-2 gap-6">
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_email" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form.email) }}
-                                        </label>
+                                        {{ form_label(form.email) }}
                                         <div class="mt-1 flex rounded-md shadow-sm">
                                             {{ form_widget(form.email) }}
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_phone" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form.phone) }}
-                                        </label>
+                                        {{ form_label(form.phone) }}
                                         <div class="mt-1 flex rounded-md shadow-sm">
                                             {{ form_widget(form.phone) }}
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="shop_description" class="block text-base font-medium text-gray-600 dark:text-white">
-                                        {{ form_label(form.description) }}
-                                    </label>
+                                    {{ form_label(form.description) }}
                                     <div class="mt-1">
                                         {{ form_widget(form.description) }}
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="shop_address" class="block text-base font-medium text-gray-600 dark:text-white">
-                                        {{ form_label(form.address) }}
-                                    </label>
+                                    {{ form_label(form.address) }}
                                     <div class="mt-1">
                                         {{ form_widget(form.address) }}
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-6">
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_postal_code" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form.postalCode) }}
-                                        </label>
+                                        {{ form_label(form.postalCode) }}
                                         <div class="mt-1 flex rounded-md shadow-sm">
                                             {{ form_widget(form.postalCode) }}
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
-                                        <label for="shop_cover" class="block text-base font-medium text-gray-600 dark:text-white">
-                                            {{ form_label(form.image) }}
-                                        </label>
+                                        {{ form_label(form.image) }}
                                         <div class="mt-1">
                                             {{ form_widget(form.image) }}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="px-4 py-3 bg-gray-800 text-right sm:px-6 rounded-b-2xl">
-                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700">
+                            <div class="px-4 py-3 bg-white text-right sm:px-6 rounded-b-lg">
+                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
                                     Créer ma boutique
                                 </button>
                             </div>

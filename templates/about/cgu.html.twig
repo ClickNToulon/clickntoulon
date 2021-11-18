@@ -5,23 +5,28 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'about'} %}
     <div class="sm:container py-5 px-5 mx-auto">
-        <h1 class="text-black dark:text-white font-medium text-4xl text-center md:mt-12 mb-2">Conditions Générales d'Utilisation</h1>
-        <h6 class="text-center text-black dark:text-white font-medium text-xl italic mb-5"><i>Effective dès le 23/09/2021</i></h6>
-        <p class="text-black dark:text-white text-lg mb-1.5 italic font-medium">
+        <div class="text-center my-10">
+            <h2 class="sm:text-5xl text-3xl font-extrabold title-font text-black mb-4 uppercase">Conditions Générales d'Utilisation</h2>
+            <p class="text-xl leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-black font-semibold italic">Effective dès le 20/11/2021</p>
+            <div class="flex mt-6 justify-center">
+                <div class="w-2/3 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+            </div>
+        </div>
+        <p class="text-black text-lg mb-1.5 italic font-semibold">
             Les présentes conditions générales d’utilisation (dites « CGU ») ont pour objectif d’encadrer juridiquement
             les modalités de mise à disposition du site et des différents services proposés par <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a>
             et de définir les conditions d’accès et d’utilisation des services par « l’Utilisateur ».
         </p>
-        <p class="text-black dark:text-white text-lg mb-1.5 italic font-medium">
+        <p class="text-black text-lg mb-1.5 italic font-semibold">
             Les présentes CGU sont disponibles à tout moment sur le site à la rubrique « CGU »,
             disponible en bas de toutes les pages du site.
         </p>
-        <p class="text-black dark:text-white text-lg mb-1.5 italic font-medium">
+        <p class="text-black text-lg mb-1.5 italic font-semibold">
             Toute inscription ou utilisation du site implique l’acceptation sans aucune réserve ni restriction des présentes CGU par l’Utilisateur.
             Lors de l’inscription de ce dernier via le formulaire prévu à cet effet, chaque utilisateur accepte expressément les présentes CGU
             en cochant la case précédant le texte : « Je reconnais avoir lu et accepté les CGU ».
         </p>
-        <p class="text-black dark:text-white text-lg mb-1.5 italic font-medium">
+        <p class="text-black text-lg mb-1.5 italic font-semibold">
             En cas de non-acceptation des CGU, l’Utilisateur ne pourra prétendre à accéder aux différents services du site.
             <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a> se réserve le droit de modifier unilatéralement
             et à tout moment le contenu des présentes CGU.
@@ -29,100 +34,109 @@
     </div>
     <div class="about">
         <div class="sm:container py-5 px-5 mx-auto">
-            <h2 class="mb-5 text-yellow-500 font-medium text-4xl italic">
-                Article 1 : Mentions légales
-            </h2>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <div class="text-center mb-10">
+                <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Article 1 : Mentions légales</h2>
+                <div class="flex mt-6 justify-center">
+                    <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+                </div>
+            </div>
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 L’édition et l’hébergement du site ClickNToulon est assurée par <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a>,
                 association de type 1901, identifiable sur le Registre National des Associations avec le numéro W832020454,
                 dont le siège social est situé à Appartement N 22, Résidence Norbert SEGARD, Rue Henri Pertus, 83000 Toulon.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Le directeur de la publication est Corentin THIBAUD. Pour toute question, veuillez nous contacter par mail : <a href="mailto:clickntoulon@ycnrea.fr" class="underline text-yellow-500">clickntoulon@yncrea.fr</a>.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-5">
+            <p class="text-black text-lg italic mb-5 font-semibold">
                 L’hébergeur du site est la société SARL o2switch, une société du groupe Zohey, dont le siège social est situé
                 au 222-224 Boulevard Gustave Flaubert, 63000 Clermont-Ferrand avec un capital de 100 000€,
                 identifiable sur le Registre du Commerce et des Sociétés de Clermont-Ferrand par le numéro de Siret 510 909 80700024.
             </p>
-            <h2 class="mb-5 text-yellow-500 font-medium text-4xl italic">
-                Article 2 : Accès au site
-            </h2>
-            <p class="text-black dark:text-white text-lg italic mb-0.5">
+            <div class="text-center my-10">
+                <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Article 2 : Accès au site</h2>
+                <div class="flex mt-6 justify-center">
+                    <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+                </div>
+            </div>
+            <p class="text-black text-lg italic mb-0.5 font-semibold">
                 Le site <a href="{{ path('home') }}">ClickNToulon</a> permet à toutes personnes désireuses un accès gratuit aux services suivants :
             </p>
-            <ul class="list-disc list-inside text-black dark:text-white italic mb-1">
+            <ul class="list-disc list-inside text-black italic mb-1 font-semibold">
                 <li>Affichage des produits (non-exhaustifs) vendus dans une boutique partenaire</li>
                 <li>L’obtention de ses coordonnées et des informations utiles</li>
             </ul>
-            <p class="text-black dark:text-white text-lg italic mb-0.5">
+            <p class="text-black text-lg italic mb-0.5 font-semibold">
                 Le site internet propose les services suivants à tous ses membres, en plus de ceux cités précédemment :
             </p>
-            <ul class="list-disc list-inside text-black dark:text-white italic mb-1">
+            <ul class="list-disc list-inside text-black italic mb-1 font-semibold">
                 <li>Possibilité de réserver un produit</li>
                 <li>De suivre un historique de ses réservations réalisées dans les 6 derniers mois</li>
             </ul>
-            <p class="text-black dark:text-white text-lg italic mb-0.5">
+            <p class="text-black text-lg italic mb-0.5 font-semibold">
                 Le site internet propose également les services suivants pour tous les commerçants partenaires de la plateforme :
             </p>
-            <ul class="list-disc list-inside text-black dark:text-white italic mb-2">
+            <ul class="list-disc list-inside text-black italic mb-2 font-semibold">
                 <li>Possibilité d’ajouter sa boutique sur le site</li>
                 <li>Ajouter/modifier/supprimer les informations d’un produit</li>
                 <li>Accepter/refuser les différentes réservations</li>
             </ul>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Le site est accessible gratuitement en tout lieu à tout Utilisateur ayant un accès à Internet.
                 Tous les frais supportés par l’Utilisateur pour accéder au service (matériel informatique, logiciels, connexion Internet, etc.) sont à sa charge.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1">
+            <p class="text-black text-lg italic mb-1 font-semibold">
                 Un Utilisateur peut devenir membre et bénéficier des différents services en remplissant le formulaire d’inscription.
                 En acceptant de s’inscrire aux services réservés, l’Utilisateur membre s’engage à fournir des informations sincères et exactes
                 concernant son état civil et ses coordonnées, notamment son adresse électronique.
             </p>
-            <p class="text-black dark:text-white italic mb-1.5 text-lg">
-                Toutes les informations collectées sont définies et justifiées à <b>l'Article 3 : Collecte des données.</b>
+            <p class="text-black italic mb-1.5 text-lg font-semibold">
+                Toutes les informations collectées sont définies et justifiées à <b class="text-yellow-500">l'Article 3 : Collecte des données.</b>
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Pour accéder aux services, le membre devra d’abord valider son adresse électronique, puis il pourra se connecter à
                 l’aide des informations de connexion qu’il aura choisis.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Tout membre inscrit pourra également solliciter sa désinscription à tout moment en se rendant à la page dédiée sur son espace personnel.
                 Celle-ci sera effective dans un délai raisonnable.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Tout événement dû à un cas de force majeur ayant pour conséquence un dysfonctionnement du site ou serveur,
                 et sous réserve de toute interruption ou modification en cas de maintenance, n’engage nullement la responsabilité de
                 <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a>.
                 Dans ces cas, l’Utilisateur accepte ainsi de ne pas tenir rigueur à l’éditeur de toute interruption ou suspension de service, même sans préavis.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-5">
+            <p class="text-black text-lg italic mb-5 font-semibold">
                 L’Utilisateur a la possibilité de contacter le site par messagerie électronique à l’adresse mail du directeur de communication communiquée à
-                <b>l’Article 1 : Mentions légales.</b>
+                <b class="text-yellow-500">l’Article 1 : Mentions légales.</b>
             </p>
-            <h2 class="mb-5 text-yellow-500 font-medium text-4xl italic">
-                Article 3 : Collecte des données
-            </h2>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <div class="text-center my-10">
+                <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Article 3 : Collecte des données</h2>
+                <div class="flex mt-6 justify-center">
+                    <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+                </div>
+            </div>
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Le site assure à l’Utilisateur une collecte et un traitement d’informations personnelles dans le respecte de la vie privée
                 conformément à la loi n°78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Le site assure à l’Utilisateur une collecte et un traitement d’informations personnelles dans le respect de la vie privée
                 conformément au Règlement Général Européen sur la Protection des Données (RGPD).
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 En vertu des lois citées précédemment, l’Utilisateur dispose d’un droit d’accès, de rectification, de suppression
                 et d’opposition de ses données personnelles. L’utilisateur peut exercer ces droits par mail à l’adresse suivante :
                 <a href="mailto:clickntoulon@ycnrea.fr" class="underline text-yellow-500">clickntoulon@yncrea.fr</a>.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Lors de la visite simple d’un Utilisateur, aucune donnée n’est enregistrée sur nos serveurs.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-0.5">
+            <p class="text-black text-lg italic mb-0.5 font-semibold">
                 Lors de l’inscription d’un membre, les informations suivantes sont enregistrées :
             </p>
-            <ul class="list-disc list-inside text-black dark:text-white italic mb-1.5">
+            <ul class="list-disc list-inside text-black italic mb-1.5 font-semibold">
                 <li>Le nom et le prénom, nécessaires pour valider une réservation</li>
                 <li>L’adresse afin de fournir au commerçant une adresse de facturation dans le cas où le client demande à obtenir une facture</li>
                 <li>
@@ -130,167 +144,188 @@
                     Cette dernière sera utilisée dans le cas de la perte du mot de passe et aussi pour toute communication avec l’équipe de modération du site internet
                 </li>
             </ul>
-            <p class="text-black dark:text-white text-lg italic mb-0.5">
+            <p class="text-black text-lg italic mb-0.5 font-semibold">
                 Lors de l’inscription d’un partenaire, les informations suivantes sont enregistrées :
             </p>
-            <ul class="list-disc list-inside text-black dark:text-white italic mb-1.5">
+            <ul class="list-disc list-inside text-black italic mb-1.5 font-semibold">
                 <li>
                     Le nom, l’adresse postale, les horaires d’ouverture et le numéro de téléphone afin qu’un Utilisateur puisse contacter
                     ou se rendre directement à votre boutique
                 </li>
                 <li>Les moyens de paiements acceptés par la boutique à titre d’information pour le client</li>
             </ul>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Aucune des données collectées (mentionnées ci-dessus ou non) ne sera transmis à un autre organisme-tiers.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-5">
+            <p class="text-black text-lg italic mb-5 font-semibold">
                 Les données collectées sont sauvegardées tout le temps durant l'activité du compte,
                 mais aussi 3 ans après la fermeture du compte. Vous pouvez vous opposé à ce délai en nous contactant par mail.
             </p>
-            <h2 class="mb-5 text-yellow-500 font-medium text-4xl italic">
-                Article 4 : Propriété intellectuelle
-            </h2>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <div class="text-center my-10">
+                <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Article 4 : Propriété intellectuelle</h2>
+                <div class="flex mt-6 justify-center">
+                    <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+                </div>
+            </div>
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Les marques, logos, signes ainsi que tous les contenus du site (textes, images, son…) font l’objet d’une protection par
                 le Code de la propriété intellectuelle et plus particulièrement par le droit d’auteur.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Tout Utilisateur doit solliciter l’autorisation préalable des auteurs pour la reproduction, la publication et copie des différents contenus,
                 ainsi que l’autorisation du site pour une copie partielle ou entière du site internet (avec ou sans le code source).
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 L’Utilisateur s’engage à une utilisation des contenus du site dans un cadre strictement privé,
                 toute utilisation à des fins commerciales et publicitaires est strictement interdite, sauf pour nos partenaires qui veulent promouvoir
                 leur offre sur notre site, à la seule condition qu’aucun code source et informations confidentielles (mot de passe ou adresse de connexion)
                 ne soient visibles.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Toute représentation totale ou partielle de ce site par quelque procédé que ce soit, sans l’autorisation expresse de l’exploitant du site Internet
                 constituerait une contrefaçon sanctionnée par l’article L 335-2 et suivants du Code de la propriété intellectuelle.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Il est rappelé conformément à l’article L122-5 du Code de propriété intellectuelle que l’Utilisateur qui reproduit,
                 copie ou publie le contenu protégé doit citer l’auteur et sa source.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-5">
-                Exemple: Le logo ClickNToulon a été réalisé par <a href="https://instagram.com/awildsoul" target="_blank">Elise Rey</a>.
+            <p class="text-black text-lg italic mb-5 font-semibold">
+                Exemple: Le logo ClickNToulon a été réalisé par <a class="underline text-yellow-500" href="https://instagram.com/awildsoul" target="_blank">Elise Rey</a>.
                 Elle est détient tous les droits associés à son travail, mais autorise
                 <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a> a utiliser et diffuser ce logo.
             </p>
-            <h2 class="mb-5 text-yellow-500 font-medium text-4xl italic">
-                Article 5 : Responsabilité
-            </h2>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <div class="text-center my-10">
+                <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Article 5 : Responsabilité</h2>
+                <div class="flex mt-6 justify-center">
+                    <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+                </div>
+            </div>
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Les sources des informations diffusées sur le site <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a>
                 sont réputées fiables, mais le site ne garantit pas qu’il soit exempt de défauts, d’erreur ou d’omissions.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Les informations communiquées sont présentées à titre indicatif et général sans valeur contractuelle.
                 Malgré des mises à jour régulières, le site <a href="/">ClickNToulon</a> ne peut être tenu responsable de la modification
                 des dispositions administratives et juridiques survenant après la publication.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 De même, le site ne peut être tenue responsable de l’utilisation et de l’interprétation de l’information contenue dans ce site.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Le membre et le partenaire s’assurent de garder leur mot de passe secret. Le site décline toute responsabilité
                 et le membre ou le partenaire assume les risques liés à l’utilisation de son identifiant et mot de passe.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Le site <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a> ne peut être tenu pour responsable d’éventuels virus
                 qui pourraient infecter l’ordinateur ou tout matériel informatique de l’internaute, suite à une utilisation, à l’accès ou au téléchargement
                 provenant de ce site.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-5">
+            <p class="text-black text-lg italic mb-5 font-semibold">
                 La responsabilité du site ne peut être engagée en cas de force majeure ou du fait imprévisible et insurmontable d’un tiers.
             </p>
-            <h2 class="mb-5 text-yellow-500 font-medium text-4xl italic">
-                Article 6 : Liens hypertextes
-            </h2>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <div class="text-center my-10">
+                <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Article 6 : Liens hypertextes</h2>
+                <div class="flex mt-6 justify-center">
+                    <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+                </div>
+            </div>
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Des liens hypertextes peuvent être présents sur le site. L’Utilisateur est informé qu’en cliquant sur ces liens, il sortira du site
                 <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a>.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Ce dernier n’a pas de contrôle des pages web sur lesquelles aboutissent ces liens et ne saurait, en aucun cas, être responsable de leur contenu.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-5">
+            <p class="text-black text-lg italic mb-5 font-semibold">
                 Les seuls liens hypertextes autorisés sont les réseaux sociaux et les sites internet de nos partenaires.
                 Tout autre lien sera supprimé par notre équipe de modération sans avertissement auprès de l’Utilisateur.
             </p>
-            <h2 class="mb-5 text-yellow-500 font-medium text-4xl italic">
-                Article 7 : Cookies
-            </h2>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <div class="text-center my-10">
+                <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Article 7 : Cookies</h2>
+                <div class="flex mt-6 justify-center">
+                    <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+                </div>
+            </div>
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 L’Utilisateur est informé que lors de sa visite, un cookie (du nom PHPSESSID) est généré automatiquement
                 (sans action voulue de la part de <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a>).
                 Ce dernier permet au serveur de vous identifier plus facilement. Il sera automatique détruit à la fin de votre navigation.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Si l’Utilisateur souhaite se connecter et coche la case Rester connecté, un cookie du nom « _tsid » contenant un identifiant unique
                 va permettre à l’utilisateur d’être connecté pendant une période de 24h. Ce cookie est détruit automatiquement au bout des 24h,
                 ou alors lorsque l’Utilisateur se déconnecte manuellement.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-5">
+            <p class="text-black text-lg italic mb-5 font-semibold">
                 La navigation sur le site vaut comme acceptation des cookies ci-dessus par l’Utilisateur.
             </p>
-            <h2 class="mb-5 text-yellow-500 font-medium text-4xl italic">
-                Article 8 : Publication
-            </h2>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <div class="text-center my-10">
+                <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Article 8 : Publication</h2>
+                <div class="flex mt-6 justify-center">
+                    <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+                </div>
+            </div>
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Le site permet aux partenaires de publier des informations sur leur(s) boutique(s) et leurs produits.
                 Dans ses publications, le partenaire s’engage à respecter les règles de la Netiquette (règles de bonne conduite de l’Internet)
                 et les règles de droit en vigueur.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Le site peut exercer une modération sur les publications et se réserve le droit de refuser leur mise en ligne,
                 sans avoir à s’en justifier auprès du partenaire.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Le partenaire reste titulaire de l’intégralité de ses droits de propriété intellectuelle.
                 Mais, en publiant sur le site, il cède à <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a>
                 le droit non exclusif et gratuit de représenter, reproduire, adapter, modifier, diffuser et distribuer sa publication,
                 directement ou par un tiers autorisé, dans le monde entier, sur tout support (numérique notamment ou physique),
                 pour la durée de la propriété intellectuelle.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
             Le partenaire cède notamment le droit d’utiliser sa publication sur Internet et sur les réseaux de téléphonie mobile.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Tout contenu mis en ligne par l’Utilisateur est de sa seule responsabilité. L’Utilisateur s’engage à ne pas mettre en ligne de contenus
                 pouvant porter atteinte aux intérêts de tierces personnes. Tout recours en justice en justice engagé par un tiers lésé contre le site
                 sera pris en charge par l’Utilisateur.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-5">
+            <p class="text-black text-lg italic mb-5 font-semibold">
                 Le contenu de l’Utilisateur peut être à tout moment et pour n’importe quelle raison supprimé ou modifié par le site, sans préavis.
             </p>
-            <h2 class="mb-5 text-yellow-500 font-medium text-4xl italic">
-                Article 9 : Commercialisation des produits
-            </h2>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <div class="text-center my-10">
+                <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Article 9 : Commercialisation des produits</h2>
+                <div class="flex mt-6 justify-center">
+                    <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+                </div>
+            </div>
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Tous les produits autorisés par le Code du Commerce pour être vendu en ligne peuvent être mis en présentation sur notre site.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Pour tous les produits ayant des restrictions de vente (par exemple les alcools),
                 <a href="{{ path('home') }}" class="underline text-yellow-500">ClickNToulon</a> ne peut effectuer ces contrôles.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
                 Il conviendra au commerçant de les réaliser lui-même avant le paiement et la remise de la réservation.
                 En cas d’achat non-autorisé, le site ne pourra être tenu pour responsable.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-5">
+            <p class="text-black text-lg italic mb-5 font-semibold">
                 Les conditions du partenaire s’appliquent sur toute sa gamme de produits (que ce soit pour la vente et les retours),
-                à condition que ces dernières ne rendent pas caduques les <b>CGU</b> présentes.
+                à condition que ces dernières ne rendent pas caduques les <b class="text-yellow-500">CGU</b> présentes.
             </p>
-            <h2 class="mb-5 text-yellow-500 font-medium text-4xl italic">
-                Article 10 : Droit applicable et juridiction compétente
-            </h2>
-            <p class="text-black dark:text-white text-lg italic mb-1.5">
-                La législation française s’applique aux présentes <b>CGU</b>. En cas d’absence de résolution amiable d’un litige né entre les parties,
+            <div class="text-center my-10">
+                <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Article 10 : Droit applicable et juridiction compétente</h2>
+                <div class="flex mt-6 justify-center">
+                    <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+                </div>
+            </div>
+            <p class="text-black text-lg italic mb-1.5 font-semibold">
+                La législation française s’applique aux présentes <b class="text-yellow-500">CGU</b>. En cas d’absence de résolution amiable d’un litige né entre les parties,
                 les tribunaux français seront seuls compétents pour en connaître.
             </p>
-            <p class="text-black dark:text-white text-lg italic mb-12">
-                Pour toute question relative à l’application des présentes <b>CGU</b>, vous pouvez joindre l’éditeur aux coordonnées inscrites à <b>l’Article 1</b>.
+            <p class="text-black text-lg italic mb-12 font-semibold">
+                Pour toute question relative à l’application des présentes <b class="text-yellow-500">CGU</b>, vous pouvez joindre l’éditeur aux coordonnées inscrites à <b class="text-yellow-500">l’Article 1</b>.
             </p>
         </div>
     </div>

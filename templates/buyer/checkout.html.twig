@@ -4,47 +4,48 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'basket'} %}
-    <div class="bg-white dark:bg-gray-700 w-full px-5 lg:px-20 py-6 lg:py-12">
+    <div class="bg-white w-full px-5 lg:px-20 py-6 lg:py-12">
         <div class="flex flex-col lg:flex-row space-x-0 lg:space-x-4 h-full w-full">
-            <div class="w-full lg:w-2/3 order-last lg:order-first bg-white dark:bg-gray-800 px-3 py-2 rounded-xl">
+            <div class="w-full lg:w-2/3 order-last lg:order-first bg-white shadow-2xl px-3 py-2 rounded-xl">
                 <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between">
                     <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
                         <div class="col-span-3 flex flex-col">
-                            <h3 class="font-medium text-lg text-black dark:text-white">Récapitulatif de votre commande</h3>
+                            <h3 class="font-medium text-lg text-black">Récapitulatif de votre commande</h3>
                         </div>
                     </div>
                 </div>
                 {% set i = 0 %}
                 {% set total = 0 %}
                 {% for product in products %}
-                    <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 space-y-6">
+                    <div class="border-t border-gray-200 px-4 py-5 sm:px-6 space-y-6">
                         <div class="flex sm:flex-row flex-col">
                             <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
                                 <img class="rounded" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
                             </div>
-                            <div class="flex flex-col px-4">
+                            <div class="flex flex-col px-4 w-full">
                                 <div class="flex flex-row justify-between mb-2">
-                                    <h1 class="font-medium text-black dark:text-white text-lg">{{ product.name }} (x{{ quantities[i] }})</h1>
-                                    {% if product.dealprice != null %}
+                                    <h1 class="font-medium text-black text-lg">{{ product.name }} (x{{ quantities[product.id] }})</h1>
+                                    {% if product.unitPriceDiscount != null %}
                                         <div class="flex flex-row space-x-2">
-                                            <h1 class="font-medium text-black dark:text-white text-base line-through">
-                                                {{ product.price | format_currency('EUR') }}
+                                            <h1 class="font-medium text-black text-base line-through">
+                                                {{ product.unitPrice | format_currency('EUR') }}
                                             </h1>
-                                            <h1 class="font-bold text-red-600 dark:text-red-500 text-base">
-                                                {{ product.dealprice | format_currency('EUR') }}
+                                            <h1 class="font-bold text-red-500 text-base">
+                                                {% set dealPrice = product.unitPrice * (1 - product.unitPriceDiscount) %}
+                                                {{ dealPrice | format_currency('EUR') }}
                                             </h1>
                                         </div>
-                                        {% set total = total + product.dealprice * quantities[i] %}
+                                        {% set total = total + dealPrice * quantities[product.id] %}
                                     {% else %}
-                                        <h1 class="font-medium text-black dark:text-white text-base">
-                                            {{ product.price | format_currency('EUR') }}
+                                        <h1 class="font-medium text-black text-base">
+                                            {{ product.unitPrice | format_currency('EUR') }}
                                         </h1>
-                                        {% set total = total + product.price * quantities[i] %}
+                                        {% set total = total + product.unitPrice * quantities[product.id] %}
                                     {% endif %}
                                     {% set i = i + 1 %}
                                 </div>
                                 <div class="h-full relative">
-                                    <p class="text-base text-black dark:text-white text-justify">
+                                    <p class="text-base text-black text-justify">
                                         {{ product.description }}
                                     </p>
                                 </div>
@@ -53,22 +54,21 @@
                     </div>
                 {% endfor %}
             </div>
-            <div class=" w-full lg:w-1/3 max-h-56 order-first mb-3 lg:mb-0 lg:order-last bg-gray-100 dark:bg-gray-800 rounded-xl px-6 py-4 flex items-center flex-col">
+            <div class=" w-full lg:w-1/3 max-h-56 order-first mb-3 lg:mb-0 lg:order-last bg-white shadow-2xl rounded-xl px-6 py-4 flex items-center flex-col">
                 <div class="flex justify-between w-full">
-                    <h2 class="font-medium text-lg text-black dark:text-white">Total de la commande</h2>
-                    <p class="font-medium text-lg text-gray-900 dark:text-gray-200">{{ total | format_currency('EUR') }}</p>
+                    <h2 class="font-medium text-lg text-black">Total de la commande</h2>
+                    <p class="font-medium text-lg text-black">{{ total | format_currency('EUR') }}</p>
                 </div>
                 {{ form_start(form, {attr: {class: 'w-full mt-2.5'}}) }}
                 <div class="flex w-full flex-col">
-                    <h4 class="font-medium text-lg text-black dark:text-white mb-0.5">Informations sur le retrait de la commande</h4>
-                    {{ form_row(form.shop_id, {attr: {value: shop.id}}) }}
-                    <label for="create_order_day" class="font-medium text-base text-black dark:text-white mb-1">Date de retrait souhaitée</label>
+                    <h4 class="font-medium text-lg text-black mb-0.5">Informations sur le retrait de la commande</h4>
+                    <label for="create_order_day" class="font-medium text-base text-black mb-1">Date de retrait souhaitée</label>
                     {% set now = "now"|date("Y-m-d", "Europe/Paris") %}
                     {{ form_widget(form.day, {attr: {value: now}}) }}
                     {{ form_row(form.total, {attr: {value: total}}) }}
                 </div>
                 <div class="w-full pt-3">
-                    <button type="submit" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-800">
+                    <button type="submit" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
                         Commander
                     </button>
                 </div>

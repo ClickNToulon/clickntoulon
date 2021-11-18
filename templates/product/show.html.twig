@@ -7,21 +7,27 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'product'} %}
     <div class="bg-white">
-        <div class="pt-6">
+        <div class="text-center my-10">
+            <h1 class="sm:text-3xl text-xl font-extrabold title-font text-black mb-4 uppercase">{{ product.name }}</h1>
+            <div class="flex mt-6 justify-center">
+                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+            </div>
+        </div>
+        <div>
             <nav aria-label="Breadcrumb">
                 <ol role="list" class="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
                     <li>
                         <div class="flex items-center">
-                            <a href="{{ path('shop_show', {'slug': shop.slug}) }}" class="mr-2 text-sm font-medium text-black hover:text-yellow-500">
+                            <a href="{{ path('shop_show', {'slug': shop.slug}) }}" class="mr-2 text-base font-semibold text-black hover:text-yellow-500">
                                 {{ shop.name }}
                             </a>
-                            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-gray-300">
+                            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-black font-semibold">
                                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                             </svg>
                         </div>
                     </li>
-                    <li class="text-sm">
-                        <a href="{{ path('product_show', {'id': product.id}) }}" aria-current="page" class="font-medium text-black hover:text-yellow-500">
+                    <li>
+                        <a href="{{ path('product_show', {'id': product.id}) }}" aria-current="page" class="font-semibold text-base text-black hover:text-yellow-500">
                             {{ product.name }}
                         </a>
                     </li>
@@ -29,64 +35,60 @@
             </nav>
             <!-- Image gallery -->
             <div class="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
-                <div class="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
-                    <img src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-center object-cover">
+                {% if product.images is iterable and product.images != null %}
+                <div class="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block shadow-2xl">
+                    <img src="{{ asset('uploads/products/' ~ product.images[1]) }}" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-center object-contain">
                 </div>
-                <div class="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
-                    <img src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-center object-cover">
+                <div class="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block shadow-2xl">
+                    <img src="{{ asset('uploads/products/' ~ product.images[2]) }}" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-center object-contain">
                 </div>
-                <div class="aspect-w-4 aspect-h-5 rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
-                    <img src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="Model wearing plain white basic tee." class="w-full h-full object-center object-cover rounded-lg">
+                {% endif %}
+                <div class="aspect-w-4 aspect-h-5 rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4 shadow-2xl">
+                    <img src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="Model wearing plain white basic tee." class="w-full h-full object-center object-contain">
                 </div>
             </div>
             <!-- Product info -->
-            <div class="max-w-2xl mx-auto pt-10 pb-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-16 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
-                <div class="lg:col-span-2 lg:border-r lg:border-gray-300 lg:pr-8">
-                    <h1 class="text-2xl font-extrabold tracking-tight text-black sm:text-3xl">
-                        {{ product.name }}
-                    </h1>
-                </div>
-                <!-- Options -->
-                <div class="mt-4 lg:mt-0 lg:row-span-3">
-                    <h2 class="sr-only">Information du produit</h2>
-                    {% if product.unitPrice != null %}
-                        <div class="flex flex-row space-x-2">
-                            <h1 class="font-medium text-black text-3xl line-through">
-                                {{ product.unitPrice | format_currency('EUR') }}
-                            </h1>
-                            <h1 class="font-bold text-red-600 dark:text-red-500 text-3xl">
-                                {% set dealPrice = product.unitPrice * (1 - product.unitPriceDiscount) %}
-                                {{ dealPrice | format_currency('EUR') }}
-                            </h1>
-                        </div>
-                    {% else %}
-                        <h1 class="font-medium text-black text-3xl">
-                            {{ product.unitPrice | format_currency('EUR') }}
-                        </h1>
-                    {% endif %}
-                    {{ form_start(form, {'attr': {'class': 'mt-5'}, 'action': path('basket_add'), 'method': 'POST'}) }}
-                        {{ form_row(form.products_id, {'value': product.id}) }}
-                        {{ form_row(form.shop_id, {'value': shop.id}) }}
-                        <label for="add_product_basket_quantity" class="block text-base font-medium text-black">Quantité</label>
-                        {% set k = 0 %}
-                        <select name="add_product_basket[quantity]" id="add_product_basket_quantity" class="bg-white focus:bg-gray-200 text-black shadow focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md">
-                            {% for k in 1..100 %}
-                                <option value="{{ k }}" {% if k == p_quantity %}selected{% endif %}>{{ k }}</option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit" class="inline-flex w-full justify-center py-2 px-4 mt-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
-                            Ajouter au panier
-                        </button>
-                    {{ form_end(form) }}
-                </div>
-                <div class="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-300 lg:pr-8">
-                    <!-- Description and details -->
+            <div class="max-w-2xl mx-auto pt-10 pb-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-16 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 h-full">
+                <div class="lg:col-span-2 lg:row-span-3 lg:border-r lg:border-gray-300 h-full lg:pr-8">
                     <div>
                         <h3 class="sr-only">Description</h3>
                         <div class="space-y-6">
                             <p class="text-base text-black">{{ product.description }}</p>
                         </div>
                     </div>
+                </div>
+                <!-- Options -->
+                <div class="mt-4 lg:mt-0 lg:row-span-3">
+                    <h2 class="sr-only">Information du produit</h2>
+                    {% if product.unitPriceDiscount != null %}
+                        <div class="flex flex-row space-x-2">
+                            <h1 class="font-medium text-black text-3xl line-through">
+                                {{ product.unitPrice | format_currency('EUR') }}
+                            </h1>
+                            <h1 class="font-bold text-red-600 dark:text-red-500 text-3xl">
+                                {% set dealPrice = product.unitPrice * (1 - (product.unitPriceDiscount/100)) %}
+                                {{ dealPrice | format_currency('EUR') }}
+                            </h1>
+                        </div>
+                    {% else %}
+                        <h1 class="font-semibold text-black text-3xl">
+                            {{ product.unitPrice | format_currency('EUR') }}
+                        </h1>
+                    {% endif %}
+                    {{ form_start(form, {'attr': {'class': 'mt-5'}, 'action': path('basket_add'), 'method': 'POST'}) }}
+                        {{ form_row(form.product_id, {'value': product.id}) }}
+                        {{ form_row(form.shop_id, {'value': shop.id}) }}
+                        <label for="add_product_basket_form_quantity" class="block text-base font-semibold text-black">Quantité</label>
+                        {% set k = 0 %}
+                        <select name="add_product_basket_form[quantity]" id="add_product_basket_form_quantity" class="bg-white focus:bg-gray-200 text-black shadow focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md">
+                            {% for k in 1..100 %}
+                                <option value="{{ k }}" {% if k == p_quantity %}selected{% endif %}>{{ k }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="inline-flex w-full justify-center py-2 px-4 mt-3 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
+                            Ajouter au panier
+                        </button>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>

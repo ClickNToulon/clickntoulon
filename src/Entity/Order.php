@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\OrderRepository;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 
@@ -43,12 +45,12 @@ class Order
     private ?DateTimeInterface $day;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\ManyToMany(targetEntity=Product::class)
      */
-    private ?array $products;
+    private $products;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     private ?array $quantity;
 
@@ -68,6 +70,7 @@ class Order
     public function __construct()
     {
         $this->orderNumber = strtoupper(bin2hex(random_bytes(6)));
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -123,14 +126,26 @@ class Order
         return $this;
     }
 
-    public function getProducts(): array
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
     {
         return $this->products;
     }
 
-    public function setProducts(?array $products): self
+    public function addProduct(Product $product): self
     {
-        $this->products = $products;
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        $this->products->removeElement($product);
 
         return $this;
     }

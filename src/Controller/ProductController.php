@@ -84,17 +84,13 @@ class ProductController extends AbstractController
         $return = 0;
         foreach ($baskets as $b) {
             if($b->getShop() == $product->getShop()) {
-                $products = $b->getProductsId();
-                $products_array = explode(",", $products);
-                $limit = count($products_array);
+                $basket_products = $b->getProducts();
+                $limit = count($basket_products);
                 for ($i = 0; $i < $limit; $i++) {
-                    if ($inside == false) {
-                        if ($products_array[$i] == $id) {
-                            $inside = true;
-                            $quantities = $b->getQuantity();
-                            $quantity = explode(",", $quantities);
-                            $return = (int)$quantity[$i] + 1;
-                        }
+                    if($basket_products[$i]->getId() == $id) {
+                        $inside = true;
+                        $quantities = $b->getQuantity();
+                        $return = (int)$quantities[$i] + 1;
                     }
                 }
             }

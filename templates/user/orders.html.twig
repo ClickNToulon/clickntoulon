@@ -15,25 +15,25 @@
             <div class="container px-5 mx-auto sm:max-w-7xl pb-12 max-w-full">
                 <div class="flex flex-wrap -my-6">
                     {% for order in orders %}
-                        <div class="bg-white dark:bg-gray-800 shadow dark:shadow-none overflow-hidden rounded-xl my-2">
+                        <div class="bg-white shadow-2xl overflow-hidden rounded-xl my-2">
                             <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between">
                                 <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
                                     <div class="col-span-1 flex flex-col">
-                                        <h3 class="font-medium text-sm text-black dark:text-white">N° de commande</h3>
-                                        <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{# {{ order.id }}#} {{ order.number }}</p>
+                                        <h3 class="font-semibold text-lg text-black">N° de commande</h3>
+                                        <p class="font-semibold text-base mt-1 text-gray-700">{{ order.orderNumber }}</p>
                                     </div>
                                     <div class="col-span-1 flex flex-col">
-                                        <h3 class="font-medium text-sm text-black dark:text-white">Date</h3>
-                                        <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{{ order.day | format_date(locale='fr') }}</p>
+                                        <h3 class="font-semibold text-lg text-black">Date</h3>
+                                        <p class="font-semibold text-base mt-1 text-black">{{ order.day | format_date(locale='fr') }}</p>
                                     </div>
                                     <div class="col-span-1 flex flex-col">
-                                        <h3 class="font-medium text-sm text-black dark:text-white">Total</h3>
-                                        <p class="font-bold text-sm mt-1 text-gray-700 dark:text-gray-100">{{ order.total | format_currency('EUR') }}</p>
+                                        <h3 class="font-semibold text-lg text-black">Total</h3>
+                                        <p class="font-semibold text-base mt-1 text-black">{{ order.total | format_currency('EUR') }}</p>
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-1 flex items-center">
                                     <div class="col-span-1">
-                                        <a href="{{ path('user_order', {number: order.number}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-gray-600 hover:bg-gray-700 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 focus:ring-offset-white dark:focus:ring-offset-gray-800">
+                                        <a href="{{ path('user_order', {number: order.orderNumber}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-lg font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 focus:ring-offset-white">
                                             En voir plus
                                         </a>
                                     </div>
@@ -41,23 +41,39 @@
                             </div>
                             {% if products[order.id] is iterable  %}
                                 {% set i = 0 %}
-                                {% set quantity = order.quantity | split(',') %}
                                 {% for product in products[order.id] %}
-                                    <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 space-y-6">
+                                    <div class="border-t border-gray-200 px-4 py-5 sm:px-6 space-y-6">
                                         <div class="flex sm:flex-row flex-col">
                                             <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
                                                 <img class="rounded" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
                                             </div>
-                                            <div class="flex flex-col px-4">
+                                            <div class="flex flex-col px-4 w-full">
                                                 <div class="flex flex-row justify-between mb-2">
-                                                    <h1 class="font-medium text-black dark:text-white text-lg">{{ product.name }} (x{{ quantity[i] }})</h1>
-                                                    <h1 class="font-medium text-black dark:text-white text-base">{{ product.price | format_currency('EUR') }}</h1>
+                                                    <h1 class="font-semibold text-black text-xl">{{ product.name }} (x{{ quantities[order.id][i] }})</h1>
+                                                    {% if product.unitPriceDiscount != null %}
+                                                        <div class="flex flex-row space-x-2">
+                                                            <h1 class="font-semibold text-black text-base line-through">
+                                                                {{ product.unitPrice | format_currency('EUR') }}
+                                                            </h1>
+                                                            <h1 class="font-semibold text-red-500 text-base">
+                                                                {% set dealPrice = product.unitPrice * (1 - (product.unitPriceDiscount/100)) %}
+                                                                {{ dealPrice | format_currency('EUR') }}
+                                                            </h1>
+                                                        </div>
+                                                    {% else %}
+                                                        <h1 class="font-semibold text-black text-base">
+                                                            {{ product.unitPrice | format_currency('EUR') }}
+                                                        </h1>
+                                                    {% endif %}
                                                     {% set i = i + 1 %}
                                                 </div>
                                                 <div class="h-full relative">
-                                                    <p class="text-base text-black dark:text-white">
+                                                    <p class="text-base- font-semibold text-black">
                                                         {{ product.description }}
                                                     </p>
+                                                </div>
+                                                <div class="w-full flex justify-end">
+                                                    <a href="{{ path('product_show', {id: product.id}) }}" class="text-yellow-500 hover:text-yellow-600 font-semibold hover:underline transition-all duration-500">Voir le produit</a>
                                                 </div>
                                             </div>
                                         </div>

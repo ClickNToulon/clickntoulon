@@ -19,16 +19,16 @@
                         <table class="min-w-full divide-y divide-gray-200 table-striped">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
+                                    <th scope="col" class="px-6 py-3 text-left text-base font-semibold text-black uppercase">
                                         N°
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
+                                    <th scope="col" class="px-6 py-3 text-left text-base font-semibold text-black uppercase">
                                         Nom client
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
+                                    <th scope="col" class="px-6 py-3 text-left text-base font-semibold text-black uppercase">
                                         Détail de la commande
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
+                                    <th scope="col" class="px-6 py-3 text-left text-base font-semibold text-black uppercase">
                                         Status
                                     </th>
                                     <th scope="col" class="relative px-2 py-3">
@@ -37,69 +37,79 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-500">
+                            <tbody class="bg-white divide-y divide-gray-200">
                             {% for order in orders %}
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-black dark:text-white text-sm">
-                                        {{ order.number }}
+                                    <td class="px-6 py-4 whitespace-nowrap text-black text-sm font-semibold">
+                                        {{ order.orderNumber }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10">
-                                                <img class="h-10 w-10 rounded-full bg-gray-500 dark:bg-gray-700" src="{{ asset('uploads/users/' ~ orders_buyers[order.id].avatar) }}" alt="">
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-black dark:text-white">
-                                                    {{ orders_buyers[order.id].fullName }}
+                                            <div>
+                                                <div class="text-sm font-semibold text-black">
+                                                    {{ orders_buyers[order.id].name }} {{ orders_buyers[order.id].surname }}
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <a class="cursor-pointer text-black px-3 py-2 bg-yellow-400 rounded-lg mr-2 font-medium" onclick="openModal('detailsModal{{ order.id }}')">Détail de la commande</a>
+                                        <a class="cursor-pointer text-white px-3 py-2 bg-yellow-500 hover:bg-yellow-600 rounded-lg mr-2 font-semibold" onclick="openModal('detailsModal{{ order.id }}')">Détail de la commande</a>
                                         <div class="hidden z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" id="detailsModal{{ order.id }}" role="dialog" aria-modal="true">
                                             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                                                 <!-- Background overlay, show/hide based on modal state. -->
-                                                <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
                                                 <!-- This element is to trick the browser into centering the modal contents. -->
                                                 <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                                                 <!-- Modal panel, show/hide based on modal state. -->
-                                                <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-7xl sm:w-full">
+                                                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-7xl sm:w-full">
                                                     <div>
-                                                        <div class="bg-white dark:bg-gray-700 px-4 pt-4 pb-4 sm:p-6 sm:pb-4">
-                                                            <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between shadow dark:shadow-none dark:bg-gray-800 rounded-t-lg">
+                                                        <div class="bg-white">
+                                                            <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between shadow rounded-t-lg">
                                                                 <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
                                                                     <div class="col-span-1 flex flex-col">
-                                                                        <h3 class="font-medium text-sm text-black dark:text-white">N° de commande</h3>
-                                                                        <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{{ order.number }}</p>
+                                                                        <h3 class="font-semibold text-lg text-black">N° de commande</h3>
+                                                                        <p class="font-semibold text-base mt-1 text-black">{{ order.orderNumber }}</p>
                                                                     </div>
                                                                     <div class="col-span-1 flex flex-col">
-                                                                        <h3 class="font-medium text-sm text-black dark:text-white">Date</h3>
-                                                                        <p class="font-medium text-sm mt-1 text-gray-700 dark:text-gray-200">{{ order.day | format_date(locale='fr') }}</p>
+                                                                        <h3 class="font-semibold text-lg text-black">Date</h3>
+                                                                        <p class="font-semibold text-base mt-1 text-black">{{ order.day | format_date(locale='fr') }}</p>
                                                                     </div>
                                                                     <div class="col-span-1 flex flex-col">
-                                                                        <h3 class="font-medium text-sm text-black dark:text-white">Total</h3>
-                                                                        <p class="font-bold text-sm mt-1 text-gray-700 dark:text-gray-100">{{ order.total | format_currency('EUR') }}</p>
+                                                                        <h3 class="font-semibold text-lg text-black">Total</h3>
+                                                                        <p class="font-semibold text-base mt-1 text-black">{{ order.total | format_currency('EUR') }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             {% if products[order.id] is iterable %}
                                                                 {% set i = 0 %}
-                                                                {% set order_quantities = quantities[order.id] | split(',') %}
                                                                 {% for product in products[order.id] %}
-                                                                    <div class="border-t border-gray-200 dark:border-white px-4 py-5 sm:px-6 space-y-6 max-w-full shadow dark:shadow-none dark:bg-gray-800 order_details_panel">
+                                                                    <div class="border-t border-gray-200 px-4 py-5 sm:px-6 space-y-6 max-w-full shadow order_details_panel">
                                                                         <div class="flex sm:flex-row flex-col">
                                                                             <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
                                                                                 <img class="rounded" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
                                                                             </div>
-                                                                            <div class="flex flex-col px-4 max-w-full">
+                                                                            <div class="flex flex-col px-4 w-full">
                                                                                 <div class="flex flex-row justify-between mb-2">
-                                                                                    <h1 class="font-medium text-black dark:text-white text-lg">{{ product.name }} (x{{ order_quantities[i] }})</h1>
-                                                                                    <h1 class="font-medium text-black dark:text-white text-base">{{ product.price | format_currency('EUR') }}</h1>
+                                                                                    <h1 class="font-semibold text-black text-xl">{{ product.name }} (x{{ quantities[order.id][i] }})</h1>
+                                                                                    {% if product.unitPriceDiscount != null %}
+                                                                                        <div class="flex flex-row space-x-2">
+                                                                                            <h1 class="font-semibold text-black text-lg line-through">
+                                                                                                {{ product.unitPrice | format_currency('EUR') }}
+                                                                                            </h1>
+                                                                                            <h1 class="font-semibold text-red-500 text-lg">
+                                                                                                {% set dealPrice = product.unitPrice * (1 - (product.unitPriceDiscount/100)) %}
+                                                                                                {{ dealPrice | format_currency('EUR') }}
+                                                                                            </h1>
+                                                                                        </div>
+                                                                                    {% else %}
+                                                                                        <h1 class="font-semibold text-black text-lg">
+                                                                                            {{ product.unitPrice | format_currency('EUR') }}
+                                                                                        </h1>
+                                                                                    {% endif %}
                                                                                     {% set i = i + 1 %}
                                                                                 </div>
-                                                                                <div class="h-full relative max-w-full">
-                                                                                    <p class="text-base text-black dark:text-white max-w-full w-full">
+                                                                                <div class="h-full relative w-full">
+                                                                                    <p class="text-base font-semibold text-black w-full w-full">
                                                                                         {{ product.description | u.truncate(150, '...') }}
                                                                                     </p>
                                                                                 </div>
@@ -107,29 +117,10 @@
                                                                         </div>
                                                                     </div>
                                                                 {% endfor %}
-                                                            {% else %}
-                                                                <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 shadow dark:shadow-none dark:bg-gray-800 rounded-b-lg">
-                                                                    <div class="flex flex-row">
-                                                                        <div class="w-1/3">
-                                                                            <img class="rounded" src="{{ asset('uploads/products/' ~ products[order.id].images[0]) }}" alt="">
-                                                                        </div>
-                                                                        <div class="flex flex-col px-4">
-                                                                            <div class="flex flex-row justify-between mb-2">
-                                                                                <h1 class="font-medium text-black dark:text-white text-lg">{{ products[order.id].name }}  (x{{ order.quantity }})</h1>
-                                                                                <h1 class="font-medium text-black dark:text-white text-base">{{ products[order.id].price | format_currency('EUR') }}</h1>
-                                                                            </div>
-                                                                            <div class="h-full relative">
-                                                                                <p class="text-base text-black dark:text-white">
-                                                                                    {{ products[order.id].description | u.truncate(150, '...') }}
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
                                                             {% endif %}
                                                         </div>
-                                                        <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                            <button class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('detailsModal{{ order.id }}')">
+                                                        <div class="bg-white px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                            <button class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-semibold text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('detailsModal{{ order.id }}')">
                                                                 Fermer les détails
                                                             </button>
                                                         </div>
@@ -138,84 +129,84 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-black dark:text-white">
+                                    <td class="px-6 py-4 whitespace-nowrap text-black">
                                         {% if order.status == 0 %}
-                                            <span class="px-2 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-400 text-black">
+                                            <span class="px-3 py-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-500 text-white">
                                                 En attente de validation
                                             </span>
                                         {% elseif order.status == 1 %}
-                                            <span class="px-2 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-500 text-black">
+                                            <span class="px-3 py-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-500 text-white">
                                                 Commande validée
                                             </span>
                                         {% elseif order.status == 2 %}
-                                            <span class="px-2 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-500 text-black">
+                                            <span class="px-3 py-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-500 text-white">
                                                 En cours de préparation
                                             </span>
                                         {% elseif order.status == 3 %}
-                                            <span class="px-2 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-700 text-white">
+                                            <span class="px-3 py-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-700 text-white">
                                                 Commande prête
                                             </span>
                                         {% endif %}
                                     </td>
-                                    <td class="pr-6 py-4 text-right text-sm font-medium">
+                                    <td class="pr-6 py-4 text-right font-medium">
                                         {% if order.status == 0 %}
-                                            <a class="cursor-pointer text-black px-3 py-2 bg-yellow-400 rounded-lg mr-2" onclick="openModal('confirmModal{{ order.id }}')">Valider la commande</a>
+                                            <a class="cursor-pointer text-white font-semibold px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-base rounded-lg mr-2" onclick="openModal('confirmModal{{ order.id }}')">Valider la commande</a>
                                             <div class="hidden z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" id="confirmModal{{ order.id }}" role="dialog" aria-modal="true">
                                                 <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                                                     <!-- Background overlay, show/hide based on modal state. -->
-                                                    <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
                                                     <!-- This element is to trick the browser into centering the modal contents. -->
                                                     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                                                     <!-- Modal panel, show/hide based on modal state. -->
-                                                    <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                                                         <form action="{{ path('seller_orders_confirm', {id: shop.id, order: order.id}) }}" method="POST" name="order_confirm">
                                                             <input type="hidden" name="_token" value="{{ csrf_token('order_confirm') }}">
                                                             <input type="hidden" name="order_confirm[id]" id="order_confirm_id" value="{{ order.id }}" required>
-                                                            <div class="bg-white dark:bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                                                 <div class="sm:flex sm:items-start">
-                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-600 sm:mx-0 sm:h-10 sm:w-10">
+                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
                                                                         <!-- Heroicon name: outline/check -->
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                                                         </svg>
                                                                     </div>
                                                                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                                                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
-                                                                            Confirmer la commande n°{{ order.number }}
+                                                                        <h3 class="text-lg leading-6 font-semibold text-black" id="modal-title">
+                                                                            Confirmer la commande n°{{ order.orderNumber }}
                                                                         </h3>
-                                                                        <div class="mt-2">
+                                                                        <div class="mt-4">
                                                                             <label class="block">
-                                                                                <span class="text-gray-700 dark:text-gray-200">Date de retrait de la commande</span>
+                                                                                <span class="text-black font-semibold">Date de retrait de la commande</span>
                                                                                 {% set order_date = order.day|date("Y-m-d", "Europe/Paris") %}
-                                                                                <input type="date" value="{{ order_date }}" class="bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md mt-1" name="order_confirm[day]" id="order_confirm_day" required>
+                                                                                <input type="date" value="{{ order_date }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" name="order_confirm[day]" id="order_confirm_day" required>
                                                                             </label>
                                                                         </div>
-                                                                        <div class="mt-2">
+                                                                        <div class="mt-4">
                                                                             <label class="block">
-                                                                                <span class="text-gray-700 dark:text-gray-200">Horaire de début</span>
-                                                                                <input type="time" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" name="order_confirm[begin]" id="order_confirm_begin" required>
+                                                                                <span class="text-black font-semibold">Horaire de début</span>
+                                                                                <input type="time" class="mt-1 w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" name="order_confirm[begin]" id="order_confirm_begin" required>
                                                                             </label>
                                                                         </div>
-                                                                        <div class="mt-2">
+                                                                        <div class="mt-4">
                                                                             <label class="block">
-                                                                                <span class="text-gray-700 dark:text-gray-200">Horaire de fin</span>
-                                                                                <input type="time" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" name="order_confirm[end]" id="order_confirm_end" required>
+                                                                                <span class="text-black font-semibold">Horaire de fin</span>
+                                                                                <input type="time" class="mt-1 w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" name="order_confirm[end]" id="order_confirm_end" required>
                                                                             </label>
                                                                         </div>
-                                                                        <div class="mt-2">
+                                                                        <div class="mt-4">
                                                                             <label class="block">
-                                                                                <span class="text-gray-700 dark:text-gray-200">Votre message (optionel)</span>
-                                                                                <textarea name="order_cancel[message]" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" id="order_cancel_message" rows="3"></textarea>
+                                                                                <span class="text-black font-semibold">Votre message (optionel)</span>
+                                                                                <textarea name="order_cancel[message]" class="mt-1 w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" id="order_cancel_message" rows="3"></textarea>
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm">
+                                                            <div class="bg-white px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-semibold text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white sm:ml-3 sm:w-auto sm:text-sm">
                                                                     Confirmer
                                                                 </button>
-                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('confirmModal{{ order.id }}')">
+                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 hover:border-gray-300 focus:border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-semibold text-black hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('confirmModal{{ order.id }}')">
                                                                     Revenir en arrière
                                                                 </button>
                                                             </div>
@@ -224,43 +215,43 @@
                                                 </div>
                                             </div>
                                         {% elseif order.status == 1 %}
-                                            <a class="cursor-pointer text-black px-3 py-2 bg-green-500 rounded-lg mr-2" onclick="openModal('preparedModal{{ order.id }}')">En cours de préparation</a>
+                                            <a class="cursor-pointer text-white font-semibold px-3 py-2 bg-green-500 rounded-lg mr-2" onclick="openModal('preparedModal{{ order.id }}')">En cours de préparation</a>
                                             <div class="hidden z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" id="preparedModal{{ order.id }}" role="dialog" aria-modal="true">
                                                 <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                                                     <!-- Background overlay, show/hide based on modal state. -->
-                                                    <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
                                                     <!-- This element is to trick the browser into centering the modal contents. -->
                                                     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                                                     <!-- Modal panel, show/hide based on modal state. -->
-                                                    <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                                                         <form action="{{ path('seller_orders_prepared', {id: shop.id, order: order.id}) }}" method="POST" name="order_prepared">
                                                             <input type="hidden" name="_token" value="{{ csrf_token('order_prepared') }}">
                                                             <input type="hidden" name="order_prepared[id]" id="order_prepared_id" value="{{ order.id }}" required>
-                                                            <div class="bg-white dark:bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                                                 <div class="sm:flex sm:items-start">
-                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-600 sm:mx-0 sm:h-10 sm:w-10">
+                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
                                                                         <!-- Heroicon name: outline/clock -->
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                                         </svg>
                                                                     </div>
                                                                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                                                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
-                                                                            Confirmer que la commande n°{{ order.number }} est en cours de préparation
+                                                                        <h3 class="text-lg leading-6 font-semibold text-black" id="modal-title">
+                                                                            Confirmer que la commande n°{{ order.orderNumber }} est en cours de préparation
                                                                         </h3>
                                                                         <div class="mt-2">
-                                                                            <p class="text-md text-gray-500 dark:text-gray-300">
-                                                                                Vous allez confirmer que la commande n°{{ order.number }} est en cours de préparation.
+                                                                            <p class="text-md text-black font-semibold">
+                                                                                Vous allez confirmer que la commande n°{{ order.orderNumber }} est en cours de préparation.
                                                                             </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm">
+                                                            <div class="bg-white px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-semibold text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white sm:ml-3 sm:w-auto sm:text-sm">
                                                                     Confirmer
                                                                 </button>
-                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('preparedModal{{ order.id }}')">
+                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white text-base font-semibold text-black hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('preparedModal{{ order.id }}')">
                                                                     Revenir en arrière
                                                                 </button>
                                                             </div>
@@ -269,60 +260,60 @@
                                                 </div>
                                             </div>
                                         {% elseif order.status == 2 %}
-                                            <a class="cursor-pointer text-white px-3 py-2 bg-green-700 rounded-lg mr-2" onclick="openModal('readyModal{{ order.id }}')">Prête</a>
+                                            <a class="cursor-pointer text-white px-3 py-2 bg-green-700 font-semibold rounded-lg mr-2" onclick="openModal('readyModal{{ order.id }}')">Prête</a>
                                             <div class="hidden z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" id="readyModal{{ order.id }}" role="dialog" aria-modal="true">
                                                 <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                                                     <!-- Background overlay, show/hide based on modal state. -->
-                                                    <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
                                                     <!-- This element is to trick the browser into centering the modal contents. -->
                                                     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                                                     <!-- Modal panel, show/hide based on modal state. -->
-                                                    <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                                                         <form action="{{ path('seller_orders_ready', {id: shop.id, order: order.id}) }}" method="POST" name="order_ready">
                                                             <input type="hidden" name="_token" value="{{ csrf_token('order_ready') }}">
                                                             <input type="hidden" name="order_ready[id]" id="order_ready_id" value="{{ order.id }}" required>
-                                                            <div class="bg-white dark:bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                                                 <div class="sm:flex sm:items-start">
-                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-600 sm:mx-0 sm:h-10 sm:w-10">
+                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
                                                                         <!-- Heroicon name: outline/check -->
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                                                         </svg>
                                                                     </div>
                                                                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                                                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
-                                                                            Confirmer que la commande n°{{ order.number }} est prête
+                                                                        <h3 class="text-lg font-semibold text-black" id="modal-title">
+                                                                            Confirmer que la commande n°{{ order.orderNumber }} est prête
                                                                         </h3>
                                                                         {% set order_date = order.day|date("Y-m-d", "Europe/Paris") %}
                                                                         {% set order_begin = order.timeBegin | format_time('short', 'HH:mm', locale='fr') %}
                                                                         {% set order_end = order.timeEnd | format_time('short', 'HH:mm', locale='fr') %}
                                                                         <div class="mt-2">
                                                                             <label class="block">
-                                                                                <span class="text-gray-700 dark:text-gray-100">Date de retrait de la commande</span>
+                                                                                <span class="text-black font-semibold">Date de retrait de la commande</span>
                                                                                 {% set order_date = order.day|date("Y-m-d", "Europe/Paris") %}
                                                                                 <input type="date" value="{{ order_date }}" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" name="order_ready[day]" id="order_ready_day" required>
                                                                             </label>
                                                                         </div>
                                                                         <div class="mt-2">
                                                                             <label class="block">
-                                                                                <span class="text-gray-700 dark:text-gray-100">Horaire de début</span>
+                                                                                <span class="text-black font-semibold">Horaire de début</span>
                                                                                 <input type="time" value="{{ order_begin }}" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" name="order_ready[begin]" id="order_ready_begin" required>
                                                                             </label>
                                                                         </div>
                                                                         <div class="mt-2">
                                                                             <label class="block">
-                                                                                <span class="text-gray-700 dark:text-gray-100">Horaire de fin</span>
+                                                                                <span class="text-black font-semibold">Horaire de fin</span>
                                                                                 <input type="time" value="{{ order_end }}" class="mt-1 bg-white dark:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-900 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md" name="order_ready[end]" id="order_ready_end" required>
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm">
+                                                            <div class="bg-white px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-semibold text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white sm:ml-3 sm:w-auto sm:text-sm">
                                                                     Confirmer
                                                                 </button>
-                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('readyModal{{ order.id }}')">
+                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white text-base font-semibold text-black hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('readyModal{{ order.id }}')">
                                                                     Revenir en arrière
                                                                 </button>
                                                             </div>
@@ -335,40 +326,40 @@
                                             <div class="hidden z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" id="pickupModal{{ order.id }}" role="dialog" aria-modal="true">
                                                 <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                                                     <!-- Background overlay, show/hide based on modal state. -->
-                                                    <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
                                                     <!-- This element is to trick the browser into centering the modal contents. -->
                                                     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                                                     <!-- Modal panel, show/hide based on modal state. -->
-                                                    <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                                                         <form action="{{ path('seller_orders_pickup', {id: shop.id, order: order.id}) }}" method="POST" name="order_pickup">
                                                             <input type="hidden" name="_token" value="{{ csrf_token('order_pickup') }}">
                                                             <input type="hidden" name="order_pickup[id]" id="order_pickup_id" value="{{ order.id }}" required>
-                                                            <div class="bg-white dark:bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                                                 <div class="sm:flex sm:items-start">
-                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-600 sm:mx-0 sm:h-10 sm:w-10">
+                                                                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
                                                                         <!-- Heroicon name: outline/truck -->
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                             <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
                                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
                                                                         </svg>
                                                                     </div>
                                                                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                                                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
-                                                                            Confirmer que la commande n°{{ order.number }} a été récupérée
+                                                                        <h3 class="text-lg font-semibold text-black" id="modal-title">
+                                                                            Confirmer que la commande n°{{ order.orderNumber }} a été récupérée
                                                                         </h3>
                                                                         <div class="mt-2">
-                                                                            <p class="text-md text-gray-500 dark:text-gray-300">
-                                                                                Vous allez confirmer que la commande n°{{ order.number }} a été récupérée.
+                                                                            <p class="text-md text-black font-semibold">
+                                                                                Vous allez confirmer que la commande n°{{ order.orderNumber }} a été récupérée.
                                                                             </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="bg-white dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm">
+                                                            <div class="bg-white px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                                <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-semibold text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white sm:ml-3 sm:w-auto sm:text-sm">
                                                                     Confirmer
                                                                 </button>
-                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 dark:border-gray-300 dark:hover:border-gray-400 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('pickupModal{{ order.id }}')">
+                                                                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-white hover:border-gray-50 focus:border-gray-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-300 text-base font-medium text-black hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('pickupModal{{ order.id }}')">
                                                                     Revenir en arrière
                                                                 </button>
                                                             </div>
@@ -377,50 +368,50 @@
                                                 </div>
                                             </div>
                                         {% endif %}
-                                        <a class="cursor-pointer px-3 py-2 bg-red-600 rounded-lg text-white" onclick="openModal('cancelModal{{ order.id }}')">Annuler</a>
+                                        <a class="cursor-pointer px-3 py-2 bg-red-600 font-semibold rounded-lg text-white" onclick="openModal('cancelModal{{ order.id }}')">Annuler</a>
                                     </td>
                                     <div class="hidden z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" id="cancelModal{{ order.id }}" role="dialog" aria-modal="true">
                                         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                                             <!-- Background overlay, show/hide based on modal state. -->
-                                            <div class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                                            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
                                             <!-- This element is to trick the browser into centering the modal contents. -->
                                             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                                             <!-- Modal panel, show/hide based on modal state. -->
-                                            <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                                                 <form action="{{ path('seller_orders_cancel', {id: shop.id, order: order.id}) }}" method="POST" name="order_cancel">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('order_cancel') }}">
                                                     <input type="hidden" name="order_cancel[id]" id="order_cancel_id" value="{{ order.id }}" required>
-                                                    <div class="bg-white dark:bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                                         <div class="sm:flex sm:items-start">
-                                                            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-600 sm:mx-0 sm:h-10 sm:w-10">
+                                                            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
                                                                 <!-- Heroicon name: outline/exclamation -->
-                                                                <svg class="h-6 w-6 text-red-600 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                                <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                                                 </svg>
                                                             </div>
                                                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                                                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
-                                                                    Annuler la commande n°{{ order.number }}
+                                                                <h3 class="text-lg leading-6 font-semibold text-black" id="modal-title">
+                                                                    Annuler la commande n°{{ order.orderNumber }}
                                                                 </h3>
                                                                 <div class="mt-2">
-                                                                    <p class="text-md text-gray-500 dark:text-gray-300">
-                                                                        Vous allez confirmer que vous voulez annuler la commande n°{{ order.number }}.
+                                                                    <p class="text-md text-black font-semibold">
+                                                                        Vous allez confirmer que vous voulez annuler la commande n°{{ order.orderNumber }}.
                                                                     </p>
                                                                 </div>
                                                                 <div class="mt-2">
                                                                     <label class="block">
                                                                         <span class="text-gray-700">Votre message (optionel)</span>
-                                                                        <textarea name="order_cancel[message]" class="mt-1 block w-full bg-white rounded-md border-gray-300 dark:border-gray-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" id="order_cancel_message" rows="3"></textarea>
+                                                                        <textarea name="order_cancel[message]" class="mt-1 w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" id="order_cancel_message" rows="3"></textarea>
                                                                     </label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="bg-white px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                        <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-white dark:focus:ring-offset-gray-700 sm:ml-3 sm:w-auto sm:text-sm">
+                                                        <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-semibold text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-white sm:ml-3 sm:w-auto sm:text-sm">
                                                             Confirmer
                                                         </button>
-                                                        <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 focus:border-yellow-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-100 text-base font-medium text-black hover:bg-gray-50 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('cancelModal{{ order.id }}')">
+                                                        <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 focus:border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-semibold text-black hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="openModal('cancelModal{{ order.id }}')">
                                                             Revenir en arrière
                                                         </button>
                                                     </div>
