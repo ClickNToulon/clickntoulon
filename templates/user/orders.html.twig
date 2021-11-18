@@ -80,18 +80,18 @@
                                     </div>
                                 {% endfor %}
                             {% else %}
-                                <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 space-y-6">
+                                <div class="border-t border-gray-200 px-4 py-5 sm:px-6 space-y-6">
                                     <div class="flex flex-row">
                                         <div class="w-1/3">
                                             <img class="rounded" src="{{ asset('uploads/products/' ~ products[order.id].images[0]) }}" alt="">
                                         </div>
                                         <div class="flex flex-col px-4">
                                             <div class="flex flex-row justify-between mb-2">
-                                                <h1 class="font-medium text-black dark:text-white text-lg">{{ products[order.id].name }}  (x{{ order.quantity }})</h1>
-                                                <h1 class="font-medium text-black dark:text-white text-base">{{ products[order.id].price | format_currency('EUR') }}</h1>
+                                                <h1 class="font-medium text-black text-lg">{{ products[order.id].name }}  (x{{ order.quantity }})</h1>
+                                                <h1 class="font-medium text-black text-base">{{ products[order.id].price | format_currency('EUR') }}</h1>
                                             </div>
                                             <div class="h-full relative">
-                                                <p class="text-base text-black dark:text-white">
+                                                <p class="text-base text-black">
                                                     {{ products[order.id].description }}
                                                 </p>
                                             </div>
@@ -105,7 +105,7 @@
             </div>
         {% else %}
             <div class="sm:container px-5 py-5 mx-auto flex items-center justify-center h-full">
-                <h1 class="text-black dark:text-white font-medium text-4xl text-center">Aucune commande passée récemment...</h1>
+                <h1 class="text-black font-medium text-4xl text-center">Aucune commande passée récemment...</h1>
             </div>
         {% endif %}
     </section>

@@ -23,6 +23,8 @@ use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ProductTypeRepository;
 use App\Repository\ShopRepository;;
+
+use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use DateTimeZone;
@@ -254,10 +256,11 @@ class SellerController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param PaymentRepository $paymentRepository
+     * @param TagRepository $tagRepository
      * @return Response
      * @throws Exception
      */
-    public function create(Request $request, PaymentRepository $paymentRepository): Response
+    public function create(Request $request, PaymentRepository $paymentRepository, TagRepository $tagRepository): Response
     {
         $user = $this->getUser();
         $shop = new Shop();
@@ -267,7 +270,7 @@ class SellerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->get('image')->getData();
             if ($image) {
-                $newFilename = sprintf("%s-%s.%s", $shop->getName(), $shop->getId(), $image->guessExtension());
+                $newFilename = sprintf("%s-%s.%s", $shop->getName(), $shop->getPostalCode(), $image->guessExtension());
 
                 try {
                     $image->move(
@@ -290,10 +293,36 @@ class SellerController extends AbstractController
                 ->setIsBanned(0)
                 ->setIsVerified(0)
                 ->addPayment($default_payment)
-                ->setSlug($shop->getSlug());
+                ->setSlug($shop->getSlug())
+                ->setTag($tagRepository->find(1));
             dump($shop->getPayments());
             $this->em->persist($shop);
             $this->em->flush();
+            $i = 0;
+            $data = [];
+            for($i; $i < 28; $i++) {
+                $data[$i] = "00:00";
+            }
+            $d = 1;
+            for ($k = 0; $k < 28; $k+=4) {
+                $day = new OpeningHours();
+                $day->setDay($d)
+                    ->setShop($shop)
+                    ->setStart(new DateTime($data[$k], new DateTimeZone("Europe/Paris")))
+                    ->setEnd(new DateTime($data[$k+1], new DateTimeZone("Europe/Paris")));
+                $day2 = new OpeningHours();
+                $day2->setDay($d)
+                    ->setShop($shop)
+                    ->setStart(new DateTime($data[$k+2], new DateTimeZone("Europe/Paris")))
+                    ->setEnd(new DateTime($data[$k+3], new DateTimeZone("Europe/Paris")));
+                $this->em->persist($day);
+                $this->em->persist($day2);
+                $this->em->flush();
+                $shop->addOpeningHour($day2);
+                $shop->addOpeningHour($day);
+                $this->em->flush();
+                $d = $d + 1;
+            }
             $this->addFlash('success', 'Votre boutique a bien été créée');
         }
         return $this->render('seller/create.html.twig', [
@@ -317,7 +346,6 @@ class SellerController extends AbstractController
         $form_update = $this->createForm(ShopUpdateForm::class, $shop);
         $payments = $paymentRepository->findAll();
         $form_update->handleRequest($request);
-
         $form_delete = $this->createForm(ShopDeleteForm::class, $shop);
         $form_delete->handleRequest($request);
 
@@ -356,7 +384,7 @@ class SellerController extends AbstractController
         }
 
         $openingHours = $openingHoursRepository->findBy(["shop" => $shop]);
-
+        dump($openingHours);
         if($request->getMethod() === "POST" && $request->request->get('day') !== null) {
             $data = $request->request->all();
             $day = $data['day'];
@@ -364,42 +392,40 @@ class SellerController extends AbstractController
             $k = 0;
             foreach ($data as $key => $value) {
                 $data[$k] = $value;
+                unset($data[$key]);
                 $k = $k + 1;
             }
-            $data = array_slice($data, 14, 14);
             dump($data);
-            $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
-
-            foreach ($openingHours as $key => $value) {
-                $this->em->remove($value);
+            $d = 1;
+            foreach ($openingHours as $openingHour) {
+                $this->em->remove($openingHour);
             }
             $this->em->flush();
-
-            // Pour les mêmes horaires tous les jours
-            for ($i = 0; $i < 14; $i++) {
-                $hours[$i] = new OpeningHours();
-                if(isset($data[$i]) and isset($data[$i+1])) {
-                    $hours[$i]->setShop($shop)
-                        ->setStart(new DateTime($data[$i]), $dateTimeZoneFrance)
-                        ->setEnd(new DateTime($data[$i+1]), $dateTimeZoneFrance)
-                        ->setDay($day);
-                    $this->em->persist($hours[$i]);
-                    $i = $i + 2;
-                } else {
-                    $hours[$i]->setShop($shop)
-                        ->setStart(null)
-                        ->setEnd(null)
-                        ->setDay($day);
-                    $this->em->persist($hours[$i]);
-                    $i = $i + 2;
+            for ($i = 0; $i < count($data); $i+=4) {
+                if($data[$i] !== "" && $data[$i+1] !== "") {
+                    $day = new OpeningHours();
+                    $day->setDay($d)
+                        ->setShop($shop)
+                        ->setStart(new DateTime($data[$i], new DateTimeZone("Europe/Paris")))
+                        ->setEnd(new DateTime($data[$i+1], new DateTimeZone("Europe/Paris")));
+                    $this->em->persist($day);
+                    $this->em->flush();
+                    $shop->addOpeningHour($day);
                 }
-                $day = $day + 1;
+                if($data[$i+2] !== "" && $data[$i+3] !== "") {
+                    $day2 = new OpeningHours();
+                    $day2->setDay($d)
+                        ->setShop($shop)
+                        ->setStart(new DateTime($data[$i+2], new DateTimeZone("Europe/Paris")))
+                        ->setEnd(new DateTime($data[$i+3], new DateTimeZone("Europe/Paris")));
+                    $this->em->persist($day2);
+                    $this->em->flush();
+                    $shop->addOpeningHour($day2);
+                }
+                $d = $d + 1;
             }
             $this->em->flush();
         }
-
-        $openingHours = $shop->getFormattedWeekOpeningHours();
-        dump($openingHours);
 
         return $this->render('seller/edit.html.twig', [
             'shop' => $shop,

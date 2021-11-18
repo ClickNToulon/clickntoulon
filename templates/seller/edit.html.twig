@@ -3,7 +3,7 @@
 {% block title 'Modifier les informations de ma boutique - ClickNToulon' %}
 
 {% block body %}
-    {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
+    {% include 'navbar.html.twig' with {active: 'my-shop'} %}
     {% include 'seller/_header.html.twig' %}
     <section class="text-gray-400 body-font">
         <div class="sm:container px-5 py-6 mx-auto">
@@ -125,149 +125,200 @@
                     </div>
                     <div class="mt-5 md:mt-0 md:col-span-2 w-full md:w-auto">
                         <form action="" method="post" name="test" id="test">
-                        <div class="shadow-2xl overflow-hidden rounded-lg">
-                            <div class="px-4 py-5 bg-white space-y-6 sm:p-6 rounded-t-lg">
-                                <div class="grid grid-cols-2 gap-2 gap-y-2" id="lundi">
-                                    <div class="col-span-2 flex flex-row">
-                                        <label class="block text-base font-semibold text-black">
-                                            Lundi
-                                        </label>
+                            <div class="shadow-2xl overflow-hidden rounded-lg">
+                                <div class="px-4 py-5 bg-white space-y-6 sm:p-6 rounded-t-lg">
+                                    <div class="flex flex-wrap items-center justify-center p-1 rounded-lg bg-white shadow-xl w-full sm:w-auto">
+                                        <a class="tab w-full sm:w-auto cursor-pointer" id="lundiTab" onclick="changeTab('lundi', 'lundiTab')">Lundi</a>
+                                        <a class="tab w-full sm:w-auto cursor-pointer" id="mardiTab" onclick="changeTab('mardi', 'mardiTab')">Mardi</a>
+                                        <a class="tab w-full sm:w-auto cursor-pointer" id="mercrediTab" onclick="changeTab('mercredi', 'mercrediTab')">Mercredi</a>
+                                        <a class="tab w-full sm:w-auto cursor-pointer" id="jeudiTab" onclick="changeTab('jeudi', 'jeudiTab')">Jeudi</a>
+                                        <a class="tab w-full sm:w-auto cursor-pointer" id="vendrediTab" onclick="changeTab('vendredi', 'vendrediTab')">Vendredi</a>
+                                        <a class="tab w-full sm:w-auto cursor-pointer" id="samediTab" onclick="changeTab('samedi', 'samediTab')">Samedi</a>
+                                        <a class="tab w-full sm:w-auto cursor-pointer" id="dimancheTab" onclick="changeTab('dimanche', 'dimancheTab')">Dimanche</a>
                                     </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeMondayOpen" class="text-black">Ouverture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeMondayOpen" id="TimeMondayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    <div class="grid grid-cols-2 gap-2 gap-y-2 hidden" id="lundi">
+                                        <div class="col-span-2 flex flex-row">
+                                            <label class="block text-base font-semibold text-black">
+                                                Lundi
+                                            </label>
                                         </div>
+                                        {% set a = 1 %}
+                                        {% for openingHour in openingHours %}
+                                            {% if openingHour.day == 1 %}
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="lundiTimeOpen{{ a }}" class="text-black">Ouverture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="lundiTimeOpen{{ a }}" {% if openingHour.start %}value="{{ openingHour.start |format_time(locale='fr') }}"{% endif%} id="lundiTimeOpen{{ a }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="lundiTimeClose{{ a }}" class="text-black">Fermeture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="lundiTimeClose{{ a }}" {% if openingHour.end %}value="{{ openingHour.end |format_time(locale='fr') }}"{% endif%} id="lundiTimeClose{{ a }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% set a = a + 1 %}
+                                        {% endfor %}
                                     </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeMondayClose" class="text-black">Fermeture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeMondayClose" id="TimeMondayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="mardi">
+                                        <div class="col-span-2 flex flex-row">
+                                            <label class="block text-base font-semibold text-black">
+                                                Mardi
+                                            </label>
                                         </div>
+                                        {% set b = 1 %}
+                                        {% for openingHour in openingHours %}
+                                            {% if openingHour.day == 2 %}
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="mardiTimeOpen{{ b }}" class="text-black">Ouverture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="mardiTimeOpen{{ b }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="mardiTimeOpen{{ b }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="mardiTimeClose{{ b }}" class="text-black">Fermeture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="mardiTimeClose{{ b }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="mardiTimeClose{{ b }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% set b = b + 1 %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="mercredi">
+                                        <div class="col-span-2 flex flex-row">
+                                            <label class="block text-base font-semibold text-black">
+                                                Mercredi
+                                            </label>
+                                        </div>
+                                        {% set c = 1 %}
+                                        {% for openingHour in openingHours %}
+                                            {% if openingHour.day == 3 %}
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="mercrediTimeOpen{{ c }}" class="text-black">Ouverture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="mercrediTimeOpen{{ c }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="mercrediTimeOpen{{ c }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="mercrediTimeClose{{ c }}" class="text-black">Fermeture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="mercrediTimeClose{{ c }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="mercrediTimeClose{{ c }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% set c = c + 1 %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="jeudi">
+                                        <div class="col-span-2 flex flex-row">
+                                            <label class="block text-base font-semibold text-black">
+                                                Jeudi
+                                            </label>
+                                        </div>
+                                        {% set d = 1 %}
+                                        {% for openingHour in openingHours %}
+                                            {% if openingHour.day == 4 %}
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="jeudiTimeOpen{{ d }}" class="text-black">Ouverture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="jeudiTimeOpen{{ d }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="jeudiTimeOpen{{ d }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="jeudiTimeClose{{ d }}" class="text-black">Fermeture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="jeudiTimeClose{{ d }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="jeudiTimeClose{{ d }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% set d = d + 1 %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="vendredi">
+                                        <div class="col-span-2 flex flex-row">
+                                            <label class="block text-base font-semibold text-black">
+                                                Vendredi
+                                            </label>
+                                        </div>
+                                        {% set e = 1 %}
+                                        {% for openingHour in openingHours %}
+                                            {% if openingHour.day == 5 %}
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="vendrediTimeOpen{{ e }}" class="text-black">Ouverture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="vendrediTimeOpen{{ e }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="vendrediTimeOpen{{ e }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="vendrediTimeClose{{ e }}" class="text-black">Fermeture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="vendrediTimeClose{{ e }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="vendrediTimeClose{{ e }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% set e = e + 1 %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="samedi">
+                                        <div class="col-span-2 flex flex-row">
+                                            <label class="block text-base font-semibold text-black">
+                                                Samedi
+                                            </label>
+                                        </div>
+                                        {% set f = 1 %}
+                                        {% for openingHour in openingHours %}
+                                            {% if openingHour.day == 6 %}
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="samediTimeOpen{{ f }}" class="text-black">Ouverture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="samediTimeOpen{{ f }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="samediTimeOpen{{ f }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="samediTimeClose{{ f }}" class="text-black">Fermeture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="samediTimeClose{{ f }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="samediTimeClose{{ f }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% set f = f + 1 %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="dimanche">
+                                        <div class="col-span-2 flex flex-row">
+                                            <label class="block text-base font-semibold text-black">
+                                                Dimanche
+                                            </label>
+                                        </div>
+                                        {% set i = 1 %}
+                                        {% for openingHour in openingHours %}
+                                            {% if openingHour.day == 7 %}
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="dimancheTimeOpen{{ i }}" class="text-black">Ouverture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="dimancheTimeOpen{{ i }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="dimancheTimeOpen{{ i }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="dimancheTimeClose{{ i }}" class="text-black">Fermeture</label>
+                                                    <div class="flex rounded-md shadow-sm">
+                                                        <input type="time" name="dimancheTimeClose{{ i }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="dimancheTimeClose{{ i }}" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% set i = i + 1 %}
+                                        {% endfor %}
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="mardi">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-semibold text-black">
-                                            Mardi
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeTuesdayOpen" class="text-black">Ouverture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeTuesdayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeTuesdayClose" class="text-black">Fermeture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeTuesdayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="mercredi">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-semibold text-black">
-                                            Mercredi
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeWednesdayOpen" class="text-black">Ouverture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeWednesdayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeWednesdayClose" class="text-black">Fermeture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeWednesdayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="jeudi">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-semibold text-black">
-                                            Jeudi
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeThursdayOpen" class="text-black">Ouverture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TImeThursdayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeThursdayClose" class="text-black">Fermeture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeThursdayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="vendredi">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-semibold text-black">
-                                            Vendredi
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeFridayOpen" class="text-black">Ouverture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeFridayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeFridayClose" class="text-black">Fermeture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeFridayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="samedi">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-semibold text-black">
-                                            Samedi
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeSaturdayOpen" class="text-black">Ouverture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeSaturdayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeSaturdayClose" class="text-black">Fermeture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeSaturdayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 gap-y-1" id="dimanche">
-                                    <div class="col-span-2">
-                                        <label class="block text-base font-semibold text-black">
-                                            Dimanche
-                                        </label>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeSundayOpen" class="text-black">Ouverture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeSundayOpen" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        <label for="TimeSundayClose" class="text-black">Fermeture</label>
-                                        <div class="flex rounded-md shadow-sm">
-                                            <input type="time" name="TimeSundayClose" class="w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        </div>
-                                    </div>
+                                <input type="hidden" value="1" name="day">
+                                <div class="px-4 py-3 bg-white text-right sm:px-6">
+                                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
+                                        Sauvegarder les horaires
+                                    </button>
                                 </div>
                             </div>
-                            <input type="hidden" value="1" name="day">
-                            <div class="px-4 py-3 bg-white text-right sm:px-6">
-                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
-                                    Sauvegarder les horaires
-                                </button>
-                            </div>
-                        </div>
                         </form>
                     </div>
                 </div>
@@ -325,6 +376,12 @@
             document.getElementById(modalID).classList.toggle('fixed');
         }
 
+        function changeTab(divID, tabID) {
+            document.getElementById(divID).classList.toggle('hidden');
+            document.getElementById(divID).classList.toggle('block');
+            document.getElementById(tabID).classList.toggle('tab-active');
+        }
+
         function addHoraire(divID, buttonID) {
             document.getElementById(buttonID).classList.add('hidden');
             let div = document.createElement('div');
@@ -352,12 +409,10 @@
             del.innerHTML =`<button type="button" onclick="suppHoraire('${divID}','${buttonID}')" class="px-3 py-2 dark:text-white text-black bg-yellow-600 mt-1 rounded-lg">Supprimer des horaires</button>`;
             document.getElementById(divID).appendChild(del);
         }
-
         function suppHoraire(divID, buttonID) {
             document.getElementById(divID).lastChild.remove();
             document.getElementById(divID).lastChild.remove();
             document.getElementById(divID).lastChild.remove();
-
             document.getElementById(buttonID).classList.remove('hidden');
         }
     </script>
