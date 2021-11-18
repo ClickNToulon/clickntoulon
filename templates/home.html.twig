@@ -38,15 +38,15 @@
                     <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 gap-y-10 gap-x-6 xl:grid-cols-2">
-                {% if shops is defined and shops != [] %}
+            {% if shops is defined and shops != [] %}
+                <div class="grid grid-cols-1 gap-y-10 gap-x-6 xl:grid-cols-2">
                     {% include 'shop/shop_skeleton.html.twig' with {'shops': shops} %}
-                {% else %}
-                    <div class="sm:container px-5 py-5 mx-auto">
-                        <h1 class="text-black dark:text-white font-medium text-4xl text-center">Aucune boutique présente sur ClickNToulon actuellement...</h1>
-                    </div>
-                {% endif %}
-            </div>
+                </div>
+            {% else %}
+                <div class="sm:container px-5 py-5 mx-auto">
+                    <h1 class="text-black font-semibold text-4xl text-center w-full">Aucune boutique présente sur ClickNToulon actuellement...</h1>
+                </div>
+            {% endif %}
         </div>
     </section>
 
@@ -73,7 +73,7 @@
                 </div>
             {% else %}
                 <div class="sm:container px-5 py-5 mx-auto">
-                    <h1 class="text-black dark:text-white font-medium text-4xl text-center">Aucun produit disponible sur ClickNToulon actuellement...</h1>
+                    <h1 class="text-black font-semibold w-full text-4xl text-center">Aucun produit disponible sur ClickNToulon actuellement...</h1>
                 </div>
             {% endif %}
         </div>
