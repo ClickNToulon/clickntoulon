@@ -15,7 +15,7 @@ class AddProductBasketForm extends AbstractType
             ->add('shop_id', HiddenType::class, [
                 "required" => false
             ])
-            ->add('products_id', HiddenType::class, [
+            ->add('product_id', HiddenType::class, [
                 "required" => true
             ]);
     }

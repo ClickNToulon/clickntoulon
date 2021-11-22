@@ -15,26 +15,7 @@ class CreateOrderForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('shop_id', HiddenType::class, [
-            'mapped' => true,
-            'required' => true
-            ])
-            ->add('productsId', HiddenType::class, [
-                'mapped' => true,
-                'required' => true
-            ])
-            ->add('buyer_id', HiddenType::class, [
-                'mapped' => true,
-                'required' => true
-            ])
-            ->add('quantity', HiddenType::class, [
-                'mapped' => true,
-                'required' => true
-            ])
-            ->add('status', HiddenType::class, [
-                'mapped' => true,
-                'required' => true
-            ])
+        $builder
             ->add('day', DateType::class, [
                 'mapped' => true,
                 'required' => true,

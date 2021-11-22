@@ -63,7 +63,7 @@ class ShopRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $id
+     * @param User $owner
      * @return QueryBuilder
      */
     public function choose(User $owner): QueryBuilder

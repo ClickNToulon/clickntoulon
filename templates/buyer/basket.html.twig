@@ -9,36 +9,37 @@
             {% set i = 0 %}
             {% set total = 0 %}
             {% for shop in shops %}
-                {% if basket.shopId == shop.id %}
-                    <form action="" method="post" class="bg-white dark:bg-gray-700 w-full px-5 lg:px-20 py-6 lg:py-12" id="form{{ basket.id }}">
+                {% if basket.shop == shop %}
+                    <form action="" method="post" class="bg-white w-full px-5 lg:px-20 py-6 lg:py-12" id="form{{ basket.id }}">
                         <div class="flex flex-col lg:flex-row space-x-0 lg:space-x-4 h-full w-full">
-                            <div class="w-full lg:w-2/3 order-last lg:order-first bg-white dark:bg-gray-800 px-3 py-2 rounded-xl">
+                            <div class="w-full lg:w-2/3 order-last lg:order-first bg-white px-3 py-2 rounded-xl shadow-2xl">
                                 <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between">
                                     <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
                                         <div class="col-span-3 flex flex-col">
-                                            <h3 class="font-medium text-lg text-black dark:text-white">{{ shop.name }}</h3>
+                                            <h3 class="font-semibold text-2xl text-black">{{ shop.name }}</h3>
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-1 flex items-center">
                                         <div class="col-span-1">
-                                            <a href="{{ path('shop_show', {slug: shop.slug}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-gray-600 hover:bg-gray-700 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 focus:ring-offset-white dark:focus:ring-offset-gray-800">
+                                            <a href="{{ path('shop_show', {slug: shop.slug}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-lg font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 focus:ring-offset-white">
                                                 Voir la boutique
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                                 {% for product in products[basket.id] %}
-                                    <div class="border-t border-gray-200 dark:border-gray-600 px-4 py-5 sm:px-6 space-y-6">
+                                    <div class="border-t border-gray-200 px-4 py-5 sm:px-6 space-y-6">
                                         <div class="flex sm:flex-row flex-col">
                                             <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
                                                 <img class="rounded" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
                                             </div>
-                                            <div class="flex flex-col px-4">
+                                            <div class="flex flex-col px-4 w-full">
                                                 <div class="flex flex-row justify-between mb-2 items-center">
-                                                    <h1 class="font-medium text-black dark:text-white text-lg">{{ product.name }}</h1>
-                                                    <div class="">
+                                                    <h1 class="font-semibold text-black text-2xl">{{ product.name }}</h1>
+                                                    <div>
                                                         {% set k = 0 %}
-                                                        <select name="quantity_{{ product.id }}" id="quantity" class="bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 block w-full sm:text-sm border border-gray-700 rounded-md" onchange="submitForm('form{{ basket.id }}')">
+                                                        <label for="quantity_{{ product.id }}" class="font-semibold text-black text-base">Quantité</label>
+                                                        <select name="quantity_{{ product.id }}" id="quantity" class="bg-white focus:bg-gray-200 text-black shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 block w-full sm:text-sm border border-gray-700 rounded-md" onchange="submitForm('form{{ basket.id }}')">
                                                             {% for k in 1..100 %}
                                                                 <option value="{{ k }}" {% if k == quantities[basket.id][i] %}selected{% endif %}>{{ k }}</option>
                                                             {% endfor %}
@@ -46,26 +47,27 @@
                                                         <input type="hidden" name="product_{{ product.id }}" value="{{ product.id }}">
                                                         <input type="hidden" name="basket_id" value="{{ basket.id }}">
                                                     </div>
-                                                    {% if product.dealprice != null %}
+                                                    {% if product.unitPriceDiscount != null %}
                                                         <div class="flex flex-row space-x-2">
-                                                            <h1 class="font-medium text-black dark:text-white text-base line-through">
-                                                                {{ product.price | format_currency('EUR') }}
+                                                            <h1 class="font-semibold text-black text-lg line-through">
+                                                                {{ product.unitPrice | format_currency('EUR') }}
                                                             </h1>
-                                                            <h1 class="font-bold text-red-600 dark:text-red-500 text-base">
-                                                                {{ product.dealprice | format_currency('EUR') }}
+                                                            <h1 class="font-semibold text-red-600 dark:text-red-500 text-lg">
+                                                                {% set dealPrice = product.unitPrice * (1 - product.unitPriceDiscount) %}
+                                                                {{ dealPrice | format_currency('EUR') }}
                                                             </h1>
                                                         </div>
-                                                        {% set total = total + product.dealprice * quantities[basket.id][i] %}
+                                                        {% set total = total + dealPrice * quantities[basket.id][i] %}
                                                     {% else %}
-                                                        <h1 class="font-medium text-black dark:text-white text-base">
-                                                            {{ product.price | format_currency('EUR') }}
+                                                        <h1 class="font-semibold text-black text-lg">
+                                                            {{ product.unitPrice | format_currency('EUR') }}
                                                         </h1>
-                                                        {% set total = total + product.price * quantities[basket.id][i] %}
+                                                        {% set total = total + product.unitPrice * quantities[basket.id][i] %}
                                                     {% endif %}
                                                     {% set i = i + 1 %}
                                                 </div>
                                                 <div class="h-full">
-                                                    <p class="text-base text-black dark:text-white text-justify">
+                                                    <p class="text-base text-black font-semibold text-justify">
                                                         {{ product.description }}
                                                     </p>
                                                 </div>
@@ -74,13 +76,13 @@
                                     </div>
                                 {% endfor %}
                             </div>
-                            <div class=" w-full lg:w-1/3 max-h-28 order-first mb-3 lg:mb-0 lg:order-last bg-gray-100 dark:bg-gray-800 rounded-xl px-6 py-4 flex items-center flex-col">
+                            <div class=" w-full lg:w-1/3 max-h-28 order-first mb-3 lg:mb-0 lg:order-last bg-white shadow-2xl rounded-xl px-6 py-4 flex items-center flex-col">
                                 <div class="flex justify-between w-full">
-                                    <h2 class="font-medium text-lg text-black dark:text-white">Total du panier</h2>
-                                    <p class="font-medium text-lg text-gray-900 dark:text-gray-200">{{ total | format_currency('EUR') }}</p>
+                                    <h2 class="font-semibold text-xl text-black">Total du panier</h2>
+                                    <p class="font-semibold text-xl text-black">{{ total | format_currency('EUR') }}</p>
                                 </div>
                                 <div class="w-full pt-3">
-                                    <a href="{{ path('basket_checkout', {id: shop.id}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-medium rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white dark:focus:ring-offset-gray-800">
+                                    <a href="{{ path('basket_checkout', {id: shop.id}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-base font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
                                         Passez la commande
                                     </a>
                                 </div>
@@ -98,7 +100,7 @@
         {% include 'footer.html.twig' %}
     {% else %}
         <div class="sm:container px-5 py-5 mx-auto absolute top-1/4 sm:top-1/3 left-0 right-0">
-            <h1 class="text-black dark:text-white font-medium text-4xl text-center">Aucun article dans votre panier actuellement...</h1>
+            <h1 class="text-black font-semibold text-4xl text-center">Aucun article dans votre panier actuellement...</h1>
         </div>
         <div class="absolute bottom-0 w-full">
             {% include 'footer.html.twig' %}

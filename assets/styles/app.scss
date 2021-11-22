@@ -31,11 +31,15 @@ header {
 }
 
 .tab {
-  @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-black font-bold rounded-lg mx-1 my-0.5;
+  @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-black font-semibold rounded-lg mx-1 my-0.5;
+
+  &:hover {
+    @apply bg-yellow-500 text-white rounded-lg;
+  }
 }
 
 .tab-active {
-  @apply bg-yellow-500 text-black font-bold rounded-lg;
+  @apply bg-yellow-500 text-white font-semibold rounded-lg;
 }
 
 .tab:focus {

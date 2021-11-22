@@ -21,7 +21,10 @@ use App\Repository\OpeningHoursRepository;
 use App\Repository\OrderRepository;
 use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
+use App\Repository\ProductTypeRepository;
 use App\Repository\ShopRepository;;
+
+use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use DateTimeZone;
@@ -63,12 +66,11 @@ class SellerController extends AbstractController
      * @IsGranted("ROLE_MERCHANT")
      * @param Shop $shop
      * @param OrderRepository $orderRepository
-     * @param UserRepository $userRepository
      * @param ProductRepository $productRepository
      * @param Request $request
      * @return Response
      */
-    public function index(Shop $shop, OrderRepository $orderRepository, UserRepository $userRepository, ProductRepository $productRepository, Request $request): Response
+    public function index(Shop $shop, OrderRepository $orderRepository, ProductRepository $productRepository, Request $request): Response
     {
         $user = $this->getUser();
         if($user instanceof User) {
@@ -82,26 +84,21 @@ class SellerController extends AbstractController
         $orders = $orderRepository->getAllShop($shop);
         $orders_buyers = [];
         $quantities = [];
-        $products_id = [];
         $products = [];
-        /*foreach ($orders as $key => $value) {
-            $orders_buyers[$value->getId()] = $userRepository->find($value->getBuyerId());
-            $quantities[$value->getId()] = $value->getQuantity();
-            $products_id[$value->getId()] = $value->getProductsId();
-            foreach ($products_id as $key2 => $value2) {
-                if(str_contains($value2, ',') == true) {
-                    $value3 = [];
-                    $value3 = explode(',', $value2);
-                    $products[$value->getId()] = [];
-                    foreach ($value3 as $key4 => $value4) {
-                        $products[$value->getId()][] = $productRepository->find($value4);
-                    }
-                } else {
-                    $products[$value->getId()] = $productRepository->find($value2);
-                }
+        foreach ($orders as $key => $value) {
+            $orders_buyers[$value->getId()] = $value->getBuyer();
+            $orders_quantities[$value->getId()] = $value->getQuantity();
+            foreach ($orders_quantities[$value->getId()] as $oq) {
+                $quantities[$value->getId()][] = $oq;
             }
-        }*/
+            $orders_products[$value->getId()] = $value->getProducts();
+            foreach ($orders_products[$value->getId()] as $op) {
+                    $products[$value->getId()][] = $productRepository->find($op->getId());
+            }
+        }
         $total_orders = count($orders);
+        dump($products);
+        dump($quantities);
         return $this->render('seller/index.html.twig', [
             'user' => $user,
             'shop' => $shop,
@@ -258,12 +255,12 @@ class SellerController extends AbstractController
      * @Route("/ma-boutique/creation", name="seller_create")
      * @IsGranted("ROLE_USER")
      * @param Request $request
-     * @param SluggerInterface $slugger
      * @param PaymentRepository $paymentRepository
+     * @param TagRepository $tagRepository
      * @return Response
      * @throws Exception
      */
-    public function create(Request $request, SluggerInterface $slugger, PaymentRepository $paymentRepository): Response
+    public function create(Request $request, PaymentRepository $paymentRepository, TagRepository $tagRepository): Response
     {
         $user = $this->getUser();
         $shop = new Shop();
@@ -273,9 +270,7 @@ class SellerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->get('image')->getData();
             if ($image) {
-                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename, '-', 'fr');
-                $newFilename = sprintf("%s-%s-%s.%s", $safeFilename, $shop->getName(), $user->getId(), $image->guessExtension());
+                $newFilename = sprintf("%s-%s.%s", $shop->getName(), $shop->getPostalCode(), $image->guessExtension());
 
                 try {
                     $image->move(
@@ -298,10 +293,36 @@ class SellerController extends AbstractController
                 ->setIsBanned(0)
                 ->setIsVerified(0)
                 ->addPayment($default_payment)
-                ->setSlug($shop->getSlug());
+                ->setSlug($shop->getSlug())
+                ->setTag($tagRepository->find(1));
             dump($shop->getPayments());
             $this->em->persist($shop);
             $this->em->flush();
+            $i = 0;
+            $data = [];
+            for($i; $i < 28; $i++) {
+                $data[$i] = "00:00";
+            }
+            $d = 1;
+            for ($k = 0; $k < 28; $k+=4) {
+                $day = new OpeningHours();
+                $day->setDay($d)
+                    ->setShop($shop)
+                    ->setStart(new DateTime($data[$k], new DateTimeZone("Europe/Paris")))
+                    ->setEnd(new DateTime($data[$k+1], new DateTimeZone("Europe/Paris")));
+                $day2 = new OpeningHours();
+                $day2->setDay($d)
+                    ->setShop($shop)
+                    ->setStart(new DateTime($data[$k+2], new DateTimeZone("Europe/Paris")))
+                    ->setEnd(new DateTime($data[$k+3], new DateTimeZone("Europe/Paris")));
+                $this->em->persist($day);
+                $this->em->persist($day2);
+                $this->em->flush();
+                $shop->addOpeningHour($day2);
+                $shop->addOpeningHour($day);
+                $this->em->flush();
+                $d = $d + 1;
+            }
             $this->addFlash('success', 'Votre boutique a bien été créée');
         }
         return $this->render('seller/create.html.twig', [
@@ -325,7 +346,6 @@ class SellerController extends AbstractController
         $form_update = $this->createForm(ShopUpdateForm::class, $shop);
         $payments = $paymentRepository->findAll();
         $form_update->handleRequest($request);
-
         $form_delete = $this->createForm(ShopDeleteForm::class, $shop);
         $form_delete->handleRequest($request);
 
@@ -364,7 +384,7 @@ class SellerController extends AbstractController
         }
 
         $openingHours = $openingHoursRepository->findBy(["shop" => $shop]);
-
+        dump($openingHours);
         if($request->getMethod() === "POST" && $request->request->get('day') !== null) {
             $data = $request->request->all();
             $day = $data['day'];
@@ -372,42 +392,40 @@ class SellerController extends AbstractController
             $k = 0;
             foreach ($data as $key => $value) {
                 $data[$k] = $value;
+                unset($data[$key]);
                 $k = $k + 1;
             }
-            $data = array_slice($data, 14, 14);
             dump($data);
-            $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
-
-            foreach ($openingHours as $key => $value) {
-                $this->em->remove($value);
+            $d = 1;
+            foreach ($openingHours as $openingHour) {
+                $this->em->remove($openingHour);
             }
             $this->em->flush();
-
-            // Pour les mêmes horaires tous les jours
-            for ($i = 0; $i < 14; $i++) {
-                $hours[$i] = new OpeningHours();
-                if(isset($data[$i]) and isset($data[$i+1])) {
-                    $hours[$i]->setShop($shop)
-                        ->setStart(new DateTime($data[$i]), $dateTimeZoneFrance)
-                        ->setEnd(new DateTime($data[$i+1]), $dateTimeZoneFrance)
-                        ->setDay($day);
-                    $this->em->persist($hours[$i]);
-                    $i = $i + 2;
-                } else {
-                    $hours[$i]->setShop($shop)
-                        ->setStart(null)
-                        ->setEnd(null)
-                        ->setDay($day);
-                    $this->em->persist($hours[$i]);
-                    $i = $i + 2;
+            for ($i = 0; $i < count($data); $i+=4) {
+                if($data[$i] !== "" && $data[$i+1] !== "") {
+                    $day = new OpeningHours();
+                    $day->setDay($d)
+                        ->setShop($shop)
+                        ->setStart(new DateTime($data[$i], new DateTimeZone("Europe/Paris")))
+                        ->setEnd(new DateTime($data[$i+1], new DateTimeZone("Europe/Paris")));
+                    $this->em->persist($day);
+                    $this->em->flush();
+                    $shop->addOpeningHour($day);
                 }
-                $day = $day + 1;
+                if($data[$i+2] !== "" && $data[$i+3] !== "") {
+                    $day2 = new OpeningHours();
+                    $day2->setDay($d)
+                        ->setShop($shop)
+                        ->setStart(new DateTime($data[$i+2], new DateTimeZone("Europe/Paris")))
+                        ->setEnd(new DateTime($data[$i+3], new DateTimeZone("Europe/Paris")));
+                    $this->em->persist($day2);
+                    $this->em->flush();
+                    $shop->addOpeningHour($day2);
+                }
+                $d = $d + 1;
             }
             $this->em->flush();
         }
-
-        $openingHours = $shop->getFormattedWeekOpeningHours();
-        dump($openingHours);
 
         return $this->render('seller/edit.html.twig', [
             'shop' => $shop,
@@ -426,10 +444,10 @@ class SellerController extends AbstractController
      * @param Shop $shop
      * @param ProductRepository $productRepository
      * @param Request $request
-     * @param SluggerInterface $slugger
+     * @param ProductTypeRepository $productTypeRepository
      * @return Response
      */
-    public function products(Shop $shop, ProductRepository $productRepository, Request $request, SluggerInterface $slugger): Response
+    public function products(Shop $shop, ProductRepository $productRepository, Request $request, ProductTypeRepository $productTypeRepository): Response
     {
         $user = $this->getUser();
         $product = new Product();
@@ -437,27 +455,37 @@ class SellerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $image = $form->get('image')->getData();
+            $images = $form->get('images')->getData();
             $product->setName($product->getName())
                 ->setDescription($product->getDescription())
                 ->setShop($shop)
-                ->setUnitPrice($product->getUnitPrice());
-            if ($image) {
-                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename, '-', 'fr');
-                $newFilename = sprintf("%s-%s-%s.%s", $safeFilename, $product->getName(), $user->getId(), $image->guessExtension());
-
-                try {
-                    $image->move(
-                        $this->getParameter('uploads/products'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-
-                }
-
-                $product->setImages([$newFilename]);
+                ->setUnitPrice($product->getUnitPrice())
+                ->setType($productTypeRepository->find(1));
+            if($product->getUnitPriceDiscount() == null) {
+                $product->setUnitPriceDiscount(null);
+            } else {
+                $product->setUnitPriceDiscount($product->getUnitPriceDiscount());
             }
+            $limit = count($images);
+            for ($i = 0; $i < $limit; $i++) {
+                if($images[$i]) {
+                    $newFilename = sprintf("%s-%s-%s-%s.%s", $product->getName(), $shop->getId(), $shop->getName(), $i, $images[$i]->guessExtension());
+                    try {
+                        $images[$i]->move(
+                            $this->getParameter('uploads/products'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+
+                    }
+
+                    $product_images = $product->getImages();
+                    array_push($product_images, $newFilename);
+                    $product->setImages($product_images);
+                }
+            }
+            $productType = $productTypeRepository->find(1);
+            $productType->addProduct($product);
             $this->em->persist($product);
             $this->em->flush();
         }
@@ -524,11 +552,10 @@ class SellerController extends AbstractController
      * @param ShopRepository $shopRepository
      * @param Request $request
      * @param ProductRepository $productRepository
-     * @param SluggerInterface $slugger
+     * @param ProductTypeRepository $productTypeRepository
      * @return Response
-     * @throws Exception
      */
-    public function editProduct(ShopRepository $shopRepository, Request $request, ProductRepository $productRepository, SluggerInterface $slugger): Response
+    public function editProduct(ShopRepository $shopRepository, Request $request, ProductRepository $productRepository, ProductTypeRepository $productTypeRepository): Response
     {
         $user = $this->getUser();
         $product = $productRepository->find($request->attributes->get('product'));
@@ -536,36 +563,39 @@ class SellerController extends AbstractController
         $form_update_product = $this->createForm(ProductForm::class, $product, ['id' => $shop->getId()]);
         $form_update_product->handleRequest($request);
         if($form_update_product->isSubmitted() && $form_update_product->isValid()) {
-            $data = $request->request->all('product');
-            $image = $form_update_product->get('image')->getData();
-            $price = floatval(str_replace(",",".",$data['price']));
-            $deal_price = floatval(str_replace(",",".",$data['deal_price']));
-            $product->setName($data['name'])
-                ->setDescription($data['description'])
-                ->setUnitPrice($price);
-            if($deal_price == "") {
+            $images = $form_update_product->get('images')->getData();
+            $product->setName($product->getName())
+                ->setDescription($product->getDescription())
+                ->setUnitPrice($product->getUnitPrice())
+                ->setType($productTypeRepository->find(1));
+            if($product->getUnitPriceDiscount() == null) {
                 $product->setUnitPriceDiscount(null);
             } else {
-                $product->setUnitPriceDiscount($deal_price);
+                $product->setUnitPriceDiscount($product->getUnitPriceDiscount());
             }
-            if ($image) {
-                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename, '-', 'fr');
-                $newFilename = sprintf("%s-%s-%s.%s", $safeFilename, $data['name'], $user->getId(), $image->guessExtension());
+            $limit = count($images);
+            for ($i = 0; $i < $limit; $i++) {
+                if($images[$i]) {
+                    $newFilename = sprintf("%s-%s-%s-%s.%s", $product->getName(), $shop->getId(), $shop->getName(), $i, $images[$i]->guessExtension());
+                    try {
+                        $images[$i]->move(
+                            $this->getParameter('uploads/products'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
 
-                try {
-                    $image->move(
-                        $this->getParameter('uploads/products'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
+                    }
 
+                    $product_images = $product->getImages();
+                    array_push($product_images, $newFilename);
+                    $product->setImages($product_images);
                 }
-
-                $product->setImages([$newFilename]);
             }
+            $productType = $productTypeRepository->find(1);
+            $productType->addProduct($product);
             $this->em->persist($product);
             $this->em->flush();
+            return $this->redirectToRoute('seller_edit_products', ['id' => $shop->getId()]);
         }
 
         return $this->render("seller/edit_product.html.twig", [

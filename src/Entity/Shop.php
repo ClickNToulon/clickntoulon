@@ -161,6 +161,7 @@ class Shop
         $this->categories = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->openingHours = new ArrayCollection();
     }
 
     public function getId(): ?int

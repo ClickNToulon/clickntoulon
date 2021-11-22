@@ -24,18 +24,27 @@ class ProductForm extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'required' => true,
+                'label_attr' => [
+                    'class' => 'block text-base font-bold text-black'
+                ],
                 'attr' => [
                     'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 ]
             ])
             ->add('unitPrice', NumberType::class, [
                 'required' => true,
+                'label_attr' => [
+                    'class' => 'block text-base font-bold text-black'
+                ],
                 'attr' => [
                     'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 ]
             ])
             ->add('description', TextareaType::class, [
                 'required' => true,
+                'label_attr' => [
+                    'class' => 'block text-base font-bold text-black'
+                ],
                 'attr' => [
                     'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out',
                     'rows' => 3
@@ -43,27 +52,23 @@ class ProductForm extends AbstractType
             ])
             ->add('unitPriceDiscount', NumberType::class, [
                 'required' => false,
-                'mapped' => false,
+                'label_attr' => [
+                    'class' => 'block text-base font-bold text-black'
+                ],
                 'attr' => [
                     'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 ]
             ])
-            ->add('image',FileType::class, [
+            ->add('images',FileType::class, [
                 'attr' => [
+                    'accept' => 'image/*',
                     'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 ],
+                'multiple' => true,
                 'mapped' => false,
                 'required' => true,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/jpg',
-                            'image/png',
-                            'image/jpeg'
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid image',
-                    ])
+                'label_attr' => [
+                    'class' => 'block text-base font-bold text-black'
                 ]
             ])
             ->add('categories', EntityType::class, [
@@ -71,6 +76,9 @@ class ProductForm extends AbstractType
                 'mapped' => false,
                 'required' => true,
                 'label' => 'Categories',
+                'label_attr' => [
+                    'class' => 'block text-base font-bold text-black'
+                ],
                 'query_builder' => function(CategoryRepository $em) use ($id) {
                     return $em->findAllByShopQuery($id);
                 },

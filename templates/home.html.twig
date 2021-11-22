@@ -11,8 +11,8 @@
                     <h1 class="title-font tablet:text-7xl sm:text-5xl text-3xl mb-4 font-bold text-white uppercase">ClickNToulon</h1>
                     <p class="title-font tablet:text-3xl sm:text-2xl text-xl mb-8 font-medium text-gray-50">Made for Toulon in Toulon.</p>
                     <div class="flex justify-center items-center mx-auto flex-col space-y-6 tablet:space-y-0 tablet:flex-row tablet:space-x-6 w-full tablet:w-full">
-                        <a href="" class="block text-black bg-white hover:bg-yellow-50 py-2 px-6 focus:outline-none rounded-lg text-lg uppercase font-semibold text-center w-full tablet:w-auto">Qui sommes-nous ?</a>
-                        <a href="" class="block py-2 px-6 focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 rounded-lg text-lg uppercase font-semibold text-center w-full tablet:w-auto">Créer votre compte</a>
+                        <a href="{{ path('about_index') }}" class="block text-black bg-white hover:bg-yellow-50 py-2 px-6 focus:outline-none rounded-lg text-lg uppercase font-semibold text-center w-full tablet:w-auto">Qui sommes-nous ?</a>
+                        <a href="{{ path('app_signup') }}" class="block py-2 px-6 focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 rounded-lg text-lg uppercase font-semibold text-center w-full tablet:w-auto">Créer votre compte</a>
                     </div>
                 </div>
             </div>
@@ -23,14 +23,14 @@
                 <div class="text-center lg:w-2/3 w-full px-5 py-24 mx-auto">
                     <h1 class="title-font tablet:text-7xl sm:text-5xl text-3xl mb-12 font-bold text-white uppercase">Bonjour, {{ user.surname }}</h1>
                     <div class="flex justify-center items-center mx-auto flex-col space-y-6 tablet:space-y-0 tablet:flex-row tablet:space-x-6 w-full tablet:w-full">
-                        <a href="{{ path('user_orders') }}" class="block text-black bg-white hover:bg-yellow-50 py-2 px-6 focus:outline-none rounded-lg text-lg uppercase font-semibold text-center w-full tablet:w-auto">Mes commandes</a>
+                        <a href="{{ path('user_orders') }}" class="block text-black bg-white hover:bg-yellow-500 hover:text-white transition-colors duration-300 py-2 px-6 focus:outline-none rounded-lg text-lg uppercase font-semibold text-center w-full tablet:w-auto">Mes commandes</a>
                         <a href="{{ path('basket_index') }}" class="block py-2 px-6 focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 rounded-lg text-lg uppercase font-semibold text-center w-full tablet:w-auto">Mon Panier</a>
                     </div>
                 </div>
             </div>
         </header>
     {% endif %}
-    <section class="text-gray-600 body-font" id="discover">
+    <section class="text-gray-600 body-font">
         <div class="sm:container px-8 sm:px-5 py-24 mx-auto">
             <div class="text-center mb-20">
                 <h1 class="sm:text-5xl text-3xl font-extrabold title-font text-black mb-4 uppercase">Nos boutiques partenaires</h1>
@@ -38,19 +38,19 @@
                     <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 gap-y-10 gap-x-6 xl:grid-cols-2">
-                {% if shops is defined and shops != [] %}
+            {% if shops is defined and shops != [] %}
+                <div class="grid grid-cols-1 gap-y-10 gap-x-6 xl:grid-cols-2">
                     {% include 'shop/shop_skeleton.html.twig' with {'shops': shops} %}
-                {% else %}
-                    <div class="sm:container px-5 py-5 mx-auto">
-                        <h1 class="text-black dark:text-white font-medium text-4xl text-center">Aucune boutique présente sur ClickNToulon actuellement...</h1>
-                    </div>
-                {% endif %}
-            </div>
+                </div>
+            {% else %}
+                <div class="sm:container px-5 py-5 mx-auto">
+                    <h1 class="text-black font-semibold text-4xl text-center w-full">Aucune boutique présente sur ClickNToulon actuellement...</h1>
+                </div>
+            {% endif %}
         </div>
     </section>
 
-    <section class="text-gray-600 body-font" id="discover">
+    <section class="text-gray-600 body-font">
         <div class="sm:container px-8 sm:px-5 py-24 mx-auto">
             <div class="text-center mb-20">
                 <h1 class="sm:text-5xl text-3xl font-extrabold title-font text-black mb-4 uppercase">Les derniers produits</h1>
@@ -73,7 +73,7 @@
                 </div>
             {% else %}
                 <div class="sm:container px-5 py-5 mx-auto">
-                    <h1 class="text-black dark:text-white font-medium text-4xl text-center">Aucun produit disponible sur ClickNToulon actuellement...</h1>
+                    <h1 class="text-black font-semibold w-full text-4xl text-center">Aucun produit disponible sur ClickNToulon actuellement...</h1>
                 </div>
             {% endif %}
         </div>
