@@ -16,12 +16,12 @@
                     <h1 class="title-font text-lg font-semibold text-black mb-3 mr-auto w-full">{{ product.name }}</h1>
                     {% if product.unitPriceDiscount != null %}
                         <div class="inline-flex flex-row space-x-2 w-full justify-end">
-                            <h1 class="font-semibold text-black text-base line-through">
-                                {{ product.unitPrice | format_currency('EUR') }}
-                            </h1>
                             <h1 class="font-semibold text-red-600 text-base">
                                 {% set dealPrice = product.unitPrice * (1 - (product.unitPriceDiscount/100)) %}
                                 {{ dealPrice | format_currency('EUR') }}
+                            </h1>
+                            <h1 class="font-semibold text-red-600 text-base">
+                                -{{ product.unitPriceDiscount }}%
                             </h1>
                         </div>
                     {% else %}

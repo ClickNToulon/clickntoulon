@@ -97,8 +97,6 @@ class SellerController extends AbstractController
             }
         }
         $total_orders = count($orders);
-        dump($products);
-        dump($quantities);
         return $this->render('seller/index.html.twig', [
             'user' => $user,
             'shop' => $shop,
@@ -295,7 +293,6 @@ class SellerController extends AbstractController
                 ->addPayment($default_payment)
                 ->setSlug($shop->getSlug())
                 ->setTag($tagRepository->find(1));
-            dump($shop->getPayments());
             $this->em->persist($shop);
             $this->em->flush();
             $i = 0;
@@ -384,7 +381,6 @@ class SellerController extends AbstractController
         }
 
         $openingHours = $openingHoursRepository->findBy(["shop" => $shop]);
-        dump($openingHours);
         if($request->getMethod() === "POST" && $request->request->get('day') !== null) {
             $data = $request->request->all();
             $day = $data['day'];
@@ -395,7 +391,6 @@ class SellerController extends AbstractController
                 unset($data[$key]);
                 $k = $k + 1;
             }
-            dump($data);
             $d = 1;
             foreach ($openingHours as $openingHour) {
                 $this->em->remove($openingHour);

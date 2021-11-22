@@ -62,12 +62,12 @@
                     <h2 class="sr-only">Information du produit</h2>
                     {% if product.unitPriceDiscount != null %}
                         <div class="flex flex-row space-x-2">
-                            <h1 class="font-medium text-black text-3xl line-through">
-                                {{ product.unitPrice | format_currency('EUR') }}
-                            </h1>
-                            <h1 class="font-bold text-red-600 dark:text-red-500 text-3xl">
+                            <h1 class="font-semibold text-red-600 text-3xl text-base">
                                 {% set dealPrice = product.unitPrice * (1 - (product.unitPriceDiscount/100)) %}
                                 {{ dealPrice | format_currency('EUR') }}
+                            </h1>
+                            <h1 class="font-semibold text-red-600 text-3xl text-base">
+                                -{{ product.unitPriceDiscount }}%
                             </h1>
                         </div>
                     {% else %}
