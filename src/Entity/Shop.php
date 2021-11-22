@@ -80,7 +80,7 @@ class Shop
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private string $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="text", nullable=true)
