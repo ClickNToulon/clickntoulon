@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Basket;
-use App\Entity\Order;
 use App\Entity\Shop;
-use App\Form\AddProductBasketForm;
 use App\Form\CreateOrderForm;
 use App\Repository\BasketRepository;
 use App\Repository\ProductRepository;
@@ -17,35 +15,29 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+#[Route(path: "/panier", name: "basket_")]
 class BuyerController extends AbstractController
 {
+    public function __construct(
+        private BasketRepository $basketRepository,
+        private ShopRepository $shopRepository,
+        private ProductRepository $productRepository,
+        private EntityManagerInterface $em
+    ){}
 
     /**
-     * @var BasketRepository
-     */
-    private BasketRepository $repository;
-    private EntityManagerInterface $em;
-
-    public function __construct(BasketRepository $repository, EntityManagerInterface $em)
-    {
-        $this->repository = $repository;
-        $this->em = $em;
-    }
-
-    /**
-     * @Route("/panier", name="basket_index")
-     * @IsGranted("ROLE_USER")
-     * @param ShopRepository $shopRepository
-     * @param ProductRepository $productRepository
      * @param Request $request
-     * @param BasketRepository $basketRepository
      * @return Response
      */
-    public function basket(ShopRepository $shopRepository, ProductRepository $productRepository, Request $request, BasketRepository $basketRepository): Response
+    #[
+        Route(path: "", name: "index"),
+        IsGranted("ROLE_USER")
+    ]
+    public function basket(Request $request): Response
     {
         if($request->getMethod() == 'POST') {
             $data = $request->request->all();
-            $basket = $basketRepository->find($data['basket_id']);
+            $basket = $this->basketRepository->find($data['basket_id']);
             $basket_products = $basket->getProducts();
             foreach ($basket_products as $bp) {
                 $form_quantities[$bp->getId()] = $data['quantity_'. $bp->getId()];
@@ -55,7 +47,7 @@ class BuyerController extends AbstractController
             $this->em->flush();
         }
         $user = $this->getUser();
-        $baskets = $this->repository->findByUser($user);
+        $baskets = $this->basketRepository->findByUser($user);
         $shops = [];
         $products = [];
         $quantities = [];
@@ -69,7 +61,7 @@ class BuyerController extends AbstractController
             $products[$b->getId()] = [];
             foreach ($basket_products as $p) {
                 $shops[$b->getId()] = $p->getShop();
-                array_push($products[$b->getId()], $productRepository->find($p->getId()));
+                array_push($products[$b->getId()], $this->productRepository->find($p->getId()));
             }
         }
         return $this->render('buyer/basket.html.twig', [
@@ -82,18 +74,17 @@ class BuyerController extends AbstractController
     }
 
     /**
-     * @Route("/panier/ajout", name="basket_add")
-     * @IsGranted("ROLE_USER")
      * @param Request $request
-     * @param ShopRepository $shopRepository
-     * @param ProductRepository $productRepository
      * @return Response
      */
-    public function basket_add(Request $request, ShopRepository $shopRepository, ProductRepository $productRepository): Response
+    #[
+        Route(path: "/ajout", name: "add"),
+        IsGranted("ROLE_USER")
+    ]
+    public function basket_add(Request $request): Response
     {
         $user = $this->getUser();
-        $basket = new Basket();
-        $baskets = $this->repository->findByUser($user);
+        $baskets = $this->basketRepository->findByUser($user);
         $data = $request->request->all();
         $data = $data['add_product_basket_form'];
         $done = false;
@@ -104,7 +95,7 @@ class BuyerController extends AbstractController
                     if ($b->getShop()->getId() == $data['shop_id']) {
                         $b->setOwner($user);
                         $products = $b->getProducts();
-                        $product = $productRepository->find($data['product_id']);
+                        $product = $this->productRepository->find($data['product_id']);
                         $quantity = $b->getQuantity();
                         foreach ($products as $p) {
                             foreach ($quantity as $q) {
@@ -131,9 +122,9 @@ class BuyerController extends AbstractController
                 if($done != true) {
                     $basket  = new Basket();
                     $basket->setQuantity([$data['quantity']])
-                        ->addProduct($productRepository->find($data['product_id']))
+                        ->addProduct($this->productRepository->find($data['product_id']))
                         ->setOwner($user)
-                        ->setShop($shopRepository->find($data['shop_id']));
+                        ->setShop($this->shopRepository->find($data['shop_id']));
                     $this->em->persist($basket);
                     $this->em->flush();
                 }
@@ -142,8 +133,8 @@ class BuyerController extends AbstractController
             $basket  = new Basket();
             $basket->setQuantity([$data['quantity']])
                 ->setOwner($user)
-                ->addProduct($productRepository->find($data['product_id']))
-                ->setShop($shopRepository->find($data['shop_id']));
+                ->addProduct($this->productRepository->find($data['product_id']))
+                ->setShop($this->shopRepository->find($data['shop_id']));
             $this->em->persist($basket);
             $this->em->flush();
         }
@@ -151,33 +142,31 @@ class BuyerController extends AbstractController
     }
 
     /**
-     * @Route("/panier/reglement/{id}", name="basket_checkout", requirements={"id": "[0-9\-]*"})
-     * @IsGranted("ROLE_USER")
      * @param Shop $shop
      * @param Request $request
-     * @param ShopRepository $shopRepository
-     * @param ProductRepository $productRepository
      * @return Response
      */
-    public function checkout(Shop $shop, Request $request, ShopRepository $shopRepository, ProductRepository $productRepository): Response
+    #[
+        Route(path: "/reglement/{id}", name: "checkout", requirements: ["id" => "[0-9\-]*"]),
+        IsGranted("ROLE_USER")
+    ]
+    public function checkout(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
-        $basket = $this->repository->findByUserAndShop($user, $shop);
+        $basket = $this->basketRepository->findByUserAndShop($user, $shop);
         $basket = $basket[0];
         $products = [];
         $basket_products = $basket->getProducts();
         $basket_quantities = $basket->getQuantity();
         $quantities = $basket_quantities;
-        dump($quantities);
         foreach ($basket_products as $p) {
-            array_push($products, $productRepository->find($p->getId()));
+            array_push($products, $this->productRepository->find($p->getId()));
         }
         $total_products = count($products);
         $form = $this->createForm(CreateOrderForm::class, null);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            dump($data);
             $order_quantities = $basket_quantities;
             $order_products = $basket_products;
             foreach ($order_products as $op) {

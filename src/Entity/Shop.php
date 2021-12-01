@@ -17,28 +17,6 @@ use Exception;
  */
 class Shop
 {
-    /*const Tag = [
-        0 => "Boulangerie - Pâtisserie",
-        1 => "Boucher",
-        2 => "Bijouterie - Horlogerie",
-        3 => "Épicerie",
-        4 => "Quincaillerie",
-        5 => "Librairie",
-        6 => "Musée",
-        7 => "Fleuriste",
-        8 => "Pharmacie",
-        9 => "Poisonnerie",
-        10 => 'Fromagerie',
-        11 => 'Chocolaterie',
-        12 =>'Restaurant',
-        13 => "Brasserie",
-        14 => "Station-Service",
-        15 => "Crèmerie",
-        16 => "Droguerie",
-        17 => "Papeterie",
-        18 => "Friperie"
-    ];*/
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -350,7 +328,7 @@ class Shop
     }
 
     /**
-     * @return Collection|Payment[]
+     * @return Collection
      */
     public function getPayments(): Collection
     {
@@ -374,7 +352,7 @@ class Shop
     }
 
     /**
-     * @return Collection|Category[]
+     * @return Collection
      */
     public function getCategories(): Collection
     {
@@ -404,7 +382,7 @@ class Shop
     }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection
      */
     public function getOrders(): Collection
     {
@@ -434,7 +412,7 @@ class Shop
     }
 
     /**
-     * @return Collection|Product[]
+     * @return Collection
      */
     public function getProducts(): Collection
     {
@@ -464,7 +442,7 @@ class Shop
     }
 
     /**
-     * @return Collection|OpeningHours[]
+     * @return Collection
      */
     public function getOpeningHours(): Collection
     {
@@ -494,11 +472,8 @@ class Shop
         return $this;
     }
 
-    /**
-     * Génère un tableau associatif sur une semaine de couple jour => horaires d'ouverture
-     *
-     */
-    public function getFormattedWeekOpeningHours()
+    /** Génère un tableau associatif sur une semaine de couple jour => horaires d'ouverture */
+    public function getFormattedWeekOpeningHours(): array
     {
         $weekOpenHours = $this->getOpeningHours();
         $weekDays = [];
@@ -517,11 +492,8 @@ class Shop
     }
 
     /**
-     * Renvoie le tableau après avoir éclaté les tableaux de valeur associé à chaque clé en une chaine de
-     * caractère
-     *
+     * Renvoie le tableau après avoir éclaté les tableaux de valeur associé à chaque clé en une chaine de caractère
      * @param array $dayOpeningHours
-     *
      * @return array
      */
     private function dayOpeningHoursToString(array $dayOpeningHours): array

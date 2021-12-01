@@ -29,23 +29,15 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
-
     public const LOGIN_ROUTE = 'app_login';
 
-    private EntityManagerInterface $entityManager;
-    private UrlGeneratorInterface $urlGenerator;
-    private CsrfTokenManagerInterface $csrfTokenManager;
-    private UserPasswordHasherInterface $passwordHasher;
-    private RequestStack $requestStack;
-
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordHasherInterface $passwordHasher, RequestStack $requestStack)
-    {
-        $this->entityManager = $entityManager;
-        $this->urlGenerator = $urlGenerator;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->passwordHasher = $passwordHasher;
-        $this->requestStack = $requestStack;
-    }
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private UrlGeneratorInterface $urlGenerator,
+        private CsrfTokenManagerInterface $csrfTokenManager,
+        private UserPasswordHasherInterface $passwordHasher,
+        private RequestStack $requestStack
+    ){}
 
     public function supports(Request $request): bool
     {
@@ -67,7 +59,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             Security::LAST_USERNAME,
             $credentials['email']
         );
-
         return $credentials;
     }
 
@@ -77,18 +68,14 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
-
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
-
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException("Unknown email address. Please retry.");
         }
-
-        if($user->isVerified() == false) {
+        if($user->getIsVerified() == false) {
             throw new CustomUserMessageAuthenticationException("Account not verified. Please verify your email address.");
         }
-
         return $user;
     }
 
@@ -110,9 +97,8 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        return new RedirectResponse('/');
+        return new RedirectResponse($this->urlGenerator->generate('home'));
     }
 
     protected function getLoginUrl(Request $request): string
@@ -122,29 +108,25 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): PassportInterface
     {
-        dump($request);
         $password = $request->request->get('password');
         $username = $request->request->get('email');
         $csrfToken = $request->request->get('_csrf_token');
-
         return new Passport(
             new UserBadge($username),
             new PasswordCredentials($password),
             [new CsrfTokenBadge('authenticate', $csrfToken)]
         );
-
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        $data = [
+        /*$data = [
             // you may want to customize or obfuscate the message first
             'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
-
             // or to translate this message
             // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
-        ];
-
-        return new Response($data['message'], 400);
+        ];*/
+        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
+        return new RedirectResponse($this->urlGenerator->generate('app_login'));
     }
 }

@@ -14,21 +14,15 @@ class RequestSubscriber implements EventSubscriberInterface
     public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
-        if (
-            !$event->isMainRequest()
-            || $request->isXmlHttpRequest()
-            || 'app_login' === $request->attributes->get('_route')
-        ) {
-            return;
-        }
-
+        if (!$event->isMainRequest() || $request->isXmlHttpRequest() || 'app_login' === $request->attributes->get('_route')) return;
         $this->saveTargetPath($request->getSession(), 'main', $request->getUri());
     }
 
+    /**
+     * @return string[][]
+     */
     public static function getSubscribedEvents(): array
     {
-        return [
-            KernelEvents::REQUEST => ['onKernelRequest'],
-        ];
+        return [KernelEvents::REQUEST => ['onKernelRequest']];
     }
 }

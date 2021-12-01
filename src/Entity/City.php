@@ -15,34 +15,34 @@ class City
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=5)
      */
-    private $codePostal;
+    private string $codePostal;
 
     /**
      * @ORM\Column(type="string", length=5)
      */
-    private $codeCommune;
+    private string $codeCommune;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nomCommune;
+    private string $nomCommune;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $libelleAcheminement;
+    private string $libelleAcheminement;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCodePostal(): ?string
+    public function getCodePostal(): string
     {
         return $this->codePostal;
     }
@@ -54,7 +54,7 @@ class City
         return $this;
     }
 
-    public function getCodeCommune(): ?string
+    public function getCodeCommune(): string
     {
         return $this->codeCommune;
     }
@@ -66,7 +66,7 @@ class City
         return $this;
     }
 
-    public function getNomCommune(): ?string
+    public function getNomCommune(): string
     {
         return $this->nomCommune;
     }
@@ -78,7 +78,7 @@ class City
         return $this;
     }
 
-    public function getLibelleAcheminement(): ?string
+    public function getLibelleAcheminement(): string
     {
         return $this->libelleAcheminement;
     }

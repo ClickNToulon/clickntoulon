@@ -12,32 +12,28 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends AbstractController
 {
+    private function __construct(
+        private ShopRepository $shopRepository,
+        private ProductRepository $productRepository
+    ){}
 
     /**
-     * @Route("/recherche", name="search")
-     * @param ShopRepository $shopRepository
      * @param Request $request
-     * @param ProductRepository $productRepository
      * @return Response
      */
-    public function index(ShopRepository $shopRepository, Request $request, ProductRepository $productRepository): Response
+    #[Route(path: "/recherche", name: "search")]
+    public function index(Request $request): Response
     {
         $form = $this->createForm(SearchForm::class);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $_GET['q'] = $form->get('q')->getData();
         }
-
-        if (isset($_GET['q'])) {
-            $search_param = $_GET['q'];
-        } else {
-            $search_param = null;
-        }
+        $search_param = $_GET['q'] ?? null;
 
         $user = $this->getUser();
-        $search_shop_results = $shopRepository->search($search_param);
-        $search_product_results = $productRepository->search($search_param);
+        $search_shop_results = $this->shopRepository->search($search_param);
+        $search_product_results = $this->productRepository->search($search_param);
         $search_shop_count = count($search_shop_results);
         $search_product_count = count($search_product_results);
         $search_count = $search_shop_count + $search_product_count;
@@ -52,5 +48,4 @@ class SearchController extends AbstractController
             'user' => $user
         ]);
     }
-
 }

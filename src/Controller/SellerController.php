@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Category;
 use App\Entity\OpeningHours;
@@ -22,10 +20,8 @@ use App\Repository\OrderRepository;
 use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ProductTypeRepository;
-use App\Repository\ShopRepository;;
-
+use App\Repository\ShopRepository;
 use App\Repository\TagRepository;
-use App\Repository\UserRepository;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,40 +33,35 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Twig\Error\LoaderError;
 
+#[Route(path: "/ma-boutique", name: "seller_")]
 class SellerController extends AbstractController
 {
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private EntityManagerInterface $em;
-    /**
-     * @var ShopRepository
-     */
-    private ShopRepository $shopRepository;
-    private MailerInterface $mailer;
-
-    public function __construct(EntityManagerInterface $em, ShopRepository $shopRepository, MailerInterface $mailer)
-    {
-        $this->mailer = $mailer;
-        $this->em = $em;
-        $this->shopRepository = $shopRepository;
-    }
+    public function __construct(
+        private EntityManagerInterface $em,
+        private ShopRepository $shopRepository,
+        private ProductRepository $productRepository,
+        private OrderRepository $orderRepository,
+        private MailerInterface $mailer,
+        private PaymentRepository $paymentRepository,
+        private TagRepository$tagRepository,
+        private ProductTypeRepository $productTypeRepository,
+        private CategoryRepository $categoryRepository,
+        private OpeningHoursRepository $openingHoursRepository
+    ){}
 
     /**
-     * @Route("/ma-boutique/{id}", name="seller_index", requirements={"id": "[0-9\-]*"})
-     * @IsGranted("ROLE_MERCHANT")
      * @param Shop $shop
-     * @param OrderRepository $orderRepository
-     * @param ProductRepository $productRepository
-     * @param Request $request
      * @return Response
      */
-    public function index(Shop $shop, OrderRepository $orderRepository, ProductRepository $productRepository, Request $request): Response
+    #[
+        Route(path: "/{id}", name: "index", requirements: ["id" => "[0-9\-]*"]),
+        IsGranted("ROLE_MERCHANT")
+    ]
+    public function index(Shop $shop): Response
     {
         $user = $this->getUser();
         if($user instanceof User) {
@@ -81,7 +72,7 @@ class SellerController extends AbstractController
         } else {
             return new Response($this->render('bundles/TwigBundle/Exception/error403.html.twig'), Response::HTTP_FORBIDDEN);
         }
-        $orders = $orderRepository->getAllShop($shop);
+        $orders = $this->orderRepository->getAllShop($shop);
         $orders_buyers = [];
         $quantities = [];
         $products = [];
@@ -93,7 +84,7 @@ class SellerController extends AbstractController
             }
             $orders_products[$value->getId()] = $value->getProducts();
             foreach ($orders_products[$value->getId()] as $op) {
-                    $products[$value->getId()][] = $productRepository->find($op->getId());
+                    $products[$value->getId()][] = $this->productRepository->find($op->getId());
             }
         }
         $total_orders = count($orders);
@@ -109,20 +100,20 @@ class SellerController extends AbstractController
     }
 
     /**
-     * @Route("/ma-boutique/{id}/commandes/{order}/confirmer", name="seller_orders_confirm", requirements={"id": "[0-9\-]*", "order": "[0-9\-]*"})
-     * @IsGranted("ROLE_MERCHANT")
      * @param Shop $shop
-     * @param OrderRepository $orderRepository
      * @param Request $request
-     * @param UserRepository $userRepository
      * @return Response
      * @throws LoaderError
      * @throws Exception
      */
-    public function confirm_order(Shop $shop, OrderRepository $orderRepository, Request $request, UserRepository $userRepository): Response
+    #[
+        Route(path: "/{id}/commandes/{order}/confirmer", name: "orders_confirm", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"]),
+        IsGranted("ROLE_MERCHANT")
+    ]
+    public function confirm_order(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
-        $order = $orderRepository->find($request->attributes->get('order'));
+        $order = $this->orderRepository->find($request->attributes->get('order'));
         $order_infos = $request->request->all('order_confirm');
         $order->setDay(new DateTime($order_infos['day']))
             ->setStatus(1);
@@ -143,13 +134,16 @@ class SellerController extends AbstractController
      * @Route("/ma-boutique/{id}/commandes/{order}/preparation", name="seller_orders_prepared", requirements={"id": "[0-9\-]*", "order": "[0-9\-]*"})
      * @IsGranted("ROLE_MERCHANT")
      * @param Shop $shop
-     * @param OrderRepository $orderRepository
      * @param Request $request
      * @return Response
      */
-    public function prepared_order(Shop $shop, OrderRepository $orderRepository, Request $request): Response
+    #[
+        Route(path: "/{id}/commandes/{order}/preparation", name: "orders_prepared", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"]),
+        IsGranted("ROLE_MERCHANT")
+    ]
+    public function prepared_order(Shop $shop, Request $request): Response
     {
-        $order = $orderRepository->find($request->attributes->get('order'));
+        $order = $this->orderRepository->find($request->attributes->get('order'));
         $order->setStatus(2);
         $this->em->persist($order);
         $this->em->flush();
@@ -157,18 +151,19 @@ class SellerController extends AbstractController
     }
 
     /**
-     * @Route("/ma-boutique/{id}/commandes/{order}/prête", name="seller_orders_ready", requirements={"id": "[0-9\-]*", "order": "[0-9\-]*"})
-     * @IsGranted("ROLE_MERCHANT")
      * @param Shop $shop
-     * @param OrderRepository $orderRepository
      * @param Request $request
      * @return Response
      * @throws LoaderError
      */
-    public function order_ready(Shop $shop, OrderRepository $orderRepository, Request $request): Response
+    #[
+        Route(path: "/{id}/commandes/{order}/prete", name: "orders_ready", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"]),
+        IsGranted("ROLE_MERCHANT")
+    ]
+    public function order_ready(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
-        $order = $orderRepository->find($request->attributes->get('order'));
+        $order = $this->orderRepository->find($request->attributes->get('order'));
         $order_infos = $request->request->all('order_ready');
         $order->setStatus(3);
         $this->em->persist($order);
@@ -181,16 +176,17 @@ class SellerController extends AbstractController
     }
 
     /**
-     * @Route("/ma-boutique/{id}/commandes/{order}/recuperée", name="seller_orders_pickup", requirements={"id": "[0-9\-]*", "order": "[0-9\-]*"})
-     * @IsGranted("ROLE_MERCHANT")
      * @param Shop $shop
-     * @param OrderRepository $orderRepository
      * @param Request $request
      * @return Response
      */
-    public function order_pickup(Shop $shop, OrderRepository $orderRepository, Request $request): Response
+    #[
+        Route(path: "/{id}/commandes/{order}/recuperee", name: "orders_pickup", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"]),
+        IsGranted("ROLE_MERCHANT")
+    ]
+    public function order_pickup(Shop $shop, Request $request): Response
     {
-        $order = $orderRepository->find($request->attributes->get('order'));
+        $order = $this->orderRepository->find($request->attributes->get('order'));
         $order->setStatus(4);
         $this->em->persist($order);
         $this->em->flush();
@@ -198,18 +194,19 @@ class SellerController extends AbstractController
     }
 
     /**
-     * @Route("/ma-boutique/{id}/commandes/{order}/annulation", name="seller_orders_cancel", requirements={"id": "[0-9\-]*", "order": "[0-9\-]*"})
-     * @IsGranted("ROLE_MERCHANT")
      * @param Shop $shop
-     * @param OrderRepository $orderRepository
      * @param Request $request
      * @return Response
      * @throws LoaderError
      */
-    public function order_cancel(Shop $shop, OrderRepository $orderRepository, Request $request): Response
+    #[
+        Route(path: "/{id}/commandes/{order}/annulation", name: "orders_cancel", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"]),
+        IsGranted("ROLE_MERCHANT")
+    ]
+    public function order_cancel(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
-        $order = $orderRepository->find($request->attributes->get('order'));
+        $order = $this->orderRepository->find($request->attributes->get('order'));
         $order_infos = $request->request->all('order_cancel');
         $order->setStatus(6);
         $this->em->persist($order);
@@ -225,18 +222,19 @@ class SellerController extends AbstractController
     }
 
     /**
-     * @Route("/ma-boutique/choisir", name="seller_choose")
-     * @IsGranted("ROLE_MERCHANT")
      * @param Request $request
      * @return Response
      */
+    #[
+        Route(path: "/choisir", name: "choose"),
+        IsGranted("ROLE_MERCHANT")
+    ]
     public function choose(Request $request): Response
     {
         $user = $this->getUser();
         $shops = $this->shopRepository->findAllByUser($user);
         $form = $this->createForm(ChooseShopForm::class, null, ['user' => $user]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->get('select')->getViewData();
             $shop = $this->shopRepository->find($data);
@@ -250,38 +248,33 @@ class SellerController extends AbstractController
     }
 
     /**
-     * @Route("/ma-boutique/creation", name="seller_create")
-     * @IsGranted("ROLE_USER")
      * @param Request $request
-     * @param PaymentRepository $paymentRepository
-     * @param TagRepository $tagRepository
      * @return Response
      * @throws Exception
      */
-    public function create(Request $request, PaymentRepository $paymentRepository, TagRepository $tagRepository): Response
+    #[
+        Route(path: "/creation", name: "create"),
+        IsGranted("ROLE_USER")
+    ]
+    public function create(Request $request): Response
     {
         $user = $this->getUser();
         $shop = new Shop();
         $form = $this->createForm(ShopForm::class, $shop);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->get('image')->getData();
             if ($image) {
                 $newFilename = sprintf("%s-%s.%s", $shop->getName(), $shop->getPostalCode(), $image->guessExtension());
-
                 try {
                     $image->move(
                         $this->getParameter('uploads/shops'),
                         $newFilename
                     );
-                } catch (FileException $e) {
-
-                }
-
+                } catch (FileException $e) {}
                 $shop->setImage($newFilename);
             }
-            $default_payment = $paymentRepository->find(1);
+            $default_payment = $this->paymentRepository->find(1);
             $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
             $shop
                 ->setOwner($user)
@@ -292,7 +285,7 @@ class SellerController extends AbstractController
                 ->setIsVerified(0)
                 ->addPayment($default_payment)
                 ->setSlug($shop->getSlug())
-                ->setTag($tagRepository->find(1));
+                ->setTag($this->tagRepository->find(1));
             $this->em->persist($shop);
             $this->em->flush();
             $i = 0;
@@ -329,23 +322,23 @@ class SellerController extends AbstractController
     }
 
     /**
-     * @Route("/ma-boutique/{id}/modifier", name="seller_edit", requirements={"id": "[0-9\-]*"})
      * @param Shop $shop
      * @param Request $request
-     * @param PaymentRepository $paymentRepository
-     * @param OpeningHoursRepository $openingHoursRepository
      * @return Response
      * @throws Exception
      */
-    public function edit(Shop $shop, Request $request, PaymentRepository $paymentRepository, OpeningHoursRepository $openingHoursRepository): Response
+    #[
+        Route(path: "/{id}/modifier", name: "edit", requirements: ["id" => "[0-9\-]*"]),
+        IsGranted("ROLE_MERCHANT")
+    ]
+    public function edit(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
         $form_update = $this->createForm(ShopUpdateForm::class, $shop);
-        $payments = $paymentRepository->findAll();
+        $payments = $this->paymentRepository->findAll();
         $form_update->handleRequest($request);
         $form_delete = $this->createForm(ShopDeleteForm::class, $shop);
         $form_delete->handleRequest($request);
-
         if ($form_update->isSubmitted() && $form_update->isValid()) {
             $payments_add = $request->request->all('payment');
             $payments_shop = $shop->getPayments();
@@ -355,32 +348,29 @@ class SellerController extends AbstractController
             }
             foreach($payments_shop_array as $key => $value) {
                 if(in_array($value, $payments_add)) {
-                    $payment_adding = $paymentRepository->find($value);
+                    $payment_adding = $this->paymentRepository->find($value);
                     $shop->addPayment($payment_adding);
                 } else {
-                    $payment_removing = $paymentRepository->find($value);
+                    $payment_removing = $this->paymentRepository->find($value);
                     $shop->removePayment($payment_removing);
                 }
             }
             foreach ($payments_add as $key2 => $value2) {
                 if(!in_array($value2, $payments_shop_array)) {
-                    $payment_adding = $paymentRepository->find($value2);
+                    $payment_adding = $this->paymentRepository->find($value2);
                     $shop->addPayment($payment_adding);
                 }
             }
-
             $this->em->persist($shop);
             $this->em->flush();
             $this->addFlash('success', 'Votre boutique a bien été modifiée');
         }
-
         if ($form_delete->isSubmitted() && $form_delete->isValid()) {
             $this->em->remove($shop);
             $this->em->flush();
             return $this->redirectToRoute('seller_choose');
         }
-
-        $openingHours = $openingHoursRepository->findBy(["shop" => $shop]);
+        $openingHours = $this->openingHoursRepository->findBy(["shop" => $shop]);
         if($request->getMethod() === "POST" && $request->request->get('day') !== null) {
             $data = $request->request->all();
             $day = $data['day'];
@@ -421,7 +411,6 @@ class SellerController extends AbstractController
             }
             $this->em->flush();
         }
-
         return $this->render('seller/edit.html.twig', [
             'shop' => $shop,
             'user' => $user,
@@ -430,61 +419,38 @@ class SellerController extends AbstractController
             'payments' => $payments,
             'openingHours' => $openingHours
         ]);
-
     }
 
-
     /**
-     * @Route("/ma-boutique/{id}/produits", name="seller_edit_products", requirements={"id": "[0-9\-]*"})
      * @param Shop $shop
-     * @param ProductRepository $productRepository
      * @param Request $request
-     * @param ProductTypeRepository $productTypeRepository
      * @return Response
      */
-    public function products(Shop $shop, ProductRepository $productRepository, Request $request, ProductTypeRepository $productTypeRepository): Response
+    #[
+        Route(path: "/{id}/produits", name: "edit_products", requirements: ["id" => "[0-9\-]*"]),
+        IsGranted("ROLE_MERCHANT")
+    ]
+    public function products(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
         $product = new Product();
         $form = $this->createForm(ProductForm::class, $product, ['id' => $shop->getId()]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData();
             $product->setName($product->getName())
                 ->setDescription($product->getDescription())
                 ->setShop($shop)
                 ->setUnitPrice($product->getUnitPrice())
-                ->setType($productTypeRepository->find(1));
-            if($product->getUnitPriceDiscount() == null) {
-                $product->setUnitPriceDiscount(null);
-            } else {
-                $product->setUnitPriceDiscount($product->getUnitPriceDiscount());
-            }
-            $limit = count($images);
-            for ($i = 0; $i < $limit; $i++) {
-                if($images[$i]) {
-                    $newFilename = sprintf("%s-%s-%s-%s.%s", $product->getName(), $shop->getId(), $shop->getName(), $i, $images[$i]->guessExtension());
-                    try {
-                        $images[$i]->move(
-                            $this->getParameter('uploads/products'),
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-
-                    }
-
-                    $product_images = $product->getImages();
-                    array_push($product_images, $newFilename);
-                    $product->setImages($product_images);
-                }
-            }
-            $productType = $productTypeRepository->find(1);
+                ->setType($this->productTypeRepository->find(1));
+            $this->checkUnitDiscountPrice($product);
+            $this->setProductImages($images, $product, $shop);
+            $productType = $this->productTypeRepository->find(1);
             $productType->addProduct($product);
             $this->em->persist($product);
             $this->em->flush();
         }
-        $products = $productRepository->findAllByShop($shop);
+        $products = $this->productRepository->findAllByShop($shop);
         $total_products = count($products);
         return $this->render('seller/products.html.twig', [
             'user' => $user,
@@ -496,39 +462,37 @@ class SellerController extends AbstractController
     }
 
     /**
-     * @Route("/ma-boutique/{id}/categories", name="seller_categories", requirements={"id": "[0-9\-]*"})
      * @param Shop $shop
-     * @param CategoryRepository $categoryRepository
      * @param Request $request
      * @return Response
      */
-    public function categories(Shop $shop, CategoryRepository $categoryRepository, Request $request): Response
+    #[
+        Route(path: "/{id}/categories", name: "categories", requirements: ["id" => "[0-9\-]*"]),
+        IsGranted("ROLE_MERCHANT")
+    ]
+    public function categories(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
         $category = new Category();
         $form = $this->createForm(CategoryForm::class, $category);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $category->setShop($shop);
             $this->em->persist($category);
             $this->em->flush();
         }
-
         $form_delete = $this->createForm(DeleteCategoryForm::class, $category);
         $form_delete->handleRequest($request);
-
         if($form_delete->isSubmitted() && $form_delete->isValid()) {
             $category_id = $request->request->all('category_id');
             foreach ($category_id as $key => $value) {
                 $category_id = $category_id[$key];
             }
-            $category = $categoryRepository->find($category_id);
+            $category = $this->categoryRepository->find($category_id);
             $this->em->remove($category);
             $this->em->flush();
         }
-
-        $categories = $categoryRepository->findAllByShop($shop);
+        $categories = $this->categoryRepository->findAllByShop($shop);
         $total_categories = count($categories);
         return $this->render("seller/categories.html.twig", [
             'user' => $user,
@@ -540,21 +504,19 @@ class SellerController extends AbstractController
         ]);
     }
 
-
     /**
-     * @Route("/ma-boutique/{id}/produits/{product}/modifier", name="seller_edit_product", requirements={"id": "[0-9\-]*", "product": "[0-9\-]*"})
-     * @IsGranted("ROLE_MERCHANT")
-     * @param ShopRepository $shopRepository
      * @param Request $request
-     * @param ProductRepository $productRepository
-     * @param ProductTypeRepository $productTypeRepository
      * @return Response
      */
-    public function editProduct(ShopRepository $shopRepository, Request $request, ProductRepository $productRepository, ProductTypeRepository $productTypeRepository): Response
+    #[
+        Route(path: "/{id}/produits/{product}/modifier", name: "edit_product", requirements: ["id" => "[0-9\-]*", "product" => "[0-9\-]*"]),
+        IsGranted("ROLE_MERCHANT")
+    ]
+    public function editProduct(Request $request): Response
     {
         $user = $this->getUser();
-        $product = $productRepository->find($request->attributes->get('product'));
-        $shop = $shopRepository->find($request->attributes->get('id'));
+        $product = $this->productRepository->find($request->attributes->get('product'));
+        $shop = $this->shopRepository->find($request->attributes->get('id'));
         $form_update_product = $this->createForm(ProductForm::class, $product, ['id' => $shop->getId()]);
         $form_update_product->handleRequest($request);
         if($form_update_product->isSubmitted() && $form_update_product->isValid()) {
@@ -562,37 +524,15 @@ class SellerController extends AbstractController
             $product->setName($product->getName())
                 ->setDescription($product->getDescription())
                 ->setUnitPrice($product->getUnitPrice())
-                ->setType($productTypeRepository->find(1));
-            if($product->getUnitPriceDiscount() == null) {
-                $product->setUnitPriceDiscount(null);
-            } else {
-                $product->setUnitPriceDiscount($product->getUnitPriceDiscount());
-            }
-            $limit = count($images);
-            for ($i = 0; $i < $limit; $i++) {
-                if($images[$i]) {
-                    $newFilename = sprintf("%s-%s-%s-%s.%s", $product->getName(), $shop->getId(), $shop->getName(), $i, $images[$i]->guessExtension());
-                    try {
-                        $images[$i]->move(
-                            $this->getParameter('uploads/products'),
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-
-                    }
-
-                    $product_images = $product->getImages();
-                    array_push($product_images, $newFilename);
-                    $product->setImages($product_images);
-                }
-            }
-            $productType = $productTypeRepository->find(1);
+                ->setType($this->productTypeRepository->find(1));
+            $this->checkUnitDiscountPrice($product);
+            $this->setProductImages($images, $product, $shop);
+            $productType = $this->productTypeRepository->find(1);
             $productType->addProduct($product);
             $this->em->persist($product);
             $this->em->flush();
             return $this->redirectToRoute('seller_edit_products', ['id' => $shop->getId()]);
         }
-
         return $this->render("seller/edit_product.html.twig", [
             'user' => $user,
             'shop' => $shop,
@@ -602,18 +542,55 @@ class SellerController extends AbstractController
     }
 
     /**
-     * @Route("/ma-boutique/{id}/produits/{product}/supprimer", name="seller_delete_product", requirements={"id": "[0-9\-]*", "product": "[0-9\-]*"})
-     * @param ShopRepository $shopRepository
-     * @param ProductRepository $productRepository
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete_product(ShopRepository $shopRepository, ProductRepository $productRepository, Request $request): RedirectResponse
+    #[
+        Route(path: "/{id}/produits/{product}/supprimer", name: "delete_product", requirements: ["id" => "[0-9\-]*", "product" => "[0-9\-]*"]),
+        IsGranted("ROLE_MERCHANT")
+    ]
+    public function delete_product(Request $request): RedirectResponse
     {
-        $product = $productRepository->find($request->attributes->get('product'));
-        $shop = $shopRepository->find($request->attributes->get('id'));
+        $product = $this->productRepository->find($request->attributes->get('product'));
+        $shop = $this->shopRepository->find($request->attributes->get('id'));
         $this->em->remove($product);
         $this->em->flush();
         return $this->redirectToRoute('seller_edit_products', ["id" => $shop->getId(), "product" => $product->getId()]);
+    }
+
+    /**
+     * @param array $images
+     * @param Product $product
+     * @param Shop $shop
+     */
+    private function setProductImages(array $images, Product $product, Shop $shop)
+    {
+        $limit = count($images);
+        for ($i = 0; $i < $limit; $i++) {
+            if($images[$i]) {
+                $newFilename = sprintf("%s-%s-%s-%s.%s", $product->getName(), $shop->getId(), $shop->getName(), $i, $images[$i]->guessExtension());
+                try {
+                    $images[$i]->move(
+                        $this->getParameter('uploads/products'),
+                        $newFilename
+                    );
+                } catch (FileException $e){}
+                $product_images = $product->getImages();
+                array_push($product_images, $newFilename);
+                $product->setImages($product_images);
+            }
+        }
+    }
+
+    /**
+     * @param Product $product
+     */
+    private function checkUnitDiscountPrice(Product $product)
+    {
+        if($product->getUnitPriceDiscount() == null) {
+            $product->setUnitPriceDiscount(null);
+        } else {
+            $product->setUnitPriceDiscount($product->getUnitPriceDiscount());
+        }
     }
 }

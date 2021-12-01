@@ -41,9 +41,9 @@ class Payment
 
     /**
      * @param int $id
-     * @return ?string[]
+     * @return array
      */
-    public function getIcon(int $id): ?array
+    public function getIcon(int $id): array
     {
         if ($id == 1) {
             return [
@@ -99,6 +99,6 @@ class Payment
                 1 => "Paypal"
             ];
         }
-        return null;
+        return [];
     }
 }
