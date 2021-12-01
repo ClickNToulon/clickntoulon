@@ -140,10 +140,10 @@
                         </div>
                         <div class="mt-10">
                             <h3 class="text-2xl font-medium text-black">Moyens de paiements</h3>
-                            <div class="mt-4 grid grid-cols-5 sm:grid-cols-9 gap-x-0 max-w-sm">
+                            <div class="mt-4 grid grid-cols-5 sm:grid-cols-9 gap-x-3 max-w-2xl">
                                 {% for payment in payments %}
-                                    <p class="fs-sm mb-0">
-                                        <a class="payments" title="{{ payment[1] }}"><i class="{{ payment[0] }} text-black"></i></a>
+                                    <p class="fs-sm mb-0 flex items-center justify-center w-full">
+                                        <a class="w-full" title="{{ payment[1] }}"><img src="{{ asset('images/payments/' ~ payment[0]) }}" class="w-full h-auto" alt=""></a>
                                     </p>
                                 {% endfor %}
                             </div>

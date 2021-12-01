@@ -47,55 +47,43 @@ class Payment
     {
         if ($id == 1) {
             return [
-                0 => "fas fa-coins",
+                0 => "logo-espèce.png",
                 1 => "Espèces"
             ];
         }
         if ($id == 2) {
             return [
-                0 => "bi-credit-card-2-front-fill",
+                0 => "visa-logo.png",
                 1 => "Carte de crédit"
             ];
         }
         if ($id == 3) {
             return [
-                0 => "fas fa-money-check-alt",
+                0 => "logo_cheque.png",
                 1 => "Chèques"
             ];
         }
         if ($id == 4) {
             return [
-                0 => "fab fa-apple-pay",
+                0 => "apple-pay.jpg",
                 1 => "Apple Pay"
             ];
         }
         if ($id == 5) {
             return [
-                0 => "fab fa-google-pay",
+                0 => "logo-google-pay.png",
                 1 => "Google Pay"
             ];
         }
         if ($id == 6) {
             return [
-                0 => "fab fa-alipay",
-                1 => "Ali Pay"
+                0 => "bitcoin-logo.png",
+                1 => "Bitcoin"
             ];
         }
         if ($id == 7) {
             return [
-                0 => "fab fa-amazon-pay",
-                1 => "Amazon Pay"
-            ];
-        }
-        if ($id == 8) {
-            return [
-                0 => "fab fa-bitcoin",
-                1 => "Bitcoin"
-            ];
-        }
-        if ($id == 9) {
-            return [
-                0 => "fab fa-paypal",
+                0 => "logo-paypal.png",
                 1 => "Paypal"
             ];
         }
