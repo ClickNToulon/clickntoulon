@@ -150,6 +150,11 @@ class Shop
     private $openingHours;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
      * @throws Exception
      */
     public function __construct()
@@ -532,6 +537,18 @@ class Shop
         }
 
         return $dayOpeningHours;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
     }
 
 }

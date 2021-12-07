@@ -17,6 +17,7 @@ use App\Form\ShopDeleteForm;
 use App\Form\ShopForm;
 use App\Form\ShopUpdateForm;
 use App\Repository\CategoryRepository;
+use App\Repository\CityRepository;
 use App\Repository\OpeningHoursRepository;
 use App\Repository\OrderRepository;
 use App\Repository\PaymentRepository;
@@ -337,7 +338,7 @@ class SellerController extends AbstractController
      * @return Response
      * @throws Exception
      */
-    public function edit(Shop $shop, Request $request, PaymentRepository $paymentRepository, OpeningHoursRepository $openingHoursRepository): Response
+    public function edit(Shop $shop, Request $request, PaymentRepository $paymentRepository, OpeningHoursRepository $openingHoursRepository, CityRepository $cityRepository): Response
     {
         $user = $this->getUser();
         $form_update = $this->createForm(ShopUpdateForm::class, $shop);
