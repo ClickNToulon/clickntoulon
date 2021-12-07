@@ -163,7 +163,7 @@ class BuyerController extends AbstractController
             array_push($products, $this->productRepository->find($p->getId()));
         }
         $total_products = count($products);
-        $form = $this->createForm(CreateOrderForm::class, null);
+        $form = $this->createForm(CreateOrderForm::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();

@@ -1,30 +1,24 @@
 {
     "devDependencies": {
-        "@symfony/stimulus-bridge": "^2.1.0",
-<<<<<<< HEAD
+        "@symfony/stimulus-bridge": "^2.0.0",
         "@symfony/ux-chartjs": "file:vendor/symfony/ux-chartjs/Resources/assets",
-=======
->>>>>>> feature/city
-        "@symfony/webpack-encore": "^1.7.0",
-        "@tailwindcss/aspect-ratio": "^0.2.2",
-        "@tailwindcss/forms": "^0.3.4",
-        "autoprefixer": "^10.4.0",
-        "bootstrap-icons": "^1.7.2",
-<<<<<<< HEAD
-        "chart.js": "^3.6.1",
-=======
->>>>>>> feature/city
-        "core-js": "^3.19.2",
+        "@symfony/webpack-encore": "^1.0.0",
+        "@tailwindcss/aspect-ratio": "^0.2.1",
+        "@tailwindcss/forms": "^0.3.3",
+        "autoprefixer": "^10.3.1",
+        "bootstrap-icons": "^1.5.0",
+        "chart.js": "^2.9.4",
+        "core-js": "^3.0.0",
         "glob-all": "^3.2.1",
         "path": "^0.12.7",
-        "postcss-loader": "^6.2.1",
-        "purgecss-webpack-plugin": "^4.1.3",
-        "regenerator-runtime": "^0.13.9",
-        "sass": "^1.44.0",
-        "sass-loader": "^12.3.0",
+        "postcss-loader": "^6.1.1",
+        "purgecss-webpack-plugin": "^4.0.3",
+        "regenerator-runtime": "^0.13.2",
+        "sass": "^1.35.2",
+        "sass-loader": "^12.0.0",
         "stimulus": "^2.0.0",
-        "tailwindcss": "^2.2.19",
-        "webpack-notifier": "^1.14.1"
+        "tailwindcss": "^2.2.7",
+        "webpack-notifier": "^1.6.0"
     },
     "license": "MIT",
     "private": true,

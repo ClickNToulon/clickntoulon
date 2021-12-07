@@ -4,11 +4,12 @@ namespace App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use Symfony\Flex\Configurator\ContainerConfigurator;
 
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
-<<<<<<< HEAD
 
     protected function configureContainer(ContainerConfigurator $container): void
     {
@@ -32,6 +33,4 @@ class Kernel extends BaseKernel
             $routes->import('../config/{routes}.php');
         }
     }
-=======
->>>>>>> feature/city
 }

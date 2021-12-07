@@ -51,6 +51,11 @@ class Shop
     private int $postalCode;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private ?int $phone;
@@ -128,11 +133,6 @@ class Shop
     private $openingHours;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $city;
-
-    /**
      * @throws Exception
      */
     public function __construct()
@@ -208,6 +208,18 @@ class Shop
     public function setPostalCode(int $postalCode): self
     {
         $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
@@ -510,17 +522,4 @@ class Shop
 
         return $dayOpeningHours;
     }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
 }

@@ -15,7 +15,6 @@ use App\Form\ShopDeleteForm;
 use App\Form\ShopForm;
 use App\Form\ShopUpdateForm;
 use App\Repository\CategoryRepository;
-use App\Repository\CityRepository;
 use App\Repository\OpeningHoursRepository;
 use App\Repository\OrderRepository;
 use App\Repository\PaymentRepository;
@@ -65,7 +64,7 @@ class SellerController extends AbstractController
     public function index(Shop $shop): Response
     {
         $user = $this->getUser();
-        if($user instanceof User) {
+        if ($user instanceof User) {
             $shopsUser = $this->shopRepository->findAllByUser($user->getId());
             if (!in_array($shop, $shopsUser)) {
                 return new Response($this->render('bundles/TwigBundle/Exception/error403.html.twig'), Response::HTTP_FORBIDDEN);
@@ -85,7 +84,7 @@ class SellerController extends AbstractController
             }
             $orders_products[$value->getId()] = $value->getProducts();
             foreach ($orders_products[$value->getId()] as $op) {
-                    $products[$value->getId()][] = $this->productRepository->find($op->getId());
+                $products[$value->getId()][] = $this->productRepository->find($op->getId());
             }
         }
         $total_orders = count($orders);
@@ -124,7 +123,7 @@ class SellerController extends AbstractController
         $title = "Votre commande numéro " . $order->getOrderNumber() . " a été acceptée par le commerçant";
         $options = [];
         array_push($options, $order_user->getName(), $order->getOrderNumber(), $order_infos['day'], $order_infos['begin'], $order_infos['end']);
-        if(isset($order_infos['message']) && $order_infos['message'] !== null) {
+        if (isset($order_infos['message']) && $order_infos['message'] !== null) {
             array_push($options, $order_infos['message']);
         }
         (new MailerController)->send($this->mailer, $order_user->getEmail(), $title, $options, 'orderaccept');
@@ -215,7 +214,7 @@ class SellerController extends AbstractController
         $title = "Votre commande numéro " . $order->getOrderNumber() . " a été annulée par le commerçant";
         $options = [];
         array_push($options, $user->getName(), $order->getOrderNumber());
-        if(isset($order_infos['message']) && $order_infos['message'] !== null) {
+        if (isset($order_infos['message']) && $order_infos['message'] !== null) {
             array_push($options, $order_infos['message']);
         }
         (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderrefuse');
@@ -291,11 +290,11 @@ class SellerController extends AbstractController
             $this->em->flush();
             $i = 0;
             $data = [];
-            for($i; $i < 28; $i++) {
+            for ($i; $i < 28; $i++) {
                 $data[$i] = "00:00";
             }
             $d = 1;
-            for ($k = 0; $k < 28; $k+=4) {
+            for ($k = 0; $k < 28; $k += 4) {
                 $day = new OpeningHours();
                 $day->setDay($d)
                     ->setShop($shop)
@@ -328,15 +327,11 @@ class SellerController extends AbstractController
      * @return Response
      * @throws Exception
      */
-<<<<<<< HEAD
     #[
         Route(path: "/{id}/modifier", name: "edit", requirements: ["id" => "[0-9\-]*"]),
         IsGranted("ROLE_MERCHANT")
     ]
     public function edit(Shop $shop, Request $request): Response
-=======
-    public function edit(Shop $shop, Request $request, PaymentRepository $paymentRepository, OpeningHoursRepository $openingHoursRepository, CityRepository $cityRepository): Response
->>>>>>> feature/city
     {
         $user = $this->getUser();
         $form_update = $this->createForm(ShopUpdateForm::class, $shop);
@@ -351,8 +346,8 @@ class SellerController extends AbstractController
             foreach ($payments_shop as $k => $v) {
                 $payments_shop_array[] = $v->getId();
             }
-            foreach($payments_shop_array as $key => $value) {
-                if(in_array($value, $payments_add)) {
+            foreach ($payments_shop_array as $key => $value) {
+                if (in_array($value, $payments_add)) {
                     $payment_adding = $this->paymentRepository->find($value);
                     $shop->addPayment($payment_adding);
                 } else {
@@ -361,7 +356,7 @@ class SellerController extends AbstractController
                 }
             }
             foreach ($payments_add as $key2 => $value2) {
-                if(!in_array($value2, $payments_shop_array)) {
+                if (!in_array($value2, $payments_shop_array)) {
                     $payment_adding = $this->paymentRepository->find($value2);
                     $shop->addPayment($payment_adding);
                 }
@@ -376,7 +371,7 @@ class SellerController extends AbstractController
             return $this->redirectToRoute('seller_choose');
         }
         $openingHours = $this->openingHoursRepository->findBy(["shop" => $shop]);
-        if($request->getMethod() === "POST" && $request->request->get('day') !== null) {
+        if ($request->getMethod() === "POST" && $request->request->get('day') !== null) {
             $data = $request->request->all();
             $day = $data['day'];
             unset($data['day']);
@@ -392,7 +387,7 @@ class SellerController extends AbstractController
             }
             $this->em->flush();
             for ($i = 0; $i < count($data); $i+=4) {
-                if($data[$i] !== "" && $data[$i+1] !== "") {
+                if ($data[$i] !== "" && $data[$i+1] !== "") {
                     $day = new OpeningHours();
                     $day->setDay($d)
                         ->setShop($shop)
@@ -488,7 +483,7 @@ class SellerController extends AbstractController
         }
         $form_delete = $this->createForm(DeleteCategoryForm::class, $category);
         $form_delete->handleRequest($request);
-        if($form_delete->isSubmitted() && $form_delete->isValid()) {
+        if ($form_delete->isSubmitted() && $form_delete->isValid()) {
             $category_id = $request->request->all('category_id');
             foreach ($category_id as $key => $value) {
                 $category_id = $category_id[$key];
@@ -524,7 +519,7 @@ class SellerController extends AbstractController
         $shop = $this->shopRepository->find($request->attributes->get('id'));
         $form_update_product = $this->createForm(ProductForm::class, $product, ['id' => $shop->getId()]);
         $form_update_product->handleRequest($request);
-        if($form_update_product->isSubmitted() && $form_update_product->isValid()) {
+        if ($form_update_product->isSubmitted() && $form_update_product->isValid()) {
             $images = $form_update_product->get('images')->getData();
             $product->setName($product->getName())
                 ->setDescription($product->getDescription())
@@ -572,14 +567,14 @@ class SellerController extends AbstractController
     {
         $limit = count($images);
         for ($i = 0; $i < $limit; $i++) {
-            if($images[$i]) {
+            if ($images[$i]) {
                 $newFilename = sprintf("%s-%s-%s-%s.%s", $product->getName(), $shop->getId(), $shop->getName(), $i, $images[$i]->guessExtension());
                 try {
                     $images[$i]->move(
                         $this->getParameter('uploads/products'),
                         $newFilename
                     );
-                } catch (FileException $e){}
+                } catch (FileException $e) {}
                 $product_images = $product->getImages();
                 array_push($product_images, $newFilename);
                 $product->setImages($product_images);
@@ -592,7 +587,7 @@ class SellerController extends AbstractController
      */
     private function checkUnitDiscountPrice(Product $product)
     {
-        if($product->getUnitPriceDiscount() == null) {
+        if ($product->getUnitPriceDiscount() == null) {
             $product->setUnitPriceDiscount(null);
         } else {
             $product->setUnitPriceDiscount($product->getUnitPriceDiscount());
