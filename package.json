@@ -1,13 +1,19 @@
 {
     "devDependencies": {
         "@symfony/stimulus-bridge": "^2.1.0",
+<<<<<<< HEAD
         "@symfony/ux-chartjs": "file:vendor/symfony/ux-chartjs/Resources/assets",
+=======
+>>>>>>> feature/city
         "@symfony/webpack-encore": "^1.7.0",
         "@tailwindcss/aspect-ratio": "^0.2.2",
         "@tailwindcss/forms": "^0.3.4",
         "autoprefixer": "^10.4.0",
         "bootstrap-icons": "^1.7.2",
+<<<<<<< HEAD
         "chart.js": "^3.6.1",
+=======
+>>>>>>> feature/city
         "core-js": "^3.19.2",
         "glob-all": "^3.2.1",
         "path": "^0.12.7",
@@ -32,5 +38,5 @@
     "version": "1.0.0",
     "main": "index.js",
     "repository": "https://github.com/ClickNToulon/clickntoulon.git",
-    "author": "Corentin THIBAUD <corentin.thibaud@isen.yncrea.fr>"
+    "author": "ClickNToulon <developpeurs@clickntoulon.fr>"
 }

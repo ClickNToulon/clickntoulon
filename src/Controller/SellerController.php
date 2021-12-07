@@ -15,6 +15,7 @@ use App\Form\ShopDeleteForm;
 use App\Form\ShopForm;
 use App\Form\ShopUpdateForm;
 use App\Repository\CategoryRepository;
+use App\Repository\CityRepository;
 use App\Repository\OpeningHoursRepository;
 use App\Repository\OrderRepository;
 use App\Repository\PaymentRepository;
@@ -327,11 +328,15 @@ class SellerController extends AbstractController
      * @return Response
      * @throws Exception
      */
+<<<<<<< HEAD
     #[
         Route(path: "/{id}/modifier", name: "edit", requirements: ["id" => "[0-9\-]*"]),
         IsGranted("ROLE_MERCHANT")
     ]
     public function edit(Shop $shop, Request $request): Response
+=======
+    public function edit(Shop $shop, Request $request, PaymentRepository $paymentRepository, OpeningHoursRepository $openingHoursRepository, CityRepository $cityRepository): Response
+>>>>>>> feature/city
     {
         $user = $this->getUser();
         $form_update = $this->createForm(ShopUpdateForm::class, $shop);
