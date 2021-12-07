@@ -63,7 +63,7 @@ class ShopForm extends AbstractType
                     'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 ]
             ])
-            ->add('postalCode', IntegerType::class, [
+            ->add('postalCode', TextType::class, [
                 'label_attr' => [
                     'class' => 'block text-base font-bold text-black'
                 ],
@@ -118,7 +118,7 @@ class ShopForm extends AbstractType
         $resolver
             ->setDefaults([
                 'data_class' => Shop::class,
-                'translation_domain' => 'forms'
+                'translation_domain' => 'shop'
             ]);
     }
 }

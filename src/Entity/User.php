@@ -52,17 +52,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
-    private ?string $address;
+    private ?string $phone;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private ?int $postalCode;
+    private ?string $address;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=5, nullable=true)
+     */
+    private ?string $postalCode;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $city;
 
@@ -196,6 +201,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }

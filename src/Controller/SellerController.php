@@ -265,7 +265,7 @@ class SellerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->get('image')->getData();
             if ($image) {
-                $newFilename = sprintf("%s-%s.%s", $shop->getName(), $shop->getPostalCode(), $image->guessExtension());
+                $newFilename = sprintf("%s-%s-%s.%s", $shop->getName(), $shop->getPostalCode(), $shop->getCity(), $image->guessExtension());
                 try {
                     $image->move(
                         $this->getParameter('uploads/shops'),

@@ -98,10 +98,10 @@
                                         </div>
                                         <div class="col-span-2 sm:col-span-1">
                                             <label for="update_user_form_postal_code" class="block text-base font-medium text-black">
-                                                {{ form_label(form_profile.postalCode) }}
+                                                {{ form_label(form_profile.phone) }}
                                             </label>
                                             <div class="mt-1 flex rounded-md shadow-sm">
-                                                {{ form_widget(form_profile.postalCode) }}
+                                                {{ form_widget(form_profile.phone) }}
                                             </div>
                                         </div>
                                     </div>
@@ -111,6 +111,24 @@
                                         </label>
                                         <div class="mt-1">
                                             {{ form_widget(form_profile.address) }}
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-6">
+                                        <div class="col-span-2 sm:col-span-1">
+                                            <label for="update_user_form_email" class="block text-base font-medium text-black">
+                                                {{ form_label(form_profile.postalCode) }}
+                                            </label>
+                                            <div class="mt-1 flex rounded-md shadow-sm">
+                                                {{ form_widget(form_profile.postalCode) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-span-2 sm:col-span-1">
+                                            <label for="update_user_form_postal_code" class="block text-base font-medium text-black">
+                                                {{ form_label(form_profile.city) }}
+                                            </label>
+                                            <div class="mt-1 flex rounded-md shadow-sm">
+                                                {{ form_widget(form_profile.city) }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

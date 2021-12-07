@@ -62,7 +62,7 @@ class ShopUpdateForm extends AbstractType
                     'rows' => 1
                 ]
             ])
-            ->add('postalCode', IntegerType::class, [
+            ->add('postalCode', TextType::class, [
                 'label_attr' => [
                     'class' => 'block text-base font-bold text-black'
                 ],

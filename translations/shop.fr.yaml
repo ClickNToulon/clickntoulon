@@ -1,7 +1,7 @@
 Shop: Boutique
 Name: Nom de la boutique
 Owner Id: ID Propriétaire
-Phone: Numéro de téléphone
+Phone: Téléphone
 Tag: Type
 Boulangerie - Pâtisserie: Boulangerie - Pâtisserie
 Boucher: Boucher
@@ -26,3 +26,5 @@ Address: Adresse
 Postal code: Code Postal
 Email: Adresse Mail
 Description: Description
+City: Ville
+Image: Image

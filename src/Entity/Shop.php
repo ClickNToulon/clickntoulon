@@ -46,14 +46,14 @@ class Shop
     private string $address;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=5)
      */
-    private int $postalCode;
+    private string $postalCode;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $city;
+    private ?string $city;
 
     /**
      * @ORM\Column(type="integer")
@@ -200,12 +200,12 @@ class Shop
         return $this;
     }
 
-    public function getPostalCode(): ?int
+    public function getPostalCode(): string
     {
         return $this->postalCode;
     }
 
-    public function setPostalCode(int $postalCode): self
+    public function setPostalCode(string $postalCode): self
     {
         $this->postalCode = $postalCode;
 
