@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\BodyRenderer;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,10 +17,10 @@ class MailerController extends AbstractController
 {
     /**
      * @param MailerInterface $mailer
-     * @param $to
-     * @param $subject
-     * @param $options
-     * @param $template
+     * @param string $to
+     * @param string $subject
+     * @param array $options
+     * @param string $template
      * @throws LoaderError
      */
     public function send(MailerInterface $mailer, string $to, string $subject, array $options, string $template)
@@ -36,7 +35,6 @@ class MailerController extends AbstractController
         $loader->addPath(__DIR__.'/../../public/build', 'css');
         $twig = new TwigEnvironment($loader);
         $twig->addExtension(new CssInlinerExtension());
-
         $twigBodyRenderer = new BodyRenderer($twig);
 
         $email = (new TemplatedEmail())
@@ -52,8 +50,8 @@ class MailerController extends AbstractController
                 "time_begin" => $options[3],
                 "time_end" => $options[4],
                 "message" => $options[5]
-            ]);
-
+            ])
+        ;
         try {
             $twigBodyRenderer->render($email);
             $mailer->send($email, NULL);

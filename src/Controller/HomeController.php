@@ -10,17 +10,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    public function __construct(
+        private ShopRepository $shopRepository,
+        private ProductRepository $productRepository
+    ){}
 
     /**
-     * @Route("/", name="home")
-     * @param ShopRepository $shopRepository
-     * @param ProductRepository $productRepository
      * @return Response
      */
-    public function index(ShopRepository $shopRepository, ProductRepository $productRepository): Response
+    #[Route(path: "/", name: "home"), ]
+    public function index(): Response
     {
-        $shops = $shopRepository->home();
-        $products = $productRepository->home();
+        $shops = $this->shopRepository->home();
+        $products = $this->productRepository->home();
         $user = $this->getUser();
         return $this->render('home.html.twig', [
             'shops' => $shops,
@@ -28,5 +30,4 @@ class HomeController extends AbstractController
             'user' => $user
         ]);
     }
-
 }

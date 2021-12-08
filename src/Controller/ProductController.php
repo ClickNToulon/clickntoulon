@@ -1,11 +1,7 @@
 <?php
 
-
 namespace App\Controller;
 
-
-use App\Entity\Basket;
-use App\Entity\Category;
 use App\Entity\Payment;
 use App\Entity\Product;
 use App\Form\AddProductBasketForm;
@@ -20,46 +16,31 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route(path: "/produits", name: "product_")]
 class ProductController extends AbstractController
 {
+    public function __construct(
+        private ProductRepository $productRepository,
+        private ShopRepository $shopRepository,
+        private PaginatorInterface $paginator,
+        private BasketRepository $basketRepository,
+        private CategoryRepository $categoryRepository
+    ){}
 
     /**
-     * @var ProductRepository
-     */
-    private ProductRepository $repository;
-    /**
-     * @var PaginatorInterface
-     */
-    private PaginatorInterface $paginator;
-    /**
-     * @var BasketRepository
-     */
-    private BasketRepository $basketRepository;
-
-    public function __construct(ProductRepository $repository, PaginatorInterface $paginator, BasketRepository $basketRepository)
-    {
-        $this->repository = $repository;
-        $this->paginator = $paginator;
-        $this->basketRepository = $basketRepository;
-    }
-
-    /**
-     * @Route("/produits", name="product_index")
      * @param Request $request
-     * @param ShopRepository $shopRepository
      * @return Response
      */
-    public function index(Request $request, ShopRepository $shopRepository): Response
+    #[Route(path: "", name: "index")]
+    public function index(Request $request): Response
     {
         $user = $this->getUser();
-
         $shopSlug = $request->query->get('boutique');
-        $shop = null;
-        $query = $this->repository->findAllQuery();
+        $query = $this->productRepository->findAllQuery();
         if ($shopSlug) {
-            $shop = $shopRepository->findOneBy(['slug' => $shopSlug]);
+            $shop = $this->shopRepository->findOneBy(['slug' => $shopSlug]);
             if (null !== $shop) {
-                $query = $this->repository->findAllByShopQuery($shop);
+                $query = $this->productRepository->findAllByShopQuery($shop);
             }
         }
         $products = $this->paginator->paginate(
@@ -78,7 +59,8 @@ class ProductController extends AbstractController
      * @param Product $product
      * @return int
      */
-    public function checkBaskets(array $baskets, Product $product): int {
+    public function checkBaskets(array $baskets, Product $product): int
+    {
         $id = $product->getId();
         $inside = false;
         $return = 0;
@@ -102,17 +84,15 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/produits/{id}", name="product_show")
      * @param Product $product
-     * @param ShopRepository $shopRepository
-     * @param CategoryRepository $categoryRepository
      * @return Response
      * @throws NonUniqueResultException
      */
-    public function shopProducts(Product $product, ShopRepository $shopRepository, CategoryRepository $categoryRepository): Response
+    #[Route(path: "/{id}}", name: "show")]
+    public function shopProducts(Product $product): Response
     {
         $user = $this->getUser();
-        $shop = $shopRepository->findById($product->getShop()->getId());
+        $shop = $this->shopRepository->findById($product->getShop()->getId());
         $payments_shop = $shop->getPayments();
         $payments_icons = new Payment();
         $payments = [];
@@ -123,7 +103,7 @@ class ProductController extends AbstractController
         $categories = [];
         $categories_shop = $shop->getCategories();
         foreach ($categories_shop as $row => $id) {
-            $category = $categoryRepository->find($id);
+            $category = $this->categoryRepository->find($id);
             $categories[] = $category->getName();
         }
         if ($user != null) {
@@ -143,5 +123,4 @@ class ProductController extends AbstractController
             'p_quantity' => $quantity
         ]);
     }
-
 }

@@ -12,7 +12,10 @@ class Day
     public const SATURDAY = 6;
     public const SUNDAY = 7;
 
-    public static function getWeekDays()
+    /**
+     * @return string[]
+     */
+    public static function getWeekDays(): array
     {
         return [
             self::MONDAY => 'Lundi',

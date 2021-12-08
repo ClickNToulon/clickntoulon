@@ -12,6 +12,44 @@
             </div>
         </div>
         <div class="container px-5 mx-auto sm:max-w-7xl pb-12 max-w-full">
+            <div class="flex items-center justify-center flex-col max-w-full">
+                {% for message in app.flashes('success') %}
+                    <div class="bg-green-600 rounded-xl mb-2 w-full max-w-xl" id="successAlert">
+                        <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
+                            <div class="flex items-center justify-between flex-wrap">
+                                <div class="w-0 flex-1 flex items-center">
+                                <span class="flex p-2 rounded-lg bg-green-700">
+                                  <!-- Heroicon name: outline/exclamation -->
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                  </svg>
+                                </span>
+                                    <p class="ml-3 font-medium text-white">
+                                    <span class="inline">
+                                        {{ message }}
+                                    </span>
+                                    </p>
+                                </div>
+                                <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
+                                    <button type="button" class="flex p-2 rounded-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1" onclick="closeAlert('successAlert')">
+                                        <span class="sr-only">Fermer</span>
+                                        <!-- Heroicon name: outline/x -->
+                                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        function closeAlert(alertID) {
+                            document.getElementById(alertID).classList.toggle('hidden');
+                            document.getElementById(alertID).classList.toggle('block');
+                        }
+                    </script>
+                {% endfor %}
+            </div>
             <div class="w-full">
                 <div class="block md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
@@ -60,10 +98,10 @@
                                         </div>
                                         <div class="col-span-2 sm:col-span-1">
                                             <label for="update_user_form_postal_code" class="block text-base font-medium text-black">
-                                                {{ form_label(form_profile.postalCode) }}
+                                                {{ form_label(form_profile.phone) }}
                                             </label>
                                             <div class="mt-1 flex rounded-md shadow-sm">
-                                                {{ form_widget(form_profile.postalCode) }}
+                                                {{ form_widget(form_profile.phone) }}
                                             </div>
                                         </div>
                                     </div>
@@ -73,6 +111,24 @@
                                         </label>
                                         <div class="mt-1">
                                             {{ form_widget(form_profile.address) }}
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-6">
+                                        <div class="col-span-2 sm:col-span-1">
+                                            <label for="update_user_form_email" class="block text-base font-medium text-black">
+                                                {{ form_label(form_profile.postalCode) }}
+                                            </label>
+                                            <div class="mt-1 flex rounded-md shadow-sm">
+                                                {{ form_widget(form_profile.postalCode) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-span-2 sm:col-span-1">
+                                            <label for="update_user_form_postal_code" class="block text-base font-medium text-black">
+                                                {{ form_label(form_profile.city) }}
+                                            </label>
+                                            <div class="mt-1 flex rounded-md shadow-sm">
+                                                {{ form_widget(form_profile.city) }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

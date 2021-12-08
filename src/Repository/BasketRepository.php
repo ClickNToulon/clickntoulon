@@ -7,6 +7,7 @@ use App\Entity\Shop;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Basket|null find($id, $lockMode = null, $lockVersion = null)
@@ -30,7 +31,7 @@ class BasketRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByUserAndShop(User $user, Shop $shop) {
+    public function findByUserAndShop(User|UserInterface $user, Shop $shop) {
         return $this->createQueryBuilder('b')
             ->where('b.owner = :user AND b.shop = :shop')
             ->setParameters([

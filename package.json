@@ -29,8 +29,8 @@
         "build": "encore production --progress"
     },
     "name": "clickntoulon",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "main": "index.js",
     "repository": "https://github.com/ClickNToulon/clickntoulon.git",
-    "author": "Corentin THIBAUD <corentin.thibaud@isen.yncrea.fr>"
+    "author": "ClickNToulon <developpeurs@clickntoulon.fr>"
 }

@@ -10,11 +10,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AboutController extends AbstractController
 {
-
     /**
-     * @Route("/a-propos", name="about_index")
      * @return Response
      */
+    #[Route(path: "/a-propos", name: "about_index")]
     public function index(): Response
     {
         $user = $this->getUser();
@@ -24,9 +23,9 @@ class AboutController extends AbstractController
     }
 
     /**
-     * @Route("/conditions", name="about_cgu")
      * @return Response
      */
+    #[Route(path: "/conditions", name: "about_cgu")]
     public function conditions(): Response
     {
         $user = $this->getUser();
@@ -36,9 +35,9 @@ class AboutController extends AbstractController
     }
 
     /**
-     * @Route("/confidentialite", name="about_confidentialite")
      * @return Response
      */
+    #[Route(path: "/confidentialite", name: "about_confidentialite")]
     public function confidentialite(): Response
     {
         $user = $this->getUser();

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Category;
 use App\Entity\Shop;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -29,7 +30,7 @@ class CategoryRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findAllByShopQuery($id)
+    public function findAllByShopQuery($id): QueryBuilder
     {
         return $this->createQueryBuilder('c')
             ->where('c.shop = :shop_id')

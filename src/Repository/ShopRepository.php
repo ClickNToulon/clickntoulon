@@ -24,9 +24,9 @@ class ShopRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return int|mixed|string
+     * @return mixed
      */
-    public function findAllVisible()
+    public function findAllVisible(): mixed
     {
         return $this->createQueryBuilder('s')
             ->where('s.status >= 1')

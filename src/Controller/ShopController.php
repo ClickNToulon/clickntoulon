@@ -1,52 +1,34 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Payment;
 use App\Entity\Shop;
-use App\Repository\OpeningHoursRepository;
-use App\Repository\PaymentRepository;
 use App\Repository\ShopRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route(path: "/boutiques", name: "shop_")]
 class ShopController extends AbstractController
 {
+    public function __construct(
+        private ShopRepository $shopRepository,
+        private PaginatorInterface $paginator
+    ){}
 
     /**
-     * @var ShopRepository
-     */
-    private ShopRepository $repository;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private EntityManagerInterface $em;
-
-    public function __construct(ShopRepository $repository, EntityManagerInterface $em)
-    {
-
-        $this->repository = $repository;
-        $this->em = $em;
-    }
-
-    /**
-     * @Route("/boutiques", name="shop_index")
-     * @param PaginatorInterface $paginator
      * @param Request $request
      * @return Response
      */
-    public function index(PaginatorInterface $paginator, Request $request): Response
+    #[Route(path: "", name: "index")]
+    public function index(Request $request): Response
     {
         $user = $this->getUser();
-        $shops = $paginator->paginate(
-            $this->repository->findAllQuery(),
+        $shops = $this->paginator->paginate(
+            $this->shopRepository->findAllQuery(),
             $request->query->getInt('page', 1),
             8
         );
@@ -57,13 +39,11 @@ class ShopController extends AbstractController
     }
 
     /**
-     * @Route("/boutiques/{slug}", name="shop_show")
      * @param Shop $shop
-     * @param PaymentRepository $paymentRepository
-     * @param OpeningHoursRepository $openingHoursRepository
      * @return Response
      */
-    public function showOne(Shop $shop, PaymentRepository $paymentRepository, OpeningHoursRepository $openingHoursRepository): Response
+    #[Route(path: "/{slug}", name: "show")]
+    public function showOne(Shop $shop): Response
     {
         $user = $this->getUser();
         $payments_shop = $shop->getPayments();
@@ -81,5 +61,4 @@ class ShopController extends AbstractController
             'hours' => $hours
         ]);
     }
-
 }
