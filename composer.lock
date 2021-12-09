@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
     "content-hash": "b192fdde914fc5d9b8fb1a8c12fe73ff",
-=======
-    "content-hash": "17da2b092b42dcfc275b453ef5997432",
->>>>>>> feature/city
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1829,18 +1825,6 @@
         },
         {
             "name": "laminas/laminas-code",
-<<<<<<< HEAD
-            "version": "4.4.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laminas/laminas-code.git",
-                "reference": "bb324850d09dd437b6acb142c13e64fdc725b0e1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/bb324850d09dd437b6acb142c13e64fdc725b0e1",
-                "reference": "bb324850d09dd437b6acb142c13e64fdc725b0e1",
-=======
             "version": "4.5.0",
             "source": {
                 "type": "git",
@@ -1851,7 +1835,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laminas/laminas-code/zipball/c99ef8e5629c33bfaa3a8f1df773e916af564cd6",
                 "reference": "c99ef8e5629c33bfaa3a8f1df773e916af564cd6",
->>>>>>> feature/city
                 "shasum": ""
             },
             "require": {
@@ -1860,19 +1843,11 @@
             "require-dev": {
                 "doctrine/annotations": "^1.13.2",
                 "ext-phar": "*",
-<<<<<<< HEAD
-                "laminas/laminas-coding-standard": "^2.1.4",
-                "laminas/laminas-stdlib": "^3.3.0",
-                "phpunit/phpunit": "^9.4.2",
-                "psalm/plugin-phpunit": "^0.14.0",
-                "vimeo/psalm": "^4.3.1"
-=======
                 "laminas/laminas-coding-standard": "^2.3.0",
                 "laminas/laminas-stdlib": "^3.6.1",
                 "phpunit/phpunit": "^9.5.10",
                 "psalm/plugin-phpunit": "^0.16.1",
                 "vimeo/psalm": "^4.13.1"
->>>>>>> feature/city
             },
             "suggest": {
                 "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
@@ -1912,11 +1887,7 @@
                     "type": "community_bridge"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2021-09-21T13:40:23+00:00"
-=======
             "time": "2021-12-07T06:00:32+00:00"
->>>>>>> feature/city
         },
         {
             "name": "monolog/monolog",
