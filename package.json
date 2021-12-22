@@ -7,7 +7,7 @@
         "core-js": "^3.0.0",
         "postcss": "^8.4.4",
         "regenerator-runtime": "^0.13.2",
-        "sass": "^1.44.0",
+        "sass": "^1.45.1",
         "sass-loader": "^12.4.0",
         "tailwindcss": "^2.2.19",
         "webpack-notifier": "^1.6.0"
