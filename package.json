@@ -10,7 +10,7 @@
         "sass": "^1.45.1",
         "sass-loader": "^12.4.0",
         "tailwindcss": "^2.2.19",
-        "webpack-notifier": "^1.6.0"
+        "webpack-notifier": "^1.15.0"
     },
     "license": "UNLICENSED",
     "private": true,
