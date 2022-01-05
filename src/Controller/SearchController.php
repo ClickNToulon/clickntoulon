@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends AbstractController
 {
-    private function __construct(
+    public function __construct(
         private ShopRepository $shopRepository,
         private ProductRepository $productRepository
     ){}
@@ -29,7 +29,11 @@ class SearchController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $_GET['q'] = $form->get('q')->getData();
         }
-        $search_param = $_GET['q'] ?? null;
+        if(isset($_GET['q']) && $_GET['q'] != null) {
+            $search_param = $_GET['q'];
+        } else {
+            $search_param = null;
+        }
 
         $user = $this->getUser();
         $search_shop_results = $this->shopRepository->search($search_param);
