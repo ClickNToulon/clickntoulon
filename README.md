@@ -24,10 +24,10 @@
 ## ➜ Dependencies
 
 
-| Name             | Version    | Description                 |
-|------------------|------------|-----------------------------|
-| **Heroicons**    | **_1.0_**  | Adds icons to the website   |
-| **Tailwind CSS** | **_2.2_**  | CSS Framework               |
+| Name             | Version       | Description                 |
+|------------------|---------------|-----------------------------|
+| **Heroicons**    | **_1.0_**     | Adds icons to the website   |
+| **Tailwind CSS** | **_3.0.11_**  | CSS Framework               |
 
 
 
