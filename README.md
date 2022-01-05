@@ -58,4 +58,4 @@ There are lots of ways to support us! We would be so happy if you gave this repo
 ## ➜ License
 
 Licensed under [MIT](https://opensource.org/licenses/MIT).
-Copyright © 2021 [ClickNToulon](https://clickntoulon.fr)
+Copyright © 2021-2022 [ClickNToulon](https://clickntoulon.fr)
