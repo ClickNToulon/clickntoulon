@@ -56,7 +56,7 @@ html::-webkit-scrollbar-track {
 }
 
 .lg\:max-h-7xl {
-  max-height: 80rem !important
+  max-height: 80rem !important;
 }
 
 .order_details_panel:last-of-type {
@@ -84,7 +84,7 @@ input:-webkit-autofill:active {
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px hsl(220, 95%, 20%) inset !important;
-    -webkit-text-fill-color: rgb(229,231,235);
+    -webkit-text-fill-color: rgb(229, 231, 235);
   }
 }
 
@@ -108,7 +108,7 @@ input:-webkit-autofill:active {
   .tab {
     @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-white font-bold rounded-xl mx-1 my-0.5;
 
-    &::hover {
+    &:hover {
       @apply bg-darkblue-900 text-white;
     }
   }
@@ -117,12 +117,12 @@ input:-webkit-autofill:active {
     @apply bg-darkblue-900 text-white font-bold;
   }
 
-  .tab::focus {
+  .tab:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
 
-  .tab::focus-visible {
+  .tab:focus-visible {
     box-shadow: inset 0 0 0 2px currentColor;
   }
 }
@@ -141,8 +141,8 @@ input:-webkit-autofill:active {
 }
 
 .shop-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-darkblue-600;
   border-radius: 10px;
+  @apply bg-darkblue-600;
 }
 
 .shop-scrollbar::-webkit-scrollbar-track {
