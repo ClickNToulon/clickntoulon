@@ -100,16 +100,10 @@
                 </div>
             </div>
         {% else %}
-            <div class="sm:container px-5 py-5 mx-auto flex items-center justify-center h-full">
+            <div class="sm:container px-5 py-5 mx-auto flex items-center justify-center w-full h-full">
                 <h1 class="text-black dark:text-gray-200 font-medium text-4xl text-center">Aucune commande passée récemment...</h1>
             </div>
         {% endif %}
     </section>
-    {% if orders != null %}
-        {% include 'footer.html.twig' %}
-    {% else %}
-        <div class="sm:absolute sm:bottom-0 w-full">
-            {% include 'footer.html.twig' %}
-        </div>
-    {% endif %}
+    {% include 'footer.html.twig' %}
 {% endblock %}
