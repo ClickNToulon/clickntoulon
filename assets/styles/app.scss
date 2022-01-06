@@ -1,8 +1,10 @@
 @charset "UTF-8";
+
 @import "~tailwindcss/base";
 @import "~tailwindcss/components";
 @import "~tailwindcss/utilities";
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 @font-face {
   font-family: "Proxima Soft";
   font-weight: 400;
@@ -49,6 +51,7 @@ html::-webkit-scrollbar {
 html::-webkit-scrollbar-thumb {
   border-radius: 10px;
   @apply bg-blue-500;
+
 }
 
 html::-webkit-scrollbar-track {
@@ -143,6 +146,7 @@ input:-webkit-autofill:active {
 .shop-scrollbar::-webkit-scrollbar-thumb {
   border-radius: 10px;
   @apply bg-darkblue-600;
+
 }
 
 .shop-scrollbar::-webkit-scrollbar-track {
