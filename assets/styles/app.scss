@@ -1,48 +1,40 @@
 @charset "UTF-8";
-
 @import "~tailwindcss/base";
-
 @import "~tailwindcss/components";
-
 @import "~tailwindcss/utilities";
-
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @font-face {
   font-family: "Proxima Soft";
   font-weight: 400;
-  src: url('../../public/fonts/ProximaSoft-Regular.woff')format('woff');
+  src: url('../../public/fonts/ProximaSoft-Regular.woff') format('woff');
 }
 
 @font-face {
   font-family: "Proxima Soft";
   font-weight: 500;
-  src: url('../../public/fonts/ProximaSoft-Medium.woff')format('woff');
+  src: url('../../public/fonts/ProximaSoft-Medium.woff') format('woff');
 }
 
 @font-face {
   font-family: "Proxima Soft";
   font-weight: 600;
-  src: url('../../public/fonts/ProximaSoft-Semibold.woff')format('woff');
+  src: url('../../public/fonts/ProximaSoft-Semibold.woff') format('woff');
 }
 
 @font-face {
   font-family: "Proxima Soft";
   font-weight: 700;
-  src: url('../../public/fonts/ProximaSoft-Bold.woff')format('woff');
+  src: url('../../public/fonts/ProximaSoft-Bold.woff') format('woff');
 }
 
 @font-face {
   font-family: "Proxima Soft";
   font-weight: 800;
-  src: url('../../public/fonts/ProximaSoft-Extrabold.woff')format('woff');
+  src: url('../../public/fonts/ProximaSoft-Extrabold.woff') format('woff');
 }
 
 * {
   @apply font-clickntoulon;
-}
-
-.fa, .fas {
-  font-family: "Font Awesome 5 Pro", sans-serif !important;
 }
 
 html {
@@ -55,8 +47,8 @@ html::-webkit-scrollbar {
 }
 
 html::-webkit-scrollbar-thumb {
-  @apply bg-blue-500;
   border-radius: 10px;
+  @apply bg-blue-500;
 }
 
 html::-webkit-scrollbar-track {
@@ -82,7 +74,7 @@ html::-webkit-scrollbar-track {
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active{
+input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
@@ -90,7 +82,7 @@ input:-webkit-autofill:active{
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
-  input:-webkit-autofill:active{
+  input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px hsl(220, 95%, 20%) inset !important;
     -webkit-text-fill-color: rgb(229,231,235);
   }
@@ -110,13 +102,13 @@ input:-webkit-autofill:active{
   }
 
   .p-0\.75 {
-    padding: 0.20rem;
+    padding: 0.2rem;
   }
 
   .tab {
     @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-white font-bold rounded-xl mx-1 my-0.5;
 
-    &:hover {
+    &::hover {
       @apply bg-darkblue-900 text-white;
     }
   }
@@ -125,13 +117,13 @@ input:-webkit-autofill:active{
     @apply bg-darkblue-900 text-white font-bold;
   }
 
-  .tab:focus {
+  .tab::focus {
     outline: 2px solid transparent;
-    outline-offset: 2px
+    outline-offset: 2px;
   }
 
-  .tab:focus-visible {
-    box-shadow: inset 0 0 0 2px currentColor
+  .tab::focus-visible {
+    box-shadow: inset 0 0 0 2px currentColor;
   }
 }
 
@@ -157,7 +149,7 @@ input:-webkit-autofill:active{
   @apply bg-[#dee0f3] dark:bg-darkblue-900;
 }
 
-.title-underline:after{
+.title-underline::after {
   content: " ";
   text-align: center;
   display: flex;
@@ -169,7 +161,7 @@ input:-webkit-autofill:active{
   margin-top: 2.5px;
 }
 
-.title-underline-danger:after {
+.title-underline-danger::after {
   background-color: rgb(220, 38, 38) !important;
 }
 
