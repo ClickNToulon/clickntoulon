@@ -5,234 +5,184 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'user'} %}
     {% include 'user/_header.html.twig' %}
-    <section class="text-gray-400 body-font">
-        <div class="container px-5 py-12 pt-6 mx-auto">
-            <div class="flex justify-center flex-wrap -m-4">
-                {% include 'user/_tabs.html.twig' with {active: 'edit'} %}
-            </div>
-        </div>
-        <div class="container px-5 mx-auto sm:max-w-7xl pb-12 max-w-full">
-            <div class="flex items-center justify-center flex-col max-w-full">
-                {% for message in app.flashes('success') %}
-                    <div class="bg-green-600 rounded-xl mb-2 w-full max-w-xl" id="successAlert">
-                        <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
-                            <div class="flex items-center justify-between flex-wrap">
-                                <div class="w-0 flex-1 flex items-center">
-                                <span class="flex p-2 rounded-lg bg-green-700">
-                                  <!-- Heroicon name: outline/exclamation -->
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                  </svg>
-                                </span>
-                                    <p class="ml-3 font-medium text-white">
-                                    <span class="inline">
-                                        {{ message }}
-                                    </span>
-                                    </p>
+    <section class="text-gray-400 body-font pb-10">
+        <div class="container px-5 max-w-7xl mx-auto">
+            <div class="space-y-24">
+                <div id="informations">
+                    <div class="flex items-center justify-center flex-col max-w-full">
+                        {% for message in app.flashes('success') %}
+                            <div class="bg-green-600 rounded-xl mb-2 w-full max-w-xl" id="successAlert">
+                                <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
+                                    <div class="flex items-center justify-between flex-wrap">
+                                        <div class="w-0 flex-1 flex items-center">
+                                            <span class="flex p-2 rounded-lg bg-green-700">
+                                              <!-- Heroicon name: outline/exclamation -->
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                              </svg>
+                                            </span>
+                                            <p class="ml-3 font-medium text-white">
+                                                <span class="inline">
+                                                    {{ message }}
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
+                                            <button type="button" class="flex p-2 rounded-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1" onclick="closeAlert('successAlert')">
+                                                <span class="sr-only">Fermer</span>
+                                                <!-- Heroicon name: outline/x -->
+                                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
-                                    <button type="button" class="flex p-2 rounded-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1" onclick="closeAlert('successAlert')">
-                                        <span class="sr-only">Fermer</span>
-                                        <!-- Heroicon name: outline/x -->
-                                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
+                            </div>
+                            <script>
+                                function closeAlert(alertID) {
+                                    document.getElementById(alertID).classList.toggle('hidden');
+                                    document.getElementById(alertID).classList.toggle('block');
+                                }
+                            </script>
+                        {% endfor %}
+                    </div>
+                    <div class="w-full">
+                        <div class="w-full">
+                            <div>
+                                {{ form_start(form_profile, {attr: {class: 'relative'}}) }}
+                                <div class="dark:hidden absolute inset-0 group-hover:-inset-0.5 bg-yellow-500 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                                <div class="rounded-xl bg-white dark:bg-darkblue-800 relative">
+                                    <div class="px-4 py-2 sm:p-6 flex items-center justify-center flex-col w-full">
+                                        <h2 class="text-white text-center text-3xl font-bold title-underline mb-4">Mes informations</h2>
+                                        <div class="w-full">
+                                            <div class="grid grid-cols-2 gap-6">
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="update_user_form_name" class="block text-base font-bold text-black">
+                                                        {{ form_label(form_profile.name) }}
+                                                    </label>
+                                                    <div class="mt-1 flex rounded-md shadow-sm">
+                                                        {{ form_widget(form_profile.name) }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="update_user_form_surname" class="block text-base font-medium text-black">
+                                                        {{ form_label(form_profile.surname) }}
+                                                    </label>
+                                                    <div class="mt-1 flex rounded-md shadow-sm">
+                                                        {{ form_widget(form_profile.surname) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-6">
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="update_user_form_email" class="block text-base font-medium text-black">
+                                                        {{ form_label(form_profile.email) }}
+                                                    </label>
+                                                    <div class="mt-1 flex rounded-md shadow-sm">
+                                                        {{ form_widget(form_profile.email) }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="update_user_form_postal_code" class="block text-base font-medium text-black">
+                                                        {{ form_label(form_profile.phone) }}
+                                                    </label>
+                                                    <div class="mt-1 flex rounded-md shadow-sm">
+                                                        {{ form_widget(form_profile.phone) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="update_user_form_address" class="block text-base font-medium text-black">
+                                                    {{ form_label(form_profile.address) }}
+                                                </label>
+                                                <div class="mt-1">
+                                                    {{ form_widget(form_profile.address) }}
+                                                </div>
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-6">
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="update_user_form_email" class="block text-base font-medium text-black">
+                                                        {{ form_label(form_profile.postalCode) }}
+                                                    </label>
+                                                    <div class="mt-1 flex rounded-md shadow-sm">
+                                                        {{ form_widget(form_profile.postalCode) }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <label for="update_user_form_postal_code" class="block text-base font-medium text-black">
+                                                        {{ form_label(form_profile.city) }}
+                                                    </label>
+                                                    <div class="mt-1 flex rounded-md shadow-sm">
+                                                        {{ form_widget(form_profile.city) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 text-center">
+                                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-bold rounded-full text-white bg-blue-600 hover:bg-blue-500 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-white dark:focus:ring-offset-darkblue-800">
+                                                Sauvegarder les changements
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
+                                {{ form_end(form_profile) }}
                             </div>
                         </div>
                     </div>
-                    <script>
-                        function closeAlert(alertID) {
-                            document.getElementById(alertID).classList.toggle('hidden');
-                            document.getElementById(alertID).classList.toggle('block');
-                        }
-                    </script>
-                {% endfor %}
-            </div>
-            <div class="w-full">
-                <div class="block md:grid md:grid-cols-3 md:gap-6">
-                    <div class="md:col-span-1">
-                        <div class="px-4 sm:px-0">
-                            <h3 class="text-2xl font-bold uppercase text-black inline-flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span class="ml-1">Votre profil</span>
-                            </h3>
-                            <p class="mt-1 text-base text-black">
-                                Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultative
-                            </p>
-                        </div>
-                    </div>
-                    <div class="mt-5 md:mt-0 md:col-span-2">
-                        {{ form_start(form_profile) }}
-                            <div class="shadow-2xl sm:overflow-hidden rounded-2xl">
-                                <div class="px-4 py-5 bg-white space-y-6 sm:p-6 rounded-t-2xl">
-                                    <div class="grid grid-cols-2 gap-6">
-                                        <div class="col-span-2 sm:col-span-1">
-                                            <label for="update_user_form_name" class="block text-base font-bold text-black">
-                                                {{ form_label(form_profile.name) }}
-                                            </label>
-                                            <div class="mt-1 flex rounded-md shadow-sm">
-                                                {{ form_widget(form_profile.name) }}
-                                            </div>
-                                        </div>
-                                        <div class="col-span-2 sm:col-span-1">
-                                            <label for="update_user_form_surname" class="block text-base font-medium text-black">
-                                                {{ form_label(form_profile.surname) }}
-                                            </label>
-                                            <div class="mt-1 flex rounded-md shadow-sm">
-                                                {{ form_widget(form_profile.surname) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-6">
-                                        <div class="col-span-2 sm:col-span-1">
-                                            <label for="update_user_form_email" class="block text-base font-medium text-black">
-                                                {{ form_label(form_profile.email) }}
-                                            </label>
-                                            <div class="mt-1 flex rounded-md shadow-sm">
-                                                {{ form_widget(form_profile.email) }}
-                                            </div>
-                                        </div>
-                                        <div class="col-span-2 sm:col-span-1">
-                                            <label for="update_user_form_postal_code" class="block text-base font-medium text-black">
-                                                {{ form_label(form_profile.phone) }}
-                                            </label>
-                                            <div class="mt-1 flex rounded-md shadow-sm">
-                                                {{ form_widget(form_profile.phone) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label for="update_user_form_address" class="block text-base font-medium text-black">
-                                            {{ form_label(form_profile.address) }}
-                                        </label>
-                                        <div class="mt-1">
-                                            {{ form_widget(form_profile.address) }}
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-6">
-                                        <div class="col-span-2 sm:col-span-1">
-                                            <label for="update_user_form_email" class="block text-base font-medium text-black">
-                                                {{ form_label(form_profile.postalCode) }}
-                                            </label>
-                                            <div class="mt-1 flex rounded-md shadow-sm">
-                                                {{ form_widget(form_profile.postalCode) }}
-                                            </div>
-                                        </div>
-                                        <div class="col-span-2 sm:col-span-1">
-                                            <label for="update_user_form_postal_code" class="block text-base font-medium text-black">
-                                                {{ form_label(form_profile.city) }}
-                                            </label>
-                                            <div class="mt-1 flex rounded-md shadow-sm">
-                                                {{ form_widget(form_profile.city) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="px-4 py-3 bg-white text-right sm:px-6 rounded-b-2xl">
-                                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
-                                        Sauvegarder les changements
-                                    </button>
-                                </div>
-                            </div>
-                        {{ form_end(form_profile) }}
-                    </div>
                 </div>
-            </div>
-            <div class="block" aria-hidden="true">
-                <div class="py-5">
-                    <div class="border-t border-gray-600"></div>
-                </div>
-            </div>
-            <div class="mt-0">
-                <div class="md:grid md:grid-cols-3 md:gap-6">
-                    <div class="md:col-span-1">
-                        <div class="px-4 sm:px-0">
-                            <h3 class="text-2xl font-bold uppercase text-black inline-flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                </svg>
-                                <span class="ml-1">Votre mot de passe</span>
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="mt-5 md:mt-0 md:col-span-2 w-full md:w-auto">
-                        {{ form_start(form_password) }}
-                            <div class="shadow-2xl overflow-hidden rounded-2xl">
-                                <div class="px-4 py-5 bg-white sm:p-6">
-                                    <div class="grid grid-cols-6 gap-6">
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="update_password_form_password_first" class="block text-base font-medium text-black">
-                                                {{ form_label(form_password.password.first) }}
-                                            </label>
-                                            <div class="mt-1 flex rounded-md shadow-sm">
-                                                {{ form_widget(form_password.password.first) }}
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="update_password_form_password_first" class="block text-base font-medium text-black">
-                                                {{ form_label(form_password.password.second) }}
-                                            </label>
-                                            <div class="mt-1 flex rounded-md shadow-sm">
-                                                {{ form_widget(form_password.password.second) }}
-                                            </div>
-                                        </div>
+                <div id="mot-de-passe">
+                    <div>
+                        {{ form_start(form_password, {attr: {class: 'relative'}}) }}
+                        <div class="dark:hidden absolute inset-0 group-hover:-inset-0.5 bg-yellow-500 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                        <div class="rounded-xl bg-white dark:bg-darkblue-800 relative">
+                            <div class="px-4 py-2 sm:p-6 flex items-center justify-center flex-col w-full">
+                                <h2 class="text-white text-center text-3xl font-bold title-underline mb-4">Mot de passe</h2>
+                                <div class="grid grid-cols-2 gap-6 w-full">
+                                    <div class="col-span-2 sm:col-span-1">
+                                        {{ form_row(form_password.password.first) }}
+                                    </div>
+                                    <div class="col-span-2 sm:col-span-1">
+                                        {{ form_row(form_password.password.second) }}
                                     </div>
                                 </div>
-                                <div class="px-4 py-3 bg-white text-right sm:px-6">
-                                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
+                                <div class="mt-4 text-center">
+                                    <button type="submit" class="inline-flex justify-center py-2 px-4 shadow-sm text-base font-bold rounded-full text-white bg-blue-600 hover:bg-blue-500 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-white dark:focus:ring-offset-darkblue-800">
                                         Sauvegarder le mot de passe
                                     </button>
                                 </div>
                             </div>
+                        </div>
                         {{ form_end(form_password) }}
                     </div>
                 </div>
-            </div>
-            <div class="block" aria-hidden="true">
-                <div class="py-5">
-                    <div class="border-t border-gray-600"></div>
-                </div>
-            </div>
-            <div class="mt-0">
-                <div class="md:grid md:grid-cols-3 md:gap-6">
-                    <div class="md:col-span-1">
-                        <div class="px-4 sm:px-0">
-                            <h3 class="text-2xl font-bold uppercase text-black inline-flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
-                                </svg>
-                                <span class="ml-1">Supprimer votre compte</span>
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="mt-5 md:mt-0 md:col-span-2">
-                        {{ form_start(form_delete) }}
-                        <div class="shadow-xl overflow-hidden rounded-2xl">
-                            <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                <div id="avance">
+                    <div>
+                        {{ form_start(form_delete, {attr: {class: 'relative'}}) }}
+                        <div class="dark:hidden absolute inset-0 group-hover:-inset-0.5 bg-yellow-500 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                        <div class="rounded-xl bg-white dark:bg-darkblue-800 relative">
+                            <div class="px-4 py-2 sm:p-6 flex items-center justify-center flex-col w-full">
+                                <h2 class="text-white text-center text-3xl font-bold title-underline title-underline-danger mb-4">Danger Zone</h2>
                                 <div class="text-center flex items-center flex-col">
-                                    <p class="mt-2 text-black font-bold">
+                                    <p class="mt-2 text-black dark:text-gray-100 font-bold text-lg">
                                         Vous n'&ecirc;tes pas satisfait du contenu propos&eacute;
                                         sur le site ?<br>
                                         Ou vous souhaitez supprimer toutes les informations associ&eacute;es à votre
                                         compte ?
                                     </p>
-                                    <p class="mt-2 text-black font-bold">
+                                    <p class="mt-2 text-black dark:text-gray-100 font-bold text-lg">
                                         Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es
                                         relatives &agrave; votre profil, ainsi que toutes vos commandes pass&eacute;es
                                         sur le site.
                                     </p>
                                     {{ form_row(form_delete.id) }}
                                 </div>
-                            </div>
-                            <div class="px-4 py-3 bg-white text-right sm:px-6">
-                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-white">
-                                    Supprimer votre compte
-                                </button>
+                                <div class="mt-4 text-center">
+                                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-bold rounded-full text-white bg-red-700 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-white dark:focus:ring-offset-darkblue-800">
+                                        Supprimer votre compte
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         {{ form_end(form_delete) }}

@@ -6,6 +6,11 @@
     {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
     <section class="text-gray-400 body-font">
         <div class="sm:container px-5 mx-auto sm:max-w-7xl py-8 max-w-full">
+            <div class="flex items-center justify-center mb-4">
+                <h1 class="sm:text-3xl text-xl font-extrabold title-font text-black dark:text-white mb-4 uppercase tracking-wider title-underline">
+                    Créer une boutique
+                </h1>
+            </div>
             <div class="flex items-center justify-center flex-col max-w-full">
                 {% for message in app.flashes('success') %}
                     <div class="bg-green-600 rounded-xl mb-2 w-full max-w-xl" id="successAlert">
@@ -45,48 +50,35 @@
                 {% endfor %}
             </div>
             <div class="w-full">
-                <div class="block md:grid md:grid-cols-3 md:gap-6">
-                    <div class="md:col-span-1">
-                        <div class="px-4 sm:px-0">
-                            <h3 class="text-xl font-semibold leading-6 text-black inline-flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                </svg>
-                                <span class="ml-1">Informations de ma boutique</span>
-                            </h3>
-                            <p class="mt-1 text-base text-black">
-                                Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultative
-                            </p>
-                        </div>
-                    </div>
+                <div class="block">
                     <div class="mt-5 md:mt-0 md:col-span-2">
                         {{ form_start(form) }}
-                        <div class="shadow-2xl sm:overflow-hidden rounded-lg">
-                            <div class="px-4 py-5 bg-white space-y-6 sm:p-6 rounded-t-lg">
-                                <div class="grid grid-cols-2 gap-6">
+                        <div class="sm:overflow-hidden rounded-xl">
+                            <div class="px-4 py-5 bg-darkblue-800 space-y-2 sm:p-6">
+                                <div class="grid grid-cols-2 gap-4">
                                     <div class="col-span-2 sm:col-span-1">
                                         {{ form_label(form.name) }}
-                                        <div class="mt-1 flex rounded-md shadow-sm">
+                                        <div class="mt-1 flex">
                                             {{ form_widget(form.name) }}
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
                                         {{ form_label(form.tag) }}
-                                        <div class="mt-1 flex rounded-md shadow-sm">
+                                        <div class="mt-1 flex">
                                             {{ form_widget(form.tag) }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-6">
+                                <div class="grid grid-cols-2 gap-4">
                                     <div class="col-span-2 sm:col-span-1">
                                         {{ form_label(form.email) }}
-                                        <div class="mt-1 flex rounded-md shadow-sm">
+                                        <div class="mt-1 flex">
                                             {{ form_widget(form.email) }}
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
                                         {{ form_label(form.phone) }}
-                                        <div class="mt-1 flex rounded-md shadow-sm">
+                                        <div class="mt-1 flex">
                                             {{ form_widget(form.phone) }}
                                         </div>
                                     </div>
@@ -103,16 +95,16 @@
                                         {{ form_widget(form.address) }}
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-6">
+                                <div class="grid grid-cols-2 gap-4">
                                     <div class="col-span-2 sm:col-span-1">
                                         {{ form_label(form.postalCode) }}
-                                        <div class="mt-1 flex rounded-md shadow-sm">
+                                        <div class="mt-1 flex">
                                             {{ form_widget(form.postalCode) }}
                                         </div>
                                     </div>
                                     <div class="col-span-2 sm:col-span-1">
                                         {{ form_label(form.city) }}
-                                        <div class="mt-1 flex rounded-md shadow-sm">
+                                        <div class="mt-1 flex">
                                             {{ form_widget(form.city) }}
                                         </div>
                                     </div>
@@ -125,11 +117,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="px-4 py-3 bg-white text-right sm:px-6 rounded-b-lg">
-                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
-                                    Créer ma boutique
-                                </button>
+                                <div class="text-center">
+                                    <button type="submit" class="inline-flex justify-center py-1 px-3 border border-transparent font-bold rounded-full text-white bg-blue-700 hover:bg-blue-600">
+                                        Confirmer la création
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         {{ form_end(form) }}

@@ -14,10 +14,6 @@ class UpdatePasswordForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $htmlAttr = [
-            'minlength' => 4,
-            'maxlength' => 4096,
-        ];
         $builder->add('password', RepeatedType::class, [
             'type' => PasswordType::class,
             'required' => true,
@@ -31,21 +27,15 @@ class UpdatePasswordForm extends AbstractType
             'mapped' => false,
             'first_options' => [
                 'label' => 'New Password',
-                'label_attr' => [
-                    'class' => 'block text-base font-bold text-black'
-                ],
-                'attr' => array_merge($htmlAttr, [
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
-                ])
+                'attr' => [
+                    'class' => 'w-full bg-white dark:bg-darkblue-700 rounded-xl border-2 border-blue-800 focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-500 text-base outline-none text-gray-700 dark:text-gray-100 py-2 px-3 mt-1 mb-4 placeholder:text-gray-400'
+                ]
             ],
             'second_options' => [
                 'label' => 'Repeat Password',
-                'label_attr' => [
-                    'class' => 'block text-base font-bold text-black'
-                ],
-                'attr' => array_merge($htmlAttr, [
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
-                ])
+                'attr' => [
+                    'class' => 'w-full bg-white dark:bg-darkblue-700 rounded-xl border-2 border-blue-800 focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-500 text-base outline-none text-gray-700 dark:text-gray-100 py-2 px-3 mt-1 mb-4 placeholder:text-gray-400'
+                ]
             ],
         ]);
     }
@@ -54,7 +44,7 @@ class UpdatePasswordForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => UpdatePasswordForm::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'user'
         ]);
     }
 }

@@ -112,7 +112,6 @@ class SellerController extends AbstractController
     ]
     public function confirm_order(Shop $shop, Request $request): Response
     {
-        $user = $this->getUser();
         $order = $this->orderRepository->find($request->attributes->get('order'));
         $order_infos = $request->request->all('order_confirm');
         $order->setDay(new DateTime($order_infos['day']))
@@ -124,29 +123,9 @@ class SellerController extends AbstractController
         $options = [];
         array_push($options, $order_user->getName(), $order->getOrderNumber(), $order_infos['day'], $order_infos['begin'], $order_infos['end']);
         if (isset($order_infos['message']) && $order_infos['message'] !== null) {
-            array_push($options, $order_infos['message']);
+            $options[] = $order_infos['message'];
         }
         (new MailerController)->send($this->mailer, $order_user->getEmail(), $title, $options, 'orderaccept');
-        return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
-    }
-
-    /**
-     * @Route("/ma-boutique/{id}/commandes/{order}/preparation", name="seller_orders_prepared", requirements={"id": "[0-9\-]*", "order": "[0-9\-]*"})
-     * @IsGranted("ROLE_MERCHANT")
-     * @param Shop $shop
-     * @param Request $request
-     * @return Response
-     */
-    #[
-        Route(path: "/{id}/commandes/{order}/preparation", name: "orders_prepared", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"]),
-        IsGranted("ROLE_MERCHANT")
-    ]
-    public function prepared_order(Shop $shop, Request $request): Response
-    {
-        $order = $this->orderRepository->find($request->attributes->get('order'));
-        $order->setStatus(2);
-        $this->em->persist($order);
-        $this->em->flush();
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
 
@@ -162,16 +141,16 @@ class SellerController extends AbstractController
     ]
     public function order_ready(Shop $shop, Request $request): Response
     {
-        $user = $this->getUser();
         $order = $this->orderRepository->find($request->attributes->get('order'));
         $order_infos = $request->request->all('order_ready');
-        $order->setStatus(3);
+        $order->setStatus(2);
+        $order_user = $order->getBuyer();
         $this->em->persist($order);
         $this->em->flush();
         $title = "Votre commande numéro " . $order->getOrderNumber() . " est prête chez le commerçant";
         $options = [];
-        array_push($options, $user->getName(), $order->getOrderNumber(), $order_infos['day'], $order_infos['begin'], $order_infos['end']);
-        (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderready');
+        array_push($options, $order_user->getName(), $order->getOrderNumber(), $order_infos['day']);
+        (new MailerController)->send($this->mailer, $order_user->getEmail(), $title, $options, 'orderready');
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
 
@@ -205,19 +184,19 @@ class SellerController extends AbstractController
     ]
     public function order_cancel(Shop $shop, Request $request): Response
     {
-        $user = $this->getUser();
         $order = $this->orderRepository->find($request->attributes->get('order'));
         $order_infos = $request->request->all('order_cancel');
         $order->setStatus(6);
+        $order_user = $order->getBuyer();
         $this->em->persist($order);
         $this->em->flush();
         $title = "Votre commande numéro " . $order->getOrderNumber() . " a été annulée par le commerçant";
         $options = [];
-        array_push($options, $user->getName(), $order->getOrderNumber());
+        array_push($options, $order_user->getName(), $order->getOrderNumber());
         if (isset($order_infos['message']) && $order_infos['message'] !== null) {
-            array_push($options, $order_infos['message']);
+            $options[] = $order_infos['message'];
         }
-        (new MailerController)->send($this->mailer, $user->getEmail(), $title, $options, 'orderrefuse');
+        (new MailerController)->send($this->mailer, $order_user->getEmail(), $title, $options, 'orderrefuse');
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
 
@@ -288,23 +267,18 @@ class SellerController extends AbstractController
                 ->setTag($this->tagRepository->find(1));
             $this->em->persist($shop);
             $this->em->flush();
-            $i = 0;
-            $data = [];
-            for ($i; $i < 28; $i++) {
-                $data[$i] = "00:00";
-            }
             $d = 1;
             for ($k = 0; $k < 28; $k += 4) {
                 $day = new OpeningHours();
                 $day->setDay($d)
                     ->setShop($shop)
-                    ->setStart(new DateTime($data[$k], new DateTimeZone("Europe/Paris")))
-                    ->setEnd(new DateTime($data[$k+1], new DateTimeZone("Europe/Paris")));
+                    ->setStart(null)
+                    ->setEnd(null);
                 $day2 = new OpeningHours();
                 $day2->setDay($d)
                     ->setShop($shop)
-                    ->setStart(new DateTime($data[$k+2], new DateTimeZone("Europe/Paris")))
-                    ->setEnd(new DateTime($data[$k+3], new DateTimeZone("Europe/Paris")));
+                    ->setStart(null)
+                    ->setEnd(null);
                 $this->em->persist($day);
                 $this->em->persist($day2);
                 $this->em->flush();
@@ -373,7 +347,6 @@ class SellerController extends AbstractController
         $openingHours = $this->openingHoursRepository->findBy(["shop" => $shop]);
         if ($request->getMethod() === "POST" && $request->request->get('day') !== null) {
             $data = $request->request->all();
-            $day = $data['day'];
             unset($data['day']);
             $k = 0;
             foreach ($data as $key => $value) {
@@ -576,7 +549,7 @@ class SellerController extends AbstractController
                     );
                 } catch (FileException $e) {}
                 $product_images = $product->getImages();
-                array_push($product_images, $newFilename);
+                $product_images[] = $newFilename;
                 $product->setImages($product_images);
             }
         }

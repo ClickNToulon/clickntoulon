@@ -97,7 +97,7 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route(path: "/profil/mes-commandes/{number}", name: "order", requirements: ["id" => "[0-9\-]*"])]
+    #[Route(path: "/mes-commandes/{number}", name: "order", requirements: ["id" => "[0-9\-]*"])]
     public function order(Request $request): Response
     {
         $user = $this->getUser();

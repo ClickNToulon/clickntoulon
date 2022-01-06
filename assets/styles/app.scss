@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-@import "~bootstrap-icons/font/bootstrap-icons.css";
 @import "~tailwindcss/base";
 
 @import "~tailwindcss/components";
@@ -8,13 +7,46 @@
 @import "~tailwindcss/utilities";
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@font-face {
+  font-family: "Proxima Soft";
+  font-weight: 400;
+  src: url('../../public/fonts/ProximaSoft-Regular.woff')format('woff');
+}
+
+@font-face {
+  font-family: "Proxima Soft";
+  font-weight: 500;
+  src: url('../../public/fonts/ProximaSoft-Medium.woff')format('woff');
+}
+
+@font-face {
+  font-family: "Proxima Soft";
+  font-weight: 600;
+  src: url('../../public/fonts/ProximaSoft-Semibold.woff')format('woff');
+}
+
+@font-face {
+  font-family: "Proxima Soft";
+  font-weight: 700;
+  src: url('../../public/fonts/ProximaSoft-Bold.woff')format('woff');
+}
+
+@font-face {
+  font-family: "Proxima Soft";
+  font-weight: 800;
+  src: url('../../public/fonts/ProximaSoft-Extrabold.woff')format('woff');
+}
 
 * {
-  font-family: 'Lato', sans-serif !important;
+  @apply font-clickntoulon;
 }
 
 .fa, .fas {
   font-family: "Font Awesome 5 Pro", sans-serif !important;
+}
+
+html {
+  scroll-behavior: smooth !important;
 }
 
 html::-webkit-scrollbar {
@@ -23,40 +55,12 @@ html::-webkit-scrollbar {
 }
 
 html::-webkit-scrollbar-thumb {
-  @apply bg-yellow-500;
+  @apply bg-blue-500;
+  border-radius: 10px;
 }
 
 html::-webkit-scrollbar-track {
-  @apply bg-white;
-}
-
-header {
-  height: calc(100vh - 64px);
-}
-
-.tab {
-  @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-black font-semibold rounded-lg mx-1 my-0.5;
-
-  &:hover {
-    @apply bg-yellow-500 text-white rounded-lg;
-  }
-}
-
-.tab-active {
-  @apply bg-yellow-500 text-white font-semibold rounded-lg;
-}
-
-.tab:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px
-}
-
-.tab:focus-visible {
-  box-shadow: inset 0 0 0 2px currentColor
-}
-
-.max-h-2xl {
-  max-height: 46rem !important;
+  @apply bg-[#dee0f3] dark:bg-darkblue-900;
 }
 
 .lg\:max-h-7xl {
@@ -69,4 +73,106 @@ header {
 
 .h-screen-custom {
   height: calc(100vh - 192px) !important;
+}
+
+.h-test {
+  height: calc(100vh - 84px) !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px hsl(220, 95%, 20%) inset !important;
+    -webkit-text-fill-color: rgb(229,231,235);
+  }
+}
+
+@layer base {
+  button {
+    @apply transition-all duration-500;
+  }
+
+  label {
+    @apply font-semibold text-black dark:text-white text-base;
+  }
+
+  [type="checkbox"] {
+    @apply rounded bg-white dark:bg-darkblue-700 border-blue-400 dark:border-blue-600 text-yellow-500 shadow-sm focus:border-blue-600 mr-2;
+  }
+
+  .p-0\.75 {
+    padding: 0.20rem;
+  }
+
+  .tab {
+    @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-white font-bold rounded-xl mx-1 my-0.5;
+
+    &:hover {
+      @apply bg-darkblue-900 text-white;
+    }
+  }
+
+  .tab-active {
+    @apply bg-darkblue-900 text-white font-bold;
+  }
+
+  .tab:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px
+  }
+
+  .tab:focus-visible {
+    box-shadow: inset 0 0 0 2px currentColor
+  }
+}
+
+.image-active {
+  @apply ring-2 ring-blue-500;
+}
+
+.test {
+  letter-spacing: 0.025em !important;
+}
+
+.shop-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+.shop-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-darkblue-600;
+  border-radius: 10px;
+}
+
+.shop-scrollbar::-webkit-scrollbar-track {
+  @apply bg-[#dee0f3] dark:bg-darkblue-900;
+}
+
+.title-underline:after{
+  content: " ";
+  text-align: center;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 0.5rem;
+  background-color: rgb(29, 78, 216);
+  border-radius: 10px;
+  margin-top: 2.5px;
+}
+
+.title-underline-danger:after {
+  background-color: rgb(220, 38, 38) !important;
+}
+
+.h-screen-footer {
+  height: calc(100vh - 390px) !important;
 }

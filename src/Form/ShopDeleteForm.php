@@ -22,7 +22,7 @@ class ShopDeleteForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Shop::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'shop'
         ]);
     }
 

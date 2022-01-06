@@ -17,50 +17,38 @@ class UserForm extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Name',
-                'label_attr' => [
-                    'class' => 'block text-base font-extrabold text-black'
-                ],
                 'attr' => [
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mt-1'
+                    'placeholder' => 'Doe',
+                    'class' => 'w-full bg-white dark:bg-darkblue-700 rounded-xl border-2 border-blue-800 focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-500 text-base outline-none text-gray-700 dark:text-gray-100 py-2 px-3 mt-1 mb-4 placeholder:text-gray-400'
                 ]
             ])
             ->add('surname', TextType::class, [
                 'label' => 'Surname',
-                'label_attr' => [
-                    'class' => 'block text-base font-extrabold text-black'
-                ],
                 'attr' => [
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mt-1'
+                    'placeholder' => 'John',
+                    'class' => 'w-full bg-white dark:bg-darkblue-700 rounded-xl border-2 border-blue-800 focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-500 text-base outline-none text-gray-700 dark:text-gray-100 py-2 px-3 mt-1 mb-4 placeholder:text-gray-400'
                 ]
             ])
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options'  => [
                     'label' => 'Password',
-                    'label_attr' => [
-                        'class' => 'block text-base font-extrabold text-black'
-                    ],
                     'attr' => [
-                        'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mt-1'
+                        'class' => 'w-full bg-white dark:bg-darkblue-700 rounded-xl border-2 border-blue-800 focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-500 text-base outline-none text-gray-700 dark:text-gray-100 py-2 px-3 mt-1 mb-4 placeholder:text-gray-400'
                     ]
                 ],
                 'second_options' => [
                     'label' => 'Repeat Password',
-                    'label_attr' => [
-                        'class' => 'block text-base font-extrabold text-black'
-                    ],
                     'attr' => [
-                        'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mt-1'
+                        'class' => 'w-full bg-white dark:bg-darkblue-700 rounded-xl border-2 border-blue-800 focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-500 text-base outline-none text-gray-700 dark:text-gray-100 py-2 px-3 mt-1 mb-4 placeholder:text-gray-400'
                     ]
                 ],
             ))
             ->add('email', TextType::class, [
                 'label' => 'Email',
-                'label_attr' => [
-                    'class' => 'block text-base font-extrabold text-black'
-                ],
                 'attr' => [
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mt-1'
+                    'placeholder' => 'johndoe@exemple.com',
+                    'class' => 'w-full bg-white dark:bg-darkblue-700 rounded-xl border-2 border-blue-800 focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-500 text-base outline-none text-gray-700 dark:text-gray-100 py-2 px-3 mt-1 mb-4 placeholder:text-gray-400'
                 ]
             ]);
     }

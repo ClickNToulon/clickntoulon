@@ -16,12 +16,11 @@ class SearchForm extends AbstractType
             ->add('q', TextType::class, [
                 'mapped' => false,
                 'required' => true,
-                'label' => false,
+                'label' => 'Rechercher',
                 'attr' => [
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out',
                     'name' => 'q',
                     'type' => 'search',
-                    'placeholder' => 'Rechercher'
+                    'class' => 'w-full bg-white dark:bg-darkblue-700 rounded-xl border-2 border-blue-800 focus:border-blue-500 text-gray-700 dark:text-gray-100 py-2 px-3 mt-1 mb-4 placeholder:text-gray-400'
                 ],
             ]);
     }
@@ -30,7 +29,7 @@ class SearchForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SearchForm::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'search'
         ]);
     }
 }
