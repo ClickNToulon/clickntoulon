@@ -55,7 +55,7 @@ html::-webkit-scrollbar-thumb {
 }
 
 html::-webkit-scrollbar-track {
-  @apply bg-[#dee0f3] dark:bg-darkblue-900;
+  @apply bg-darkblue-100 dark:bg-darkblue-900;
 }
 
 .lg\:max-h-7xl {
@@ -74,23 +74,6 @@ html::-webkit-scrollbar-track {
   height: calc(100vh - 84px) !important;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px white inset !important;
-}
-
-@media (prefers-color-scheme: dark) {
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px hsl(220, 95%, 20%) inset !important;
-    -webkit-text-fill-color: rgb(229, 231, 235);
-  }
-}
-
 @layer base {
   button {
     @apply transition-all duration-500;
@@ -101,7 +84,7 @@ input:-webkit-autofill:active {
   }
 
   [type="checkbox"] {
-    @apply rounded bg-white dark:bg-darkblue-700 border-blue-400 dark:border-blue-600 text-yellow-500 shadow-sm focus:border-blue-600 mr-2;
+    @apply rounded bg-darkblue-200 dark:bg-darkblue-700 border-blue-400 dark:border-blue-600 text-blue-500 focus:border-blue-600 mr-2;
   }
 
   .p-0\.75 {
@@ -109,15 +92,15 @@ input:-webkit-autofill:active {
   }
 
   .tab {
-    @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-white font-bold rounded-xl mx-1 my-0.5;
+    @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-black dark:text-white font-bold rounded-xl mx-1 my-0.5;
 
     &:hover {
-      @apply bg-darkblue-900 text-white;
+      @apply bg-darkblue-200 dark:bg-darkblue-900 text-black dark:text-white;
     }
   }
 
   .tab-active {
-    @apply bg-darkblue-900 text-white font-bold;
+    @apply bg-darkblue-200 dark:bg-darkblue-900 text-black dark:text-white font-bold;
   }
 
   .tab:focus {
@@ -150,7 +133,7 @@ input:-webkit-autofill:active {
 }
 
 .shop-scrollbar::-webkit-scrollbar-track {
-  @apply bg-[#dee0f3] dark:bg-darkblue-900;
+  @apply bg-darkblue-100 dark:bg-darkblue-900;
 }
 
 .title-underline::after {

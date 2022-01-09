@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ChangePasswordForm;
 use App\Form\ResetPasswordRequestForm;
 use App\Repository\UserRepository;
@@ -32,6 +33,10 @@ class ResetPasswordController extends AbstractController
     #[Route(path: "", name: 'app_forgot_password_request')]
     public function request(Request $request, MailerInterface $mailer): Response
     {
+        $user = $this->getUser();
+        if($user instanceof User) {
+            return $this->redirectToRoute('home');
+        }
         $form = $this->createForm(ResetPasswordRequestForm::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

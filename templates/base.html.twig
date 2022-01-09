@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr" class="bg-[#dee0f3] dark:bg-darkblue-900">
+<html lang="fr" class="bg-darkblue-100 dark:bg-darkblue-900">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %}</title>
-        <link rel="icon" href="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        <link rel="icon" href="{{ asset('images/icon.svg') }}">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}

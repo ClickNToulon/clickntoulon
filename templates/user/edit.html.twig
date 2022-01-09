@@ -52,71 +52,35 @@
                         <div class="w-full">
                             <div>
                                 {{ form_start(form_profile, {attr: {class: 'relative'}}) }}
-                                <div class="dark:hidden absolute inset-0 group-hover:-inset-0.5 bg-yellow-500 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                                <div class="rounded-xl bg-white dark:bg-darkblue-800 relative">
+                                <div class="rounded-xl bg-darkblue-150 dark:bg-darkblue-800">
                                     <div class="px-4 py-2 sm:p-6 flex items-center justify-center flex-col w-full">
-                                        <h2 class="text-white text-center text-3xl font-bold title-underline mb-4">Mes informations</h2>
+                                        <h2 class="text-black dark:text-white text-center text-3xl font-bold title-underline mb-4">Mes informations</h2>
                                         <div class="w-full">
                                             <div class="grid grid-cols-2 gap-6">
                                                 <div class="col-span-2 sm:col-span-1">
-                                                    <label for="update_user_form_name" class="block text-base font-bold text-black">
-                                                        {{ form_label(form_profile.name) }}
-                                                    </label>
-                                                    <div class="mt-1 flex rounded-md shadow-sm">
-                                                        {{ form_widget(form_profile.name) }}
-                                                    </div>
+                                                    {{ form_row(form_profile.name) }}
                                                 </div>
                                                 <div class="col-span-2 sm:col-span-1">
-                                                    <label for="update_user_form_surname" class="block text-base font-medium text-black">
-                                                        {{ form_label(form_profile.surname) }}
-                                                    </label>
-                                                    <div class="mt-1 flex rounded-md shadow-sm">
-                                                        {{ form_widget(form_profile.surname) }}
-                                                    </div>
+                                                    {{ form_row(form_profile.surname) }}
                                                 </div>
                                             </div>
                                             <div class="grid grid-cols-2 gap-6">
                                                 <div class="col-span-2 sm:col-span-1">
-                                                    <label for="update_user_form_email" class="block text-base font-medium text-black">
-                                                        {{ form_label(form_profile.email) }}
-                                                    </label>
-                                                    <div class="mt-1 flex rounded-md shadow-sm">
-                                                        {{ form_widget(form_profile.email) }}
-                                                    </div>
+                                                    {{ form_row(form_profile.email) }}
                                                 </div>
                                                 <div class="col-span-2 sm:col-span-1">
-                                                    <label for="update_user_form_postal_code" class="block text-base font-medium text-black">
-                                                        {{ form_label(form_profile.phone) }}
-                                                    </label>
-                                                    <div class="mt-1 flex rounded-md shadow-sm">
-                                                        {{ form_widget(form_profile.phone) }}
-                                                    </div>
+                                                    {{ form_row(form_profile.phone) }}
                                                 </div>
                                             </div>
                                             <div>
-                                                <label for="update_user_form_address" class="block text-base font-medium text-black">
-                                                    {{ form_label(form_profile.address) }}
-                                                </label>
-                                                <div class="mt-1">
-                                                    {{ form_widget(form_profile.address) }}
-                                                </div>
+                                                {{ form_row(form_profile.address) }}
                                             </div>
                                             <div class="grid grid-cols-2 gap-6">
                                                 <div class="col-span-2 sm:col-span-1">
-                                                    <label for="update_user_form_email" class="block text-base font-medium text-black">
-                                                        {{ form_label(form_profile.postalCode) }}
-                                                    </label>
-                                                    <div class="mt-1 flex rounded-md shadow-sm">
-                                                        {{ form_widget(form_profile.postalCode) }}
-                                                    </div>
+                                                    {{ form_row(form_profile.postalCode) }}
                                                 </div>
                                                 <div class="col-span-2 sm:col-span-1">
-                                                    <label for="update_user_form_postal_code" class="block text-base font-medium text-black">
-                                                        {{ form_label(form_profile.city) }}
-                                                    </label>
-                                                    <div class="mt-1 flex rounded-md shadow-sm">
-                                                        {{ form_widget(form_profile.city) }}
-                                                    </div>
+                                                    {{ form_row(form_profile.city) }}
                                                 </div>
                                             </div>
                                         </div>
@@ -134,11 +98,10 @@
                 </div>
                 <div id="mot-de-passe">
                     <div>
-                        {{ form_start(form_password, {attr: {class: 'relative'}}) }}
-                        <div class="dark:hidden absolute inset-0 group-hover:-inset-0.5 bg-yellow-500 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                        <div class="rounded-xl bg-white dark:bg-darkblue-800 relative">
+                        {{ form_start(form_password) }}
+                        <div class="rounded-xl bg-darkblue-150 dark:bg-darkblue-800">
                             <div class="px-4 py-2 sm:p-6 flex items-center justify-center flex-col w-full">
-                                <h2 class="text-white text-center text-3xl font-bold title-underline mb-4">Mot de passe</h2>
+                                <h2 class="text-black dark:text-white text-center text-3xl font-bold title-underline mb-4">Mot de passe</h2>
                                 <div class="grid grid-cols-2 gap-6 w-full">
                                     <div class="col-span-2 sm:col-span-1">
                                         {{ form_row(form_password.password.first) }}
@@ -159,11 +122,10 @@
                 </div>
                 <div id="avance">
                     <div>
-                        {{ form_start(form_delete, {attr: {class: 'relative'}}) }}
-                        <div class="dark:hidden absolute inset-0 group-hover:-inset-0.5 bg-yellow-500 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                        <div class="rounded-xl bg-white dark:bg-darkblue-800 relative">
+                        {{ form_start(form_delete) }}
+                        <div class="rounded-xl bg-darkblue-150 dark:bg-darkblue-800 relative">
                             <div class="px-4 py-2 sm:p-6 flex items-center justify-center flex-col w-full">
-                                <h2 class="text-white text-center text-3xl font-bold title-underline title-underline-danger mb-4">Danger Zone</h2>
+                                <h2 class="text-black dark:text-white text-center text-3xl font-bold title-underline title-underline-danger mb-4">Danger Zone</h2>
                                 <div class="text-center flex items-center flex-col">
                                     <p class="mt-2 text-black dark:text-gray-100 font-bold text-lg">
                                         Vous n'&ecirc;tes pas satisfait du contenu propos&eacute;

@@ -1,5 +1,5 @@
 <nav>
-    <div class="sm:container mx-auto px-5 lg:px-8 py-2">
+    <div class="desktop:container mx-auto px-5 lg:px-8 py-2">
         <div class="relative flex items-center justify-between h-[4.25rem]">
             <div class="absolute inset-y-0 left-0 flex items-center desktop:hidden">
                 <!-- Mobile menu button-->
@@ -17,25 +17,25 @@
             </div>
             <div class="flex-1 flex items-center justify-center desktop:items-stretch desktop:justify-start h-full">
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ path('home') }}"><img class="block h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg" id="navbar-logo" alt="Logo ClickNToulon"></a>
+                    <a href="{{ path('home') }}"><img class="block h-[3.75rem] w-auto" src="{{ asset('images/clickntoulon.svg') }}" id="navbar-logo" alt="Logo ClickNToulon"></a>
                 </div>
                 <div class="hidden desktop:block desktop:ml-auto h-full">
                     <div class="flex space-x-6 h-full">
                         <!-- Active: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="{{ path('home') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'home' %}underline text-blue-400 dark:text-blue-400{% endif %}" aria-current="page">
+                        <a href="{{ path('home') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'home' %}underline text-darkblue-300 dark:text-blue-400{% endif %}" aria-current="page">
                             Accueil
                         </a>
-                        <a href="{{ path('shop_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'shop' %}underline text-blue-400 dark:text-blue-400{% endif %}">
+                        <a href="{{ path('shop_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'shop' %}underline text-darkblue-300 dark:text-blue-400{% endif %}">
                             Boutiques
                         </a>
-                        <a href="{{ path('product_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'product' %}underline text-blue-400 dark:text-blue-400{% endif %}">
+                        <a href="{{ path('product_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'product' %}underline text-darkblue-300 dark:text-blue-400{% endif %}">
                             Produits
                         </a>
-                        <a href="{{ path('search') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'search' %}underline text-blue-400 dark:text-blue-400{% endif %}">
+                        <a href="{{ path('search') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'search' %}underline text-darkblue-300 dark:text-blue-400{% endif %}">
                             Recherche
                         </a>
                         {% if user is defined and user is not null %}
-                            <a href="{{ path('basket_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'basket' %}underline text-blue-400 dark:text-blue-400{% endif %}">
+                            <a href="{{ path('basket_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'basket' %}underline text-darkblue-300 dark:text-blue-400{% endif %}">
                                 Panier
                             </a>
                             <div class="relative px-3 w-full font-semibold my-auto inline-block items-center">
@@ -49,28 +49,28 @@
                                     </button>
                                 </div>
                                 <!-- Dropdown menu, show/hide based on menu state. -->
-                                <div class="origin-top-right absolute right-0 left-0 mt-2.5 w-42 rounded-lg hidden shadow-lg dark:shadow-none bg-white z-40 dark:bg-blue-900 ring-1 ring-black ring-opacity-5 focus:outline-none min-w-max w-full" role="menu" aria-orientation="vertical" id="menu-button" aria-labelledby="menu-button" tabindex="-1">
+                                <div class="origin-top-right absolute right-0 left-0 mt-2.5 w-42 rounded-lg hidden shadow-lg dark:shadow-none bg-darkblue-150 z-40 dark:bg-blue-900 min-w-max w-full" role="menu" aria-orientation="vertical" id="menu-button" aria-labelledby="menu-button" tabindex="-1">
                                     <div class="flex items-center justify-center flex-col min-w-max p-2" role="none">
                                         {% if is_granted('ROLE_MERCHANT') %}
-                                        <a href="{{ path('seller_choose') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-gray-100 dark:hover:bg-blue-600 text-lg inline-flex items-center justify-center w-full rounded-lg" role="menuitem" tabindex="-1" id="menu-item-0">
+                                        <a href="{{ path('seller_choose') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-darkblue-200 dark:hover:bg-blue-600 text-lg inline-flex items-center justify-center w-full rounded-lg" role="menuitem" tabindex="-1" id="menu-item-0">
                                             Ma Boutique
                                         </a>
                                         {% endif %}
-                                        <a href="{{ path('user_edit') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-gray-100 dark:hover:bg-blue-600 text-lg w-full inline-flex items-center justify-center rounded-lg" role="menuitem" tabindex="-1" id="menu-item-1">
+                                        <a href="{{ path('user_edit') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-darkblue-200 dark:hover:bg-blue-600 text-lg w-full inline-flex items-center justify-center rounded-lg" role="menuitem" tabindex="-1" id="menu-item-1">
                                             Mon profil
                                         </a>
-                                        <a href="{{ path('user_orders') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-gray-100 dark:hover:bg-blue-600 text-lg w-full inline-flex items-center justify-center rounded-lg" role="menuitem" tabindex="-1" id="menu-item-2">
+                                        <a href="{{ path('user_orders') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-darkblue-200 dark:hover:bg-blue-600 text-lg w-full inline-flex items-center justify-center rounded-lg" role="menuitem" tabindex="-1" id="menu-item-2">
                                             Mes commandes
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ path('app_logout') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center justify-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline">
+                            <a href="{{ path('app_logout') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center justify-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline">
                                 Déconnexion
                             </a>
                         {% else %}
                             <a href="{{ path('app_login') }}" class="flex items-center justify-center align-middle h-10 my-auto" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                                <button class="test text-white font-bold px-6 py-2 border-2 border-blue-800 hover:bg-blue-900 hover:border-blue-900 rounded-full">
+                                <button class="test text-blue-900 hover:text-white dark:text-white font-bold px-6 py-2 border-2 border-blue-800 hover:bg-blue-900 hover:border-blue-900 rounded-full">
                                     Connexion
                                 </button>
                             </a>

@@ -27,8 +27,8 @@
             <section class="text-gray-600 body-font" id="discover">
                 <div class="sm:container px-8 sm:px-5 pt-12 pb-24 mx-auto">
                     <div class="flex items-center justify-center w-full flex-col mb-4">
-                        <h1 class="sm:text-3xl text-xl font-bold text-white mb-4 uppercase tracking-wider title-underline">{{ search_count }} {% if search_count > 1 %} Résultats {% else %} Résultat {% endif %}</h1>
-                        <p class="tablet:text-2xl sm:text-xl mb-8 font-semibold text-gray-200">{{ search_product_count }} {% if search_product_count > 1 %} Résultats correspondent{% else %} Résultat correspond{% endif %} à des produits</p>
+                        <h1 class="sm:text-3xl text-xl font-bold text-black dark:text-white mb-4 uppercase tracking-wider title-underline">{{ search_count }} {% if search_count > 1 %} Résultats {% else %} Résultat {% endif %}</h1>
+                        <p class="tablet:text-2xl sm:text-xl mb-8 font-semibold text-black dark:text-gray-200">{{ search_product_count }} {% if search_product_count > 1 %} Résultats correspondent{% else %} Résultat correspond{% endif %} à des produits</p>
                     </div>
                     <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                         {% include 'product/product_skeleton.html.twig' with {'products': search_product_results} %}
@@ -38,7 +38,7 @@
             <section class="text-gray-600 body-font" id="discover">
                 <div class="sm:container px-8 sm:px-5 pb-24 mx-auto">
                     <div class="text-center mb-12">
-                        <p class="tablet:text-2xl text-xl mb-8 font-semibold text-gray-200">{{ search_shop_count }} {% if search_shop_count > 1 %} Résultats correspondent{% else %} Résultat correspond{% endif %} à des boutiques</p>
+                        <p class="tablet:text-2xl text-xl mb-8 font-semibold text-black dark:text-gray-200">{{ search_shop_count }} {% if search_shop_count > 1 %} Résultats correspondent{% else %} Résultat correspond{% endif %} à des boutiques</p>
                     </div>
                     <div class="mt-6 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2 xl:gap-x-10">
                         {% include 'shop/shop_skeleton.html.twig' with {'shops': search_shop_results} %}
@@ -46,7 +46,7 @@
                 </div>
             </section>
         {% else %}
-            <div class="flex items-center flex-col text-white font-medium text-2xl py-24">
+            <div class="flex items-center flex-col text-black dark:text-white font-medium text-2xl py-24">
                 <h4>Il n’y a aucun résultat pour <b class="text-blue-500">{{ word_searched }}</b></h4>
                 <h6>Vérifiez l’orthographe des mots saisis ou complétez-les par un nouveau mot clé</h6>
             </div>
