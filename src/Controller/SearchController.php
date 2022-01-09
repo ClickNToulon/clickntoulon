@@ -21,7 +21,7 @@ class SearchController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route('/recherche', name: 'search')]
+    #[Route(paht: "/recherche", name: "search")]
     public function index(Request $request): Response
     {
         $form = $this->createForm(SearchForm::class);
@@ -41,7 +41,7 @@ class SearchController extends AbstractController
         $search_shop_count = count($search_shop_results);
         $search_product_count = count($search_product_results);
         $search_count = $search_product_count + $search_shop_count;
-        return $this->render('old_search/index.html.twig', [
+        return $this->render('search/index.html.twig', [
             'search_shop_results' => $search_shop_results,
             'search_shop_count' => $search_shop_count,
             'search_product_results' => $search_product_results,
