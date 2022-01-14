@@ -13,11 +13,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 #[Route(path: "/profil", name: "user_")]
 class UserController extends AbstractController
@@ -25,13 +25,13 @@ class UserController extends AbstractController
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher,
         private EntityManagerInterface $em,
-        private RequestStack $requestStack,
         private OrderRepository $orderRepository,
         private ShopRepository $shopRepository
     ){}
 
     /**
      * @param Request $request
+     * @param TokenStorageInterface $tokenStorage
      * @return Response
      * @throws Exception
      */
@@ -39,9 +39,8 @@ class UserController extends AbstractController
         Route(path: "/modifier", name: "edit"),
         IsGranted("ROLE_USER")
     ]
-    public function edit(Request $request): Response
+    public function edit(Request $request, TokenStorageInterface $tokenStorage): Response
     {
-        $user = $this->getUser();
         // Traitement du mot de passe
         [$formPassword, $response] = $this->createFormPassword($request);
         if ($response) return $response;
@@ -49,8 +48,13 @@ class UserController extends AbstractController
         [$formInfo, $responseInfo] = $this->createFormInfos($request);
         if ($responseInfo) return $responseInfo;
 
-        [$formDelete, $responseDelete] = $this->createFormDelete($request);
+        [$formDelete, $responseDelete] = $this->createFormDelete($request, $tokenStorage);
         if ($responseDelete) return $responseDelete;
+
+        $user = $this->getUser();
+        if ($user == null) {
+           return $this->redirectToRoute('home');
+        }
 
         return $this->render('user/edit.html.twig', [
             'form_password' => $formPassword->createView(),
@@ -170,15 +174,17 @@ class UserController extends AbstractController
 
     /**
      * @param Request $request
+     * @param TokenStorageInterface $tokenStorage
      * @return array
      */
-    public function createFormDelete(Request $request): array
+    public function createFormDelete(Request $request, TokenStorageInterface $tokenStorage): array
     {
         $user = $this->getUser();
         $form = $this->createForm(DeleteUserForm::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $session = $this->requestStack->getSession();
+            $session = $request->getSession();
+            $tokenStorage->setToken();
             $session->invalidate();
             $this->em->remove($user);
             $this->em->flush();

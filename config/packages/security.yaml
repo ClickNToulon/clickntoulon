@@ -42,15 +42,16 @@ security:
             provider: app_user_provider
             custom_authenticators:
                 - App\Security\AppAuthenticator
+                - App\Security\GoogleAuthenticator
             logout:
                 path: app_logout
                 target: home
             remember_me:
+                signature_properties: [password]
                 secret: '%kernel.secret%'
                 lifetime: 604800 # 1 week in seconds
                 path: /
                 samesite: strict
-                secure: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

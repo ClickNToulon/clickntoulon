@@ -19,7 +19,6 @@ class UserForm extends AbstractType
                 'label' => 'Name',
                 'attr' => [
                     'placeholder' => 'Doe',
-                    'autocomplete' => 'new-password',
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ])
@@ -27,7 +26,6 @@ class UserForm extends AbstractType
                 'label' => 'Surname',
                 'attr' => [
                     'placeholder' => 'John',
-                    'autocomplete' => 'new-password',
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ])
@@ -52,7 +50,7 @@ class UserForm extends AbstractType
                 'label' => 'Email',
                 'attr' => [
                     'placeholder' => 'johndoe@exemple.com',
-                    'autocomplete' => 'new-password',
+                    'autocomplete' => 'email',
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ]);

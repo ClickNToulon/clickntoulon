@@ -23,13 +23,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=45, unique=true)
+     * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank()
      */
     private string $name;
 
     /**
-     * @ORM\Column(type="string", length=45, unique=true)
+     * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank()
      */
     private string $surname;
@@ -40,9 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private string $password;
+    private ?string $password;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -90,6 +90,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="boolean")
      */
     private bool $isVerified = false;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $googleID;
 
     /**
      * @throws Exception
@@ -145,7 +150,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -297,6 +302,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGoogleID(): ?string
+    {
+        return $this->googleID;
+    }
+
+    /**
+     * @param string|null $googleID
+     */
+    public function setGoogleID(?string $googleID): self
+    {
+        $this->googleID = $googleID;
 
         return $this;
     }

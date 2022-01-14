@@ -21,45 +21,38 @@ class ShopUpdateForm extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'autocomplete' => 'new-password',
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ])
             ->add('description', TextareaType::class, [
                 'attr' => [
-                    'autocomplete' => 'new-password',
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400',
                     'rows' => 3
                 ]
             ])
             ->add('phone', NumberType::class, [
                 'attr' => [
-                    'autocomplete' => 'new-password',
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'autocomplete' => 'new-password',
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ])
             ->add('address', TextareaType::class, [
                 'attr' => [
-                    'autocomplete' => 'new-password',
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400',
                     'rows' => 1
                 ]
             ])
             ->add('postalCode', TextType::class, [
                 'attr' => [
-                    'autocomplete' => 'new-password',
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ])
             ->add('city', TextType::class, [
                 'attr' => [
-                    'autocomplete' => 'new-password',
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ])
@@ -73,7 +66,6 @@ class ShopUpdateForm extends AbstractType
                 },
                 'choice_label' => 'name',
                 'attr' => [
-                    'autocomplete' => 'new-password',
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ]);

@@ -3,11 +3,16 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use DateTime;
+use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
+use League\OAuth2\Client\Provider\GoogleUser;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -48,5 +53,42 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->where('u.roles NOT LIKE :role')
             ->setParameter('role','%"'.'ROLE_ADMIN'.'"%')
             ->getQuery();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws Exception
+     */
+    public function findOrCreateFromOauth(GoogleUser $googleUser): User|null
+    {
+        $user = $this->createQueryBuilder('u')
+            ->where('u.googleID = :googleID')
+            ->orWhere('u.email = :email')
+            ->setParameters([
+                'email' => $googleUser->getEmail(),
+                'googleID' => $googleUser->getId()
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+        if ($user) {
+            $data = $googleUser->toArray();
+            if ($user->getGoogleID() === null && $data['email_verified'] === true) {
+                $user->setGoogleID($googleUser->getId())
+                    ->setIsVerified(1)
+                    ->setUpdatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")));
+                $this->_em->persist($user);
+                $this->_em->flush();
+            }
+            return $user;
+        }
+        $user = (new User())
+            ->setName($googleUser->getLastName())
+            ->setSurname($googleUser->getFirstName())
+            ->setGoogleID($googleUser->getId())
+            ->setEmail($googleUser->getEmail())
+            ->setIsVerified(1);
+        $this->_em->persist($user);
+        $this->_em->flush();
+        return $user;
     }
 }
