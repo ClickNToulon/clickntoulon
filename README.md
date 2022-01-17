@@ -10,15 +10,15 @@
 
 ## ➜ Table des matières
 
-* [➜ Dependances](#-dependencies)
+* [➜ Dependances](#-dependances)
 * [➜ Contribuer](#-contribuer)
   * [Comment participer au développement ?](#comment-participer-au-developpement)
   * [Comment nous supproter ?](#comment-nous-supporter)
-* [➜ Contributeurs](#-contributors)
+* [➜ Contributeurs](#-contributeurs)
 * [➜ License](#-license)
 
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)](#dependencies)
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)](#-dependances)
 
 ## ➜ Dependances
 
@@ -30,7 +30,7 @@
 
 
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)](#contribuer)
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)](#-contribuer)
 
 ## ➜ Contribuer
 
@@ -42,7 +42,7 @@ Créer une issue ou une pull request.
 
 Il y a différentes manières de nous supporter, pour débuter vous pouvez starrer ce repository, le forker et en parler à vos amis ❤️
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)](#contributors)
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)](#-contributeurs)
 
 ## ➜ Contributeurs
 
