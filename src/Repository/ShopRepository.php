@@ -40,7 +40,7 @@ class ShopRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('s')
             ->where('s.name LIKE :param')
             ->setParameter('param', '%'.$search_param.'%')
-            ->andWhere('s.isBanned != false')
+            ->andWhere('s.isBanned = false')
             ->getQuery()
             ->getResult();
     }
@@ -48,7 +48,8 @@ class ShopRepository extends ServiceEntityRepository
     public function findAllQuery(): Query
     {
         return $this->createQueryBuilder('s')
-            ->where('s.isBanned != true')
+            ->where('s.isBanned != true AND s.status >= 1')
+            ->orderBy('s.id', 'DESC')
             ->getQuery();
     }
 
@@ -57,7 +58,7 @@ class ShopRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('s')
             ->where('s.status > 1')
             ->orderBy('s.id', 'DESC')
-            ->setMaxResults(2)
+            ->setMaxResults(6)
             ->getQuery()
             ->getResult();
     }

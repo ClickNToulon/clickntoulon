@@ -1,7 +1,6 @@
-<h1 align="center">ClickNToulon</h1>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/ClickNToulon/clickntoulon/main/public/images/clickntoulon.svg?token=ANBFW6SAS7FYR2OWQLYP6RDBU7RSQ" alt="Logo" width="200" height="auto" />
-</p>
+<h1 align="center">
+  <img src="https://raw.githubusercontent.com/ClickNToulon/clickntoulon/refonte-graphique/public/images/clickntoulon.svg?token=ANBFW6SAS7FYR2OWQLYP6RDBU7RSQ" alt="Logo" width="200" height="auto" />
+</h1>
 <p align="center">
   <b>Bienvenue sur le repository officiel de ClickNToulon</b><br>
 </p>
@@ -11,41 +10,41 @@
 
 ## ➜ Table des matières
 
-* [➜ Dependencies](#-dependencies)
-* [➜ Contributing](#-contributing)
-    * [How can I get involved?](#how-can-i-get-involved)
-    * [How can I support you?](#how-can-i-support-you)
-* [➜ Contributors](#-contributors)
+* [➜ Dependances](#-dependencies)
+* [➜ Contribuer](#-contribuer)
+  * [Comment participer au développement ?](#comment-participer-au-developpement)
+  * [Comment nous supproter ?](#comment-nous-supporter)
+* [➜ Contributeurs](#-contributors)
 * [➜ License](#-license)
 
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)](#dependencies)
 
-## ➜ Dependencies
+## ➜ Dependances
 
 
-| Name             | Version    | Description                 |
-|------------------|------------|-----------------------------|
-| **Heroicons**    | **_1.0_**  | Adds icons to the website   |
-| **Tailwind CSS** | **_2.2_**  | CSS Framework               |
+| Name             | Version       | Description                 |
+|------------------|---------------|-----------------------------|
+| **Heroicons**    | **_1.0.5_**   | Adds icons to the website   |
+| **Tailwind CSS** | **_3.0.11_**  | CSS Framework               |
 
 
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)](#contributing)
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)](#contribuer)
 
-## ➜ Contributing
+## ➜ Contribuer
 
-### How can I get involved?
+### Comment participer au développement ?
 
-Create an issue or pull-request.
+Créer une issue ou une pull request.
 
-### How can I support you?
+### Comment nous supporter ?
 
-There are lots of ways to support us! We would be so happy if you gave this repository a star, fork it or told your friends about this little corner of the Internet ❤️
+Il y a différentes manières de nous supporter, pour débuter vous pouvez starrer ce repository, le forker et en parler à vos amis ❤️
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)](#contributors)
 
-## ➜ Contributors
+## ➜ Contributeurs
 
 
 | [<img alt="Quentin Boitel" src="https://avatars0.githubusercontent.com/u/54680442?v=4" width="100">](https://github.com/qbtl) | [<img alt="Corentin Thibaud" src="https://avatars.githubusercontent.com/u/74668473?v=4" width="100">](https://github.com/corentinthibaud) |
@@ -58,4 +57,4 @@ There are lots of ways to support us! We would be so happy if you gave this repo
 ## ➜ License
 
 Licensed under [MIT](https://opensource.org/licenses/MIT).
-Copyright © 2021 [ClickNToulon](https://clickntoulon.fr)
+Copyright © 2021-2022 [ClickNToulon](https://clickntoulon.fr)

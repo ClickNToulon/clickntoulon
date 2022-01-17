@@ -88,7 +88,7 @@ class ProductController extends AbstractController
      * @return Response
      * @throws NonUniqueResultException
      */
-    #[Route(path: "/{id}}", name: "show")]
+    #[Route(path: "/{id}", name: "show")]
     public function shopProducts(Product $product): Response
     {
         $user = $this->getUser();

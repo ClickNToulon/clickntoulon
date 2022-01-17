@@ -6,95 +6,87 @@
     {% include 'navbar.html.twig' with {'active': 'about'} %}
     <div class="sm:container mx-auto px-5 py-5 my-12">
         <div class="text-center mb-10">
-            <h2 class="sm:text-5xl text-3xl font-extrabold title-font text-black mb-4 uppercase">Politique de confidentialité</h2>
+            <h2 class="sm:text-5xl text-3xl font-extrabold text-black dark:text-black dark:text-white mb-4 uppercase tracking-wider">Politique de confidentialité</h2>
             <div class="flex mt-6 justify-center">
-                <div class="w-2/3 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+                <div class="w-2/3 h-1 rounded-full bg-blue-underline inline-flex"></div>
             </div>
         </div>
-        <div class="text-center my-10">
-            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Utilisation des données personnelles collectées</h2>
-            <div class="flex mt-6 justify-center">
-                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
-            </div>
+        <div class="flex items-center justify-center mt-10 mb-4 px-20 pt-16">
+            <h2 class="sm:text-4xl text-2xl font-bold text-black dark:text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
+                Utilisation des données personnelles collectées
+            </h2>
         </div>
-        <div class="text-center my-10">
-            <h2 class="sm:text-3xl text-xl font-extrabold title-font text-black mb-4 uppercase">Cookies</h2>
-            <div class="flex mt-6 justify-center">
-                <div class="w-1/6 h-1 rounded-full bg-yellow-500 inline-flex"></div>
-            </div>
+        <div class="flex items-center justify-center mt-6 mb-4 px-20">
+            <h2 class="sm:text-3xl text-xl font-bold text-black dark:text-black dark:text-white mb-4 uppercase title-underline tracking-wider">Cookies</h2>
         </div>
-        <p class="text-black font-semibold text-lg italic mb-1.5">
+        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
             Si vous avez un compte et que vous vous connectez sur le site, un cookie temporaire sera créé afin de persister votre état de connexion.
             Ce cookie sera automatiquement détruit lorsque vous vous déconnectez du site.
         </p>
-        <p class="text-black font-semibold text-lg italic mb-3">
+        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
             Si lors de la connexion à votre compte, vous avez coché la case "Se souvenir de moi",
             un cookie sera sauvegardé pour une durée maximale de 1 semaine, mais peut être détruit en forçant une déconnexion manuelle
             en cliquant sur la bouton Déconnexion.
         </p>
-        <div class="text-center my-10">
-            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Durée de stockage de vos données</h2>
-            <div class="flex mt-6 justify-center">
-                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
-            </div>
+        <div class="flex items-center justify-center mt-10 mb-4 px-20 pt-16">
+            <h2 class="sm:text-4xl text-2xl font-bold text-black dark:text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
+                Durée de stockage de vos données
+            </h2>
         </div>
-        <p class="text-black font-semibold text-lg italic mb-1.5">
+        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
             Pour les utilisateurs et utilisatrices qui s’enregistrent sur le site,
             nous stockons également les données personnelles indiquées dans leur profil.
             Tous les utilisateurs et utilisatrices peuvent voir, modifier ou supprimer leurs informations personnelles à tout moment.
             Seul le gestionnaire du site peut aussi voir ces informations.
         </p>
-        <p class="text-black font-semibold text-lg italic mb-3">
+        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
             Les données des utilisateurs sont stockées tout le temps que le compte de ce dernier est actif,
             ainsi que de 3 ans après la décision de fermeture de ce compte, conformément au RGPD.
-            Vous pouvez vous opposer à ce délai en nous contactant par mail (cf. Article 1 des <a href="{{ path('about_cgu') }}" class="underline text-yellow-500">CGU</a>).
+            Vous pouvez vous opposer à ce délai en nous contactant par mail (cf. Article 1 des
+            <a href="{{ path('about_cgu') }}" class="underline underline-offset-2 text-blue-700 dark:text-blue-400">CGU</a>).
         </p>
-        <div class="text-center my-10">
-            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Les droits que vous avez sur vos données</h2>
-            <div class="flex mt-6 justify-center">
-                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
-            </div>
+        <div class="flex items-center justify-center mt-10 mb-4 px-20 pt-16">
+            <h2 class="sm:text-4xl text-2xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
+                Les droits que vous avez sur vos données
+            </h2>
         </div>
-        <p class="text-black font-semibold text-lg italic mb-3">
+        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
             Conformément au Règlement Général Européen sur la Protection des Données (dit RGPD) et des lois Libertés et Informatique de 1978,
             vous avez un droit d'accès, de modification, de suppresion et d'opposition concernant vos données personnelles.
             Vous pouvez exercer ses droits par mail en contactant Corentin THIBAUD
-            <a href="mailto:clickntoulon@ycnrea.fr" class="underline text-yellow-500">clickntoulon@yncrea.fr</a>
-            ou en vous connectant à <a href="{{ path('user_edit') }}" class="underline text-yellow-500">votre compte</a>.
+            <a href="mailto:clickntoulon@ycnrea.fr" class="underline underline-offset-2 text-blue-700 dark:text-blue-400">clickntoulon@yncrea.fr</a>
+            ou en vous connectant à <a href="{{ path('user_edit') }}" class="underline underline-offset-2 text-blue-700 dark:text-blue-400">votre compte</a>.
         </p>
-        <div class="text-center my-10">
-            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Transmission de vos données personnelles</h2>
-            <div class="flex mt-6 justify-center">
-                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
-            </div>
+        <div class="flex items-center justify-center mt-10 mb-4 px-20 pt-16">
+            <h2 class="sm:text-4xl text-2xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
+                Transmission de vos données personnelles
+            </h2>
         </div>
-        <p class="text-black font-semibold text-lg italic mb-3">
+        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
             Vos données sont partiellement transmises aux commerçants lorsque vous effectuez une commande sur leur boutique.
             Sont concernés uniquement votre nom et votre prénom.
         </p>
-        <div class="text-center my-10">
-            <h2 class="sm:text-4xl text-2xl font-extrabold title-font text-black mb-4 uppercase">Informations supplémentaires</h2>
-            <div class="flex mt-6 justify-center">
-                <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
-            </div>
+        <div class="flex items-center justify-center mt-10 mb-4 px-20 pt-16">
+            <h2 class="sm:text-4xl text-2xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
+                Informations supplémentaires
+            </h2>
         </div>
-        <div class="text-center my-10">
-            <h2 class="sm:text-3xl text-xl font-extrabold title-font text-black mb-4 uppercase">1. Comment protégeons-nous vos données ?</h2>
-            <div class="flex mt-6 justify-center">
-                <div class="w-1/6 h-1 rounded-full bg-yellow-500 inline-flex"></div>
-            </div>
+        <div class="flex items-center justify-center mt-6 mb-4 px-20">
+            <h2 class="sm:text-3xl text-xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
+                1. Comment protégeons-nous vos données ?
+            </h2>
         </div>
-        <p class="text-black font-semibold text-lg italic mb-3">
+        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
             Afin que les données à caractère personnel que nous recueillons ne soient ni perdues, ni divulguées par des tiers non autorisés,
-            nous avons mis en place les mesures nécessaires (base de données non accessible à distance...) proportionnellement à la sensibilité des données stockées.
+            nous avons mis en place les mesures nécessaires (base de données non accessible à distance...)
+            proportionnellement à la sensibilité des données stockées.
         </p>
-        <div class="text-center my-10">
-            <h2 class="sm:text-3xl text-xl font-extrabold title-font text-black mb-4 uppercase">2. Procédures mises en œuvre en cas de fuite de données</h2>
-            <div class="flex mt-6 justify-center">
-                <div class="w-1/6 h-1 rounded-full bg-yellow-500 inline-flex"></div>
-            </div>
+        <div class="flex items-center justify-center mt-10 pt-6 mb-4 px-20">
+            <h2 class="sm:text-3xl text-xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
+                2. Procédures mises en œuvre en cas de fuite de données
+            </h2>
         </div>
-        <p class="text-black font-semibold text-lg italic mb-1.5">
+        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
             Conformément à la procédure prévue par le Règlement Général sur la Protection des Données (ou RGPD)
             en cas de fuite ou d’anomalie concernant les données personnelles en notre possession,
             nous vous avertirons de la nature des données ayant fuitées et la nature du risque qui peut être engendrée

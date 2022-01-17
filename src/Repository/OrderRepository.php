@@ -32,7 +32,7 @@ class OrderRepository extends ServiceEntityRepository
 
     public function getAllShop(Shop $shop) {
         return $this->createQueryBuilder('o')
-            ->where('o.shop = :shop and o.status < 4')
+            ->where('o.shop = :shop and o.status < 3')
             ->setParameter('shop', $shop)
             ->getQuery()
             ->getResult();

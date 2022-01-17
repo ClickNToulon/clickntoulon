@@ -1,9 +1,9 @@
-<nav class="bg-white shadow-xl">
-    <div class="container-fluid mx-auto px-5 px-5 lg:px-8">
-        <div class="relative flex items-center justify-between h-16">
+<nav>
+    <div class="desktop:container mx-auto px-5 lg:px-8 py-2">
+        <div class="relative flex items-center justify-between h-[4.25rem]">
             <div class="absolute inset-y-0 left-0 flex items-center desktop:hidden">
                 <!-- Mobile menu button-->
-                <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleNavbar('mobile-menu', 'menu-close', 'menu-open')">
+                <button type="button" class="relative inline-flex border-2 border-gray-400 focus:border-transparent dark:border-transparent items-center justify-center p-2 rounded-md text-black dark:text-white bg-white dark:bg-blue-800" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleNavbar('mobile-menu', 'menu-close', 'menu-open')">
                     <span class="sr-only">Open main menu</span>
                     <!-- Icon when menu is closed. Heroicon name: outline/menu. Menu open: "hidden", Menu closed: "block" -->
                     <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" id="menu-open">
@@ -15,85 +15,69 @@
                     </svg>
                 </button>
             </div>
-            <div class="flex-1 flex items-center justify-center desktop:items-stretch desktop:justify-start h-16">
+            <div class="flex-1 flex items-center justify-center desktop:items-stretch desktop:justify-start h-full">
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ path('home') }}"><img class="block h-12 w-auto" src="{{ asset('images/clickntoulon.svg') }}" id="navbar-logo" alt="Logo ClickNToulon"></a>
+                    <a href="{{ path('home') }}"><img class="block h-[3.75rem] w-auto" src="{{ asset('images/clickntoulon.svg') }}" id="navbar-logo" alt="Logo ClickNToulon"></a>
                 </div>
-                <div class="hidden desktop:block desktop:ml-auto h-16">
-                    <div class="flex space-x-4 h-16">
+                <div class="hidden desktop:block desktop:ml-auto h-full">
+                    <div class="flex space-x-6 h-full">
                         <!-- Active: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="{{ path('home') }}"
-                           class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'home' %}border-b-2 border-black hover:border-yellow-600{% endif %}" aria-current="page">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                            </svg>
-                            <span class="ml-1">Accueil</span>
+                        <a href="{{ path('home') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'home' %}underline text-darkblue-300 dark:text-blue-400{% endif %}" aria-current="page">
+                            Accueil
                         </a>
-                        <a href="{{ path('shop_index') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'shop' %}border-b-2 border-black hover:border-yellow-600{% endif %}">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                            </svg>
-                            <span class="ml-1">Boutiques</span>
+                        <a href="{{ path('shop_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'shop' %}underline text-darkblue-300 dark:text-blue-400{% endif %}">
+                            Boutiques
                         </a>
-                        <a href="{{ path('product_index') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'product' %}border-b-2 border-black hover:border-yellow-600{% endif %}">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                            </svg>
-                            <span class="ml-1">Produits</span>
+                        <a href="{{ path('product_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'product' %}underline text-darkblue-300 dark:text-blue-400{% endif %}">
+                            Produits
                         </a>
-                        <a href="{{ path('search') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'search' %}border-b-2 border-black hover:border-yellow-600{% endif %}">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                            <span class="ml-1">Recherche</span>
+                        <a href="{{ path('search') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'search' %}underline text-darkblue-300 dark:text-blue-400{% endif %}">
+                            Recherche
                         </a>
                         {% if user is defined and user is not null %}
-                            <a href="{{ path('basket_index') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'basket' %}border-b-2 border-black hover:border-yellow-600{% endif %}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                                <span class="ml-1">Panier</span>
+                            <a href="{{ path('basket_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'basket' %}underline text-darkblue-300 dark:text-blue-400{% endif %}">
+                                Panier
                             </a>
-                            {% if is_granted('ROLE_MERCHANT') %}
-                                <a href="{{ path('seller_choose') }}" class="w-full whitespace-nowrap px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'my-shop' %}border-b-2 border-black hover:border-yellow-600{% endif %}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    <span class="ml-1 w-full">Ma Boutique</span>
-                                </a>
-                            {% endif %}
-                            <a href="{{ path('user_edit') }}" class="w-full whitespace-nowrap px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'user' %}border-b-2 border-black hover:border-yellow-600{% endif %}" role="menuitem" tabindex="-1" id="user-menu-item-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span class="ml-0.5">Mon profil</span>
-                            </a>
-                            <a href="{{ path('user_orders') }}" class="w-full whitespace-nowrap px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'user-orders' %}border-b-2 border-black hover:border-yellow-600{% endif %}" role="menuitem" tabindex="-1" id="user-menu-item-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-                                </svg>
-                                <span class="ml-0.5">Mes commandes</span>
-                            </a>
-                            <a href="{{ path('app_logout') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                </svg>
-                                <span class="ml-0.5">Déconnexion</span>
+                            <div class="relative px-3 w-full font-semibold my-auto inline-block items-center">
+                                <div>
+                                    <button type="button" class="inline-flex justify-center items-center w-full min-w-max rounded-full shadow-lg px-4 py-1 bg-blue-700 hover:bg-blue-600 font-semibold text-white text-lg" aria-expanded="true" aria-haspopup="true" onclick="openDropdown('menu-button')">
+                                        Mon compte
+                                        <!-- Heroicon name: solid/chevron-down -->
+                                        <svg class="h-5 w-5 -mr-2 ml-2 mt-[2.5px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path class="" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <!-- Dropdown menu, show/hide based on menu state. -->
+                                <div class="origin-top-right absolute right-0 left-0 mt-2.5 w-42 rounded-lg hidden shadow-lg dark:shadow-none bg-darkblue-150 z-40 dark:bg-blue-900 min-w-max w-full" role="menu" aria-orientation="vertical" id="menu-button" aria-labelledby="menu-button" tabindex="-1">
+                                    <div class="flex items-center justify-center flex-col min-w-max p-2" role="none">
+                                        {% if is_granted('ROLE_MERCHANT') %}
+                                        <a href="{{ path('seller_choose') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-darkblue-200 dark:hover:bg-blue-600 text-lg inline-flex items-center justify-center w-full rounded-lg" role="menuitem" tabindex="-1" id="menu-item-0">
+                                            Ma Boutique
+                                        </a>
+                                        {% endif %}
+                                        <a href="{{ path('user_edit') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-darkblue-200 dark:hover:bg-blue-600 text-lg w-full inline-flex items-center justify-center rounded-lg" role="menuitem" tabindex="-1" id="menu-item-1">
+                                            Mon profil
+                                        </a>
+                                        <a href="{{ path('user_orders') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-darkblue-200 dark:hover:bg-blue-600 text-lg w-full inline-flex items-center justify-center rounded-lg" role="menuitem" tabindex="-1" id="menu-item-2">
+                                            Mes commandes
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{{ path('app_logout') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center justify-center text-blue-700 dark:text-white hover:text-darkblue-300 dark:hover:text-blue-400 underline-offset-4 decoration-2 hover:underline">
+                                Déconnexion
                             </a>
                         {% else %}
-                            <a href="{{ path('app_login') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'login' %}border-b-2 border-black hover:border-yellow-600{% endif %}" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                                <span class="ml-0.5">Connexion</span>
+                            <a href="{{ path('app_login') }}" class="flex items-center justify-center align-middle h-10 my-auto">
+                                <button class="test text-blue-900 hover:text-white dark:text-white font-bold px-6 py-2 border-2 border-blue-800 hover:bg-blue-900 hover:border-blue-900 rounded-full">
+                                    Connexion
+                                </button>
                             </a>
-                            <a href="{{ path('app_signup') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'signup' %}border-b-2 border-black hover:border-yellow-600{% endif %}" role="menuitem" tabindex="-1" id="user-menu-item-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                                </svg>
-                                <span class="ml-0.5">Inscription</span>
+                            <a href="{{ path('app_signup') }}" class="flex items-center justify-center align-middle h-10 my-auto">
+                                <button class="test text-white font-bold px-6 py-2 bg-blue-700 border-2 border-transparent hover:bg-blue-600 rounded-full">
+                                    Inscription
+                                </button>
                             </a>
                         {% endif %}
                     </div>
@@ -103,84 +87,68 @@
     </div>
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="hidden desktop:hidden" id="mobile-menu">
-        <div class="px-2 pt-2 pb-3 space-y-1">
+        <div class="container mx-auto px-2 pt-2 pb-3 space-y-1">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="{{ path('home') }}"
-               class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'home' %}border-b-2 border-black hover:border-yellow-600{% endif %}" aria-current="page">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-                <span class="ml-1">Accueil</span>
+            <a href="{{ path('home') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center justify-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'home' %}underline text-blue-400 dark:text-blue-400{% endif %}" aria-current="page">
+                Accueil
             </a>
-            <a href="{{ path('shop_index') }}"
-               class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'shop' %}border-b-2 border-black hover:border-yellow-600{% endif %}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-                <span class="ml-1">Boutiques</span>
+            <a href="{{ path('shop_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center justify-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'shop' %}underline text-blue-400 dark:text-blue-400{% endif %}">
+                Boutiques
             </a>
-            <a href="{{ path('product_index') }}"
-               class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'product' %}border-b-2 border-black hover:border-yellow-600{% endif %}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-                <span class="ml-1">Produits</span>
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <a href="{{ path('product_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center justify-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'product' %}underline text-blue-400 dark:text-blue-400{% endif %}">
+                Produits
             </a>
-            <a href="{{ path('search') }}"
-               class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'search' %}border-b-2 border-black hover:border-yellow-600{% endif %}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <span class="ml-1">Recherche</span>
+            <a href="{{ path('search') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center justify-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'search' %}underline text-blue-400 dark:text-blue-400{% endif %}">
+                Recherche
             </a>
             {% if user is defined and user is not null %}
-                <a href="{{ path('basket_index') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'basket' %}border-b-2 border-black hover:border-yellow-600{% endif %}">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    <span class="ml-1">Panier</span>
+                <a href="{{ path('basket_index') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center justify-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline {% if active == 'basket' %}underline text-blue-400 dark:text-blue-400{% endif %}">
+                    Panier
                 </a>
-                {% if is_granted('ROLE_MERCHANT') %}
-                    <a href="{{ path('seller_choose') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'my-shop' %}border-b-2 border-black hover:border-yellow-600{% endif %}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        <span class="ml-1">Ma Boutique</span>
-                    </a>
-                {% endif %}
-                <a href="{{ path('user_edit') }}" class="w-full whitespace-nowrap px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'user' %}border-b-2 border-black hover:border-yellow-600{% endif %}" role="menuitem" tabindex="-1" id="user-menu-item-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span class="ml-0.5">Mon profil</span>
-                </a>
-                <a href="{{ path('user_orders') }}" class="w-full whitespace-nowrap px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'user-orders' %}border-b-2 border-black hover:border-yellow-600{% endif %}" role="menuitem" tabindex="-1" id="user-menu-item-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-                    </svg>
-                    <span class="ml-0.5">Mes commandes</span>
-                </a>
-                <a href="{{ path('app_logout') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                    <span class="ml-0.5">Déconnexion</span>
+                <div class="relative px-3 w-full font-semibold my-auto inline-block items-center">
+                    <div>
+                        <button type="button" class="inline-flex justify-center items-center w-full min-w-max rounded-full shadow-lg px-4 py-1 bg-blue-700 hover:bg-blue-600 font-semibold text-white text-lg" aria-expanded="true" aria-haspopup="true" onclick="openDropdown('menu-mobile')">
+                            Mon compte
+                            <!-- Heroicon name: solid/chevron-down -->
+                            <svg class="h-5 w-5 -mr-2 ml-2 mt-[2.5px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path class="" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Dropdown menu, show/hide based on menu state. -->
+                    <div class="origin-top-right absolute right-0 left-0 mt-2.5 w-42 rounded-lg hidden shadow-lg dark:shadow-none bg-white z-40 dark:bg-blue-900 ring-1 ring-black ring-opacity-5 focus:outline-none min-w-max w-full" role="menu" aria-orientation="vertical" id="menu-mobile" aria-labelledby="menu-button" tabindex="-1">
+                        <div class="flex items-center justify-center flex-col min-w-max p-2" role="none">
+                            {% if is_granted('ROLE_MERCHANT') %}
+                                <a href="{{ path('seller_choose') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-gray-100 dark:hover:bg-blue-600 text-lg inline-flex items-center justify-center w-full rounded-lg" role="menuitem" tabindex="-1" id="menu-item-0">
+                                    Ma Boutique
+                                </a>
+                            {% endif %}
+                            <a href="{{ path('user_edit') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-gray-100 dark:hover:bg-blue-600 text-lg w-full inline-flex items-center justify-center rounded-lg" role="menuitem" tabindex="-1" id="menu-item-1">
+                                Mon profil
+                            </a>
+                            <a href="{{ path('user_orders') }}" class="text-black dark:text-white block px-4 py-3 hover:bg-gray-100 dark:hover:bg-blue-600 text-lg w-full inline-flex items-center justify-center rounded-lg" role="menuitem" tabindex="-1" id="menu-item-2">
+                                Mes commandes
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ path('app_logout') }}" class="px-3 py-2 text-lg font-extrabold test flex items-center justify-center text-gray-600 dark:text-white hover:text-blue-400 underline-offset-4 decoration-2 hover:underline">
+                    Déconnexion
                 </a>
             {% else %}
-                <a href="{{ path('app_login') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'login' %}border-b-2 border-black hover:border-yellow-600{% endif %}" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                    </svg>
-                    <span class="ml-0.5">Connexion</span>
-                </a>
-                <a href="{{ path('app_signup') }}" class="px-3 py-2 text-md font-semibold flex items-center text-black hover:text-yellow-600 {% if active == 'signup' %}border-b-2 border-black hover:border-yellow-600{% endif %}" role="menuitem" tabindex="-1" id="user-menu-item-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                    </svg>
-                    <span class="ml-0.5">Inscription</span>
-                </a>
+                <div class="space-y-3">
+                    <a href="{{ path('app_login') }}" class="flex items-center justify-center align-middle h-10 my-auto" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                        <button class="test text-white font-bold px-6 py-2 border-2 border-blue-800 hover:bg-blue-900 hover:border-blue-900 rounded-full w-full">
+                            Connexion
+                        </button>
+                    </a>
+                    <a href="{{ path('app_signup') }}" class="flex items-center justify-center align-middle h-10 my-auto">
+                        <button class="test text-white font-bold px-6 py-2 bg-blue-700 border-2 border-transparent hover:bg-blue-600 rounded-full w-full">
+                            Inscription
+                        </button>
+                    </a>
+                </div>
             {% endif %}
         </div>
     </div>

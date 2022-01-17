@@ -6,62 +6,43 @@
     {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
 
     <section class="text-gray-600 body-font" id="discover">
-        <div class="sm:container px-8 sm:px-5 py-20 mx-auto">
-            <div class="text-center mb-20">
-                <h1 class="sm:text-5xl text-3xl font-extrabold title-font text-black mb-4 uppercase">Modifier le produit</h1>
-                <div class="flex mt-6 justify-center">
-                    <div class="w-1/4 h-1 rounded-full bg-yellow-500 inline-flex"></div>
-                </div>
+        <div class="sm:container px-8 sm:px-5 pt-6 mx-auto">
+            <div class="flex items-center justify-center py-6 sm:px-2 lg:px-6">
+                <h1 class="sm:text-3xl text-xl font-extrabold title-font text-black dark:text-white mb-4 uppercase tracking-wider title-underline">
+                    Modifier un produit
+                </h1>
             </div>
-            <div class="w-1/2 mx-auto flex items-center justify-center mb-5">
+            <div class="w-full md:w-1/2 mx-auto flex items-center justify-center mb-5">
                 {{ form_start(form, {attr: {class: 'w-full'}}) }}
                 <div class="space-y-4">
                     <div class="grid grid-cols-2 gap-6">
                         <div class="sm:col-span-1 col-span-2">
-                            {{ form_label(form.name) }}
-                            <div class="mt-1 flex rounded-md shadow-sm">
-                                {{ form_widget(form.name) }}
-                            </div>
+                            {{ form_row(form.name) }}
                         </div>
                         <div class="sm:col-span-1 col-span-2">
-                            {{ form_label(form.categories) }}
-                            <div class="mt-1 flex rounded-md shadow-sm">
-                                {{ form_widget(form.categories) }}
-                            </div>
+                            {{ form_row(form.categories) }}
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-6">
                         <div class="col-span-2">
-                            {{ form_label(form.description) }}
-                            <div class="mt-1 flex rounded-md shadow-sm">
-                                {{ form_widget(form.description) }}
-                            </div>
+                            {{ form_row(form.description) }}
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-6">
                         <div class="col-span-2 sm:col-span-1">
-                            {{ form_label(form.unitPrice) }}
-                            <div class="mt-1 flex rounded-md shadow-sm">
-                                {{ form_widget(form.unitPrice) }}
-                            </div>
+                            {{ form_row(form.unitPrice) }}
                         </div>
                         <div class="col-span-2 sm:col-span-1">
-                            {{ form_label(form.unitPriceDiscount) }}
-                            <div class="mt-1 flex rounded-md shadow-sm">
-                                {{ form_widget(form.unitPriceDiscount) }}
-                            </div>
+                            {{ form_row(form.unitPriceDiscount) }}
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-6">
                         <div class="col-span-2">
-                            {{ form_label(form.images) }}
-                            <div class="mt-1 flex rounded-md shadow-sm">
-                                {{ form_widget(form.images) }}
-                            </div>
+                            {{ form_row(form.images) }}
                         </div>
                     </div>
-                    <div class="bg-white text-right">
-                        <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-base font-semibold rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-offset-white">
+                    <div class="text-center">
+                        <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm font-bold rounded-full text-white bg-blue-700 hover:bg-blue-600">
                             Modifier ce produit
                         </button>
                     </div>

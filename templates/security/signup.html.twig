@@ -3,65 +3,70 @@
 {% block title 'Inscription - ClickNToulon' %}
 
 {% block body %}
-    <div class="min-h-screen max-h-screen bg-white flex justify-center items-center">
-        <div class="py-6 px-6 sm:py-12 sm:px-12 shadow-2xl rounded-2xl shadow-xl z-20 absolute sm:max-w-sm lg:max-w-lg w-full">
-            {% for message in app.flashes('warning') %}
-                <div class="bg-yellow-600 rounded-xl mb-2">
-                    <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
-                        <div class="flex items-center justify-between flex-wrap">
-                            <div class="w-0 flex-1 flex items-center">
+    {% include 'navbar.html.twig' with {'active': 'signup'} %}
+    <div class="container mx-auto flex items-center justify-center h-test">
+        <div class="grid grid-cols-3 gap-x-6 w-full h-auto">
+            <div class="bg-darkblue-150 dark:bg-darkblue-800 col-span-1 h-full w-full max-h-max rounded-xl p-10">
+                {% for message in app.flashes('warning') %}
+                    <div class="bg-yellow-600 rounded-xl mb-2">
+                        <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
+                            <div class="flex items-center justify-between flex-wrap">
+                                <div class="w-0 flex-1 flex items-center">
                                 <span class="flex p-2 rounded-lg bg-yellow-700">
                                   <!-- Heroicon name: outline/exclamation -->
                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                   </svg>
                                 </span>
-                                <p class="ml-3 font-medium text-white">
+                                    <p class="ml-3 font-medium text-white">
                                     <span class="inline">
                                         {{ message }}
                                     </span>
-                                </p>
-                            </div>
-                            <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
-                                <button type="button" class="flex p-2 rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1">
-                                    <span class="sr-only">Fermer</span>
-                                    <!-- Heroicon name: outline/x -->
-                                    <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
+                                    </p>
+                                </div>
+                                <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
+                                    <button type="button" class="flex p-2 rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1">
+                                        <span class="sr-only">Fermer</span>
+                                        <!-- Heroicon name: outline/x -->
+                                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-            {{ form_start(form) }}
+                {% endfor %}
+                {{ form_start(form) }}
                 <div>
-                    <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer text-black">Inscrivez-vous</h1>
+                    <h1 class="text-4xl font-bold text-center mb-4 cursor-pointer text-black dark:text-white capitalize">Inscrivez-vous</h1>
                 </div>
-                <div class="space-y-4">
+                <div class="space-y-2">
                     {{ form_row(form.name) }}
                     {{ form_row(form.surname) }}
                     {{ form_row(form.email) }}
                     {{ form_row(form.password.first) }}
                     {{ form_row(form.password.second) }}
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <div class="inline-flex items-start">
+                    <div class="inline-flex items-start mt-2 px-3">
                         <div>
                             <div>
                                 <label class="inline-flex items-center align-middle">
-                                    <input type="checkbox" class="rounded border-gray-400 text-yellow-500 shadow-sm focus:border-yellow-300 focus:ring focus:ring-offset-0 focus:ring-yellow-200 focus:ring-opacity-50" id="checkbox" name="cgu" required>
-                                    <span class="ml-2 text-black font-medium">J'accepte les Conditions Générales de la plateforme</span>
+                                    <input type="checkbox" class="rounded border-2 border-blue-600 text-blue-500 shadow-sm focus:border-blue-500" id="checkbox" name="cgu" required>
+                                    <span class="text-black dark:text-gray-300 font-semibold">J'accepte les <a href="{{ path('about_cgu') }}" class="font-bold underline underline-offset-2 text-blue-700 dark:text-blue-400">Conditions Générales d'Utilisation</a></span>
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="text-center mt-6">
-                    <button class="py-2 px-3 w-auto text-xl font-medium text-white bg-yellow-500 rounded-lg" type="submit">S'inscrire</button>
-                    <p class="mt-4 text-black">Vous avez déjà un compte? <a class="underline hover:text-yellow-500" href="{{ path('app_login') }}"> Connectez-vous</a></p>
+                <div class="text-center mt-2">
+                    <button class="py-2 px-3 w-full text-xl font-semibold text-white bg-blue-700 hover:bg-blue-600 rounded-full" type="submit">S'inscrire</button>
                 </div>
-            {{ form_end(form) }}
+                {{ form_end(form) }}
+            </div>
+            <div class="w-full col-span-2 flex items-center justify-center">
+                <img class="h-96 object-cover" src="{{ asset('images/security.svg') }}" alt="">
+            </div>
         </div>
     </div>
 {% endblock %}

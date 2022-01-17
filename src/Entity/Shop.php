@@ -66,7 +66,7 @@ class Shop
     private ?string $email;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text", length=225, nullable=true)
      */
     private ?string $description;
 
@@ -489,7 +489,7 @@ class Shop
         return $this;
     }
 
-    /** Génère un tableau associatif sur une semaine de couple jour => horaires d'ouverture */
+    /** Génère un tableau associatif sur une semaine de couple jour → horaires d'ouverture */
     public function getFormattedWeekOpeningHours(): array
     {
         $weekOpenHours = $this->getOpeningHours();
@@ -516,6 +516,11 @@ class Shop
     private function dayOpeningHoursToString(array $dayOpeningHours): array
     {
         foreach ($dayOpeningHours as $key => $value) {
+            if($value[0] == 'Fermé' && $value[1] == 'Fermé') {
+                $value = array_slice($value, 1, 1);
+            } elseif ($value[0] == 'Fermé') {
+                $value = array_reverse($value);
+            }
             $value = implode(', ', $value);
             $dayOpeningHours[$key] = $value;
         }

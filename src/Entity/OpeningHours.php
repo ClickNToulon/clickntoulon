@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use DateTime;
-use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OpeningHoursRepository;
 
@@ -94,7 +93,6 @@ class OpeningHours
 
     public function toStringFormat(): string
     {
-        $dateTimeZone = new DateTimeZone("Europe/Paris");
-        return $this->getStart()->setTimezone($dateTimeZone)->format('H\hi').' - '.$this->getEnd()->setTimezone($dateTimeZone)->format('H\hi');
+        return $this->getStart()->format('H\hi').' - '.$this->getEnd()->format('H\hi');
     }
 }

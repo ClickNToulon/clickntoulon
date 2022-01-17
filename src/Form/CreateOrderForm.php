@@ -19,7 +19,7 @@ class CreateOrderForm extends AbstractType
                 'mapped' => true,
                 'required' => true,
                 'attr' => [
-                    'class' => 'bg-white dark:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-800 text-black dark:text-white shadow dark:shadow-none focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-700 rounded-md font-medium'
+                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ],
                 'widget' => 'single_text',
             ])
@@ -33,7 +33,7 @@ class CreateOrderForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Order::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'order'
         ]);
     }
 }
