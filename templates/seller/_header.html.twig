@@ -1,9 +1,9 @@
 <section class="body-font">
     <div class="container px-5 py-12 mx-auto">
         <div class="flex justify-center items-center flex-wrap -m-4">
-            <div class="mt-3 text-center items-center flex flex-col">
-                <h1 class="mb-2.5 font-extrabold text-5xl text-black">{{ shop.name }}</h1>
-                <h4 class="inline-flex items-center justify-center text-black font-bold text-md mb-2">
+            <div class="mt-3 text-center items-center flex flex-col space-y-4">
+                <h1 class="font-extrabold text-5xl text-black dark:text-white">{{ shop.name }}</h1>
+                <h4 class="inline-flex items-center justify-center text-black dark:text-gray-200 font-bold text-md">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
@@ -11,7 +11,7 @@
                         Inscrit depuis le {{ shop.createdAt | format_datetime('short', 'none', locale='fr') }}
                     </span>
                 </h4>
-                <a href="{{ path('seller_choose') }}"><button class="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold">Changer de boutique</button></a>
+                <a href="{{ path('seller_choose') }}"><button class="px-3 py-2 border-2 border-blue-900 hover:bg-blue-900 text-blue-900 hover:text-white dark:text-white rounded-full font-semibold">Changer de boutique</button></a>
             </div>
         </div>
     </div>

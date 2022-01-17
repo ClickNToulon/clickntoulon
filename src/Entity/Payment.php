@@ -47,44 +47,51 @@ class Payment
     {
         if ($id == 1) {
             return [
-                0 => "logo-espèce.png",
-                1 => "Espèces"
+                0 => "cash-payment.png",
+                1 => "cash-payment.png",
+                2 => "Espèces"
             ];
         }
         if ($id == 2) {
             return [
-                0 => "visa-logo.png",
-                1 => "Carte de crédit"
+                0 => "visa.svg",
+                1 => "visa-dark.svg",
+                2 => "Carte de crédit"
             ];
         }
         if ($id == 3) {
             return [
-                0 => "logo_cheque.png",
-                1 => "Chèques"
+                0 => "cheque.png",
+                1 => "cheque.png",
+                2 => "Chèques"
             ];
         }
         if ($id == 4) {
             return [
-                0 => "apple-pay.jpg",
-                1 => "Apple Pay"
+                0 => "apple-pay.svg",
+                1 => "apple-pay-dark.svg",
+                2 => "Apple Pay"
             ];
         }
         if ($id == 5) {
             return [
-                0 => "logo-google-pay.png",
-                1 => "Google Pay"
+                0 => "google-pay.svg",
+                1 => "google-pay-dark.svg",
+                2 => "Google Pay"
             ];
         }
         if ($id == 6) {
             return [
-                0 => "bitcoin-logo.png",
-                1 => "Bitcoin"
+                0 => "bitcoin.svg",
+                1 => "bitcoin-dark.svg",
+                2 => "Bitcoin"
             ];
         }
         if ($id == 7) {
             return [
-                0 => "logo-paypal.png",
-                1 => "Paypal"
+                0 => "paypal.svg",
+                1 => "paypal-dark.svg",
+                2 => "Paypal"
             ];
         }
         return [];

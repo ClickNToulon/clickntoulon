@@ -22,67 +22,49 @@ class ProductForm extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'required' => true,
-                'label_attr' => [
-                    'class' => 'block text-base font-bold text-black'
-                ],
                 'attr' => [
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
+                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ])
             ->add('unitPrice', NumberType::class, [
                 'required' => true,
-                'label_attr' => [
-                    'class' => 'block text-base font-bold text-black'
-                ],
                 'attr' => [
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
+                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ])
             ->add('description', TextareaType::class, [
                 'required' => true,
-                'label_attr' => [
-                    'class' => 'block text-base font-bold text-black'
-                ],
                 'attr' => [
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out',
+                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400',
                     'rows' => 3
                 ]
             ])
             ->add('unitPriceDiscount', NumberType::class, [
                 'required' => false,
-                'label_attr' => [
-                    'class' => 'block text-base font-bold text-black'
-                ],
                 'attr' => [
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
+                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ])
             ->add('images',FileType::class, [
                 'attr' => [
                     'accept' => 'image/*',
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
+                    'class' => 'block w-full font-semibold text-black dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 file:cursor-pointer'
                 ],
                 'multiple' => true,
                 'mapped' => false,
                 'required' => true,
-                'label_attr' => [
-                    'class' => 'block text-base font-bold text-black'
-                ]
             ])
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
                 'mapped' => false,
                 'required' => true,
                 'label' => 'Categories',
-                'label_attr' => [
-                    'class' => 'block text-base font-bold text-black'
-                ],
                 'query_builder' => function(CategoryRepository $em) use ($id) {
                     return $em->findAllByShopQuery($id);
                 },
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
+                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ],
             ]);
     }

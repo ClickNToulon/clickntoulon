@@ -16,12 +16,9 @@ class ResetPasswordRequestForm extends AbstractType
             ->add('email', EmailType::class, [
                 'attr' => [
                     'autocomplete' => 'email',
-                    'class' => 'w-full bg-white rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
+                    'class' => 'w-full rounded-xl mt-1 mb-4 font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500'
                 ],
                 'label' => 'Email',
-                'label_attr' => [
-                    'class' => 'block text-base font-bold text-black'
-                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter your email',

@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\TagRepository;
-use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
 
 /**

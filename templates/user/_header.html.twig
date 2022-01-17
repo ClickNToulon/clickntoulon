@@ -1,17 +1,22 @@
 <section class="body-font">
     <div class="container px-5 py-12 mx-auto">
         <div class="flex justify-center items-center flex-wrap -m-4">
-            <div class="mt-3 text-center items-center flex flex-col">
-                <h1 class="mb-2.5 font-extrabold text-5xl text-black">{{ user.surname }} {{ user.name }}</h1>
-                <h4 class="inline-flex justify-center items-center text-black font-bold text-md mb-2">
+            <div class="mt-3 text-center items-center flex flex-col space-y-4">
+                <h1 class="font-bold text-5xl text-black dark:text-white">{{ user.surname }} {{ user.name }}</h1>
+                <h4 class="inline-flex justify-center items-center text-black dark:text-gray-100 font-bold text-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     <span class="ml-0.5">
                         Inscrit depuis le {{ user.createdAt | format_datetime('short', 'none', locale='fr') }}
                     </span>
                 </h4>
-                <a href="{{ path('seller_create') }}"><button class="px-4 py-2 bg-yellow-500 text-white rounded-lg font-semibold">Créer votre boutique</button></a>
+                <a href="{{ path('seller_create') }}">
+                    <button class="px-4 py-2 border-2 border-blue-900 hover:bg-blue-900 text-blue-900 hover:text-white dark:text-white rounded-full font-bold">
+                        Créer votre boutique
+                    </button>
+                </a>
             </div>
         </div>
     </div>

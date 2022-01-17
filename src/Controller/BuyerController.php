@@ -40,7 +40,7 @@ class BuyerController extends AbstractController
             $basket = $this->basketRepository->find($data['basket_id']);
             $basket_products = $basket->getProducts();
             foreach ($basket_products as $bp) {
-                $form_quantities[$bp->getId()] = $data['quantity_'. $bp->getId()];
+                $form_quantities[] = $data['quantity_'. $bp->getId()];
             }
             $basket->setQuantity($form_quantities);
             $this->em->persist($basket);
@@ -61,7 +61,7 @@ class BuyerController extends AbstractController
             $products[$b->getId()] = [];
             foreach ($basket_products as $p) {
                 $shops[$b->getId()] = $p->getShop();
-                array_push($products[$b->getId()], $this->productRepository->find($p->getId()));
+                $products[$b->getId()][] = $this->productRepository->find($p->getId());
             }
         }
         return $this->render('buyer/basket.html.twig', [
@@ -107,8 +107,8 @@ class BuyerController extends AbstractController
                             }
                         }
                         if ($done != true) {
-                            array_push($products, $product);
-                            array_push($quantity, $data['quantity']);
+                            $products[] = $product;
+                            $quantity[] = $data['quantity'];
                             $done = true;
                         }
                         foreach ($products as $add_product) {
@@ -158,9 +158,8 @@ class BuyerController extends AbstractController
         $products = [];
         $basket_products = $basket->getProducts();
         $basket_quantities = $basket->getQuantity();
-        $quantities = $basket_quantities;
         foreach ($basket_products as $p) {
-            array_push($products, $this->productRepository->find($p->getId()));
+            $products[] = $this->productRepository->find($p->getId());
         }
         $total_products = count($products);
         $form = $this->createForm(CreateOrderForm::class);
@@ -186,7 +185,7 @@ class BuyerController extends AbstractController
             'basket' => $basket,
             'shop'=> $shop,
             'products' => $products,
-            'quantities' => $quantities,
+            'quantities' => $basket_quantities,
             'total_products' => $total_products,
             'form' => $form->createView()
         ]);

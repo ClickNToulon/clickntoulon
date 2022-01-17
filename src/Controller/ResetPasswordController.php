@@ -3,25 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Controller\MailerController;
 use App\Form\ChangePasswordForm;
 use App\Form\ResetPasswordRequestForm;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
-#[Route(path: "/reset-password")]
+#[Route(path: "/mot-de-passe-oublie")]
 class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
@@ -36,6 +33,10 @@ class ResetPasswordController extends AbstractController
     #[Route(path: "", name: 'app_forgot_password_request')]
     public function request(Request $request, MailerInterface $mailer): Response
     {
+        $user = $this->getUser();
+        if($user instanceof User) {
+            return $this->redirectToRoute('home');
+        }
         $form = $this->createForm(ResetPasswordRequestForm::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

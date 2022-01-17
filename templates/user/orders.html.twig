@@ -6,74 +6,70 @@
     {% include 'navbar.html.twig' with {'active': 'user-orders'} %}
     {% include 'user/_header.html.twig' %}
     <section class="text-gray-400 body-font">
-        <div class="container px-5 py-12 pt-6 mx-auto">
-            <div class="flex justify-center flex-wrap -m-4">
-                {% include 'user/_tabs.html.twig' with {active: 'orders'} %}
-            </div>
+        <div class="flex items-center justify-center mt-6 mb-12">
+            <h1 class="sm:text-5xl text-3xl font-extrabold title-font text-black dark:text-white mb-4 uppercase tracking-wider title-underline">Mes commandes</h1>
         </div>
         {% if orders is iterable and orders != null %}
-            <div class="container px-5 mx-auto sm:max-w-7xl pb-12 max-w-full">
+            <div class="container px-5 mx-auto sm:max-w-7xl max-w-full">
                 <div class="flex flex-wrap -my-6">
                     {% for order in orders %}
-                        <div class="bg-white shadow-2xl overflow-hidden rounded-xl my-2">
-                            <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between">
-                                <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
-                                    <div class="col-span-1 flex flex-col">
-                                        <h3 class="font-semibold text-lg text-black">N° de commande</h3>
-                                        <p class="font-semibold text-base mt-1 text-gray-700">{{ order.orderNumber }}</p>
+                        <div class="bg-darkblue-150 dark:bg-darkblue-800 shadow-2xl dark:shadow-none overflow-hidden rounded-xl my-2">
+                            <div class="px-4 py-5 sm:px-6 flex tablet:flex-row flex-col items-center justify-between w-full">
+                                <div class="grid grid-cols-9 pb-2 sm:pb-0 w-full tablet:gap-x-2">
+                                    <div class="col-span-3 flex flex-col items-center tablet:items-start w-auto">
+                                        <h3 class="font-bold text-sm uppercase tracking-wider text-gray-700 dark:text-gray-400">N° de commande</h3>
+                                        <p class="font-bold text-lg mt-1 text-black dark:text-white">{{ order.orderNumber }}</p>
                                     </div>
-                                    <div class="col-span-1 flex flex-col">
-                                        <h3 class="font-semibold text-lg text-black">Date</h3>
-                                        <p class="font-semibold text-base mt-1 text-black">{{ order.day | format_date(locale='fr') }}</p>
+                                    <div class="col-span-3 flex flex-col items-center tablet:items-start w-auto">
+                                        <h3 class="font-bold text-sm uppercase tracking-wider text-gray-700 dark:text-gray-400">Date</h3>
+                                        <p class="font-bold text-lg mt-1 text-black dark:text-white">{{ order.day | format_date(pattern='dd MMMM y',locale='fr') }}</p>
                                     </div>
-                                    <div class="col-span-1 flex flex-col">
-                                        <h3 class="font-semibold text-lg text-black">Total</h3>
-                                        <p class="font-semibold text-base mt-1 text-black">{{ order.total | format_currency('EUR') }}</p>
+                                    <div class="col-span-3 flex flex-col items-center tablet:items-start w-auto">
+                                        <h3 class="font-bold text-sm uppercase tracking-wider text-gray-700 dark:text-gray-400">Total</h3>
+                                        <p class="font-bold mt-1 text-lg text-black dark:text-white">{{ order.total | format_currency('EUR') }}</p>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-1 flex items-center">
-                                    <div class="col-span-1">
-                                        <a href="{{ path('user_order', {number: order.orderNumber}) }}" class="w-full flex items-center justify-center px-6 py-1.5 border border-transparent text-lg font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 md:text-base md:px-6 focus:ring-2 focus:ring-offset-2 focus:ring-yellow-600 focus:ring-offset-white">
+                                <div class="flex items-center justify-center tablet:justify-end w-full">
+                                    <a href="{{ path('user_order', {number: order.orderNumber}) }}">
+                                        <button class="w-auto flex items-center justify-center px-3 py-1 font-bold rounded-full text-white bg-blue-600 hover:bg-blue-500">
                                             En voir plus
-                                        </a>
-                                    </div>
+                                            <svg class="w-5 h-5 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M5 12h14"></path>
+                                                <path d="M12 5l7 7-7 7"></path>
+                                            </svg>
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                             {% if products[order.id] is iterable  %}
                                 {% set i = 0 %}
                                 {% for product in products[order.id] %}
-                                    <div class="border-t border-gray-200 px-4 py-5 sm:px-6 space-y-6">
+                                    <div class="px-4 py-5 sm:px-6 space-y-6">
                                         <div class="flex sm:flex-row flex-col">
                                             <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
-                                                <img class="rounded" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
+                                                <img class="rounded-xl border-2 border-blue-900 dark:border-blue-500" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
                                             </div>
-                                            <div class="flex flex-col px-4 w-full">
-                                                <div class="flex flex-row justify-between mb-2">
-                                                    <h1 class="font-semibold text-black text-xl">{{ product.name }} (x{{ quantities[order.id][i] }})</h1>
-                                                    {% if product.unitPriceDiscount != null %}
-                                                        <div class="flex flex-row space-x-2">
-                                                            <h1 class="font-semibold text-black text-base line-through">
-                                                                {{ product.unitPrice | format_currency('EUR') }}
-                                                            </h1>
-                                                            <h1 class="font-semibold text-red-500 text-base">
-                                                                {% set dealPrice = product.unitPrice * (1 - (product.unitPriceDiscount/100)) %}
-                                                                {{ dealPrice | format_currency('EUR') }}
-                                                            </h1>
+                                            <div class="flex flex-col pl-4 w-full">
+                                                <div class="flex flex-row justify-between items-center mb-2">
+                                                    <h1 class="font-bold text-black dark:text-gray-200 text-2xl">{{ product.name }} (x{{ quantities[order.id][i] }})</h1>
+                                                    {% if product.unitPriceDiscount is not null %}
+                                                        <div class="inline-flex items-center justify-between space-x-3">
+                                                            {% set dealPrice = product.unitPrice * (1 - (product.unitPriceDiscount/100)) | round(2) %}
+                                                            <p class="text-lg font-bold text-gray-900 dark:text-red-500">{{ dealPrice | format_currency('EUR') }}</p>
+                                                            <p class="text-lg font-bold bg-accent-red text-red-700 rounded-full px-2.5 py-0.25">-{{ product.unitPriceDiscount }}%</p>
                                                         </div>
                                                     {% else %}
-                                                        <h1 class="font-semibold text-black text-base">
-                                                            {{ product.unitPrice | format_currency('EUR') }}
-                                                        </h1>
+                                                        <p class="text-lg font-bold text-gray-900 dark:text-gray-200">{{ product.unitPrice | format_currency('EUR') }}</p>
                                                     {% endif %}
                                                     {% set i = i + 1 %}
                                                 </div>
                                                 <div class="h-full relative">
-                                                    <p class="text-base- font-semibold text-black">
+                                                    <p class="text-base font-semibold text-black dark:text-gray-200">
                                                         {{ product.description }}
                                                     </p>
                                                 </div>
-                                                <div class="w-full flex justify-end">
-                                                    <a href="{{ path('product_show', {id: product.id}) }}" class="text-yellow-500 hover:text-yellow-600 font-semibold hover:underline transition-all duration-500">Voir le produit</a>
+                                                <div class="w-full flex justify-center pt-4 tablet:pt-0 tablet:justify-end">
+                                                    <a href="{{ path('product_show', {id: product.id}) }}" class="text-blue-900 hover:text-white dark:text-white border-2 border-blue-900 hover:bg-blue-900 font-bold px-3 py-1 rounded-full transition-all duration-500">Voir le produit</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,16 +100,10 @@
                 </div>
             </div>
         {% else %}
-            <div class="sm:container px-5 py-5 mx-auto flex items-center justify-center h-full">
-                <h1 class="text-black font-medium text-4xl text-center">Aucune commande passée récemment...</h1>
+            <div class="sm:container px-5 py-5 mx-auto flex items-center justify-center w-full h-full">
+                <h1 class="text-black dark:text-gray-200 font-medium text-4xl text-center">Aucune commande passée récemment...</h1>
             </div>
         {% endif %}
     </section>
-    {% if orders != null %}
-        {% include 'footer.html.twig' %}
-    {% else %}
-        <div class="sm:absolute sm:bottom-0 w-full">
-            {% include 'footer.html.twig' %}
-        </div>
-    {% endif %}
+    {% include 'footer.html.twig' %}
 {% endblock %}

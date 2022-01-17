@@ -1,47 +1,46 @@
-<footer class="text-black bg-white body-font">
-    <div class="container-fluid px-5 py-8 mx-auto flex items-center justify-center xl:flex-row flex-col">
-        <a class="flex title-font font-medium items-center 2xl:justify-start justify-center text-black">
-            <img src="{{ asset('images/clickntoulon.svg') }}" alt="" id="footer-logo" class="w-10 h-10 text-white p-2 bg-gray-200 shadow dark:shadow-none rounded-lg">
-            <span class="ml-3 text-xl font-semibold">ClickNToulon</span>
-        </a>
-        <p class="text-sm text-gray-700 text-center xl:text-left xl:ml-4 xl:pl-4 xl:border-l-2 xl:border-black xl:mt-0 mt-4 flex justify-center">
-            © 2021 ClickNToulon
-        </p>
-        <div class="flex flex-col xl:flex-row mx-auto items-center justify-center text-center">
-            <div class="px-4">
-                <a href="{{ path('about_index') }}" class="text-black hover:text-yellow-500 text-base font-semibold uppercase">&Agrave; propos</a>
-            </div>
-            <div class="px-4">
-                <a href="{{ path('about_cgu') }}" class="text-black hover:text-yellow-500 text-base font-semibold uppercase">Conditions Générales D'Utilisation</a>
-            </div>
-            <div class="px-4">
-                <a href="{{ path('about_confidentialite') }}" class="text-black hover:text-yellow-500 text-base font-semibold uppercase">Politique de confidentialité</a>
-            </div>
+<footer class="text-blue-900 dark:text-gray-200 pb-12 container px-5 mx-auto">
+    <div class="max-w-screen-2xl mx-auto flex flex-col tablet:flex-row justify-between items-center space-y-4 mt-12 lg:mt-16 border-t-2 border-blue-800 dark:border-gray-700 pt-8">
+        <div class="flex items-baseline space-x-2">
+            <img class="h-20" src="{{ asset('images/clickntoulon.svg') }}" alt="ClickNToulon logo">
         </div>
-
-        <span class="inline-flex xl:ml-auto xl:mt-0 mt-4 justify-center xl:justify-start">
-            <a class="text-black hover:text-yellow-500" href="https://www.facebook.com/clickntoulon/">
-                <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+        <div class="text-base font-bold space-y-4 tablet:space-y-1 text-center tablet:text-right">
+            <p>&copy; 2022 ClickNToulon. Tous droits réservés.</p>
+            <p>ClickNToulon est une association de loi 1901 administrant la présente plateforme.</p>
+        </div>
+    </div>
+    <div class="max-w-screen-2xl mx-auto flex flex-col text-center lg:text-left tablet:flex-row justify-center tablet:justify-between items-center align-middle space-y-4 mt-8 tablet:space-y-0 lg:mt-12">
+        <nav class="flex flex-col tablet:flex-row justify-center items-center space-y-4 tablet:space-y-0 tablet:space-x-6">
+            <a href="{{ path('about_index') }}" class="font-bold uppercase hover:text-blue-700 dark:hover:text-blue-400 tracking-wider">&Agrave; propos</a>
+            <a href="{{ path('about_cgu') }}" class="font-bold uppercase hover:text-blue-700 dark:hover:text-blue-400 tracking-wider">Conditions Générales D'Utilisation</a>
+            <a href="{{ path('about_confidentialite') }}" class="font-bold uppercase hover:text-blue-700 dark:hover:text-blue-400 tracking-wider">Politique de confidentialité</a>
+            <a href="{{ path('report') }}" class="font-bold uppercase hover:text-blue-700 dark:hover:text-blue-400 tracking-wider">Signaler un contenu</a>
+        </nav>
+        <nav class="flex items-center space-x-2">
+            <a href="https://www.facebook.com/clickntoulon/" class="hover:text-blue-700 dark:hover:text-blue-400">
+                <span class="sr-only">Facebook</span>
+                <svg class="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
                 </svg>
             </a>
-            <a class="ml-3 text-black hover:text-yellow-500" href="https://twitter.com/clickntoulon">
-                <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+            <a href="https://instagram.com/clickntoulon" class="hover:text-blue-700 dark:hover:text-blue-400">
+                <span class="sr-only">Instagram</span>
+                <svg class="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
                 </svg>
             </a>
-            <a class="ml-3 text-black hover:text-yellow-500" href="https://instagram.com/clickntoulon">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+            <a href="https://twitter.com/clickntoulon" class="hover:text-blue-700 dark:hover:text-blue-400">
+                <span class="sr-only">Twitter</span>
+                <svg class="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
                 </svg>
             </a>
-            <a class="ml-3 text-black hover:text-yellow-500" href="https://linkedin.com/company/clickntoulon?_l=fr_FR">
-                <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+            <a href="https://linkedin.com/company/clickntoulon?_l=fr_FR" class="hover:text-blue-700 dark:hover:text-blue-400">
+                <span class="sr-only">Linkedin</span>
+                <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-6 h-6" viewBox="0 0 24 24">
                     <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
                     <circle cx="4" cy="4" r="2" stroke="none"></circle>
                 </svg>
             </a>
-        </span>
+        </nav>
     </div>
 </footer>
