@@ -5,7 +5,7 @@
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'about'} %}
     <div class="sm:container sm:mx-auto py-12 px-6">
-        <img src="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg" alt="Logo ClickNToulon" width="200" class="m-auto h-auto">
+        <img src="{{ asset('images/clickntoulon.svg') }}" alt="Logo ClickNToulon" width="500" class="m-auto h-auto">
         <div class="text-center my-10">
             <h2 class="sm:text-5xl text-3xl font-extrabold title-font text-black dark:text-white mb-4 uppercase tracking-wider">Bienvenue sur ClickNToulon</h2>
             <p class="text-2xl leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-black dark:text-gray-200 font-bold italic">Made in Toulon for Toulon</p>
