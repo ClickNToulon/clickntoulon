@@ -21,7 +21,7 @@ class SearchController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route(paht: "/recherche", name: "search")]
+    #[Route(path: "/recherche", name: "search")]
     public function index(Request $request): Response
     {
         $form = $this->createForm(SearchForm::class);
