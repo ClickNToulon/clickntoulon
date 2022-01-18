@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/ClickNToulon/clickntoulon/refonte-graphique/public/images/clickntoulon.svg?token=ANBFW6SAS7FYR2OWQLYP6RDBU7RSQ" alt="Logo" width="200" height="auto" />
+  <img src="https://raw.githubusercontent.com/ClickNToulon/clickntoulon/main/public/images/clickntoulon.svg?token=ANBFW6SAS7FYR2OWQLYP6RDBU7RSQ" alt="Logo" width="200" height="auto" />
 </h1>
 <p align="center">
   <b>Bienvenue sur le repository officiel de ClickNToulon</b><br>
