@@ -2,7 +2,7 @@
     "devDependencies": {
         "@hotwired/stimulus": "^3.0.0",
         "@symfony/stimulus-bridge": "^3.0.0",
-        "@symfony/webpack-encore": "^1.7.0",
+        "@symfony/webpack-encore": "^1.8.1",
         "autoprefixer": "^10.4.2",
         "core-js": "^3.20.3",
         "css-minimizer-webpack-plugin": "^3.3.1",
