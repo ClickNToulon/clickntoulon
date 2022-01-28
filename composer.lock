@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a01f8850f548fd194d0810b7bfb50a05",
+    "content-hash": "77ada4686a341cc3ab8d0c0e4de087e5",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -4547,16 +4547,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.17.6",
+            "version": "v1.18.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "7a79135e1dc66b30042b4d968ecba0908f9374bc"
+                "reference": "7e2319a42a8535a1011f9e09e353a61840000d2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/7a79135e1dc66b30042b4d968ecba0908f9374bc",
-                "reference": "7a79135e1dc66b30042b4d968ecba0908f9374bc",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/7e2319a42a8535a1011f9e09e353a61840000d2a",
+                "reference": "7e2319a42a8535a1011f9e09e353a61840000d2a",
                 "shasum": ""
             },
             "require": {
@@ -4592,7 +4592,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v1.17.6"
+                "source": "https://github.com/symfony/flex/tree/v1.18.2"
             },
             "funding": [
                 {
@@ -4608,7 +4608,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-29T15:39:37+00:00"
+            "time": "2022-01-27T09:44:20+00:00"
         },
         {
             "name": "symfony/form",
