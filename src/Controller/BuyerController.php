@@ -39,8 +39,13 @@ class BuyerController extends AbstractController
             $data = $request->request->all();
             $basket = $this->basketRepository->find($data['basket_id']);
             $basket_products = $basket->getProducts();
+            dump($basket_products);
             foreach ($basket_products as $bp) {
-                $form_quantities[] = $data['quantity_'. $bp->getId()];
+                if($data['quantity_'. $bp->getId()] != 0 && $data['quantity_'. $bp->getId()] != null) {
+                    $form_quantities[] = $data['quantity_'. $bp->getId()];
+                } else {
+                    $basket->removeProduct($bp);
+                }
             }
             $basket->setQuantity($form_quantities);
             $this->em->persist($basket);
