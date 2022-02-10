@@ -22,7 +22,7 @@ class BasketRepository extends ServiceEntityRepository
         parent::__construct($registry, Basket::class);
     }
 
-    public function findByUser(User $owner)
+    public function findByUser(User|UserInterface $owner)
     {
         return $this->createQueryBuilder('b')
             ->where('b.owner = :user')
