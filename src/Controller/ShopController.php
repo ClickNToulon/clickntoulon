@@ -19,10 +19,6 @@ class ShopController extends AbstractController
         private PaginatorInterface $paginator
     ){}
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
     #[Route(path: "", name: "index")]
     public function index(Request $request): Response
     {
@@ -38,10 +34,6 @@ class ShopController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Shop $shop
-     * @return Response
-     */
     #[Route(path: "/{slug}", name: "show")]
     public function showOne(Shop $shop): Response
     {

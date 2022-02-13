@@ -15,14 +15,6 @@ use Twig\Loader\FilesystemLoader;
 
 class MailerController extends AbstractController
 {
-    /**
-     * @param MailerInterface $mailer
-     * @param string $to
-     * @param string $subject
-     * @param array $options
-     * @param string $template
-     * @throws LoaderError
-     */
     public function send(MailerInterface $mailer, string $to, string $subject, array $options, string $template)
     {
         for ($i=0; $i < 6; $i++) {
@@ -31,12 +23,13 @@ class MailerController extends AbstractController
             }
         }
         $loader = new FilesystemLoader(__DIR__.'/../../templates/');
-        $loader->addPath(__DIR__.'/../../public/images', 'images');
-        $loader->addPath(__DIR__.'/../../public/build', 'css');
+        try {
+            $loader->addPath(__DIR__.'/../../public/images', 'images');
+            $loader->addPath(__DIR__.'/../../public/build', 'css');
+        } catch (LoaderError $loaderError) {}
         $twig = new TwigEnvironment($loader);
         $twig->addExtension(new CssInlinerExtension());
         $twigBodyRenderer = new BodyRenderer($twig);
-
         $email = (new TemplatedEmail())
             ->from(new Address("ne-pas-repondre@clickntoulon.fr", "ClickNToulon"))
             ->to(new Address($to))
@@ -50,8 +43,7 @@ class MailerController extends AbstractController
                 "time_begin" => $options[3],
                 "time_end" => $options[4],
                 "message" => $options[5]
-            ])
-        ;
+            ]);
         try {
             $twigBodyRenderer->render($email);
             $mailer->send($email, NULL);

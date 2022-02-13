@@ -12,10 +12,9 @@ class DeleteUserForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('id', HiddenType::class, [
-                'mapped' => false
-            ]);
+        $builder->add('id', HiddenType::class, [
+            'mapped' => false
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

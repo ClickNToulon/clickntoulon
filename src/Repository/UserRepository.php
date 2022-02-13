@@ -7,8 +7,6 @@ use DateTime;
 use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -30,18 +28,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
-    /**
-     * Used to upgrade (rehash) the user's password automatically over time.
-     * @param PasswordAuthenticatedUserInterface $user
-     * @param string $newHashedPassword
-     * @throws OptimisticLockException|ORMException
-     */
+    /** Used to upgrade (rehash) the user's password automatically over time. */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
         }
-
         $user->setPassword($newHashedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
@@ -49,33 +41,36 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function findAllQuery(): Query
     {
-        return $this->createQueryBuilder('u')
+        return $this
+            ->createQueryBuilder('u')
             ->where('u.roles NOT LIKE :role')
             ->setParameter('role','%"'.'ROLE_ADMIN'.'"%')
             ->getQuery();
     }
 
-    /**
-     * @throws NonUniqueResultException
-     * @throws Exception
-     */
     public function findOrCreateFromOauth(GoogleUser $googleUser): User|null
     {
-        $user = $this->createQueryBuilder('u')
-            ->where('u.googleID = :googleID')
-            ->orWhere('u.email = :email')
-            ->setParameters([
-                'email' => $googleUser->getEmail(),
-                'googleID' => $googleUser->getId()
-            ])
-            ->getQuery()
-            ->getOneOrNullResult();
-        if ($user) {
+        try {
+            $user = $this
+                ->createQueryBuilder('u')
+                ->where('u.googleID = :googleID')
+                ->orWhere('u.email = :email')
+                ->setParameters([
+                    'email' => $googleUser->getEmail(),
+                    'googleID' => $googleUser->getId()
+                ])
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $nonUniqueResultException) {}
+        if (isset($user) && $user instanceof User) {
             $data = $googleUser->toArray();
             if ($user->getGoogleID() === null && $data['email_verified'] === true) {
-                $user->setGoogleID($googleUser->getId())
-                    ->setIsVerified(1)
-                    ->setUpdatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")));
+                try {
+                    $user
+                        ->setGoogleID($googleUser->getId())
+                        ->setIsVerified(1)
+                        ->setUpdatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")));
+                } catch (Exception $e) {}
                 $this->_em->persist($user);
                 $this->_em->flush();
             }

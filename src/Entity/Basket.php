@@ -5,42 +5,32 @@ namespace App\Entity;
 use App\Repository\BasketRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @ORM\Entity(repositoryClass=BasketRepository::class)
- */
+#[ORM\Entity(repositoryClass: BasketRepository::class)]
 class Basket
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
+    protected ?int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private User $owner;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Product::class)
-     */
-    private $products;
+    #[ORM\ManyToMany(targetEntity: Product::class)]
+    private ArrayCollection|PersistentCollection $products;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: Types::JSON)]
     private ?array $quantity;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Shop::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $shop;
+    #[ORM\ManyToOne(targetEntity: Shop::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Shop $shop;
 
     public function __construct()
     {
@@ -60,13 +50,9 @@ class Basket
     public function setOwner(User|UserInterface $owner): self
     {
         $this->owner = $owner;
-
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getProducts(): Collection
     {
         return $this->products;
@@ -77,14 +63,12 @@ class Basket
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
         }
-
         return $this;
     }
 
     public function removeProduct(Product $product): self
     {
         $this->products->removeElement($product);
-
         return $this;
     }
 
@@ -96,7 +80,6 @@ class Basket
     public function setQuantity(array $quantity): self
     {
         $this->quantity = $quantity;
-
         return $this;
     }
 
@@ -108,7 +91,6 @@ class Basket
     public function setShop(?Shop $shop): self
     {
         $this->shop = $shop;
-
         return $this;
     }
 }

@@ -20,9 +20,10 @@ class OpeningHoursRepository extends ServiceEntityRepository
         parent::__construct($registry, OpeningHours::class);
     }
 
-    public function findByShop(Shop $shop)
+    public function findByShop(Shop $shop): array
     {
-        return $this->createQueryBuilder('o')
+        return $this
+            ->createQueryBuilder('o')
             ->where('o.shop = :shop')
             ->setParameter('shop', $shop)
             ->getQuery()

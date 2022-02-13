@@ -3,23 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\PaymentRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=PaymentRepository::class)
- */
+#[ORM\Entity(repositoryClass: PaymentRepository::class)]
 class Payment
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
+    protected ?int $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name;
 
     public function getId(): ?int
@@ -35,14 +30,9 @@ class Payment
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
-    /**
-     * @param int $id
-     * @return array
-     */
     public function getIcon(int $id): array
     {
         if ($id == 1) {

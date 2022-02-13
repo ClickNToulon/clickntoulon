@@ -25,14 +25,8 @@ class BuyerController extends AbstractController
         private EntityManagerInterface $em
     ){}
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
-    #[
-        Route(path: "", name: "index"),
-        IsGranted("ROLE_USER")
-    ]
+    #[Route(path: "", name: "index")]
+    #[IsGranted("ROLE_USER")]
     public function basket(Request $request): Response
     {
         if($request->getMethod() == 'POST') {
@@ -46,8 +40,12 @@ class BuyerController extends AbstractController
                     $basket->removeProduct($bp);
                 }
             }
-            $basket->setQuantity($form_quantities);
-            $this->em->persist($basket);
+            if(isset($form_quantities) && $form_quantities != []) {
+                $basket->setQuantity($form_quantities);
+                $this->em->persist($basket);
+            } else {
+                $this->em->remove($basket);
+            }
             $this->em->flush();
         }
         $user = $this->getUser();
@@ -77,14 +75,8 @@ class BuyerController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
-    #[
-        Route(path: "/ajout", name: "add"),
-        IsGranted("ROLE_USER")
-    ]
+    #[Route(path: "/ajout", name: "add")]
+    #[IsGranted("ROLE_USER")]
     public function basket_add(Request $request): Response
     {
         $user = $this->getUser();
@@ -125,7 +117,8 @@ class BuyerController extends AbstractController
                 }
                 if($done != true) {
                     $basket  = new Basket();
-                    $basket->setQuantity([$data['quantity']])
+                    $basket
+                        ->setQuantity([$data['quantity']])
                         ->addProduct($this->productRepository->find($data['product_id']))
                         ->setOwner($user)
                         ->setShop($this->shopRepository->find($data['shop_id']));
@@ -135,7 +128,8 @@ class BuyerController extends AbstractController
             }
         } else {
             $basket  = new Basket();
-            $basket->setQuantity([$data['quantity']])
+            $basket
+                ->setQuantity([$data['quantity']])
                 ->setOwner($user)
                 ->addProduct($this->productRepository->find($data['product_id']))
                 ->setShop($this->shopRepository->find($data['shop_id']));
@@ -145,15 +139,8 @@ class BuyerController extends AbstractController
         return $this->redirectToRoute('basket_index');
     }
 
-    /**
-     * @param Shop $shop
-     * @param Request $request
-     * @return Response
-     */
-    #[
-        Route(path: "/reglement/{id}", name: "checkout", requirements: ["id" => "[0-9\-]*"]),
-        IsGranted("ROLE_USER")
-    ]
+    #[Route(path: "/reglement/{id}", name: "checkout", requirements: ["id" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_USER")]
     public function checkout(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
@@ -175,7 +162,8 @@ class BuyerController extends AbstractController
             foreach ($order_products as $op) {
                 $data->addProduct($op);
             }
-            $data->setStatus(0)
+            $data
+                ->setStatus(0)
                 ->setShop($shop)
                 ->setQuantity($order_quantities)
                 ->setBuyer($user);

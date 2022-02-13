@@ -5,95 +5,64 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use DateTime;
 use DateTimeZone;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Symfony\Component\Security\Core\User\{PasswordAuthenticatedUserInterface, UserInterface};
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- */
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
+    protected ?int $id;
 
-    /**
-     * @ORM\Column(type="string", length=45)
-     * @Assert\NotBlank()
-     */
+    #[ORM\Column(type: Types::STRING, length: 45)]
+    #[Assert\NotBlank]
     private string $name;
 
-    /**
-     * @ORM\Column(type="string", length=45)
-     * @Assert\NotBlank()
-     */
+    #[ORM\Column(type: Types::STRING, length: 45)]
+    #[Assert\NotBlank]
     private string $surname;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: Types::JSON)]
     private array $roles;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $password;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
+    #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private ?string $email;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
-     */
+    #[ORM\Column(type: Types::STRING, length: 255, unique: true, nullable: true)]
     private ?string $phone;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $address;
 
-    /**
-     * @ORM\Column(type="string", length=5, nullable=true)
-     */
+    #[ORM\Column(type: Types::STRING, length: 5, nullable: true)]
     private ?string $postalCode;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $city;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private DateTime $createdAt;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private DateTime $updatedAt;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isBanned = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isVerified = false;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $googleID;
 
     /**
@@ -101,9 +70,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function __construct()
     {
-        $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
-        $this->createdAt = new DateTime('now', $dateTimeZoneFrance);
-        $this->updatedAt = new DateTime('now', $dateTimeZoneFrance);
+        $this->createdAt = new DateTime('now', new DateTimeZone("Europe/Paris"));
+        $this->updatedAt = new DateTime('now', new DateTimeZone("Europe/Paris"));
         $this->roles = ['ROLE_USER'];
     }
 
@@ -114,18 +82,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * A visual identifier that represents this user.
-     *
      * @see UserInterface
      */
-
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
-    }
-
-    public function getUsername(): string
-    {
-        return $this->name;
     }
 
     /**
@@ -136,20 +97,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -158,15 +114,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
         return $this;
     }
-
-    /**
-     * @see UserInterface
-     */
-    public function getSalt(): ?string
-    {return null;}
 
     /**
      * @see UserInterface
@@ -182,7 +131,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -194,7 +142,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSurname(string $surname): self
     {
         $this->surname = $surname;
-
         return $this;
     }
 
@@ -206,7 +153,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -218,7 +164,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
-
         return $this;
     }
 
@@ -230,7 +175,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAddress(?string $address): self
     {
         $this->address = $address;
-
         return $this;
     }
 
@@ -242,7 +186,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPostalCode(?string $postalCode): self
     {
         $this->postalCode = $postalCode;
-
         return $this;
     }
 
@@ -254,7 +197,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCity(string $city): self
     {
         $this->city = $city;
-
         return $this;
     }
 
@@ -266,7 +208,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -278,7 +219,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
@@ -290,7 +230,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsBanned(bool $isBanned): self
     {
         $this->isBanned = $isBanned;
-
         return $this;
     }
 
@@ -302,25 +241,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
-
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getGoogleID(): ?string
     {
         return $this->googleID;
     }
 
-    /**
-     * @param string|null $googleID
-     */
     public function setGoogleID(?string $googleID): self
     {
         $this->googleID = $googleID;
-
         return $this;
     }
 }

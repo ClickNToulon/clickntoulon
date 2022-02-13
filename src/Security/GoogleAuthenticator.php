@@ -40,7 +40,6 @@ class GoogleAuthenticator extends OAuth2Authenticator
     {
         $client = $this->clientRegistry->getClient('google');
         $accessToken = $this->fetchAccessToken($client);
-
         return new SelfValidatingPassport (
             new UserBadge($accessToken->getToken(), function() use ($accessToken, $client) {
                 /** @var GoogleUser $googleUser */
@@ -60,7 +59,6 @@ class GoogleAuthenticator extends OAuth2Authenticator
         if ($request->hasSession()) {
             $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
         }
-
         return new RedirectResponse($this->urlGenerator->generate(self::LOGIN_ROUTE));
     }
 }

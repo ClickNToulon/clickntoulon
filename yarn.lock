@@ -4193,7 +4193,7 @@
   "resolved" "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz"
   "version" "4.2.0"
 
-"postcss@^7.0.0 || ^8.0.1", "postcss@^8.0.9", "postcss@^8.1.0", "postcss@^8.2.14", "postcss@^8.2.15", "postcss@^8.2.2", "postcss@^8.2.9", "postcss@^8.3.3", "postcss@^8.3.5", "postcss@^8.4.5":
+"postcss@^7.0.0 || ^8.0.1", "postcss@^8.0.9", "postcss@^8.1.0", "postcss@^8.2.14", "postcss@^8.2.15", "postcss@^8.2.2", "postcss@^8.2.9", "postcss@^8.3.3", "postcss@^8.3.5", "postcss@^8.4.5", "postcss@^8.4.6":
   "integrity" "sha512-OovjwIzs9Te46vlEx7+uXB0PLijpwjXGKXjVGGPIGubGpq7uh5Xgf6D6FiJ/SzJMBosHDp6a2hiXOS97iBXcaA=="
   "resolved" "https://registry.npmjs.org/postcss/-/postcss-8.4.6.tgz"
   "version" "8.4.6"
@@ -4998,9 +4998,9 @@
     "replace-in-file" "^6.1.0"
 
 "tailwindcss@^3.0.0", "tailwindcss@>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1", "tailwindcss@>=3.0.0 || >= 3.0.0-alpha.1", "tailwindcss@1 || 2 || 2.0.1-compat || 3":
-  "integrity" "sha512-rjsdfz/qZya5xQ0OVynEMETgWq1CacmftgMYeXXh6bRM5vxsNwRSbMJsCCIjq/w67om9VP/AFMolOwiE+5VKig=="
-  "resolved" "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.0.19.tgz"
-  "version" "3.0.19"
+  "integrity" "sha512-F8lt74RlNZirnkaSk310+vGQta7c0/hgx7/bqxruM4wS9lp8oqV93lzavajC3VT0Lp4UUtUVIt8ifKcmGzkr0A=="
+  "resolved" "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.0.22.tgz"
+  "version" "3.0.22"
   dependencies:
     "arg" "^5.0.1"
     "chalk" "^4.1.2"
@@ -5015,6 +5015,7 @@
     "is-glob" "^4.0.3"
     "normalize-path" "^3.0.0"
     "object-hash" "^2.2.0"
+    "postcss" "^8.4.6"
     "postcss-js" "^4.0.0"
     "postcss-load-config" "^3.1.0"
     "postcss-nested" "5.0.6"

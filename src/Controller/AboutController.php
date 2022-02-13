@@ -24,48 +24,24 @@ class AboutController extends AbstractController
         private EntityManagerInterface $em
     ){}
 
-    /**
-     * @return Response
-     */
     #[Route(path: "/a-propos", name: "about_index")]
     public function index(): Response
     {
-        $user = $this->getUser();
-        return $this->render('about/index.html.twig', [
-            'user' => $user
-        ]);
+        return $this->render('about/index.html.twig');
     }
 
-    /**
-     * @return Response
-     */
     #[Route(path: "/conditions", name: "about_cgu")]
     public function conditions(): Response
     {
-        $user = $this->getUser();
-        return $this->render('about/cgu.html.twig', [
-            'user' => $user
-        ]);
+        return $this->render('about/cgu.html.twig');
     }
 
-    /**
-     * @return Response
-     */
     #[Route(path: "/confidentialite", name: "about_confidentialite")]
     public function confidentialite(): Response
     {
-        $user = $this->getUser();
-        return $this->render('about/confidentialite.html.twig', [
-            'user' => $user
-        ]);
+        return $this->render('about/confidentialite.html.twig');
     }
 
-    /**
-     * @param Request $request
-     * @param MailerInterface $mailer
-     * @return Response
-     * @throws LoaderError
-     */
     #[Route(path: "/signaler", name: "report")]
     public function report(Request $request, MailerInterface $mailer): Response
     {
@@ -80,8 +56,11 @@ class AboutController extends AbstractController
             } else {
                 $report->setUser(null);
             }
-            $report->setCreatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")));
-            $report->setUpdatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")));
+            try {
+                $report
+                    ->setCreatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")))
+                    ->setUpdatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")));
+            } catch (Exception $e) {}
             $this->em->persist($report);
             $this->em->flush();
             $this->addFlash('success', 'Votre signalement a bien été pris en compte. Il sera traité dans les plus brefs délais');
@@ -91,7 +70,6 @@ class AboutController extends AbstractController
             $options[] = $name;
             (new MailerController)->send($mailer, "administration@clickntoulon.fr", $title, $options, 'reportcontent');
         }
-
         if($user instanceof User) {
             return $this->render('about/report.html.twig', [
                 'user' => $user,

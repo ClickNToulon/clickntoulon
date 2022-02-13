@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\DeleteUserForm;
 use App\Form\UpdatePasswordForm;
 use App\Form\UpdateUserForm;
@@ -18,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route(path: "/profil", name: "user_")]
 class UserController extends AbstractController
@@ -29,33 +31,27 @@ class UserController extends AbstractController
         private ShopRepository $shopRepository
     ){}
 
-    /**
-     * @param Request $request
-     * @param TokenStorageInterface $tokenStorage
-     * @return Response
-     * @throws Exception
-     */
-    #[
-        Route(path: "/modifier", name: "edit"),
-        IsGranted("ROLE_USER")
-    ]
+    #[Route(path: "/modifier", name: "edit")]
+    #[IsGranted("ROLE_USER")]
     public function edit(Request $request, TokenStorageInterface $tokenStorage): Response
     {
-        // Traitement du mot de passe
+        /** Traitement du mot de passe de l'utilisateur */
         [$formPassword, $response] = $this->createFormPassword($request);
         if ($response) return $response;
 
+        /** Traitement des informations de l'utilisateur */
         [$formInfo, $responseInfo] = $this->createFormInfos($request);
         if ($responseInfo) return $responseInfo;
 
+        /** Traitement de la suppression de l'utilisateur */
         [$formDelete, $responseDelete] = $this->createFormDelete($request, $tokenStorage);
         if ($responseDelete) return $responseDelete;
 
+        /** @var User|UserInterface $user */
         $user = $this->getUser();
         if ($user == null) {
            return $this->redirectToRoute('home');
         }
-
         return $this->render('user/edit.html.twig', [
             'form_password' => $formPassword->createView(),
             'form_profile' => $formInfo->createView(),
@@ -64,13 +60,8 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @return Response
-     */
-    #[
-        Route(path: "/mes-commandes", name: "orders"),
-        IsGranted("ROLE_USER")
-    ]
+    #[Route(path: "/mes-commandes", name: "orders")]
+    #[IsGranted("ROLE_USER")]
     public function orders(): Response
     {
         $user = $this->getUser();
@@ -97,10 +88,6 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
     #[Route(path: "/mes-commandes/{number}", name: "order", requirements: ["id" => "[0-9\-]*"])]
     public function order(Request $request): Response
     {
@@ -126,21 +113,20 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     * @throws Exception
-     */
     private function createFormPassword(Request $request): array
     {
         $form = $this->createForm(UpdatePasswordForm::class);
+        /** @var User|UserInterface $user */
         $user = $this->getUser();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->get('password')->getData();
             $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
-            $user->setPassword($this->passwordHasher->hashPassword($user, $data))
-                ->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance));
+            try{
+                $user
+                    ->setPassword($this->passwordHasher->hashPassword($user, $data))
+                    ->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance));
+            } catch (Exception $e) {}
             $this->em->flush();
             $this->addFlash('success', 'Votre mot de passe a bien été mis à jour');
 
@@ -149,19 +135,16 @@ class UserController extends AbstractController
         return [$form, null];
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     * @throws Exception
-     */
     private function createFormInfos(Request $request): array
     {
+        /** @var User|UserInterface $user */
         $user = $this->getUser();
         $form = $this->createForm(UpdateUserForm::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
-            $user->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance));
+            try {
+                $user->setUpdatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")));
+            } catch (Exception $e) {}
             $this->em->persist($user);
             $this->em->flush();
             $this->addFlash('success', 'Vos informations ont bien été mises à jour');
@@ -172,13 +155,9 @@ class UserController extends AbstractController
         return [$form, null];
     }
 
-    /**
-     * @param Request $request
-     * @param TokenStorageInterface $tokenStorage
-     * @return array
-     */
     public function createFormDelete(Request $request, TokenStorageInterface $tokenStorage): array
     {
+        /** @var User|UserInterface $user */
         $user = $this->getUser();
         $form = $this->createForm(DeleteUserForm::class, $user);
         $form->handleRequest($request);

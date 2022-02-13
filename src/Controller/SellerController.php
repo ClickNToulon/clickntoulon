@@ -39,7 +39,6 @@ use Twig\Error\LoaderError;
 #[Route(path: "/ma-boutique", name: "seller_")]
 class SellerController extends AbstractController
 {
-
     public function __construct(
         private EntityManagerInterface $em,
         private ShopRepository $shopRepository,
@@ -53,14 +52,8 @@ class SellerController extends AbstractController
         private OpeningHoursRepository $openingHoursRepository
     ){}
 
-    /**
-     * @param Shop $shop
-     * @return Response
-     */
-    #[
-        Route(path: "/{id}", name: "index", requirements: ["id" => "[0-9\-]*"]),
-        IsGranted("ROLE_MERCHANT")
-    ]
+    #[Route(path: "/{id}", name: "index", requirements: ["id" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
     public function index(Shop $shop): Response
     {
         $user = $this->getUser();
@@ -99,23 +92,17 @@ class SellerController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Shop $shop
-     * @param Request $request
-     * @return Response
-     * @throws LoaderError
-     * @throws Exception
-     */
-    #[
-        Route(path: "/{id}/commandes/{order}/confirmer", name: "orders_confirm", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"]),
-        IsGranted("ROLE_MERCHANT")
-    ]
+    #[Route(path: "/{id}/commandes/{order}/confirmer", name: "orders_confirm", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
     public function confirm_order(Shop $shop, Request $request): Response
     {
         $order = $this->orderRepository->find($request->attributes->get('order'));
         $order_infos = $request->request->all('order_confirm');
-        $order->setDay(new DateTime($order_infos['day']))
-            ->setStatus(1);
+        try {
+            $order
+                ->setDay(new DateTime($order_infos['day'], new DateTimeZone("Europe/Paris")))
+                ->setStatus(1);
+        } catch (Exception $e) {}
         $order_user = $order->getBuyer();
         $this->em->persist($order);
         $this->em->flush();
@@ -129,16 +116,8 @@ class SellerController extends AbstractController
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
 
-    /**
-     * @param Shop $shop
-     * @param Request $request
-     * @return Response
-     * @throws LoaderError
-     */
-    #[
-        Route(path: "/{id}/commandes/{order}/prete", name: "orders_ready", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"]),
-        IsGranted("ROLE_MERCHANT")
-    ]
+    #[Route(path: "/{id}/commandes/{order}/prete", name: "orders_ready", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
     public function order_ready(Shop $shop, Request $request): Response
     {
         $order = $this->orderRepository->find($request->attributes->get('order'));
@@ -150,19 +129,13 @@ class SellerController extends AbstractController
         $title = "Votre commande numéro " . $order->getOrderNumber() . " est prête chez le commerçant";
         $options = [];
         array_push($options, $order_user->getName(), $order->getOrderNumber(), $order_infos['day']);
-        (new MailerController)->send($this->mailer, $order_user->getEmail(), $title, $options, 'orderready');
+        (new MailerController)
+            ->send($this->mailer, $order_user->getEmail(), $title, $options, 'orderready');
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
 
-    /**
-     * @param Shop $shop
-     * @param Request $request
-     * @return Response
-     */
-    #[
-        Route(path: "/{id}/commandes/{order}/recuperee", name: "orders_pickup", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"]),
-        IsGranted("ROLE_MERCHANT")
-    ]
+    #[Route(path: "/{id}/commandes/{order}/recuperee", name: "orders_pickup", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
     public function order_pickup(Shop $shop, Request $request): Response
     {
         $order = $this->orderRepository->find($request->attributes->get('order'));
@@ -172,16 +145,8 @@ class SellerController extends AbstractController
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
 
-    /**
-     * @param Shop $shop
-     * @param Request $request
-     * @return Response
-     * @throws LoaderError
-     */
-    #[
-        Route(path: "/{id}/commandes/{order}/annulation", name: "orders_cancel", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"]),
-        IsGranted("ROLE_MERCHANT")
-    ]
+    #[Route(path: "/{id}/commandes/{order}/annulation", name: "orders_cancel", requirements: ["id" => "[0-9\-]*", "order" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
     public function order_cancel(Shop $shop, Request $request): Response
     {
         $order = $this->orderRepository->find($request->attributes->get('order'));
@@ -200,14 +165,8 @@ class SellerController extends AbstractController
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
-    #[
-        Route(path: "/choisir", name: "choose"),
-        IsGranted("ROLE_MERCHANT")
-    ]
+    #[Route(path: "/choisir", name: "choose")]
+    #[IsGranted("ROLE_MERCHANT")]
     public function choose(Request $request): Response
     {
         $user = $this->getUser();
@@ -226,15 +185,8 @@ class SellerController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @return Response
-     * @throws Exception
-     */
-    #[
-        Route(path: "/creation", name: "create"),
-        IsGranted("ROLE_USER")
-    ]
+    #[Route(path: "/creation", name: "create")]
+    #[IsGranted("ROLE_USER")]
     public function create(Request $request): Response
     {
         $user = $this->getUser();
@@ -254,28 +206,31 @@ class SellerController extends AbstractController
                 $shop->setImage($newFilename);
             }
             $default_payment = $this->paymentRepository->find(1);
-            $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
-            $shop
-                ->setOwner($user)
-                ->setCreatedAt(new DateTime('now', $dateTimeZoneFrance))
-                ->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance))
-                ->setStatus(0)
-                ->setIsBanned(0)
-                ->setIsVerified(0)
-                ->addPayment($default_payment)
-                ->setSlug($shop->getSlug())
-                ->setTag($this->tagRepository->find(1));
+            try {
+                $shop
+                    ->setOwner($user)
+                    ->setCreatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")))
+                    ->setUpdatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")))
+                    ->setStatus(0)
+                    ->setIsBanned(0)
+                    ->setIsVerified(0)
+                    ->addPayment($default_payment)
+                    ->setSlug($shop->getSlug())
+                    ->setTag($form->get('tag')->getData());
+            } catch (Exception $e) {}
             $this->em->persist($shop);
             $this->em->flush();
             $d = 1;
             for ($k = 0; $k < 28; $k += 4) {
                 $day = new OpeningHours();
-                $day->setDay($d)
+                $day
+                    ->setDay($d)
                     ->setShop($shop)
                     ->setStart(null)
                     ->setEnd(null);
                 $day2 = new OpeningHours();
-                $day2->setDay($d)
+                $day2
+                    ->setDay($d)
                     ->setShop($shop)
                     ->setStart(null)
                     ->setEnd(null);
@@ -295,16 +250,8 @@ class SellerController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Shop $shop
-     * @param Request $request
-     * @return Response
-     * @throws Exception
-     */
-    #[
-        Route(path: "/{id}/modifier", name: "edit", requirements: ["id" => "[0-9\-]*"]),
-        IsGranted("ROLE_MERCHANT")
-    ]
+    #[Route(path: "/{id}/modifier", name: "edit", requirements: ["id" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
     public function edit(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
@@ -362,20 +309,26 @@ class SellerController extends AbstractController
             for ($i = 0; $i < count($data); $i+=4) {
                 if ($data[$i] !== "" && $data[$i+1] !== "") {
                     $day = new OpeningHours();
-                    $day->setDay($d)
-                        ->setShop($shop)
-                        ->setStart(new DateTime($data[$i], new DateTimeZone("Europe/Paris")))
-                        ->setEnd(new DateTime($data[$i+1], new DateTimeZone("Europe/Paris")));
+                    try {
+                        $day
+                            ->setDay($d)
+                            ->setShop($shop)
+                            ->setStart(new DateTime($data[$i], new DateTimeZone("Europe/Paris")))
+                            ->setEnd(new DateTime($data[$i+1], new DateTimeZone("Europe/Paris")));
+                    } catch (Exception $e) {}
                     $this->em->persist($day);
                     $this->em->flush();
                     $shop->addOpeningHour($day);
                 }
                 if($data[$i+2] !== "" && $data[$i+3] !== "") {
                     $day2 = new OpeningHours();
-                    $day2->setDay($d)
-                        ->setShop($shop)
-                        ->setStart(new DateTime($data[$i+2], new DateTimeZone("Europe/Paris")))
-                        ->setEnd(new DateTime($data[$i+3], new DateTimeZone("Europe/Paris")));
+                    try {
+                        $day2
+                            ->setDay($d)
+                            ->setShop($shop)
+                            ->setStart(new DateTime($data[$i+2], new DateTimeZone("Europe/Paris")))
+                            ->setEnd(new DateTime($data[$i+3], new DateTimeZone("Europe/Paris")));
+                    } catch (Exception $e) {}
                     $this->em->persist($day2);
                     $this->em->flush();
                     $shop->addOpeningHour($day2);
@@ -394,15 +347,8 @@ class SellerController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Shop $shop
-     * @param Request $request
-     * @return Response
-     */
-    #[
-        Route(path: "/{id}/produits", name: "edit_products", requirements: ["id" => "[0-9\-]*"]),
-        IsGranted("ROLE_MERCHANT")
-    ]
+    #[Route(path: "/{id}/produits", name: "edit_products", requirements: ["id" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
     public function products(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
@@ -415,11 +361,10 @@ class SellerController extends AbstractController
                 ->setDescription($product->getDescription())
                 ->setShop($shop)
                 ->setUnitPrice($product->getUnitPrice())
-                ->setType($this->productTypeRepository->find(1));
+                ->setType($form->get('type')->getData());
             $this->checkUnitDiscountPrice($product);
             $this->setProductImages($images, $product, $shop);
-            $productType = $this->productTypeRepository->find(1);
-            $productType->addProduct($product);
+            $product->getType()->addProduct($product);
             $this->em->persist($product);
             $this->em->flush();
         }
@@ -434,15 +379,8 @@ class SellerController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Shop $shop
-     * @param Request $request
-     * @return Response
-     */
-    #[
-        Route(path: "/{id}/categories", name: "categories", requirements: ["id" => "[0-9\-]*"]),
-        IsGranted("ROLE_MERCHANT")
-    ]
+    #[Route(path: "/{id}/categories", name: "categories", requirements: ["id" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
     public function categories(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
@@ -477,14 +415,8 @@ class SellerController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
-    #[
-        Route(path: "/{id}/produits/{product}/modifier", name: "edit_product", requirements: ["id" => "[0-9\-]*", "product" => "[0-9\-]*"]),
-        IsGranted("ROLE_MERCHANT")
-    ]
+    #[Route(path: "/{id}/produits/{product}/modifier", name: "edit_product", requirements: ["id" => "[0-9\-]*", "product" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
     public function editProduct(Request $request): Response
     {
         $user = $this->getUser();
@@ -497,11 +429,10 @@ class SellerController extends AbstractController
             $product->setName($product->getName())
                 ->setDescription($product->getDescription())
                 ->setUnitPrice($product->getUnitPrice())
-                ->setType($this->productTypeRepository->find(1));
+                ->setType($form_update_product->get('type')->getData());
             $this->checkUnitDiscountPrice($product);
             $this->setProductImages($images, $product, $shop);
-            $productType = $this->productTypeRepository->find(1);
-            $productType->addProduct($product);
+            $product->getType()->addProduct($product);
             $this->em->persist($product);
             $this->em->flush();
             return $this->redirectToRoute('seller_edit_products', ['id' => $shop->getId()]);
@@ -514,14 +445,8 @@ class SellerController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    #[
-        Route(path: "/{id}/produits/{product}/supprimer", name: "delete_product", requirements: ["id" => "[0-9\-]*", "product" => "[0-9\-]*"]),
-        IsGranted("ROLE_MERCHANT")
-    ]
+    #[Route(path: "/{id}/produits/{product}/supprimer", name: "delete_product", requirements: ["id" => "[0-9\-]*", "product" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
     public function delete_product(Request $request): RedirectResponse
     {
         $product = $this->productRepository->find($request->attributes->get('product'));
@@ -531,11 +456,6 @@ class SellerController extends AbstractController
         return $this->redirectToRoute('seller_edit_products', ["id" => $shop->getId(), "product" => $product->getId()]);
     }
 
-    /**
-     * @param array $images
-     * @param Product $product
-     * @param Shop $shop
-     */
     private function setProductImages(array $images, Product $product, Shop $shop)
     {
         $limit = count($images);
@@ -555,9 +475,6 @@ class SellerController extends AbstractController
         }
     }
 
-    /**
-     * @param Product $product
-     */
     private function checkUnitDiscountPrice(Product $product)
     {
         if ($product->getUnitPriceDiscount() == null) {
