@@ -9,7 +9,7 @@
         <p class="card-text">Bonjour {{ name }}!</p>
         <br>
         <p>Votre commande numéro {{ id }} a été accepté par le commerçant.</p>
-        <p>Vous pourrez la récupérer le {{ date }} entre {{ time_begin }} et {{ time_end }}.</p>
+        <p>Vous pourrez la récupérer le {{ date }} dans la journée.</p>
         <p>Si vous souhaitez une facture, vous pourrez la demander directement auprès du commerçant.</p>
         <br>
         {% if message != null %}
@@ -19,7 +19,5 @@
         {% endif %}
         <p>Solidairement,</p>
         <p>L'équipe ClickNToulon</p>
-        <br><br>
-        <i>La solidarité s'exprime envers notre planète. Veuillez imprimer ce mail qu'en cas de nécessité.</i>
     </body>
 </html>

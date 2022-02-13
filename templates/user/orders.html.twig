@@ -15,13 +15,13 @@
                     {% for order in orders %}
                         <div class="bg-darkblue-150 dark:bg-darkblue-800 shadow-2xl dark:shadow-none overflow-hidden rounded-xl my-2">
                             <div class="px-4 py-5 sm:px-6 flex tablet:flex-row flex-col items-center justify-between w-full">
-                                <div class="grid grid-cols-9 pb-2 sm:pb-0 w-full tablet:gap-x-2">
-                                    <div class="col-span-3 flex flex-col items-center tablet:items-start w-auto">
+                                <div class="grid grid-cols-12 pb-2 sm:pb-0 w-full tablet:gap-x-4">
+                                    <div class="col-span-3 flex flex-col items-center tablet:items-start">
                                         <h3 class="font-bold text-sm uppercase tracking-wider text-gray-700 dark:text-gray-400">N° de commande</h3>
                                         <p class="font-bold text-lg mt-1 text-black dark:text-white">{{ order.orderNumber }}</p>
                                     </div>
-                                    <div class="col-span-3 flex flex-col items-center tablet:items-start w-auto">
-                                        <h3 class="font-bold text-sm uppercase tracking-wider text-gray-700 dark:text-gray-400">Date</h3>
+                                    <div class="col-span-6 flex flex-col items-center tablet:items-start mx-auto">
+                                        <h3 class="font-bold text-sm uppercase tracking-wider text-gray-700 dark:text-gray-400">Date de retrait souhaitée</h3>
                                         <p class="font-bold text-lg mt-1 text-black dark:text-white">{{ order.day | format_date(pattern='dd MMMM y',locale='fr') }}</p>
                                     </div>
                                     <div class="col-span-3 flex flex-col items-center tablet:items-start w-auto">

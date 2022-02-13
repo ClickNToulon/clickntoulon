@@ -1,11 +1,10 @@
-<html>
+<html lang="fr">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width">
         <title>{{ email.subject }}</title>
     </head>
     <body>
-        {% apply inline_css(source("@css/email.css")) %}
         <img src="{{ email.image('@images/logo.jpg') }}" alt="Logo ClickNToulon" width="150" height="150">
         <p class="card-text">Bonjour {{ name }} !</p>
         <br>
@@ -16,8 +15,5 @@
         <br>
         <p>Solidairement,</p>
         <p>L'équipe ClickNToulon</p>
-        <br><br>
-        <i>La solidarité s'exprime envers notre planète. Veuillez imprimer ce mail qu'en cas de nécessité.</i>
-        {% endapply %}
     </body>
 </html>

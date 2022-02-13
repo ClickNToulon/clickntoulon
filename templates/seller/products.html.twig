@@ -91,7 +91,7 @@
             <div class="flex flex-col items-center">
                 <div class="overflow-x-auto w-full">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-2 lg:px-6">
-                        {% if products != false %}
+                        {% if products is not null and products.items != [] %}
                             <div class="shadow overflow-hidden rounded-xl">
                                 <table class="min-w-full divide-y divide-blue-900 table-striped">
                                     <thead class="bg-darkblue-150 dark:bg-darkblue-800">
@@ -203,6 +203,7 @@
                     </div>
                 </div>
             </div>
+            {{ knp_pagination_render(products) }}
         </div>
     </section>
     <script>

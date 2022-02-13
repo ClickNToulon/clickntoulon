@@ -17,7 +17,7 @@ class MailerController extends AbstractController
 {
     public function send(MailerInterface $mailer, string $to, string $subject, array $options, string $template)
     {
-        for ($i=0; $i < 6; $i++) {
+        for ($i=0; $i < 4; $i++) {
             if(!isset($options[$i])) {
                 $options[$i] = null;
             }
@@ -40,9 +40,7 @@ class MailerController extends AbstractController
                 "name" => $options[0],
                 "id" => $options[1],
                 "date" => $options[2],
-                "time_begin" => $options[3],
-                "time_end" => $options[4],
-                "message" => $options[5]
+                "message" => $options[3]
             ]);
         try {
             $twigBodyRenderer->render($email);
