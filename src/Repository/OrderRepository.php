@@ -6,6 +6,7 @@ use App\Entity\Order;
 use App\Entity\Shop;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -32,14 +33,13 @@ class OrderRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getAllShop(Shop $shop): array
+    public function getAllShop(Shop $shop): Query
     {
         return $this
             ->createQueryBuilder('o')
             ->where('o.shop = :shop and o.status < 3')
             ->setParameter('shop', $shop)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
     }
 
     public function findLast4ByUser(User|UserInterface $buyer): array

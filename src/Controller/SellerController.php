@@ -9,7 +9,6 @@ use App\Entity\Shop;
 use App\Entity\User;
 use App\Form\CategoryForm;
 use App\Form\ChooseShopForm;
-use App\Form\DeleteCategoryForm;
 use App\Form\ProductForm;
 use App\Form\ShopDeleteForm;
 use App\Form\ShopForm;
@@ -26,6 +25,7 @@ use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -34,7 +34,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
-use Twig\Error\LoaderError;
 
 #[Route(path: "/ma-boutique", name: "seller_")]
 class SellerController extends AbstractController
@@ -49,12 +48,13 @@ class SellerController extends AbstractController
         private TagRepository$tagRepository,
         private ProductTypeRepository $productTypeRepository,
         private CategoryRepository $categoryRepository,
-        private OpeningHoursRepository $openingHoursRepository
+        private OpeningHoursRepository $openingHoursRepository,
+        private PaginatorInterface $paginator
     ){}
 
     #[Route(path: "/{id}", name: "index", requirements: ["id" => "[0-9\-]*"])]
     #[IsGranted("ROLE_MERCHANT")]
-    public function index(Shop $shop): Response
+    public function index(Shop $shop, Request $request): Response
     {
         $user = $this->getUser();
         if ($user instanceof User) {
@@ -65,7 +65,8 @@ class SellerController extends AbstractController
         } else {
             return new Response($this->render('bundles/TwigBundle/Exception/error403.html.twig'), Response::HTTP_FORBIDDEN);
         }
-        $orders = $this->orderRepository->getAllShop($shop);
+        $orders = $this->orderRepository->getAllShop($shop)->getResult();
+        $total_orders = count($orders);
         $orders_buyers = [];
         $quantities = [];
         $products = [];
@@ -80,11 +81,15 @@ class SellerController extends AbstractController
                 $products[$value->getId()][] = $this->productRepository->find($op->getId());
             }
         }
-        $total_orders = count($orders);
+        $pagination_orders = $this->paginator->paginate(
+            $this->orderRepository->getAllShop($shop),
+            $request->query->getInt('page', 1),
+            6
+        );
         return $this->render('seller/index.html.twig', [
             'user' => $user,
             'shop' => $shop,
-            'orders' => $orders,
+            'orders' => $pagination_orders,
             'orders_buyers' => $orders_buyers,
             'total_orders' => $total_orders,
             'quantities' => $quantities,
@@ -108,7 +113,7 @@ class SellerController extends AbstractController
         $this->em->flush();
         $title = "Votre commande numéro " . $order->getOrderNumber() . " a été acceptée par le commerçant";
         $options = [];
-        array_push($options, $order_user->getName(), $order->getOrderNumber(), $order_infos['day'], $order_infos['begin'], $order_infos['end']);
+        array_push($options, $order_user->getName(), $order->getOrderNumber(), $order_infos['day']);
         if (isset($order_infos['message']) && $order_infos['message'] !== null) {
             $options[] = $order_infos['message'];
         }
@@ -129,8 +134,7 @@ class SellerController extends AbstractController
         $title = "Votre commande numéro " . $order->getOrderNumber() . " est prête chez le commerçant";
         $options = [];
         array_push($options, $order_user->getName(), $order->getOrderNumber(), $order_infos['day']);
-        (new MailerController)
-            ->send($this->mailer, $order_user->getEmail(), $title, $options, 'orderready');
+        (new MailerController)->send($this->mailer, $order_user->getEmail(), $title, $options, 'orderready');
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
     }
 
@@ -336,6 +340,7 @@ class SellerController extends AbstractController
                 $d = $d + 1;
             }
             $this->em->flush();
+            $this->addFlash('success', 'Les horaires ont bien été modifiés');
         }
         return $this->render('seller/edit.html.twig', [
             'shop' => $shop,
@@ -367,8 +372,13 @@ class SellerController extends AbstractController
             $product->getType()->addProduct($product);
             $this->em->persist($product);
             $this->em->flush();
+            $this->addFlash('success', 'Le produit a bien été créé');
         }
-        $products = $this->productRepository->findAllByShop($shop);
+        $products = $this->paginator->paginate(
+            $this->productRepository->findAllByShopQuery($shop),
+            $request->query->getInt('page', 1),
+            6
+        );
         $total_products = count($products);
         return $this->render('seller/products.html.twig', [
             'user' => $user,
@@ -391,28 +401,33 @@ class SellerController extends AbstractController
             $category->setShop($shop);
             $this->em->persist($category);
             $this->em->flush();
+            $this->addFlash('success', 'La catégorie a bien été créée');
         }
-        $form_delete = $this->createForm(DeleteCategoryForm::class, $category);
-        $form_delete->handleRequest($request);
-        if ($form_delete->isSubmitted() && $form_delete->isValid()) {
-            $category_id = $request->request->all('category_id');
-            foreach ($category_id as $key => $value) {
-                $category_id = $category_id[$key];
-            }
-            $category = $this->categoryRepository->find($category_id);
-            $this->em->remove($category);
-            $this->em->flush();
-        }
-        $categories = $this->categoryRepository->findAllByShop($shop);
+        $categories = $this->paginator->paginate(
+            $this->categoryRepository->findAllByShopQuery($shop)->getQuery(),
+            $request->query->getInt('page', 1),
+            6
+        );
         $total_categories = count($categories);
         return $this->render("seller/categories.html.twig", [
             'user' => $user,
             'shop' => $shop,
             'categories' => $categories,
             'total_categories' => $total_categories,
-            'form' => $form->createView(),
-            'form_delete' => $form_delete->createView()
+            'form' => $form->createView()
         ]);
+    }
+
+    #[Route(path: "/{id}/categories/{category}/supprimer", name: "delete_category", requirements: ["id" => "[0-9\-]*", "category" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
+    public function deleteCategory(Request $request): RedirectResponse
+    {
+        $shop = $this->shopRepository->find($request->attributes->get('id'));
+        $category = $this->categoryRepository->find($request->attributes->get('category'));
+        $this->em->remove($category);
+        $this->em->flush();
+        $this->addFlash('warning', 'La catégorie a bien été supprimée');
+        return $this->redirectToRoute('seller_categories', ['id' => $shop->getId()]);
     }
 
     #[Route(path: "/{id}/produits/{product}/modifier", name: "edit_product", requirements: ["id" => "[0-9\-]*", "product" => "[0-9\-]*"])]
@@ -453,7 +468,8 @@ class SellerController extends AbstractController
         $shop = $this->shopRepository->find($request->attributes->get('id'));
         $this->em->remove($product);
         $this->em->flush();
-        return $this->redirectToRoute('seller_edit_products', ["id" => $shop->getId(), "product" => $product->getId()]);
+        $this->addFlash('warning', 'Le produit a bien été supprimé');
+        return $this->redirectToRoute('seller_edit_products', ["id" => $shop->getId()]);
     }
 
     private function setProductImages(array $images, Product $product, Shop $shop)

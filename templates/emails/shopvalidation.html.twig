@@ -1,22 +1,18 @@
-<html>
+<html lang="fr">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width">
         <title>{{ email.subject }}</title>
     </head>
     <body>
-        {% apply inline_css(source("@css/email.css")) %}
         <img src="{{ email.image('@images/logo.jpg') }}" alt="Logo ClickNToulon" width="150" height="150">
         <p class="card-text">Bonjour {{ name }} !</p>
         <br>
         <p>Nous vous informons que votre boutique {{ id }} a bien été créée et validée par notre équipe. Elle est désormais accessible depuis ce lien: <a href="https://clickntoulon.fr/ma-boutique/choisir">clickntoulon.fr/ma-boutique/choisir</a></p>
         <p>Vous pouvez dès à présent rajouter des produits depuis votre espace commerçant, qui vous est désormais accessible en haut à gauche de chaque page (bouton "Ma boutique").</p>
-        <p>Si vous avez des questions ou besoin d'aide, n'hésitez pas à nous contacter sur: <a href="mailto:clickntoulon@yncrea.fr">clickntoulon@yncrea.fr</a></p>
+        <p>Si vous avez des questions ou besoin d'aide, n'hésitez pas à nous contacter sur: <a href="mailto:administration@clickntoulon.fr">administration@clickntoulon.fr</a></p>
         <br>
         <p>Solidairement,</p>
         <p>L'équipe ClickNToulon</p>
-        <br><br>
-        <i>La solidarité s'exprime envers notre planète. Veuillez imprimer ce mail qu'en cas de nécessité.</i>
-        {% endapply %}
     </body>
 </html>

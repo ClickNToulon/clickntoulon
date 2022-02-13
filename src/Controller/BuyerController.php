@@ -8,7 +8,10 @@ use App\Form\CreateOrderForm;
 use App\Repository\BasketRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ShopRepository;
+use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -157,20 +160,30 @@ class BuyerController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $order_quantities = $basket_quantities;
-            $order_products = $basket_products;
-            foreach ($order_products as $op) {
-                $data->addProduct($op);
+            try {
+                $checkDate = date_diff(baseObject: new DateTime('now', new DateTimeZone("Europe/Paris")), targetObject: $data->getDay());
+            } catch (Exception $e) {}
+            if($checkDate->format('YYYY-MM-DD') > 0) {
+                $this->addFlash('warning', 'La date de retrait souhaitée se situe dans le passé. Veuillez réessayer avec une date correcte.');
+            } else {
+                $order_quantities = $basket_quantities;
+                $order_products = $basket_products;
+                foreach ($order_products as $op) {
+                    $data->addProduct($op);
+                }
+                $data
+                    ->setStatus(0)
+                    ->setShop($shop)
+                    ->setQuantity($order_quantities)
+                    ->setBuyer($user);
+                $this->em->persist($data);
+                $this->em->remove($basket);
+                $this->em->flush();
+                $this->addFlash('success', 'La commande a bien été passée');
+                return $this->redirectToRoute('user_order', ['number' => $data->getOrderNumber()]);
             }
-            $data
-                ->setStatus(0)
-                ->setShop($shop)
-                ->setQuantity($order_quantities)
-                ->setBuyer($user);
-            $this->em->persist($data);
-            $this->em->remove($basket);
-            $this->em->flush();
-            return $this->redirectToRoute('user_order', ['number' => $data->getOrderNumber()]);
+        } else if($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('warning', 'Une erreur est survenue. Veuillez réessayer plus tard.');
         }
         return $this->render('buyer/checkout.html.twig', [
             'user' => $user,
