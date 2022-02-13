@@ -9,137 +9,92 @@ use DateTime;
 use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Exception;
 
-/**
- * @ORM\Entity(repositoryClass=ShopRepository::class)
- */
+#[ORM\Entity(repositoryClass: ShopRepository::class)]
 class Shop
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
+    protected ?int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private User $owner;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
+    #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
     private string $name;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
+    #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
     private string $slug;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: Types::TEXT)]
     private string $address;
 
-    /**
-     * @ORM\Column(type="string", length=5)
-     */
+    #[ORM\Column(type: Types::STRING, length: 5)]
     private string $postalCode;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $city;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: Types::INTEGER, length: 255, nullable: true)]
     private ?int $phone;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $email;
 
-    /**
-     * @ORM\Column(type="text", length=225, nullable=true)
-     */
+    #[ORM\Column(type: Types::STRING, length: 225, nullable: true)]
     private ?string $description;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private DateTime $createdAt;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private DateTime $updatedAt;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Payment::class)
-     */
-    private $payments;
+    #[ORM\ManyToMany(targetEntity: Payment::class)]
+    private ArrayCollection|PersistentCollection $payments;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: Types::TEXT)]
     private string $image;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="shop", orphanRemoval=true)
-     */
-    private $categories;
+    #[ORM\OneToMany(mappedBy: "shop", targetEntity: Category::class, orphanRemoval: true)]
+    private ArrayCollection|PersistentCollection $categories;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="shop", orphanRemoval=true)
-     */
-    private $orders;
+    #[ORM\OneToMany(mappedBy: "shop", targetEntity: Order::class, orphanRemoval: true)]
+    private ArrayCollection|PersistentCollection $orders;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="shop")
-     */
-    private $products;
+    #[ORM\OneToMany(mappedBy: "shop", targetEntity: Product::class)]
+    private ArrayCollection|PersistentCollection $products;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Tag::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Tag::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private Tag $tag;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: Types::INTEGER)]
     private int $status;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isBanned = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isVerified = false;
 
-    /**
-     * @ORM\OneToMany(targetEntity=OpeningHours::class, mappedBy="shop")
-     * @ORM\OrderBy({"day" = "ASC", "start" = "ASC"})
-     */
-    private $openingHours;
+    #[ORM\OneToMany(mappedBy: "shop", targetEntity: OpeningHours::class)]
+    #[ORM\OrderBy(["day" => "ASC", "start" => "ASC"])]
+    private ArrayCollection|PersistentCollection $openingHours;
 
     /**
      * @throws Exception
      */
     public function __construct()
     {
-        $dateTimeZoneFrance = new DateTimeZone("Europe/Paris");
-        $this->createdAt = new DateTime('now', $dateTimeZoneFrance);
-        $this->updatedAt = new DateTime('now', $dateTimeZoneFrance);
+        $this->createdAt = new DateTime('now', new DateTimeZone("Europe/Paris"));
+        $this->updatedAt = new DateTime('now', new DateTimeZone("Europe/Paris"));
         $this->payments = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->orders = new ArrayCollection();
@@ -160,7 +115,6 @@ class Shop
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
-
         return $this;
     }
 
@@ -172,7 +126,6 @@ class Shop
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -184,7 +137,6 @@ class Shop
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
-
         return $this;
     }
 
@@ -196,7 +148,6 @@ class Shop
     public function setAddress(string $address): self
     {
         $this->address = $address;
-
         return $this;
     }
 
@@ -208,7 +159,6 @@ class Shop
     public function setPostalCode(string $postalCode): self
     {
         $this->postalCode = $postalCode;
-
         return $this;
     }
 
@@ -220,7 +170,6 @@ class Shop
     public function setCity(string $city): self
     {
         $this->city = $city;
-
         return $this;
     }
 
@@ -232,7 +181,6 @@ class Shop
     public function setPhone(?int $phone): self
     {
         $this->phone = $phone;
-
         return $this;
     }
 
@@ -244,7 +192,6 @@ class Shop
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -256,7 +203,6 @@ class Shop
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -268,7 +214,6 @@ class Shop
     public function setStatus(int $status): self
     {
         $this->status = $status;
-
         return $this;
     }
 
@@ -280,7 +225,6 @@ class Shop
     public function setCreatedAt(DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -292,7 +236,6 @@ class Shop
     public function setUpdatedAt(DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
@@ -304,7 +247,6 @@ class Shop
     public function setIsBanned(bool $isBanned): self
     {
         $this->isBanned = $isBanned;
-
         return $this;
     }
 
@@ -316,7 +258,6 @@ class Shop
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
-
         return $this;
     }
 
@@ -328,7 +269,6 @@ class Shop
     public function setImage(string $image): self
     {
         $this->image = $image;
-
         return $this;
     }
 
@@ -340,13 +280,9 @@ class Shop
     public function setTag(Tag $tag): self
     {
         $this->tag = $tag;
-
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getPayments(): Collection
     {
         return $this->payments;
@@ -357,20 +293,15 @@ class Shop
         if (!$this->payments->contains($payment)) {
             $this->payments[] = $payment;
         }
-
         return $this;
     }
 
     public function removePayment(Payment $payment): self
     {
         $this->payments->removeElement($payment);
-
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getCategories(): Collection
     {
         return $this->categories;
@@ -382,7 +313,6 @@ class Shop
             $this->categories[] = $category;
             $category->setShop($this);
         }
-
         return $this;
     }
 
@@ -394,13 +324,9 @@ class Shop
                 $category->setShop(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getOrders(): Collection
     {
         return $this->orders;
@@ -412,7 +338,6 @@ class Shop
             $this->orders[] = $order;
             $order->setShop($this);
         }
-
         return $this;
     }
 
@@ -424,13 +349,9 @@ class Shop
                 $order->setShop(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getProducts(): Collection
     {
         return $this->products;
@@ -442,7 +363,6 @@ class Shop
             $this->products[] = $product;
             $product->setShop($this);
         }
-
         return $this;
     }
 
@@ -454,13 +374,9 @@ class Shop
                 $product->setShop(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getOpeningHours(): Collection
     {
         return $this->openingHours;
@@ -472,7 +388,6 @@ class Shop
             $this->openingHours[] = $openingHour;
             $openingHour->setShop($this);
         }
-
         return $this;
     }
 
@@ -485,7 +400,6 @@ class Shop
                 $openingHour->setShop(null);
             }
         }
-
         return $this;
     }
 
@@ -494,7 +408,6 @@ class Shop
     {
         $weekOpenHours = $this->getOpeningHours();
         $weekDays = [];
-
         // regroupe les différents horaires du même jour sous la même clé
         foreach ($weekOpenHours as $openingHour) {
             /**@var $openingHour OpeningHours */
@@ -504,15 +417,10 @@ class Shop
                 $weekDays[$openingHour->getDay()][] = 'Fermé';
             }
         }
-
         return array_combine(Day::getWeekDays(), $this->dayOpeningHoursToString($weekDays));
     }
 
-    /**
-     * Renvoie le tableau après avoir éclaté les tableaux de valeur associé à chaque clé en une chaine de caractère
-     * @param array $dayOpeningHours
-     * @return array
-     */
+    /** Renvoie le tableau après avoir éclaté les tableaux de valeur associé à chaque clé en une chaine de caractère */
     private function dayOpeningHoursToString(array $dayOpeningHours): array
     {
         foreach ($dayOpeningHours as $key => $value) {
@@ -524,7 +432,6 @@ class Shop
             $value = implode(', ', $value);
             $dayOpeningHours[$key] = $value;
         }
-
         return $dayOpeningHours;
     }
 }

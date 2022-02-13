@@ -17,10 +17,6 @@ class SearchController extends AbstractController
         private ProductRepository $productRepository
     ){}
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
     #[Route(path: "/recherche", name: "search")]
     public function index(Request $request): Response
     {
@@ -34,7 +30,6 @@ class SearchController extends AbstractController
         } else {
             $search_param = null;
         }
-
         $user = $this->getUser();
         $search_shop_results = $this->shopRepository->search($search_param);
         $search_product_results = $this->productRepository->search($search_param);

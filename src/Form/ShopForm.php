@@ -87,10 +87,9 @@ class ShopForm extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver
-            ->setDefaults([
-                'data_class' => Shop::class,
-                'translation_domain' => 'shop'
-            ]);
+        $resolver->setDefaults([
+            'data_class' => Shop::class,
+            'translation_domain' => 'shop'
+        ]);
     }
 }

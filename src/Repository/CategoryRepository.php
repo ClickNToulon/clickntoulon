@@ -21,9 +21,10 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-    public function findAllByShop(Shop $shop)
+    public function findAllByShop(Shop $shop): array
     {
-        return $this->createQueryBuilder('c')
+        return $this
+            ->createQueryBuilder('c')
             ->where('c.shop = :shop_id')
             ->setParameter('shop_id', $shop)
             ->getQuery()
@@ -32,7 +33,8 @@ class CategoryRepository extends ServiceEntityRepository
 
     public function findAllByShopQuery($id): QueryBuilder
     {
-        return $this->createQueryBuilder('c')
+        return $this
+            ->createQueryBuilder('c')
             ->where('c.shop = :shop_id')
             ->setParameter('shop_id', $id);
     }

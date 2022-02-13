@@ -15,9 +15,6 @@ class HomeController extends AbstractController
         private ProductRepository $productRepository
     ){}
 
-    /**
-     * @return Response
-     */
     #[Route(path: "/", name: "home"), ]
     public function index(): Response
     {

@@ -22,17 +22,20 @@ class BasketRepository extends ServiceEntityRepository
         parent::__construct($registry, Basket::class);
     }
 
-    public function findByUser(User|UserInterface $owner)
+    public function findByUser(User|UserInterface $owner): array
     {
-        return $this->createQueryBuilder('b')
+        return $this
+            ->createQueryBuilder('b')
             ->where('b.owner = :user')
             ->setParameter('user', $owner)
             ->getQuery()
             ->getResult();
     }
 
-    public function findByUserAndShop(User|UserInterface $user, Shop $shop) {
-        return $this->createQueryBuilder('b')
+    public function findByUserAndShop(User|UserInterface $user, Shop $shop): array
+    {
+        return $this
+            ->createQueryBuilder('b')
             ->where('b.owner = :user AND b.shop = :shop')
             ->setParameters([
                 'user' => $user,

@@ -7,6 +7,7 @@ use App\Entity\Shop;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Order|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,26 +22,30 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    public function findAllByUser(User $buyer)
+    public function findAllByUser(User $buyer): array
     {
-        return $this->createQueryBuilder('o')
+        return $this
+            ->createQueryBuilder('o')
             ->where('o.buyer = :user')
             ->setParameter('user', $buyer)
             ->getQuery()
             ->getResult();
     }
 
-    public function getAllShop(Shop $shop) {
-        return $this->createQueryBuilder('o')
+    public function getAllShop(Shop $shop): array
+    {
+        return $this
+            ->createQueryBuilder('o')
             ->where('o.shop = :shop and o.status < 3')
             ->setParameter('shop', $shop)
             ->getQuery()
             ->getResult();
     }
 
-    public function findLast4ByUser(User $buyer)
+    public function findLast4ByUser(User|UserInterface $buyer): array
     {
-        return $this->createQueryBuilder('o')
+        return $this
+            ->createQueryBuilder('o')
             ->where('o.buyer = :user AND o.status < 6')
             ->setParameter('user', $buyer)
             ->setMaxResults(4)
@@ -48,9 +53,10 @@ class OrderRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByNumber(string $number)
+    public function findByNumber(string $number): array
     {
-        return $this->createQueryBuilder('o')
+        return $this
+            ->createQueryBuilder('o')
             ->where('o.number = :number AND o.status < 6')
             ->setParameter('number', $number)
             ->getQuery()

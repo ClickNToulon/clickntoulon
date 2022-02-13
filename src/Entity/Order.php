@@ -6,62 +6,44 @@ use App\Repository\OrderRepository;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Exception;
 
-/**
- * @ORM\Entity(repositoryClass=OrderRepository::class)
- * @ORM\Table(name="`order`")
- */
+#[ORM\Entity(repositoryClass: OrderRepository::class)]
+#[ORM\Table(name: "`order`")]
 class Order
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
+    protected ?int $id;
 
-    /**
-     * @ORM\Column(type="string", length=12)
-     */
+    #[ORM\Column(type: Types::STRING, length: 12)]
     private string $orderNumber;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private User $buyer;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Shop::class, inversedBy="orders")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Shop::class, inversedBy: "orders")]
+    #[ORM\JoinColumn(nullable: false)]
     private Shop $shop;
 
-    /**
-     * @ORM\Column(type="date")
-     */
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?DateTimeInterface $day;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Product::class)
-     */
-    private $products;
+    #[ORM\ManyToMany(targetEntity: Product::class)]
+    private ArrayCollection|PersistentCollection $products;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: Types::JSON)]
     private ?array $quantity;
 
-    /**
-     * @ORM\Column(type="float")
-     */
+    #[ORM\Column(type: Types::FLOAT)]
     private ?float $total;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $status;
 
     /**
@@ -86,7 +68,6 @@ class Order
     public function setOrderNumber(string $orderNumber): self
     {
         $this->orderNumber = $orderNumber;
-
         return $this;
     }
 
@@ -98,7 +79,6 @@ class Order
     public function setBuyer(User $buyer): self
     {
         $this->buyer = $buyer;
-
         return $this;
     }
 
@@ -110,25 +90,20 @@ class Order
     public function setShop(Shop $shop): self
     {
         $this->shop = $shop;
-
         return $this;
     }
 
-    public function getDay(): ?\DateTimeInterface
+    public function getDay(): ?DateTimeInterface
     {
         return $this->day;
     }
 
-    public function setDay(\DateTimeInterface $day): self
+    public function setDay(DateTimeInterface $day): self
     {
         $this->day = $day;
-
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getProducts(): Collection
     {
         return $this->products;
@@ -139,14 +114,12 @@ class Order
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
         }
-
         return $this;
     }
 
     public function removeProduct(Product $product): self
     {
         $this->products->removeElement($product);
-
         return $this;
     }
 
@@ -158,7 +131,6 @@ class Order
     public function setQuantity(?array $quantity): self
     {
         $this->quantity = $quantity;
-
         return $this;
     }
 
@@ -170,7 +142,6 @@ class Order
     public function setTotal(float $total): self
     {
         $this->total = $total;
-
         return $this;
     }
 
@@ -182,7 +153,6 @@ class Order
     public function setStatus(int $status): self
     {
         $this->status = $status;
-
         return $this;
     }
 }

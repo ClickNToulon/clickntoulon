@@ -24,10 +24,6 @@ class SecurityController extends AbstractController
         private EntityManagerInterface $em
     ){}
 
-    /**
-     * @param AuthenticationUtils $authenticationUtils
-     * @return Response
-     */
     #[Route(path: "/connexion", name: "app_login")]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -50,13 +46,6 @@ class SecurityController extends AbstractController
         throw new LogicException('Methode qui peut être nulle');
     }
 
-    /**
-     * @param Request $request
-     * @param UserPasswordHasherInterface $passwordEncoder
-     * @param MailerInterface $mailer
-     * @return RedirectResponse|Response
-     * @throws LoaderError
-     */
     #[Route(path: "/inscription", name: "app_signup")]
     public function signUp(Request $request, UserPasswordHasherInterface $passwordEncoder, MailerInterface $mailer): RedirectResponse|Response
     {
@@ -86,11 +75,6 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param UserRepository $userRepository
-     * @return Response
-     */
     #[Route(path: "/verifier/profil/{id}", name: "app_verify_email", requirements: ["id" => "[0-9\-]*"])]
     public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
     {

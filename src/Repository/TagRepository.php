@@ -22,7 +22,8 @@ class TagRepository extends ServiceEntityRepository
 
     public function findAllQuery(): QueryBuilder
     {
-        return $this->createQueryBuilder('t')
+        return $this
+            ->createQueryBuilder('t')
             ->where('t.id >= 0');
     }
 }

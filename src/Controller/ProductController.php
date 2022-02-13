@@ -27,10 +27,6 @@ class ProductController extends AbstractController
         private CategoryRepository $categoryRepository
     ){}
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
     #[Route(path: "", name: "index")]
     public function index(Request $request): Response
     {
@@ -54,11 +50,6 @@ class ProductController extends AbstractController
         ]);
     }
 
-    /**
-     * @param array $baskets
-     * @param Product $product
-     * @return int
-     */
     public function checkBaskets(array $baskets, Product $product): int
     {
         $id = $product->getId();
@@ -84,8 +75,6 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @param Product $product
-     * @return Response
      * @throws NonUniqueResultException
      */
     #[Route(path: "/{id}", name: "show")]

@@ -3,39 +3,28 @@
 namespace App\Entity;
 
 use DateTime;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OpeningHoursRepository;
 
-/**
- * @ORM\Entity(repositoryClass=OpeningHoursRepository::class)
- */
+#[ORM\Entity(repositoryClass: OpeningHoursRepository::class)]
 class OpeningHours
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
+    protected ?int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Shop::class, inversedBy="openingHours")
-     */
+    #[ORM\ManyToOne(targetEntity: Shop::class, inversedBy: "openingHours")]
     private ?Shop $shop;
 
-    /**
-     * @ORM\Column(type="integer", length=1)
-     */
+    #[ORM\Column(type: Types::INTEGER, length: 1)]
     private int $day;
 
-    /**
-     * @ORM\Column(type="datetime", length=5, nullable=true)
-     */
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, length: 5, nullable: true)]
     private ?DateTime $start;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTime $end;
 
     public function getId(): ?int
@@ -51,7 +40,6 @@ class OpeningHours
     public function setShop(?Shop $shop): self
     {
         $this->shop = $shop;
-
         return $this;
     }
 
@@ -63,7 +51,6 @@ class OpeningHours
     public function setDay(int $day): self
     {
         $this->day = $day;
-
         return $this;
     }
 
@@ -75,7 +62,6 @@ class OpeningHours
     public function setStart(?DateTime $start): self
     {
         $this->start = $start;
-
         return $this;
     }
 
@@ -87,7 +73,6 @@ class OpeningHours
     public function setEnd(?DateTime $end): self
     {
         $this->end = $end;
-
         return $this;
     }
 

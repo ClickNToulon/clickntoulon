@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\ProductType;
 use App\Repository\CategoryRepository;
+use App\Repository\ProductTypeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -66,15 +68,29 @@ class ProductForm extends AbstractType
                 'attr' => [
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ],
+            ])
+            ->add('type', EntityType::class, [
+                'class' => ProductType::class,
+                'mapped' => false,
+                'required' => true,
+                'label' => 'Type',
+                'query_builder' => function(ProductTypeRepository $em) {
+                    return $em->findAllQuery();
+                },
+                'choice_label' => 'name',
+                'attr' => [
+                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
+                ],
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver
+            ->setDefaults([
             'data_class' => Product::class,
             'translation_domain' => 'products'
-        ])
-        ->setRequired('id');
+            ])
+            ->setRequired('id');
     }
 }

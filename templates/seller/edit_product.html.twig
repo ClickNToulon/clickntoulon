@@ -16,16 +16,16 @@
                 {{ form_start(form, {attr: {class: 'w-full'}}) }}
                 <div class="space-y-4">
                     <div class="grid grid-cols-2 gap-6">
-                        <div class="sm:col-span-1 col-span-2">
+                        <div class="col-span-2">
                             {{ form_row(form.name) }}
-                        </div>
-                        <div class="sm:col-span-1 col-span-2">
-                            {{ form_row(form.categories) }}
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-6">
-                        <div class="col-span-2">
-                            {{ form_row(form.description) }}
+                        <div class="sm:col-span-1 col-span-2">
+                            {{ form_row(form.categories) }}
+                        </div>
+                        <div class="sm:col-span-1 col-span-2">
+                            {{ form_row(form.type) }}
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-6">
@@ -34,6 +34,11 @@
                         </div>
                         <div class="col-span-2 sm:col-span-1">
                             {{ form_row(form.unitPriceDiscount) }}
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="col-span-2">
+                            {{ form_row(form.description) }}
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-6">

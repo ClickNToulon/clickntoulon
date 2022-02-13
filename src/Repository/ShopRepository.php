@@ -23,21 +23,20 @@ class ShopRepository extends ServiceEntityRepository
         parent::__construct($registry, Shop::class);
     }
 
-    /**
-     * @return mixed
-     */
-    public function findAllVisible(): mixed
+    public function findAllVisible(): array
     {
-        return $this->createQueryBuilder('s')
+        return $this
+            ->createQueryBuilder('s')
             ->where('s.status >= 1')
             ->setMaxResults(3)
             ->getQuery()
             ->getResult();
     }
 
-    public function search($search_param)
+    public function search($search_param): array
     {
-        return $this->createQueryBuilder('s')
+        return $this
+            ->createQueryBuilder('s')
             ->where('s.name LIKE :param')
             ->setParameter('param', '%'.$search_param.'%')
             ->andWhere('s.isBanned = false')
@@ -47,15 +46,17 @@ class ShopRepository extends ServiceEntityRepository
 
     public function findAllQuery(): Query
     {
-        return $this->createQueryBuilder('s')
+        return $this
+            ->createQueryBuilder('s')
             ->where('s.isBanned != true AND s.status >= 1')
             ->orderBy('s.id', 'DESC')
             ->getQuery();
     }
 
-    public function home()
+    public function home(): array
     {
-        return $this->createQueryBuilder('s')
+        return $this
+            ->createQueryBuilder('s')
             ->where('s.status > 1')
             ->orderBy('s.id', 'DESC')
             ->setMaxResults(6)
@@ -63,10 +64,6 @@ class ShopRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    /**
-     * @param User $owner
-     * @return QueryBuilder
-     */
     public function choose(User $owner): QueryBuilder
     {
         return $this
@@ -78,18 +75,20 @@ class ShopRepository extends ServiceEntityRepository
     /**
      * @throws NonUniqueResultException
      */
-    public function findById($shopID)
+    public function findById($shopID): Shop|null
     {
-        return $this->createQueryBuilder('s')
+        return $this
+            ->createQueryBuilder('s')
             ->where('s.id = :shop_id')
             ->setParameter('shop_id', $shopID)
             ->getQuery()
             ->getOneOrNullResult();
     }
 
-    public function findAllByUser($owner)
+    public function findAllByUser($owner): array
     {
-        return $this->createQueryBuilder('s')
+        return $this
+            ->createQueryBuilder('s')
             ->where('s.owner = :user')
             ->setParameter('user', $owner)
             ->getQuery()
