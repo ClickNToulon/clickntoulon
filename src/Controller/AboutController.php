@@ -18,6 +18,11 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Error\LoaderError;
 
+/**
+ * Provides the routes for all footer links
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class AboutController extends AbstractController
 {
     public function __construct(
@@ -60,7 +65,9 @@ class AboutController extends AbstractController
                 $report
                     ->setCreatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")))
                     ->setUpdatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")));
-            } catch (Exception $e) {}
+            } catch (Exception) {
+                return new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
             $this->em->persist($report);
             $this->em->flush();
             $this->addFlash('success', 'Votre signalement a bien été pris en compte. Il sera traité dans les plus brefs délais');

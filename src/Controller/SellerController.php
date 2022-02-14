@@ -35,6 +35,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 
+/**
+ * Provides all routes for the seller dashboard
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 #[Route(path: "/ma-boutique", name: "seller_")]
 class SellerController extends AbstractController
 {
@@ -107,7 +112,9 @@ class SellerController extends AbstractController
             $order
                 ->setDay(new DateTime($order_infos['day'], new DateTimeZone("Europe/Paris")))
                 ->setStatus(1);
-        } catch (Exception $e) {}
+        } catch (Exception) {
+            return new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
         $order_user = $order->getBuyer();
         $this->em->persist($order);
         $this->em->flush();
@@ -221,7 +228,9 @@ class SellerController extends AbstractController
                     ->addPayment($default_payment)
                     ->setSlug($shop->getSlug())
                     ->setTag($form->get('tag')->getData());
-            } catch (Exception $e) {}
+            } catch (Exception) {
+                return new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
             $this->em->persist($shop);
             $this->em->flush();
             $d = 1;
@@ -319,7 +328,9 @@ class SellerController extends AbstractController
                             ->setShop($shop)
                             ->setStart(new DateTime($data[$i], new DateTimeZone("Europe/Paris")))
                             ->setEnd(new DateTime($data[$i+1], new DateTimeZone("Europe/Paris")));
-                    } catch (Exception $e) {}
+                    } catch (Exception) {
+                        return new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+                    }
                     $this->em->persist($day);
                     $this->em->flush();
                     $shop->addOpeningHour($day);
@@ -332,7 +343,9 @@ class SellerController extends AbstractController
                             ->setShop($shop)
                             ->setStart(new DateTime($data[$i+2], new DateTimeZone("Europe/Paris")))
                             ->setEnd(new DateTime($data[$i+3], new DateTimeZone("Europe/Paris")));
-                    } catch (Exception $e) {}
+                    } catch (Exception) {
+                        return new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+                    }
                     $this->em->persist($day2);
                     $this->em->flush();
                     $shop->addOpeningHour($day2);
@@ -349,43 +362,6 @@ class SellerController extends AbstractController
             'form_delete' => $form_delete->createView(),
             'payments' => $payments,
             'openingHours' => $openingHours
-        ]);
-    }
-
-    #[Route(path: "/{id}/produits", name: "edit_products", requirements: ["id" => "[0-9\-]*"])]
-    #[IsGranted("ROLE_MERCHANT")]
-    public function products(Shop $shop, Request $request): Response
-    {
-        $user = $this->getUser();
-        $product = new Product();
-        $form = $this->createForm(ProductForm::class, $product, ['id' => $shop->getId()]);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $images = $form->get('images')->getData();
-            $product->setName($product->getName())
-                ->setDescription($product->getDescription())
-                ->setShop($shop)
-                ->setUnitPrice($product->getUnitPrice())
-                ->setType($form->get('type')->getData());
-            $this->checkUnitDiscountPrice($product);
-            $this->setProductImages($images, $product, $shop);
-            $product->getType()->addProduct($product);
-            $this->em->persist($product);
-            $this->em->flush();
-            $this->addFlash('success', 'Le produit a bien été créé');
-        }
-        $products = $this->paginator->paginate(
-            $this->productRepository->findAllByShopQuery($shop),
-            $request->query->getInt('page', 1),
-            6
-        );
-        $total_products = count($products);
-        return $this->render('seller/products.html.twig', [
-            'user' => $user,
-            'shop' => $shop,
-            'products' => $products,
-            'total_products' => $total_products,
-            'form' => $form->createView()
         ]);
     }
 
@@ -430,6 +406,43 @@ class SellerController extends AbstractController
         return $this->redirectToRoute('seller_categories', ['id' => $shop->getId()]);
     }
 
+    #[Route(path: "/{id}/produits", name: "edit_products", requirements: ["id" => "[0-9\-]*"])]
+    #[IsGranted("ROLE_MERCHANT")]
+    public function products(Shop $shop, Request $request): Response
+    {
+        $user = $this->getUser();
+        $product = new Product();
+        $form = $this->createForm(ProductForm::class, $product, ['id' => $shop->getId()]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('images')->getData();
+            $product->setName($product->getName())
+                ->setDescription($product->getDescription())
+                ->setShop($shop)
+                ->setUnitPrice($product->getUnitPrice())
+                ->setType($form->get('type')->getData());
+            $this->checkUnitDiscountPrice($product);
+            $this->setProductImages($images, $product, $shop);
+            $product->getType()->addProduct($product);
+            $this->em->persist($product);
+            $this->em->flush();
+            $this->addFlash('success', 'Le produit a bien été créé');
+        }
+        $products = $this->paginator->paginate(
+            $this->productRepository->findAllByShopQuery($shop),
+            $request->query->getInt('page', 1),
+            6
+        );
+        $total_products = count($products);
+        return $this->render('seller/products.html.twig', [
+            'user' => $user,
+            'shop' => $shop,
+            'products' => $products,
+            'total_products' => $total_products,
+            'form' => $form->createView()
+        ]);
+    }
+
     #[Route(path: "/{id}/produits/{product}/modifier", name: "edit_product", requirements: ["id" => "[0-9\-]*", "product" => "[0-9\-]*"])]
     #[IsGranted("ROLE_MERCHANT")]
     public function editProduct(Request $request): Response
@@ -472,7 +485,7 @@ class SellerController extends AbstractController
         return $this->redirectToRoute('seller_edit_products', ["id" => $shop->getId()]);
     }
 
-    private function setProductImages(array $images, Product $product, Shop $shop)
+    private function setProductImages(array $images, Product $product, Shop $shop): void
     {
         $limit = count($images);
         for ($i = 0; $i < $limit; $i++) {
@@ -483,7 +496,10 @@ class SellerController extends AbstractController
                         $this->getParameter('uploads/products'),
                         $newFilename
                     );
-                } catch (FileException $e) {}
+                } catch (FileException) {
+                    new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+                    return;
+                }
                 $product_images = $product->getImages();
                 $product_images[] = $newFilename;
                 $product->setImages($product_images);
@@ -491,7 +507,7 @@ class SellerController extends AbstractController
         }
     }
 
-    private function checkUnitDiscountPrice(Product $product)
+    private function checkUnitDiscountPrice(Product $product): void
     {
         if ($product->getUnitPriceDiscount() == null) {
             $product->setUnitPriceDiscount(null);

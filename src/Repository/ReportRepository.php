@@ -11,6 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Report|null findOneBy(array $criteria, array $orderBy = null)
  * @method Report[]    findAll()
  * @method Report[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
  */
 class ReportRepository extends ServiceEntityRepository
 {

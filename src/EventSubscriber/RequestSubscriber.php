@@ -8,6 +8,9 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+/**
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class RequestSubscriber implements EventSubscriberInterface
 {
     use TargetPathTrait;

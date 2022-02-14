@@ -18,6 +18,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Twig\Error\LoaderError;
 
+/**
+ * Provides all routes for the authentication system
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class SecurityController extends AbstractController
 {
     public function __construct(
@@ -65,7 +70,7 @@ class SecurityController extends AbstractController
                 array_push($options, $user->getName(), $user->getId());
                 (new MailerController)->send($mailer, $user->getEmail(), $title, $options, 'signup');
                 return $this->redirectToRoute('app_login');
-            } catch (UniqueConstraintViolationException $e) {
+            } catch (UniqueConstraintViolationException) {
                 $this->addFlash('warning', "Nom d'utilisateur ou adresse mail déjà utilisé");
             }
             //$this->addFlash('warning', "L'inscription sur ClickNToulon n'est pas encore ouverte.");

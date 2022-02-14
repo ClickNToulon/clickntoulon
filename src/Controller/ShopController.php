@@ -11,6 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Provides the routes for shops listing, unique shop view
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 #[Route(path: "/boutiques", name: "shop_")]
 class ShopController extends AbstractController
 {

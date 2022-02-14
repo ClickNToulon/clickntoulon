@@ -8,6 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Provides the home route
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class HomeController extends AbstractController
 {
     public function __construct(
@@ -15,7 +20,7 @@ class HomeController extends AbstractController
         private ProductRepository $productRepository
     ){}
 
-    #[Route(path: "/", name: "home"), ]
+    #[Route(path: "/", name: "home")]
     public function index(): Response
     {
         $shops = $this->shopRepository->home();

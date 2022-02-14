@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 #[ORM\Entity(repositoryClass: BasketRepository::class)]
 class Basket
 {

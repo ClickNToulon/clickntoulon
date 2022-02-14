@@ -2,6 +2,9 @@
 
 namespace App\Classes;
 
+/**
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class Day
 {
     public const MONDAY = 1;

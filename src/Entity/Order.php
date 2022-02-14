@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use Exception;
 
+/**
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: "`order`")]
 class Order

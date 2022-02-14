@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method Basket|null findOneBy(array $criteria, array $orderBy = null)
  * @method Basket[]    findAll()
  * @method Basket[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
  */
 class BasketRepository extends ServiceEntityRepository
 {

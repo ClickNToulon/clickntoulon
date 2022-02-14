@@ -18,6 +18,9 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+/**
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class GoogleAuthenticator extends OAuth2Authenticator
 {
     use TargetPathTrait;

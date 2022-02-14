@@ -14,6 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use Exception;
 
+/**
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 #[ORM\Entity(repositoryClass: ShopRepository::class)]
 class Shop
 {

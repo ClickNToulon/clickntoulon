@@ -11,6 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Payment|null findOneBy(array $criteria, array $orderBy = null)
  * @method Payment[]    findAll()
  * @method Payment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
  */
 class PaymentRepository extends ServiceEntityRepository
 {

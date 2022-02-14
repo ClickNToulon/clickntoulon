@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Provides full text search on products and shops
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class SearchController extends AbstractController
 {
     public function __construct(

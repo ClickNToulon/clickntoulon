@@ -18,6 +18,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ * Provides all routes for the basket and order checkout
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 #[Route(path: "/panier", name: "basket_")]
 class BuyerController extends AbstractController
 {
@@ -162,25 +167,27 @@ class BuyerController extends AbstractController
             $data = $form->getData();
             try {
                 $checkDate = date_diff(baseObject: new DateTime('now', new DateTimeZone("Europe/Paris")), targetObject: $data->getDay());
-            } catch (Exception $e) {}
-            if($checkDate->format('YYYY-MM-DD') > 0) {
-                $this->addFlash('warning', 'La date de retrait souhaitée se situe dans le passé. Veuillez réessayer avec une date correcte.');
-            } else {
-                $order_quantities = $basket_quantities;
-                $order_products = $basket_products;
-                foreach ($order_products as $op) {
-                    $data->addProduct($op);
+                if($checkDate->invert == 1) {
+                    $this->addFlash('warning', 'La date de retrait souhaitée se situe dans le passé. Veuillez réessayer avec une date correcte.');
+                } else {
+                    $order_quantities = $basket_quantities;
+                    $order_products = $basket_products;
+                    foreach ($order_products as $op) {
+                        $data->addProduct($op);
+                    }
+                    $data
+                        ->setStatus(0)
+                        ->setShop($shop)
+                        ->setQuantity($order_quantities)
+                        ->setBuyer($user);
+                    $this->em->persist($data);
+                    $this->em->remove($basket);
+                    $this->em->flush();
+                    $this->addFlash('success', 'La commande a bien été passée');
+                    return $this->redirectToRoute('user_order', ['number' => $data->getOrderNumber()]);
                 }
-                $data
-                    ->setStatus(0)
-                    ->setShop($shop)
-                    ->setQuantity($order_quantities)
-                    ->setBuyer($user);
-                $this->em->persist($data);
-                $this->em->remove($basket);
-                $this->em->flush();
-                $this->addFlash('success', 'La commande a bien été passée');
-                return $this->redirectToRoute('user_order', ['number' => $data->getOrderNumber()]);
+            } catch (Exception) {
+                return new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         } else if($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('warning', 'Une erreur est survenue. Veuillez réessayer plus tard.');

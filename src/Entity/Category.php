@@ -6,6 +6,9 @@ use App\Repository\CategoryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
