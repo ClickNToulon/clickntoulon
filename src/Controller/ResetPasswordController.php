@@ -14,10 +14,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
+/**
+ * Provides all routes used inside the ResetPassword system
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 #[Route(path: "/mot-de-passe-oublie")]
 class ResetPasswordController extends AbstractController
 {
@@ -79,6 +85,7 @@ class ResetPasswordController extends AbstractController
             throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
         }
         try {
+            /** @var User|UserInterface $user */
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('reset_password_error', sprintf(

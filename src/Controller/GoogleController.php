@@ -7,6 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Provides all routes for the Google OAuth system
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class GoogleController extends AbstractController
 {
     #[Route(path: "/oauth/google/connexion", name: "google_connect")]

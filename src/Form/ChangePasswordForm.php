@@ -10,6 +10,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class ChangePasswordForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

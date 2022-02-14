@@ -9,6 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class UpdateUserForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

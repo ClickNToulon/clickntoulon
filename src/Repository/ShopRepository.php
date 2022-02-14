@@ -15,6 +15,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Shop|null findOneBy(array $criteria, array $orderBy = null)
  * @method Shop[]    findAll()
  * @method Shop[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
  */
 class ShopRepository extends ServiceEntityRepository
 {

@@ -8,6 +8,9 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class ShopDeleteForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

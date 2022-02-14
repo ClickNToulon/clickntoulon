@@ -12,6 +12,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
+/**
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 class EmailVerifier
 {
     public function __construct(

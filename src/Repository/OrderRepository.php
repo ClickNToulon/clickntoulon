@@ -15,6 +15,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method Order|null findOneBy(array $criteria, array $orderBy = null)
  * @method Order[]    findAll()
  * @method Order[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
  */
 class OrderRepository extends ServiceEntityRepository
 {

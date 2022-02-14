@@ -21,6 +21,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Provides the routes for the user account edition, the orders listing and unique order listing
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
+ */
 #[Route(path: "/profil", name: "user_")]
 class UserController extends AbstractController
 {
@@ -126,7 +131,9 @@ class UserController extends AbstractController
                 $user
                     ->setPassword($this->passwordHasher->hashPassword($user, $data))
                     ->setUpdatedAt(new DateTime('now', $dateTimeZoneFrance));
-            } catch (Exception $e) {}
+            } catch (Exception) {
+                return [$form, new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR)];
+            }
             $this->em->flush();
             $this->addFlash('success', 'Votre mot de passe a bien été mis à jour');
 
@@ -144,7 +151,9 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $user->setUpdatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")));
-            } catch (Exception $e) {}
+            } catch (Exception) {
+                return [$form, new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR)];
+            }
             $this->em->persist($user);
             $this->em->flush();
             $this->addFlash('success', 'Vos informations ont bien été mises à jour');

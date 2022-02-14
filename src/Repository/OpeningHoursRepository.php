@@ -12,6 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method OpeningHours|null findOneBy(array $criteria, array $orderBy = null)
  * @method OpeningHours[]    findAll()
  * @method OpeningHours[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @author ClickNToulon <developpeurs@clickntoulon.fr>
  */
 class OpeningHoursRepository extends ServiceEntityRepository
 {
