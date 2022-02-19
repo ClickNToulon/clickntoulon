@@ -13,8 +13,8 @@
                 {% if products is defined and products.items != [] %}
                     {% include 'product/product_skeleton.html.twig' with {'products': products} %}
                 {% else %}
-                    <h1 class="text-center col-span-1 sm:col-span-2 lg:col-span-4 w-full text-black dark:text-white font-medium text-3xl">
-                        Aucun produit disponible sur ClickNToulon actuellement...
+                    <h1 class="text-center col-span-1 sm:col-span-2 lg:col-span-4 w-full flex items-center justify-center text-black dark:text-white font-bold text-4xl h-[35vh]">
+                        Aucun produit disponible actuellement...
                     </h1>
                 {% endif %}
             </div>

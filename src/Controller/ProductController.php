@@ -6,7 +6,6 @@ use App\Entity\Payment;
 use App\Entity\Product;
 use App\Form\AddProductBasketForm;
 use App\Repository\BasketRepository;
-use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ShopRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -29,8 +28,7 @@ class ProductController extends AbstractController
         private ProductRepository $productRepository,
         private ShopRepository $shopRepository,
         private PaginatorInterface $paginator,
-        private BasketRepository $basketRepository,
-        private CategoryRepository $categoryRepository
+        private BasketRepository $basketRepository
     ){}
 
     #[Route(path: "", name: "index")]
@@ -95,12 +93,6 @@ class ProductController extends AbstractController
             $payment_shop = $v->getId();
             $payments[] = $payments_icons->getIcon($payment_shop);
         }
-        $categories = [];
-        $categories_shop = $shop->getCategories();
-        foreach ($categories_shop as $row => $id) {
-            $category = $this->categoryRepository->find($id);
-            $categories[] = $category->getName();
-        }
         if ($user != null) {
             $baskets = $this->basketRepository->findByUser($user);
             $quantity = $this->checkBaskets($baskets, $product);
@@ -114,7 +106,6 @@ class ProductController extends AbstractController
             'shop' => $shop,
             'user' => $user,
             'payments' => $payments,
-            'categories' => $categories,
             'p_quantity' => $quantity
         ]);
     }
