@@ -2,18 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\OpeningHours;
+use App\Entity\Payment;
 use App\Entity\Product;
 use App\Entity\Shop;
+use App\Entity\Tag;
 use App\Entity\User;
-use App\Form\CategoryForm;
 use App\Form\ChooseShopForm;
 use App\Form\ProductForm;
 use App\Form\ShopDeleteForm;
 use App\Form\ShopForm;
 use App\Form\ShopUpdateForm;
-use App\Repository\CategoryRepository;
 use App\Repository\OpeningHoursRepository;
 use App\Repository\OrderRepository;
 use App\Repository\PaymentRepository;
@@ -34,6 +33,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Provides all routes for the seller dashboard
@@ -52,7 +52,6 @@ class SellerController extends AbstractController
         private PaymentRepository $paymentRepository,
         private TagRepository$tagRepository,
         private ProductTypeRepository $productTypeRepository,
-        private CategoryRepository $categoryRepository,
         private OpeningHoursRepository $openingHoursRepository,
         private PaginatorInterface $paginator
     ){}
@@ -109,9 +108,11 @@ class SellerController extends AbstractController
         $order = $this->orderRepository->find($request->attributes->get('order'));
         $order_infos = $request->request->all('order_confirm');
         try {
-            $order
-                ->setDay(new DateTime($order_infos['day'], new DateTimeZone("Europe/Paris")))
-                ->setStatus(1);
+            $data_date = new DateTime($order_infos['day'], new DateTimeZone("Europe/Paris"));
+            if($data_date != $order->getDay()) {
+                $order->setDay(new DateTime($order_infos['day'], new DateTimeZone("Europe/Paris")));
+            }
+            $order->setStatus(1);
         } catch (Exception) {
             return new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -150,7 +151,7 @@ class SellerController extends AbstractController
     public function order_pickup(Shop $shop, Request $request): Response
     {
         $order = $this->orderRepository->find($request->attributes->get('order'));
-        $order->setStatus(4);
+        $order->setStatus(3);
         $this->em->persist($order);
         $this->em->flush();
         return $this->redirectToRoute('seller_index', ['id' => $shop->getId()]);
@@ -162,7 +163,7 @@ class SellerController extends AbstractController
     {
         $order = $this->orderRepository->find($request->attributes->get('order'));
         $order_infos = $request->request->all('order_cancel');
-        $order->setStatus(6);
+        $order->setStatus(5);
         $order_user = $order->getBuyer();
         $this->em->persist($order);
         $this->em->flush();
@@ -217,38 +218,16 @@ class SellerController extends AbstractController
                 $shop->setImage($newFilename);
             }
             $default_payment = $this->paymentRepository->find(1);
-            try {
-                $shop
-                    ->setOwner($user)
-                    ->setCreatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")))
-                    ->setUpdatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")))
-                    ->setStatus(0)
-                    ->setIsBanned(0)
-                    ->setIsVerified(0)
-                    ->addPayment($default_payment)
-                    ->setSlug($shop->getSlug())
-                    ->setTag($form->get('tag')->getData());
-            } catch (Exception) {
-                return new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+            [$shop, $response] = $this->setShopFromInfos($shop, $user, $default_payment, $form->get('tag')->getData());
+            if($response) {
+                return $response;
             }
             $this->em->persist($shop);
             $this->em->flush();
             $d = 1;
             for ($k = 0; $k < 28; $k += 4) {
-                $day = new OpeningHours();
-                $day
-                    ->setDay($d)
-                    ->setShop($shop)
-                    ->setStart(null)
-                    ->setEnd(null);
-                $day2 = new OpeningHours();
-                $day2
-                    ->setDay($d)
-                    ->setShop($shop)
-                    ->setStart(null)
-                    ->setEnd(null);
-                $this->em->persist($day);
-                $this->em->persist($day2);
+                $day = $this->createOpeningHours($d, $shop);
+                $day2 = $this->createOpeningHours($d, $shop);
                 $this->em->flush();
                 $shop->addOpeningHour($day2);
                 $shop->addOpeningHour($day);
@@ -321,30 +300,18 @@ class SellerController extends AbstractController
             $this->em->flush();
             for ($i = 0; $i < count($data); $i+=4) {
                 if ($data[$i] !== "" && $data[$i+1] !== "") {
-                    $day = new OpeningHours();
-                    try {
-                        $day
-                            ->setDay($d)
-                            ->setShop($shop)
-                            ->setStart(new DateTime($data[$i], new DateTimeZone("Europe/Paris")))
-                            ->setEnd(new DateTime($data[$i+1], new DateTimeZone("Europe/Paris")));
-                    } catch (Exception) {
-                        return new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+                    [$day, $response] = $this->setOpeningHours($d, $shop, $data, $i);
+                    if($response) {
+                        return $response;
                     }
                     $this->em->persist($day);
                     $this->em->flush();
                     $shop->addOpeningHour($day);
                 }
                 if($data[$i+2] !== "" && $data[$i+3] !== "") {
-                    $day2 = new OpeningHours();
-                    try {
-                        $day2
-                            ->setDay($d)
-                            ->setShop($shop)
-                            ->setStart(new DateTime($data[$i+2], new DateTimeZone("Europe/Paris")))
-                            ->setEnd(new DateTime($data[$i+3], new DateTimeZone("Europe/Paris")));
-                    } catch (Exception) {
-                        return new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+                    [$day2, $response] = $this->setOpeningHours($d, $shop, $data, $i);
+                    if($response) {
+                        return $response;
                     }
                     $this->em->persist($day2);
                     $this->em->flush();
@@ -365,47 +332,6 @@ class SellerController extends AbstractController
         ]);
     }
 
-    #[Route(path: "/{id}/categories", name: "categories", requirements: ["id" => "[0-9\-]*"])]
-    #[IsGranted("ROLE_MERCHANT")]
-    public function categories(Shop $shop, Request $request): Response
-    {
-        $user = $this->getUser();
-        $category = new Category();
-        $form = $this->createForm(CategoryForm::class, $category);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $category->setShop($shop);
-            $this->em->persist($category);
-            $this->em->flush();
-            $this->addFlash('success', 'La catégorie a bien été créée');
-        }
-        $categories = $this->paginator->paginate(
-            $this->categoryRepository->findAllByShopQuery($shop)->getQuery(),
-            $request->query->getInt('page', 1),
-            6
-        );
-        $total_categories = count($categories);
-        return $this->render("seller/categories.html.twig", [
-            'user' => $user,
-            'shop' => $shop,
-            'categories' => $categories,
-            'total_categories' => $total_categories,
-            'form' => $form->createView()
-        ]);
-    }
-
-    #[Route(path: "/{id}/categories/{category}/supprimer", name: "delete_category", requirements: ["id" => "[0-9\-]*", "category" => "[0-9\-]*"])]
-    #[IsGranted("ROLE_MERCHANT")]
-    public function deleteCategory(Request $request): RedirectResponse
-    {
-        $shop = $this->shopRepository->find($request->attributes->get('id'));
-        $category = $this->categoryRepository->find($request->attributes->get('category'));
-        $this->em->remove($category);
-        $this->em->flush();
-        $this->addFlash('warning', 'La catégorie a bien été supprimée');
-        return $this->redirectToRoute('seller_categories', ['id' => $shop->getId()]);
-    }
-
     #[Route(path: "/{id}/produits", name: "edit_products", requirements: ["id" => "[0-9\-]*"])]
     #[IsGranted("ROLE_MERCHANT")]
     public function products(Shop $shop, Request $request): Response
@@ -422,7 +348,10 @@ class SellerController extends AbstractController
                 ->setUnitPrice($product->getUnitPrice())
                 ->setType($form->get('type')->getData());
             $this->checkUnitDiscountPrice($product);
-            $this->setProductImages($images, $product, $shop);
+            [$product, $response] = $this->setProductImages($images, $product, $shop);
+            if($response) {
+                return $response;
+            }
             $product->getType()->addProduct($product);
             $this->em->persist($product);
             $this->em->flush();
@@ -459,7 +388,10 @@ class SellerController extends AbstractController
                 ->setUnitPrice($product->getUnitPrice())
                 ->setType($form_update_product->get('type')->getData());
             $this->checkUnitDiscountPrice($product);
-            $this->setProductImages($images, $product, $shop);
+            [$product, $response] = $this->setProductImages($images, $product, $shop);
+            if($response) {
+                return $response;
+            }
             $product->getType()->addProduct($product);
             $this->em->persist($product);
             $this->em->flush();
@@ -485,7 +417,7 @@ class SellerController extends AbstractController
         return $this->redirectToRoute('seller_edit_products', ["id" => $shop->getId()]);
     }
 
-    private function setProductImages(array $images, Product $product, Shop $shop): void
+    private function setProductImages(array $images, Product $product, Shop $shop): array
     {
         $limit = count($images);
         for ($i = 0; $i < $limit; $i++) {
@@ -497,14 +429,15 @@ class SellerController extends AbstractController
                         $newFilename
                     );
                 } catch (FileException) {
-                    new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
-                    return;
+                    $response = new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+                    return [null, $response];
                 }
                 $product_images = $product->getImages();
                 $product_images[] = $newFilename;
                 $product->setImages($product_images);
             }
         }
+        return [$product, null];
     }
 
     private function checkUnitDiscountPrice(Product $product): void
@@ -514,5 +447,51 @@ class SellerController extends AbstractController
         } else {
             $product->setUnitPriceDiscount($product->getUnitPriceDiscount());
         }
+    }
+
+    private function setOpeningHours(int $d, Shop $shop, array $data, int $i): array
+    {
+        $day = new OpeningHours();
+        try {
+            $day->setDay($d)
+                ->setShop($shop)
+                ->setStart(new DateTime($data[$i], new DateTimeZone("Europe/Paris")))
+                ->setEnd(new DateTime($data[$i+1], new DateTimeZone("Europe/Paris")));
+        } catch (Exception) {
+            $response = new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return [null, $response];
+        }
+
+        return [$day, null];
+    }
+
+    private function createOpeningHours(int $d, Shop $shop): OpeningHours
+    {
+        $day = new OpeningHours();
+        $day->setDay($d)
+            ->setShop($shop)
+            ->setStart(null)
+            ->setEnd(null);
+        $this->em->persist($day);
+        return $day;
+    }
+
+    private function setShopFromInfos(Shop $shop, User|UserInterface $user, Payment $payment, Tag $tag): array
+    {
+        try {
+            $shop->setOwner($user)
+                ->setCreatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")))
+                ->setUpdatedAt(new DateTime('now', new DateTimeZone("Europe/Paris")))
+                ->setStatus(0)
+                ->setIsBanned(0)
+                ->setIsVerified(0)
+                ->addPayment($payment)
+                ->setSlug($shop->getSlug())
+                ->setTag($tag);
+        } catch (Exception) {
+            $response = new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return [null, $response];
+        }
+        return [$shop, null];
     }
 }

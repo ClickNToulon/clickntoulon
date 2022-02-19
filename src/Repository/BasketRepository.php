@@ -6,6 +6,7 @@ use App\Entity\Basket;
 use App\Entity\Shop;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -34,7 +35,10 @@ class BasketRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByUserAndShop(User|UserInterface $user, Shop $shop): array
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findByUserAndShop(User|UserInterface $user, Shop $shop): Basket|null
     {
         return $this
             ->createQueryBuilder('b')
@@ -43,8 +47,7 @@ class BasketRepository extends ServiceEntityRepository
                 'user' => $user,
                 'shop' => $shop
             ])
-            ->setMaxResults(1)
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 }
