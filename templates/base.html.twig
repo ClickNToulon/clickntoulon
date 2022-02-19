@@ -18,28 +18,30 @@
     <body class="relative">
         <div class="relative">
             <div id="cookies-eu-banner" class="mt-5 text-white" style="display: none;" data-wait-remove="250">
-                <div class="flex items-center justify-center font-bold flex-col">
-                    <p>En continuant votre visite sur ce site, vous acceptez l'utilisation des cookies nécessaires pour les statistiques des visites.</p>
-                    <div class="mt-3 space-x-4">
-                        <a href="{{ path('about_cgu') }}#cookies" id="cookies-eu-more" class="w-full sm:w-auto inline-flex justify-center rounded-full border-2 border-blue-900 shadow-sm px-4 py-2 mt-3 sm:mt-0 sm:ml-3 hover:bg-blue-900 text-blue-900 hover:text-white dark:text-white text-base font-bold">
-                            En savoir plus
-                        </a>
-                        <button id="cookies-eu-reject" class="w-full sm:w-auto inline-flex justify-center rounded-full border-2 border-red-600 shadow-sm px-4 py-2 sm:ml-3 hover:bg-red-600 text-base font-bold text-white">
-                            Rejeter
-                        </button>
-                        <button id="cookies-eu-accept" class="inline-flex justify-center py-2 px-4 shadow-sm text-base font-bold rounded-full text-white bg-blue-600 hover:bg-blue-500 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-white dark:focus:ring-offset-darkblue-800">
-                            Accepter
-                        </button>
+                <div class="flex justify-center items-center flex-row container mx-auto">
+                    <div class="flex items-center justify-center font-bold">
+                        <p>En continuant votre visite sur ce site, vous acceptez l'utilisation des cookies nécessaires.</p>
+                        <div class="ml-5">
+                            <a href="{{ path('about_cgu') }}#cookies" target="_blank" rel="noopener" id="cookies-eu-more" class="w-full sm:w-auto inline-flex justify-center rounded-full border-2 border-blue-900 shadow-sm px-4 py-2 mt-3 sm:mt-0 sm:ml-3 hover:bg-blue-900 text-blue-900 hover:text-white dark:text-white text-base font-bold">
+                                En savoir plus
+                            </a>
+                        </div>
                     </div>
+                    <button type="button" id="cookies-eu-accept" class="ml-5 p-2 rounded-md hover:bg-darkblue-600 focus:outline-none focus:ring-2 focus:ring-white">
+                        <span class="sr-only">Fermer</span>
+                        <!-- Heroicon name: outline/x -->
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <div id="cookies-eu-reject"></div>
                 </div>
             </div>
         </div>
         {% block body %}{% endblock %}
         <script src="{{ asset('js/cookies-eu-banner.min.js') }}"></script>
         <script>
-            const cookiesBanner = new CookiesEuBanner(function () {
-                console.log('Cookie banner loaded')
-            }, true, true);
+            const cookiesBanner = new CookiesEuBanner(function () {}, true, true);
             cookiesBanner.addClickListener(document.getElementById('cookies-eu-accept'), function () {
                 cookiesBanner.setConsent(true);
                 cookiesBanner.removeBanner();
