@@ -2,10 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\ProductType;
-use App\Repository\CategoryRepository;
 use App\Repository\ProductTypeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -59,19 +57,6 @@ class ProductForm extends AbstractType
                 'mapped' => false,
                 'required' => true,
             ])
-            ->add('categories', EntityType::class, [
-                'class' => Category::class,
-                'mapped' => false,
-                'required' => true,
-                'label' => 'Categories',
-                'query_builder' => function(CategoryRepository $em) use ($id) {
-                    return $em->findAllByShopQuery($id);
-                },
-                'choice_label' => 'name',
-                'attr' => [
-                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
-                ],
-            ])
             ->add('type', EntityType::class, [
                 'class' => ProductType::class,
                 'mapped' => false,
@@ -91,8 +76,8 @@ class ProductForm extends AbstractType
     {
         $resolver
             ->setDefaults([
-            'data_class' => Product::class,
-            'translation_domain' => 'products'
+                'data_class' => Product::class,
+                'translation_domain' => 'products'
             ])
             ->setRequired('id');
     }

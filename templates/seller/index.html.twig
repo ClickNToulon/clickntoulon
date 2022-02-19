@@ -136,7 +136,7 @@
                                                     </span>
                                                 {% endif %}
                                             </td>
-                                            <td class="px-8 py-8 space-y-2 tablet:space-y-0 text-center font-medium">
+                                            <td class="px-8 py-8 space-y-2 tablet:space-y-0 text-right font-medium">
                                                 {% if order.status == 0 %}
                                                     <button class="text-white font-bold border-2 border-transparent px-3 py-1 bg-blue-600 hover:bg-blue-500 text-base rounded-full tablet:mr-2" onclick="openModal('confirmModal{{ order.id }}')">Valider la commande</button>
                                                     <div class="hidden z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" id="confirmModal{{ order.id }}" role="dialog" aria-modal="true">

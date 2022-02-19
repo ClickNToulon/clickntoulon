@@ -65,9 +65,6 @@ class Shop
     #[ORM\Column(type: Types::TEXT)]
     private string $image;
 
-    #[ORM\OneToMany(mappedBy: "shop", targetEntity: Category::class, orphanRemoval: true)]
-    private ArrayCollection|PersistentCollection $categories;
-
     #[ORM\OneToMany(mappedBy: "shop", targetEntity: Order::class, orphanRemoval: true)]
     private ArrayCollection|PersistentCollection $orders;
 
@@ -99,7 +96,6 @@ class Shop
         $this->createdAt = new DateTime('now', new DateTimeZone("Europe/Paris"));
         $this->updatedAt = new DateTime('now', new DateTimeZone("Europe/Paris"));
         $this->payments = new ArrayCollection();
-        $this->categories = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->openingHours = new ArrayCollection();
@@ -302,31 +298,6 @@ class Shop
     public function removePayment(Payment $payment): self
     {
         $this->payments->removeElement($payment);
-        return $this;
-    }
-
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-            $category->setShop($this);
-        }
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->categories->removeElement($category)) {
-            // set the owning side to null (unless already changed)
-            if ($category->getShop() === $this) {
-                $category->setShop(null);
-            }
-        }
         return $this;
     }
 
