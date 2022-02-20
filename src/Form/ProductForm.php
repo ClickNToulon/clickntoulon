@@ -21,7 +21,6 @@ class ProductForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $id = $options['id'];
         $builder
             ->add('name', TextType::class, [
                 'required' => true,
@@ -48,7 +47,7 @@ class ProductForm extends AbstractType
                     'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
                 ]
             ])
-            ->add('images',FileType::class, [
+            ->add('images', FileType::class, [
                 'attr' => [
                     'accept' => 'image/*',
                     'class' => 'block w-full font-semibold text-black dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 file:cursor-pointer'
@@ -59,7 +58,6 @@ class ProductForm extends AbstractType
             ])
             ->add('type', EntityType::class, [
                 'class' => ProductType::class,
-                'mapped' => false,
                 'required' => true,
                 'label' => 'Type',
                 'query_builder' => function(ProductTypeRepository $em) {
@@ -74,11 +72,9 @@ class ProductForm extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver
-            ->setDefaults([
-                'data_class' => Product::class,
-                'translation_domain' => 'products'
-            ])
-            ->setRequired('id');
+        $resolver->setDefaults([
+            'data_class' => Product::class,
+            'translation_domain' => 'products'
+        ]);
     }
 }

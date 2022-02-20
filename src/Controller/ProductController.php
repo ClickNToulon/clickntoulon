@@ -54,7 +54,30 @@ class ProductController extends AbstractController
         ]);
     }
 
-    public function checkBaskets(array $baskets, Product $product): int
+    /**
+     * @throws NonUniqueResultException
+     */
+    #[Route(path: "/{id}", name: "show")]
+    public function shopProducts(Product $product): Response
+    {
+        $user = $this->getUser();
+        $shop = $this->shopRepository->findById($product->getShop()->getId());
+        $quantity = 1;
+        if ($user != null) {
+            $baskets = $this->basketRepository->findByUser($user);
+            $quantity = $this->checkBaskets($baskets, $product);
+        }
+        $form = $this->createForm(AddProductBasketForm::class);
+        return $this->render('product/show.html.twig', [
+            'form' => $form->createView(),
+            'product' => $product,
+            'shop' => $shop,
+            'user' => $user,
+            'p_quantity' => $quantity
+        ]);
+    }
+
+    private function checkBaskets(array $baskets, Product $product): int
     {
         $id = $product->getId();
         $inside = false;
@@ -62,8 +85,7 @@ class ProductController extends AbstractController
         foreach ($baskets as $b) {
             if($b->getShop() == $product->getShop()) {
                 $basket_products = $b->getProducts();
-                $limit = count($basket_products);
-                for ($i = 0; $i < $limit; $i++) {
+                for ($i = 0; $i < count($basket_products); $i++) {
                     if($basket_products[$i]->getId() == $id) {
                         $inside = true;
                         $quantities = $b->getQuantity();
@@ -76,37 +98,5 @@ class ProductController extends AbstractController
             $return = 1;
         }
         return $return;
-    }
-
-    /**
-     * @throws NonUniqueResultException
-     */
-    #[Route(path: "/{id}", name: "show")]
-    public function shopProducts(Product $product): Response
-    {
-        $user = $this->getUser();
-        $shop = $this->shopRepository->findById($product->getShop()->getId());
-        $payments_shop = $shop->getPayments();
-        $payments_icons = new Payment();
-        $payments = [];
-        foreach ($payments_shop as $k => $v) {
-            $payment_shop = $v->getId();
-            $payments[] = $payments_icons->getIcon($payment_shop);
-        }
-        if ($user != null) {
-            $baskets = $this->basketRepository->findByUser($user);
-            $quantity = $this->checkBaskets($baskets, $product);
-        } else {
-            $quantity = 1;
-        }
-        $form = $this->createForm(AddProductBasketForm::class);
-        return $this->render('product/show.html.twig', [
-            'form' => $form->createView(),
-            'product' => $product,
-            'shop' => $shop,
-            'user' => $user,
-            'payments' => $payments,
-            'p_quantity' => $quantity
-        ]);
     }
 }

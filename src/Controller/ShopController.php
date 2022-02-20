@@ -47,9 +47,9 @@ class ShopController extends AbstractController
         $payments_icons = new Payment();
         $payments = [];
         $hours = $shop->getFormattedWeekOpeningHours();
-        foreach ($payments_shop as $k => $v) {
-            $payment_shop = $v->getId();
-            $payments[] = $payments_icons->getIcon($payment_shop);
+        foreach ($payments_shop as $payment_shop) {
+            $payment = $payment_shop->getId();
+            $payments[] = $payments_icons->getIcon($payment);
         }
         return $this->render('shop/show.html.twig', [
             'shop' => $shop,

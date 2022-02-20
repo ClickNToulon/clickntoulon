@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\SearchForm;
 use App\Repository\ProductRepository;
 use App\Repository\ShopRepository;
@@ -9,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Provides full text search on products and shops
@@ -27,27 +29,29 @@ class SearchController extends AbstractController
     {
         $form = $this->createForm(SearchForm::class);
         $form->handleRequest($request);
+        $params = [];
         if($form->isSubmitted() && $form->isValid()) {
-            $_GET['q'] = $form->get('q')->getData();
+            $params = $request->request->all('search_form');
         }
-        if(isset($_GET['q']) && $_GET['q'] != null) {
-            $search_param = $_GET['q'];
+        if($params["q"] !== null) {
+            $searchParam = $params["q"];
         } else {
-            $search_param = null;
+            $searchParam = null;
         }
+        /** @var User|UserInterface $user */
         $user = $this->getUser();
-        $search_shop_results = $this->shopRepository->search($search_param);
-        $search_product_results = $this->productRepository->search($search_param);
-        $search_shop_count = count($search_shop_results);
-        $search_product_count = count($search_product_results);
-        $search_count = $search_product_count + $search_shop_count;
+        $searchShops = $this->shopRepository->search($searchParam);
+        $searchProducts = $this->productRepository->search($searchParam);
+        $shopsCount = count($searchShops);
+        $productsCount = count($searchProducts);
+        $total = $shopsCount + $productsCount;
         return $this->render('search/index.html.twig', [
-            'search_shop_results' => $search_shop_results,
-            'search_shop_count' => $search_shop_count,
-            'search_product_results' => $search_product_results,
-            'search_product_count' => $search_product_count,
-            'search_count' => $search_count,
-            'word_searched' => $search_param,
+            'search_shop_results' => $searchShops,
+            'search_shop_count' => $shopsCount,
+            'search_product_results' => $searchProducts,
+            'search_product_count' => $productsCount,
+            'search_count' => $total,
+            'word_searched' => $searchParam,
             'search' => $form->createView(),
             'user' => $user
         ]);
