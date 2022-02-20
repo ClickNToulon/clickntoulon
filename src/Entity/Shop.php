@@ -384,7 +384,7 @@ class Shop
         $weekDays = [];
         // regroupe les différents horaires du même jour sous la même clé
         foreach ($weekOpenHours as $openingHour) {
-            /**@var $openingHour OpeningHours */
+            /** @var OpeningHours $openingHour */
             if (null !== $openingHour->getStart() | null !== $openingHour->getEnd()) {
                 $weekDays[$openingHour->getDay()][] = $openingHour->toStringFormat();
             } else {
