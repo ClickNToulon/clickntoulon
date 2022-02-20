@@ -56,10 +56,9 @@ class AboutController extends AbstractController
         $user = $this->getUser();
 
         if($form->isSubmitted() && $form->isValid()) {
+            $report->setUser(null);
             if($user instanceof User) {
                 $report->setUser($user);
-            } else {
-                $report->setUser(null);
             }
             try {
                 $report

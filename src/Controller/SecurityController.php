@@ -94,12 +94,14 @@ class SecurityController extends AbstractController
         // validate email confirmation link, sets User::isVerified=true and persists
         if($user->getIsVerified() == true) {
             $this->addFlash('warning', 'Votre compte a déjà été vérifié ou ce compte n\'existe pas. Veuillez ressayer ultérieurement.');
-        } else {
-            $user->setIsVerified(1);
-            $this->em->persist($user);
-            $this->em->flush();
-            $this->addFlash('success', 'Votre compte a bien été vérifié. Vous pouvez désormais accéder à tout le contenu de la plateforme TouSolidaires.');
+            return $this->render('security/verify_email.html.twig', [
+                'user' => $user,
+            ]);
         }
+        $user->setIsVerified(1);
+        $this->em->persist($user);
+        $this->em->flush();
+        $this->addFlash('success', 'Votre compte a bien été vérifié. Vous pouvez désormais accéder à tout le contenu de la plateforme TouSolidaires.');
         return $this->render('security/verify_email.html.twig', [
             'user' => $user,
         ]);

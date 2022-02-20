@@ -33,10 +33,9 @@ class SearchController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $params = $request->request->all('search_form');
         }
+        $searchParam = null;
         if($params["q"] !== null) {
             $searchParam = $params["q"];
-        } else {
-            $searchParam = null;
         }
         /** @var User|UserInterface $user */
         $user = $this->getUser();

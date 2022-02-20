@@ -45,15 +45,15 @@ class SellerController extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $em,
-        private ShopRepository $shopRepository,
-        private ProductRepository $productRepository,
-        private OrderRepository $orderRepository,
-        private MailerInterface $mailer,
-        private PaymentRepository $paymentRepository,
-        private TagRepository$tagRepository,
-        private ProductTypeRepository $productTypeRepository,
-        private OpeningHoursRepository $openingHoursRepository,
-        private PaginatorInterface $paginator
+        private ShopRepository         $shopRepository,
+        private ProductRepository      $productRepository,
+        private OrderRepository        $orderRepository,
+        private MailerInterface        $mailer,
+        private PaymentRepository      $paymentRepository,
+        private TagRepository          $tagRepository,
+        private ProductTypeRepository  $productTypeRepository,
+        private OpeningHoursRepository $hoursRepository,
+        private PaginatorInterface     $paginator
     ){}
 
     #[Route(path: "/{id}", name: "index", requirements: ["id" => "[0-9\-]*"])]
@@ -283,7 +283,7 @@ class SellerController extends AbstractController
             $this->em->flush();
             return $this->redirectToRoute('seller_choose');
         }
-        $openingHours = $this->openingHoursRepository->findBy(["shop" => $shop]);
+        $openingHours = $this->hoursRepository->findBy(["shop" => $shop]);
         if ($request->getMethod() === "POST" && $request->request->get('day') !== null) {
             $data = $request->request->all();
             unset($data['day']);
