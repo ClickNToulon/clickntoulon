@@ -74,15 +74,15 @@ class SellerController extends AbstractController
         $orders_buyers = [];
         $quantities = [];
         $products = [];
-        foreach ($orders as $key => $value) {
-            $orders_buyers[$value->getId()] = $value->getBuyer();
-            $orders_quantities[$value->getId()] = $value->getQuantity();
-            foreach ($orders_quantities[$value->getId()] as $oq) {
-                $quantities[$value->getId()][] = $oq;
+        foreach ($orders as $order) {
+            $orders_buyers[$order->getId()] = $order->getBuyer();
+            $orders_quantities[$order->getId()] = $order->getQuantity();
+            foreach ($orders_quantities[$order->getId()] as $oq) {
+                $quantities[$order->getId()][] = $oq;
             }
-            $orders_products[$value->getId()] = $value->getProducts();
-            foreach ($orders_products[$value->getId()] as $op) {
-                $products[$value->getId()][] = $this->productRepository->find($op->getId());
+            $orders_products[$order->getId()] = $order->getProducts();
+            foreach ($orders_products[$order->getId()] as $op) {
+                $products[$order->getId()][] = $this->productRepository->find($op->getId());
             }
         }
         $pagination_orders = $this->paginator->paginate(
@@ -256,10 +256,10 @@ class SellerController extends AbstractController
             $payments_add = $request->request->all('payment');
             $payments_shop = $shop->getPayments();
             $payments_shop_array = [];
-            foreach ($payments_shop as $k => $v) {
+            foreach ($payments_shop as $v) {
                 $payments_shop_array[] = $v->getId();
             }
-            foreach ($payments_shop_array as $key => $value) {
+            foreach ($payments_shop_array as $value) {
                 if (in_array($value, $payments_add)) {
                     $payment_adding = $this->paymentRepository->find($value);
                     $shop->addPayment($payment_adding);
@@ -268,7 +268,7 @@ class SellerController extends AbstractController
                     $shop->removePayment($payment_removing);
                 }
             }
-            foreach ($payments_add as $key2 => $value2) {
+            foreach ($payments_add as $value2) {
                 if (!in_array($value2, $payments_shop_array)) {
                     $payment_adding = $this->paymentRepository->find($value2);
                     $shop->addPayment($payment_adding);
@@ -338,15 +338,11 @@ class SellerController extends AbstractController
     {
         $user = $this->getUser();
         $product = new Product();
-        $form = $this->createForm(ProductForm::class, $product, ['id' => $shop->getId()]);
+        $form = $this->createForm(ProductForm::class, $product);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData();
-            $product->setName($product->getName())
-                ->setDescription($product->getDescription())
-                ->setShop($shop)
-                ->setUnitPrice($product->getUnitPrice())
-                ->setType($form->get('type')->getData());
+            $product->setShop($shop);
             $this->checkUnitDiscountPrice($product);
             [$product, $response] = $this->setProductImages($images, $product, $shop);
             if($response) {
@@ -379,14 +375,14 @@ class SellerController extends AbstractController
         $user = $this->getUser();
         $product = $this->productRepository->find($request->attributes->get('product'));
         $shop = $this->shopRepository->find($request->attributes->get('id'));
-        $form_update_product = $this->createForm(ProductForm::class, $product, ['id' => $shop->getId()]);
-        $form_update_product->handleRequest($request);
-        if ($form_update_product->isSubmitted() && $form_update_product->isValid()) {
-            $images = $form_update_product->get('images')->getData();
+        $form = $this->createForm(ProductForm::class, $product);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('images')->getData();
             $product->setName($product->getName())
                 ->setDescription($product->getDescription())
                 ->setUnitPrice($product->getUnitPrice())
-                ->setType($form_update_product->get('type')->getData());
+                ->setType($form->get('type')->getData());
             $this->checkUnitDiscountPrice($product);
             [$product, $response] = $this->setProductImages($images, $product, $shop);
             if($response) {
@@ -401,7 +397,7 @@ class SellerController extends AbstractController
             'user' => $user,
             'shop' => $shop,
             'product' => $product,
-            'form' => $form_update_product->createView()
+            'form' => $form->createView()
         ]);
     }
 

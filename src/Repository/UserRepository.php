@@ -63,7 +63,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ])
                 ->getQuery()
                 ->getOneOrNullResult();
-        } catch (NonUniqueResultException $nonUniqueResultException) {}
+        } catch (NonUniqueResultException) {}
         if (isset($user) && $user instanceof User) {
             $data = $googleUser->toArray();
             if ($user->getGoogleID() === null && $data['email_verified'] === true) {
