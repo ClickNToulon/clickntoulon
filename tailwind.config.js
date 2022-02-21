@@ -35,8 +35,7 @@ module.exports = {
                 "accent": {
                     "red": "#FFE0E0",
                     "green": "#D2F0CD",
-                    "yellow": "#F9EDC7",
-
+                    "yellow": "#F9EDC7"
                 }
             },
             fontFamily: {
