@@ -4,7 +4,7 @@
 
 {% block body %}
     {% include 'navbar.html.twig' with {'active': 'signup'} %}
-    <div class="container mx-auto flex items-center justify-center h-test">
+    <div class="container mx-auto flex items-center justify-center h-custom">
         <div class="grid grid-cols-3 gap-x-6 w-full h-auto">
             <div class="bg-darkblue-150 dark:bg-darkblue-800 col-span-1 h-full w-full max-h-max rounded-xl p-10">
                 {% for message in app.flashes('warning') %}

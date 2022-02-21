@@ -67,11 +67,7 @@ html::-webkit-scrollbar-track {
   @apply rounded-b-lg;
 }
 
-.h-screen-custom {
-  height: calc(100vh - 192px) !important;
-}
-
-.h-test {
+.h-custom {
   height: calc(100vh - 84px) !important;
 }
 
@@ -144,7 +140,7 @@ html::-webkit-scrollbar-track {
   @apply ring-2 ring-blue-500;
 }
 
-.test {
+.letter-spacing-0\.025 {
   letter-spacing: 0.025em !important;
 }
 
