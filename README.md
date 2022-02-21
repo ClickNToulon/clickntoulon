@@ -23,10 +23,10 @@
 ## ➜ Dependances
 
 
-| Name             | Version       | Description                 |
-|------------------|---------------|-----------------------------|
-| **Heroicons**    | **_1.0.5_**   | Adds icons to the website   |
-| **Tailwind CSS** | **_3.0.11_**  | CSS Framework               |
+| Name             | Version     | Description                 |
+|------------------|-------------|-----------------------------|
+| **Heroicons**    | **_1.0.5_** | Adds icons to the website   |
+| **Tailwind CSS** | **_3.0.23_** | CSS Framework               |
 
 
 
