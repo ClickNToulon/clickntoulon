@@ -1811,12 +1811,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Promise\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2144,16 +2144,16 @@
         },
         {
             "name": "knpuniversity/oauth2-client-bundle",
-            "version": "v2.9.0",
+            "version": "v2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/knpuniversity/oauth2-client-bundle.git",
-                "reference": "2c925911cca6ed16b0695000bf927d405815dc36"
+                "reference": "eb260409723a7bf204c2aa842b3488980372e874"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/knpuniversity/oauth2-client-bundle/zipball/2c925911cca6ed16b0695000bf927d405815dc36",
-                "reference": "2c925911cca6ed16b0695000bf927d405815dc36",
+                "url": "https://api.github.com/repos/knpuniversity/oauth2-client-bundle/zipball/eb260409723a7bf204c2aa842b3488980372e874",
+                "reference": "eb260409723a7bf204c2aa842b3488980372e874",
                 "shasum": ""
             },
             "require": {
@@ -2198,9 +2198,9 @@
             ],
             "support": {
                 "issues": "https://github.com/knpuniversity/oauth2-client-bundle/issues",
-                "source": "https://github.com/knpuniversity/oauth2-client-bundle/tree/v2.9.0"
+                "source": "https://github.com/knpuniversity/oauth2-client-bundle/tree/v2.10.0"
             },
-            "time": "2021-11-22T01:40:58+00:00"
+            "time": "2022-02-23T15:00:49+00:00"
         },
         {
             "name": "laminas/laminas-code",
@@ -8698,16 +8698,16 @@
         },
         {
             "name": "symfonycasts/reset-password-bundle",
-            "version": "v1.12.0",
+            "version": "v1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SymfonyCasts/reset-password-bundle.git",
-                "reference": "ade9fad9f4355268aec1bd40773601f872a1672b"
+                "reference": "6e926da7fb2031ef38a385a994ea3a52b436dc8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SymfonyCasts/reset-password-bundle/zipball/ade9fad9f4355268aec1bd40773601f872a1672b",
-                "reference": "ade9fad9f4355268aec1bd40773601f872a1672b",
+                "url": "https://api.github.com/repos/SymfonyCasts/reset-password-bundle/zipball/6e926da7fb2031ef38a385a994ea3a52b436dc8c",
+                "reference": "6e926da7fb2031ef38a385a994ea3a52b436dc8c",
                 "shasum": ""
             },
             "require": {
@@ -8742,22 +8742,22 @@
             "description": "Symfony bundle that adds password reset functionality.",
             "support": {
                 "issues": "https://github.com/SymfonyCasts/reset-password-bundle/issues",
-                "source": "https://github.com/SymfonyCasts/reset-password-bundle/tree/v1.12.0"
+                "source": "https://github.com/SymfonyCasts/reset-password-bundle/tree/v1.13.0"
             },
-            "time": "2022-02-14T16:17:09+00:00"
+            "time": "2022-02-23T14:48:27+00:00"
         },
         {
             "name": "symfonycasts/verify-email-bundle",
-            "version": "v1.8.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SymfonyCasts/verify-email-bundle.git",
-                "reference": "aecd44697f7385178ff84a80f2b51d6318c15497"
+                "reference": "1b843f75398f2ab44b1d282945988d635b87f561"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SymfonyCasts/verify-email-bundle/zipball/aecd44697f7385178ff84a80f2b51d6318c15497",
-                "reference": "aecd44697f7385178ff84a80f2b51d6318c15497",
+                "url": "https://api.github.com/repos/SymfonyCasts/verify-email-bundle/zipball/1b843f75398f2ab44b1d282945988d635b87f561",
+                "reference": "1b843f75398f2ab44b1d282945988d635b87f561",
                 "shasum": ""
             },
             "require": {
@@ -8791,9 +8791,9 @@
             "description": "Simple, stylish Email Verification for Symfony",
             "support": {
                 "issues": "https://github.com/SymfonyCasts/verify-email-bundle/issues",
-                "source": "https://github.com/SymfonyCasts/verify-email-bundle/tree/v1.8.0"
+                "source": "https://github.com/SymfonyCasts/verify-email-bundle/tree/v1.9.0"
             },
-            "time": "2022-01-31T15:09:22+00:00"
+            "time": "2022-02-23T14:33:41+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
