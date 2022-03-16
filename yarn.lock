@@ -2401,9 +2401,9 @@ get-stream@^6.0.0:
   version "6.0.1"
   resolved "https://registry.npmjs.org/get-stream/-/get-stream-6.0.1.tgz"
 
-glob-all@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.npmjs.org/glob-all/-/glob-all-3.2.1.tgz"
+glob-all@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/glob-all/-/glob-all-3.3.0.tgz#2019896fbaeb37bc451809cf0cb1e5d2b3e345b2"
   dependencies:
     glob "^7.1.2"
     yargs "^15.3.1"
