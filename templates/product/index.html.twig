@@ -2,24 +2,78 @@
 
 {% block title 'Les produits - ClickNToulon' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('filterProduct') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('filterProduct') }}
+{% endblock %}
+
 {% block body %}
-    {% include 'navbar.html.twig' with {'active': 'product'} %}
-    <section class="text-gray-600 body-font" id="discover">
+    <section>
         <div class="container px-8 sm:px-5 pt-12 mx-auto">
-            <div class="flex items-center justify-center mb-12">
-                <h1 class="sm:text-5xl text-3xl font-extrabold title-font text-black dark:text-white mb-4 uppercase tracking-wider title-underline">Les produits</h1>
+            <div class="flex items-center justify-center flex-col mb-12">
+                <h1 class="sm:text-5xl text-3xl font-medium text-black dark:text-white mb-4 underline-offset-4 underline decoration-sky-600 decoration-[3px]">
+                    Les produits
+                </h1>
+                <p class="mx-auto max-w-2xl text-xl tracking-tight text-slate-700 dark:text-slate-200">
+                    Envie de découvrir de nouveaux produits ?
+                </p>
             </div>
-            <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                {% if products is defined and products.items != [] %}
-                    {% include 'product/product_skeleton.html.twig' with {'products': products} %}
-                {% else %}
-                    <h1 class="text-center col-span-1 sm:col-span-2 lg:col-span-4 w-full flex items-center justify-center text-black dark:text-white font-bold text-4xl h-[35vh]">
-                        Aucun produit disponible actuellement...
-                    </h1>
-                {% endif %}
+            <div class="grid grid-cols-4 gap-y-8 sm:gap-y-0 gap-x-6">
+                <div class="col-span-4 sm:col-span-1 px-5">
+                    {{ form_start(form) }}
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex flex-col">
+                            {{ form_row(form.q) }}
+                        </div>
+                        <div class="flex flex-col">
+                            {{ form_row(form.shop) }}
+                        </div>
+                        <div class="flex flex-col">
+                            <h4 class="font-semibold text-black dark:text-white text-lg">Prix</h4>
+                            <div class="grid grid-cols-2 gap-10">
+                                <div class="col-span-1">
+                                    {{ form_row(form.min, {attr: {type: 'hidden'}}) }}
+                                </div>
+                                <div class="col-span-1">
+                                    {{ form_row(form.max) }}
+                                </div>
+                            </div>
+                            <div id="price-slider" data-max="{{ max }}" class="mt-1 mb-10"></div>
+                        </div>
+                        <div class="flex flex-col pb-2">
+                            <h4 class="font-semibold text-black dark:text-white text-lg">Types</h4>
+                            {{ form_widget(form.types, {attr: {class: 'grid grid-cols-2 items-center'}}) }}
+                        </div>
+                    </div>
+                    <button
+                        type="submit"
+                        class="group inline-flex ring-2 items-center justify-center rounded-lg py-1 px-4 font-bold w-full mt-2
+                        focus:outline-none ring-slate-200 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
+                        dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600
+                        focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500"
+                    >
+                        Filtrer
+                    </button>
+                    {{ form_end(form) }}
+                </div>
+                <div class="col-span-4 sm:col-span-3">
+                    <div class="grid grid-cols-1 gap-y-6 gap-x-6 sm:grid-cols-3 xl:gap-x-3">
+                        {% if products is defined and products.items != [] %}
+                            {% include 'product/product_skeleton.html.twig' with {'products': products} %}
+                        {% else %}
+                            <h1 class="text-center col-span-1 sm:col-span-2 lg:col-span-4 w-full flex items-center justify-center text-black dark:text-white font-bold text-4xl h-[35vh]">
+                                Aucun produit disponible actuellement...
+                            </h1>
+                        {% endif %}
+                    </div>
+                    {{ knp_pagination_render(products) }}
+                </div>
             </div>
-            {{ knp_pagination_render(products) }}
         </div>
     </section>
-    {% include 'footer.html.twig' %}
 {% endblock %}

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr" class="bg-darkblue-100 dark:bg-darkblue-900">
+<html lang="fr" class="bg-slate-100 dark:bg-slate-900">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %}</title>
         <meta name="description" content="ClickNToulon est une plateforme de click&collect locale basée sur Toulon, qui permet d'apporter une source de revenus supplémentaires aux commerçants">
         <meta name="robots" content="all">
-        <link rel="icon" href="{{ asset('images/icon.svg') }}">
+        <link rel="icon" href="{{ asset('images/favicon.ico') }}">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -38,7 +38,276 @@
                 </div>
             </div>
         </div>
+        <nav>
+            <div class="desktop:container mx-auto px-5 lg:px-8 py-2">
+                <div class="relative flex items-center justify-between h-[4.25rem]">
+                    <div class="absolute inset-y-0 left-0 flex items-center tablet:hidden">
+                        <!-- Mobile menu button-->
+                        <button type="button" class="relative inline-flex items-center justify-center text-black dark:text-white" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleNavbar('mobile-menu', 'menu-close', 'menu-open')">
+                            <span class="sr-only">Open main menu</span>
+                            <!-- Icon when menu is closed. Heroicon name: outline/menu. Menu open: "hidden", Menu closed: "block" -->
+                            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" id="menu-open">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                            <!-- Icon when menu is open. Heroicon name: outline/x. Menu open: "block", Menu closed: "hidden" -->
+                            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" id="menu-close">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex-1 flex items-center justify-center tablet:items-stretch desktop:justify-start h-full w-full space-x-4">
+                        <div class="flex-shrink-0 flex items-center">
+                            <a href="{{ path('home') }}">
+                                <div class="flex tablet:hidden flex-row items-center">
+                                    <div class="p-1.5 logo rounded-md">
+                                        <svg viewBox="0 0 40 40" class="h-10 w-auto fill-white" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 20c0 11.046 8.954 20 20 20s20-8.954 20-20S31.046 0 20 0 0 8.954 0 20Zm20 16c-7.264 0-13.321-5.163-14.704-12.02C4.97 22.358 6.343 21 8 21h24c1.657 0 3.031 1.357 2.704 2.98C33.32 30.838 27.264 36 20 36Z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="hidden tablet:flex flex-row items-center">
+                                    <div class="p-1.5 logo rounded-md">
+                                        <svg viewBox="0 0 40 40" class="h-10 w-auto fill-white" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 20c0 11.046 8.954 20 20 20s20-8.954 20-20S31.046 0 20 0 0 8.954 0 20Zm20 16c-7.264 0-13.321-5.163-14.704-12.02C4.97 22.358 6.343 21 8 21h24c1.657 0 3.031 1.357 2.704 2.98C33.32 30.838 27.264 36 20 36Z"/>
+                                        </svg>
+                                    </div>
+                                    <svg viewBox="0 0 144 40" class="h-10 w-auto fill-black dark:fill-white ml-3" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke="none" d="M1.10 20.97L1.10 20.97Q1.06 17.42 3.47 15.03Q5.88 12.64 9.31 12.69L9.31 12.69Q12.72 12.69 14.88 15.04L14.88 15.04Q15.17 15.33 15.17 15.81L15.17 15.81Q15.17 16.26 14.84 16.60Q14.52 16.94 14.04 16.94L14.04 16.94Q13.49 16.94 13.18 16.55L13.18 16.55Q11.64 14.82 9.31 14.82L9.31 14.82Q6.86 14.82 5.22 16.58Q3.58 18.33 3.58 20.97Q3.58 23.61 5.22 25.36Q6.86 27.11 9.31 27.11L9.31 27.11Q11.62 27.11 13.20 25.38L13.20 25.38Q13.51 25 14.04 25L14.04 25Q14.52 25 14.84 25.32Q15.17 25.65 15.17 26.13Q15.17 26.61 14.88 26.90L14.88 26.90Q12.67 29.25 9.31 29.25L9.31 29.25Q5.88 29.32 3.47 26.92Q1.06 24.52 1.10 20.97ZM17.83 28L17.83 28L17.83 13.91Q17.83 13.46 18.14 13.14Q18.46 12.83 18.91 12.83L18.91 12.83Q19.34 12.83 19.67 13.14Q19.99 13.46 19.99 13.91L19.99 13.91L19.99 28Q19.99 28.46 19.67 28.77Q19.34 29.08 18.91 29.08L18.91 29.08Q18.46 29.08 18.14 28.77Q17.83 28.46 17.83 28ZM23.51 14.66Q23.09 14.25 23.09 13.67Q23.09 13.10 23.50 12.70Q23.90 12.30 24.48 12.30Q25.06 12.30 25.46 12.70Q25.87 13.10 25.87 13.67Q25.87 14.25 25.46 14.66Q25.06 15.06 24.48 15.06L24.48 15.06Q23.93 15.06 23.51 14.66ZM23.42 28L23.42 28L23.42 18.33Q23.42 17.87 23.74 17.56Q24.05 17.25 24.50 17.25L24.50 17.25Q24.94 17.25 25.26 17.56Q25.58 17.87 25.58 18.33L25.58 18.33L25.58 28Q25.58 28.46 25.26 28.77Q24.94 29.08 24.48 29.08L24.48 29.08Q24.05 29.08 23.74 28.77Q23.42 28.46 23.42 28ZM34.20 17.08L34.20 17.08Q36.41 17.08 37.90 18.42L37.90 18.42Q38.23 18.71 38.23 19.14L38.23 19.14Q38.23 19.55 37.96 19.84Q37.68 20.13 37.27 20.13L37.27 20.13Q36.89 20.13 36.62 19.89L36.62 19.89Q35.66 19 34.30 19L34.30 19Q32.64 19 31.60 20.16Q30.55 21.33 30.55 23.15Q30.55 24.98 31.60 26.15Q32.64 27.33 34.30 27.33L34.30 27.33Q35.66 27.33 36.62 26.44L36.62 26.44Q36.86 26.20 37.25 26.20L37.25 26.20Q37.66 26.20 37.94 26.48Q38.23 26.75 38.23 27.16L38.23 27.16Q38.23 27.62 37.90 27.90L37.90 27.90Q36.41 29.25 34.20 29.25L34.20 29.25Q31.61 29.25 29.95 27.52Q28.30 25.79 28.30 23.15L28.30 23.15Q28.30 20.54 29.95 18.81Q31.61 17.08 34.20 17.08ZM50.78 28L50.78 28Q50.78 28.46 50.48 28.77Q50.18 29.08 49.73 29.08L49.73 29.08Q49.18 29.08 48.89 28.72L48.89 28.72L44.88 23.99L43.08 25.67L43.08 28Q43.08 28.46 42.76 28.77Q42.43 29.08 41.98 29.08L41.98 29.08Q41.54 29.08 41.23 28.77Q40.92 28.46 40.92 28L40.92 28L40.92 13.91Q40.92 13.46 41.23 13.14Q41.54 12.83 42.00 12.83L42.00 12.83Q42.43 12.83 42.76 13.14Q43.08 13.46 43.08 13.91L43.08 13.91L43.08 23.25L48.91 17.51Q49.18 17.25 49.61 17.25L49.61 17.25Q50.02 17.25 50.30 17.55Q50.59 17.85 50.59 18.26L50.59 18.26Q50.59 18.64 50.28 18.95L50.28 18.95L46.46 22.67L50.52 27.28Q50.78 27.62 50.78 28ZM64.34 28.46L64.34 28.46L55.85 16.67L55.85 27.88Q55.85 28.36 55.50 28.72Q55.15 29.08 54.67 29.08L54.67 29.08Q54.17 29.08 53.81 28.72Q53.45 28.36 53.45 27.88L53.45 27.88L53.45 14.42Q53.45 13.77 53.90 13.30Q54.36 12.83 55.03 12.83L55.03 12.83Q55.85 12.83 56.30 13.48L56.30 13.48L64.63 24.95L64.63 14.03Q64.63 13.55 64.98 13.19Q65.33 12.83 65.81 12.83L65.81 12.83Q66.31 12.83 66.67 13.19Q67.03 13.55 67.03 14.03L67.03 14.03L67.03 27.59Q67.03 28.19 66.60 28.64Q66.17 29.08 65.54 29.08L65.54 29.08Q64.75 29.08 64.34 28.46ZM74.50 27.88L74.50 27.88L74.50 15.06L70.46 15.06Q70.03 15.06 69.72 14.76Q69.41 14.46 69.41 14.03L69.41 14.03Q69.41 13.58 69.72 13.26Q70.03 12.95 70.46 12.95L70.46 12.95L80.90 12.95Q81.34 12.95 81.66 13.26Q81.98 13.58 81.98 14.03L81.98 14.03Q81.98 14.46 81.66 14.76Q81.34 15.06 80.90 15.06L80.90 15.06L76.90 15.06L76.90 27.88Q76.90 28.36 76.54 28.72Q76.18 29.08 75.70 29.08L75.70 29.08Q75.19 29.08 74.84 28.72Q74.50 28.36 74.50 27.88ZM80.93 23.15L80.93 23.15Q80.93 20.58 82.56 18.83Q84.19 17.08 86.78 17.08Q89.38 17.08 91.01 18.83Q92.64 20.58 92.64 23.15L92.64 23.15Q92.64 25.74 91.01 27.50Q89.38 29.25 86.78 29.25Q84.19 29.25 82.56 27.50Q80.93 25.74 80.93 23.15ZM89.41 26.12Q90.38 24.90 90.38 23.15Q90.38 21.40 89.41 20.20Q88.44 19 86.78 19L86.78 19Q85.18 19 84.18 20.21Q83.18 21.42 83.18 23.15L83.18 23.15Q83.18 24.90 84.17 26.12Q85.15 27.33 86.78 27.33L86.78 27.33Q88.44 27.33 89.41 26.12ZM105.36 18.33L105.36 18.33L105.36 28Q105.36 28.46 105.04 28.77Q104.71 29.08 104.28 29.08L104.28 29.08Q103.82 29.08 103.51 28.77Q103.20 28.46 103.20 28L103.20 28L103.20 27.38Q101.50 29.25 99.07 29.25L99.07 29.25Q95.38 29.25 95.38 25.55L95.38 25.55L95.38 18.33Q95.38 17.87 95.69 17.56Q96.00 17.25 96.46 17.25L96.46 17.25Q96.89 17.25 97.21 17.56Q97.54 17.87 97.54 18.33L97.54 18.33L97.54 24.83Q97.54 26.18 98.14 26.75Q98.74 27.33 99.98 27.33L99.98 27.33Q100.92 27.33 101.80 26.87Q102.67 26.42 103.20 25.70L103.20 25.70L103.20 18.33Q103.20 17.87 103.51 17.56Q103.82 17.25 104.26 17.25L104.26 17.25Q104.71 17.25 105.04 17.56Q105.36 17.87 105.36 18.33ZM108.79 28L108.79 28L108.79 13.91Q108.79 13.46 109.10 13.14Q109.42 12.83 109.87 12.83L109.87 12.83Q110.30 12.83 110.63 13.14Q110.95 13.46 110.95 13.91L110.95 13.91L110.95 28Q110.95 28.46 110.63 28.77Q110.30 29.08 109.87 29.08L109.87 29.08Q109.42 29.08 109.10 28.77Q108.79 28.46 108.79 28ZM113.66 23.15L113.66 23.15Q113.66 20.58 115.30 18.83Q116.93 17.08 119.52 17.08Q122.11 17.08 123.74 18.83Q125.38 20.58 125.38 23.15L125.38 23.15Q125.38 25.74 123.74 27.50Q122.11 29.25 119.52 29.25Q116.93 29.25 115.30 27.50Q113.66 25.74 113.66 23.15ZM122.15 26.12Q123.12 24.90 123.12 23.15Q123.12 21.40 122.15 20.20Q121.18 19 119.52 19L119.52 19Q117.91 19 116.92 20.21Q115.92 21.42 115.92 23.15L115.92 23.15Q115.92 24.90 116.90 26.12Q117.89 27.33 119.52 27.33L119.52 27.33Q121.18 27.33 122.15 26.12ZM138.10 20.82L138.10 20.82L138.10 28Q138.10 28.46 137.77 28.77Q137.45 29.08 136.99 29.08L136.99 29.08Q136.56 29.08 136.25 28.77Q135.94 28.46 135.94 28L135.94 28L135.94 21.54Q135.94 20.20 135.32 19.60Q134.71 19 133.46 19L133.46 19Q132.53 19 131.66 19.48Q130.80 19.96 130.27 20.68L130.27 20.68L130.27 28Q130.27 28.46 129.95 28.77Q129.62 29.08 129.19 29.08L129.19 29.08Q128.74 29.08 128.42 28.77Q128.11 28.46 128.11 28L128.11 28L128.11 18.33Q128.11 17.87 128.42 17.56Q128.74 17.25 129.17 17.25L129.17 17.25Q129.62 17.25 129.95 17.56Q130.27 17.87 130.27 18.33L130.27 18.33L130.27 18.98Q130.97 18.16 132.08 17.62Q133.20 17.08 134.38 17.08L134.38 17.08Q138.10 17.08 138.10 20.82Z"/>
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hidden tablet:block h-full w-full">
+                            <div class="flex h-full">
+                                <div class="w-full flex justify-center">
+                                    <div class="space-x-4 flex flex-row ml-auto">
+                                        <!-- Active: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                                        <a href="{{ path('home') }}" class="px-3 py-2 w-auto text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('home') }}>
+                                            Accueil
+                                        </a>
+                                        <a href="{{ path('shop_index') }}" class="px-3 py-2 text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('shop') }}>
+                                            Boutiques
+                                        </a>
+                                        <a href="{{ path('product_index') }}" class="px-3 py-2 text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('product') }}>
+                                            Produits
+                                        </a>
+                                        {% if app.user is defined and app.user is not null %}
+                                            <a href="{{ path('basket_index') }}" class="px-3 py-2 text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('basket') }}>
+                                                Panier
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex items-center ml-auto space-x-4">
+                                        {% if app.user is defined and app.user is not null %}
+                                            <div class="relative px-3 font-medium my-auto inline-block items-center">
+                                                <div>
+                                                    <button
+                                                        type="button"
+                                                        class="inline-flex justify-center ring-2 items-center w-full min-w-max rounded-lg shadow-lg px-2 py-1 font-bold
+                                                        focus:outline-none ring-slate-200 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
+                                                        dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600
+                                                        focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500"
+                                                        aria-expanded="true" aria-haspopup="true" onclick="openDropdown('menu-button')"
+                                                    >
+                                                        Mon compte
+                                                        <!-- Heroicon name: solid/chevron-down -->
+                                                        <svg class="h-5 w-5 -mr-0.5 ml-1 mt-[2.5px]" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <!-- Dropdown menu, show/hide based on menu state. -->
+                                                <div class="origin-top-right absolute right-0 left-0 mt-2.5 w-42 text-black dark:text-white rounded-lg hidden shadow-lg dark:shadow-none bg-slate-100 z-40 dark:bg-slate-800 min-w-max w-full divide-y divide-gray-100 dark:divide-slate-700" role="menu" aria-orientation="vertical" id="menu-button" aria-labelledby="menu-button" tabindex="-1">
+                                                    <div class="py-1" role="none">
+                                                        <h6 class="px-4 py-2 text-sm block">Connecté en tant que <span class="text-sky-500 dark:text-sky-400 font-bold">{{ app.user.surname }} {{ app.user.name }}</span></h6>
+                                                    </div>
+                                                    {% if is_granted('ROLE_MERCHANT') %}
+                                                        <div class="py-1" role="none">
+                                                            <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                                                            <a href="{{ path('seller_choose') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-0">Ma boutique</a>
+                                                        </div>
+                                                    {% endif %}
+                                                    <div class="py-1" role="none">
+                                                        <a href="{{ path('user_edit') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-1">Mon profil</a>
+                                                        <a href="{{ path('user_orders') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-2">Mes commandes</a>
+                                                    </div>
+                                                    <div class="py-1" role="none">
+                                                        <a href="{{ path('app_logout') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-3">Déconnexion</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <a href="{{ path('app_login') }}" class="flex items-center justify-center align-middle h-10 my-auto">
+                                                <button
+                                                    class="px-3.5 py-1 ring-2 rounded-lg font-bold focus:outline-none ring-slate-200
+                                                    dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
+                                                    dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500
+                                                    active:text-slate-600 focus-visible:outline-sky-600 focus-visible:ring-slate-300
+                                                    transition-all duration-500"
+                                                >
+                                                    Connexion
+                                                </button>
+                                            </a>
+                                            <a href="{{ path('app_signup') }}" class="flex items-center justify-center align-middle h-10 my-auto">
+                                                <button
+                                                    class="px-3.5 py-1.5 rounded-lg font-bold focus:outline-none focus-visible:outline-2
+                                                    focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
+                                                    dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all
+                                                    duration-500"
+                                                >
+                                                    Inscription
+                                                </button>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div class="hidden tablet:hidden" id="mobile-menu">
+                <div class="container mx-auto px-6 pt-2 pb-3 space-y-1">
+                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                    <a href="{{ path('home') }}" class="px-3 py-2 w-auto text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('home') }}>
+                        Accueil
+                    </a>
+                    <a href="{{ path('shop_index') }}" class="px-3 py-2 text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('shop') }}>
+                        Boutiques
+                    </a>
+                    <a href="{{ path('product_index') }}" class="px-3 py-2 text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('product') }}>
+                        Produits
+                    </a>
+                    {% if app.user is defined and app.user is not null %}
+                        <a href="{{ path('basket_index') }}" class="px-3 py-2 text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('basket') }}>
+                            Panier
+                        </a>
+                        <div class="relative px-3 font-medium my-auto inline-block items-center w-full">
+                            <div>
+                                <button
+                                    type="button"
+                                    class="inline-flex justify-center ring-2 items-center w-full min-w-max rounded-lg shadow-lg px-2 py-1 font-bold
+                                    focus:outline-none ring-slate-200 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
+                                    dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600
+                                    focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500"
+                                    aria-expanded="true" aria-haspopup="true" onclick="openDropdown('menu-button')"
+                                >
+                                    Mon compte
+                                    <!-- Heroicon name: solid/chevron-down -->
+                                    <svg class="h-5 w-5 -mr-0.5 ml-1 mt-[2.5px]" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <!-- Dropdown menu, show/hide based on menu state. -->
+                            <div class="origin-top-right absolute right-0 left-0 mt-2.5 w-42 text-black dark:text-white rounded-lg hidden shadow-lg dark:shadow-none bg-darkblue-150 z-40 dark:bg-slate-800 min-w-max w-full divide-y divide-gray-100 dark:divide-slate-700" role="menu" aria-orientation="vertical" id="menu-button" aria-labelledby="menu-button" tabindex="-1">
+                                <div class="py-1" role="none">
+                                    <h6 class="px-4 py-2 text-sm block">Connecté en tant que <span class="text-sky-500 dark:text-sky-400 font-bold">{{ app.user.surname }} {{ app.user.name }}</span></h6>
+                                </div>
+                                {% if is_granted('ROLE_MERCHANT') %}
+                                    <div class="py-1" role="none">
+                                        <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                                        <a href="{{ path('seller_choose') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-0">Ma boutique</a>
+                                    </div>
+                                {% endif %}
+                                <div class="py-1" role="none">
+                                    <a href="{{ path('user_edit') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-1">Mon profil</a>
+                                    <a href="{{ path('user_orders') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-2">Mes commandes</a>
+                                </div>
+                                <div class="py-1" role="none">
+                                    <a href="{{ path('app_logout') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-3">Déconnexion</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="space-x-4 flex flex-row">
+                            <a href="{{ path('app_login') }}" class="flex items-center justify-center align-middle h-10 my-auto w-full" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                                <button class="tracking-wide text-white font-medium px-6 py-2 border-2 border-blue-800 hover:bg-blue-900 hover:border-blue-900 rounded-lg w-full">
+                                    Connexion
+                                </button>
+                            </a>
+                            <a href="{{ path('app_signup') }}" class="flex items-center justify-center align-middle h-10 my-auto w-full">
+                                <button class="tracking-wide text-white font-medium px-6 py-2 bg-blue-700 border-2 border-transparent hover:bg-blue-600 rounded-lg w-full">
+                                    Inscription
+                                </button>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <script>
+            function toggleNavbar(collapseID, menuCloseID, menuOpenID) {
+                document.getElementById(collapseID).classList.toggle('hidden');
+                document.getElementById(collapseID).classList.toggle('block');
+                document.getElementById(menuCloseID).classList.toggle('hidden');
+                document.getElementById(menuCloseID).classList.toggle('block');
+                document.getElementById(menuOpenID).classList.toggle('hidden');
+                document.getElementById(menuOpenID).classList.toggle('block');
+            }
+
+            function openDropdown(collapseID) {
+                document.getElementById(collapseID).classList.toggle('hidden');
+                document.getElementById(collapseID).classList.toggle('block');
+            }
+        </script>
         {% block body %}{% endblock %}
+        <footer class="text-slate-900 dark:text-slate-100 pb-12 container px-5 mx-auto">
+            <div class="max-w-screen-2xl mx-auto flex flex-col tablet:flex-row justify-between items-center space-y-4 mt-12 lg:mt-16 border-t-2 border-blue-800 dark:border-gray-700 pt-8">
+                <div class="flex items-baseline space-x-2">
+                    <div class="flex flex-row items-center">
+                        <div class="p-1.5 logo rounded-lg">
+                            <svg viewBox="0 0 40 40" class="h-12 w-auto fill-white" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 20c0 11.046 8.954 20 20 20s20-8.954 20-20S31.046 0 20 0 0 8.954 0 20Zm20 16c-7.264 0-13.321-5.163-14.704-12.02C4.97 22.358 6.343 21 8 21h24c1.657 0 3.031 1.357 2.704 2.98C33.32 30.838 27.264 36 20 36Z"/>
+                            </svg>
+                        </div>
+                        <svg viewBox="0 0 144 40" class="h-12 w-auto fill-black dark:fill-white ml-3" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke="none" d="M1.10 20.97L1.10 20.97Q1.06 17.42 3.47 15.03Q5.88 12.64 9.31 12.69L9.31 12.69Q12.72 12.69 14.88 15.04L14.88 15.04Q15.17 15.33 15.17 15.81L15.17 15.81Q15.17 16.26 14.84 16.60Q14.52 16.94 14.04 16.94L14.04 16.94Q13.49 16.94 13.18 16.55L13.18 16.55Q11.64 14.82 9.31 14.82L9.31 14.82Q6.86 14.82 5.22 16.58Q3.58 18.33 3.58 20.97Q3.58 23.61 5.22 25.36Q6.86 27.11 9.31 27.11L9.31 27.11Q11.62 27.11 13.20 25.38L13.20 25.38Q13.51 25 14.04 25L14.04 25Q14.52 25 14.84 25.32Q15.17 25.65 15.17 26.13Q15.17 26.61 14.88 26.90L14.88 26.90Q12.67 29.25 9.31 29.25L9.31 29.25Q5.88 29.32 3.47 26.92Q1.06 24.52 1.10 20.97ZM17.83 28L17.83 28L17.83 13.91Q17.83 13.46 18.14 13.14Q18.46 12.83 18.91 12.83L18.91 12.83Q19.34 12.83 19.67 13.14Q19.99 13.46 19.99 13.91L19.99 13.91L19.99 28Q19.99 28.46 19.67 28.77Q19.34 29.08 18.91 29.08L18.91 29.08Q18.46 29.08 18.14 28.77Q17.83 28.46 17.83 28ZM23.51 14.66Q23.09 14.25 23.09 13.67Q23.09 13.10 23.50 12.70Q23.90 12.30 24.48 12.30Q25.06 12.30 25.46 12.70Q25.87 13.10 25.87 13.67Q25.87 14.25 25.46 14.66Q25.06 15.06 24.48 15.06L24.48 15.06Q23.93 15.06 23.51 14.66ZM23.42 28L23.42 28L23.42 18.33Q23.42 17.87 23.74 17.56Q24.05 17.25 24.50 17.25L24.50 17.25Q24.94 17.25 25.26 17.56Q25.58 17.87 25.58 18.33L25.58 18.33L25.58 28Q25.58 28.46 25.26 28.77Q24.94 29.08 24.48 29.08L24.48 29.08Q24.05 29.08 23.74 28.77Q23.42 28.46 23.42 28ZM34.20 17.08L34.20 17.08Q36.41 17.08 37.90 18.42L37.90 18.42Q38.23 18.71 38.23 19.14L38.23 19.14Q38.23 19.55 37.96 19.84Q37.68 20.13 37.27 20.13L37.27 20.13Q36.89 20.13 36.62 19.89L36.62 19.89Q35.66 19 34.30 19L34.30 19Q32.64 19 31.60 20.16Q30.55 21.33 30.55 23.15Q30.55 24.98 31.60 26.15Q32.64 27.33 34.30 27.33L34.30 27.33Q35.66 27.33 36.62 26.44L36.62 26.44Q36.86 26.20 37.25 26.20L37.25 26.20Q37.66 26.20 37.94 26.48Q38.23 26.75 38.23 27.16L38.23 27.16Q38.23 27.62 37.90 27.90L37.90 27.90Q36.41 29.25 34.20 29.25L34.20 29.25Q31.61 29.25 29.95 27.52Q28.30 25.79 28.30 23.15L28.30 23.15Q28.30 20.54 29.95 18.81Q31.61 17.08 34.20 17.08ZM50.78 28L50.78 28Q50.78 28.46 50.48 28.77Q50.18 29.08 49.73 29.08L49.73 29.08Q49.18 29.08 48.89 28.72L48.89 28.72L44.88 23.99L43.08 25.67L43.08 28Q43.08 28.46 42.76 28.77Q42.43 29.08 41.98 29.08L41.98 29.08Q41.54 29.08 41.23 28.77Q40.92 28.46 40.92 28L40.92 28L40.92 13.91Q40.92 13.46 41.23 13.14Q41.54 12.83 42.00 12.83L42.00 12.83Q42.43 12.83 42.76 13.14Q43.08 13.46 43.08 13.91L43.08 13.91L43.08 23.25L48.91 17.51Q49.18 17.25 49.61 17.25L49.61 17.25Q50.02 17.25 50.30 17.55Q50.59 17.85 50.59 18.26L50.59 18.26Q50.59 18.64 50.28 18.95L50.28 18.95L46.46 22.67L50.52 27.28Q50.78 27.62 50.78 28ZM64.34 28.46L64.34 28.46L55.85 16.67L55.85 27.88Q55.85 28.36 55.50 28.72Q55.15 29.08 54.67 29.08L54.67 29.08Q54.17 29.08 53.81 28.72Q53.45 28.36 53.45 27.88L53.45 27.88L53.45 14.42Q53.45 13.77 53.90 13.30Q54.36 12.83 55.03 12.83L55.03 12.83Q55.85 12.83 56.30 13.48L56.30 13.48L64.63 24.95L64.63 14.03Q64.63 13.55 64.98 13.19Q65.33 12.83 65.81 12.83L65.81 12.83Q66.31 12.83 66.67 13.19Q67.03 13.55 67.03 14.03L67.03 14.03L67.03 27.59Q67.03 28.19 66.60 28.64Q66.17 29.08 65.54 29.08L65.54 29.08Q64.75 29.08 64.34 28.46ZM74.50 27.88L74.50 27.88L74.50 15.06L70.46 15.06Q70.03 15.06 69.72 14.76Q69.41 14.46 69.41 14.03L69.41 14.03Q69.41 13.58 69.72 13.26Q70.03 12.95 70.46 12.95L70.46 12.95L80.90 12.95Q81.34 12.95 81.66 13.26Q81.98 13.58 81.98 14.03L81.98 14.03Q81.98 14.46 81.66 14.76Q81.34 15.06 80.90 15.06L80.90 15.06L76.90 15.06L76.90 27.88Q76.90 28.36 76.54 28.72Q76.18 29.08 75.70 29.08L75.70 29.08Q75.19 29.08 74.84 28.72Q74.50 28.36 74.50 27.88ZM80.93 23.15L80.93 23.15Q80.93 20.58 82.56 18.83Q84.19 17.08 86.78 17.08Q89.38 17.08 91.01 18.83Q92.64 20.58 92.64 23.15L92.64 23.15Q92.64 25.74 91.01 27.50Q89.38 29.25 86.78 29.25Q84.19 29.25 82.56 27.50Q80.93 25.74 80.93 23.15ZM89.41 26.12Q90.38 24.90 90.38 23.15Q90.38 21.40 89.41 20.20Q88.44 19 86.78 19L86.78 19Q85.18 19 84.18 20.21Q83.18 21.42 83.18 23.15L83.18 23.15Q83.18 24.90 84.17 26.12Q85.15 27.33 86.78 27.33L86.78 27.33Q88.44 27.33 89.41 26.12ZM105.36 18.33L105.36 18.33L105.36 28Q105.36 28.46 105.04 28.77Q104.71 29.08 104.28 29.08L104.28 29.08Q103.82 29.08 103.51 28.77Q103.20 28.46 103.20 28L103.20 28L103.20 27.38Q101.50 29.25 99.07 29.25L99.07 29.25Q95.38 29.25 95.38 25.55L95.38 25.55L95.38 18.33Q95.38 17.87 95.69 17.56Q96.00 17.25 96.46 17.25L96.46 17.25Q96.89 17.25 97.21 17.56Q97.54 17.87 97.54 18.33L97.54 18.33L97.54 24.83Q97.54 26.18 98.14 26.75Q98.74 27.33 99.98 27.33L99.98 27.33Q100.92 27.33 101.80 26.87Q102.67 26.42 103.20 25.70L103.20 25.70L103.20 18.33Q103.20 17.87 103.51 17.56Q103.82 17.25 104.26 17.25L104.26 17.25Q104.71 17.25 105.04 17.56Q105.36 17.87 105.36 18.33ZM108.79 28L108.79 28L108.79 13.91Q108.79 13.46 109.10 13.14Q109.42 12.83 109.87 12.83L109.87 12.83Q110.30 12.83 110.63 13.14Q110.95 13.46 110.95 13.91L110.95 13.91L110.95 28Q110.95 28.46 110.63 28.77Q110.30 29.08 109.87 29.08L109.87 29.08Q109.42 29.08 109.10 28.77Q108.79 28.46 108.79 28ZM113.66 23.15L113.66 23.15Q113.66 20.58 115.30 18.83Q116.93 17.08 119.52 17.08Q122.11 17.08 123.74 18.83Q125.38 20.58 125.38 23.15L125.38 23.15Q125.38 25.74 123.74 27.50Q122.11 29.25 119.52 29.25Q116.93 29.25 115.30 27.50Q113.66 25.74 113.66 23.15ZM122.15 26.12Q123.12 24.90 123.12 23.15Q123.12 21.40 122.15 20.20Q121.18 19 119.52 19L119.52 19Q117.91 19 116.92 20.21Q115.92 21.42 115.92 23.15L115.92 23.15Q115.92 24.90 116.90 26.12Q117.89 27.33 119.52 27.33L119.52 27.33Q121.18 27.33 122.15 26.12ZM138.10 20.82L138.10 20.82L138.10 28Q138.10 28.46 137.77 28.77Q137.45 29.08 136.99 29.08L136.99 29.08Q136.56 29.08 136.25 28.77Q135.94 28.46 135.94 28L135.94 28L135.94 21.54Q135.94 20.20 135.32 19.60Q134.71 19 133.46 19L133.46 19Q132.53 19 131.66 19.48Q130.80 19.96 130.27 20.68L130.27 20.68L130.27 28Q130.27 28.46 129.95 28.77Q129.62 29.08 129.19 29.08L129.19 29.08Q128.74 29.08 128.42 28.77Q128.11 28.46 128.11 28L128.11 28L128.11 18.33Q128.11 17.87 128.42 17.56Q128.74 17.25 129.17 17.25L129.17 17.25Q129.62 17.25 129.95 17.56Q130.27 17.87 130.27 18.33L130.27 18.33L130.27 18.98Q130.97 18.16 132.08 17.62Q133.20 17.08 134.38 17.08L134.38 17.08Q138.10 17.08 138.10 20.82Z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="text-base font-medium space-y-4 tablet:space-y-1 text-center tablet:text-right">
+                    <p>&copy; 2022 ClickNToulon. Tous droits réservés.</p>
+                    <p>ClickNToulon est une association de loi 1901 administrant la présente plateforme.</p>
+                </div>
+            </div>
+            <div class="max-w-screen-2xl mx-auto flex flex-col text-center lg:text-left tablet:flex-row text-sm justify-center tablet:justify-between items-center align-middle space-y-4 mt-8 tablet:space-y-0 lg:mt-12">
+                <nav class="flex flex-col tablet:flex-row justify-center items-center space-y-4 tablet:space-y-0 tablet:space-x-6">
+                    <a href="{{ path('about_index') }}" class="font-medium text-lg decoration-[3px] underline-offset-4 hover:underline decoration-sky-600 tracking-wide">&Agrave; propos</a>
+                    <a href="{{ path('about_cgu') }}" class="font-medium text-lg decoration-[3px] underline-offset-4 hover:underline decoration-sky-600 tracking-wide">Conditions Générales d'Utilisation</a>
+                    <a href="{{ path('about_confidentialite') }}" class="font-medium text-lg decoration-[3px] underline-offset-4 hover:underline decoration-sky-600 tracking-wide">Politique de confidentialité</a>
+                    <a href="{{ path('report') }}" class="font-medium text-lg decoration-[3px] underline-offset-4 hover:underline decoration-sky-600 tracking-wide">Signaler un contenu</a>
+                </nav>
+                <nav class="flex items-center space-x-2">
+                    <a href="https://www.facebook.com/clickntoulon/" class="hover:text-sky-500 dark:hover:text-sky-400">
+                        <span class="sr-only">Facebook</span>
+                        <svg class="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" stroke-width="1">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/clickntoulon" class="hover:text-sky-500 dark:hover:text-sky-400">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" stroke-width="1">
+                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/clickntoulon" class="hover:text-sky-500 dark:hover:text-sky-400">
+                        <span class="sr-only">Twitter</span>
+                        <svg class="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" stroke-width="1">
+                            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com/company/clickntoulon?_l=fr_FR" class="hover:text-sky-500 dark:hover:text-sky-400">
+                        <span class="sr-only">Linkedin</span>
+                        <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-6 h-6" viewBox="0 0 24 24">
+                            <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                            <circle cx="4" cy="4" r="2" stroke="none"></circle>
+                        </svg>
+                    </a>
+                </nav>
+            </div>
+        </footer>
         <script src="{{ asset('js/cookies-eu-banner.min.js') }}"></script>
         <script>
             const cookiesBanner = new CookiesEuBanner(function () {}, true, true);

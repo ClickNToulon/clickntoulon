@@ -1,0 +1,28 @@
+<li>
+    <a href="{{ path('seller_create') }}" class="group flex items-center mb-4 font-medium text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">
+        <div class="mr-4 rounded-lg ring-1 ring-slate-900/5 shadow-sm group-hover:shadow group-hover:ring-slate-900/10 dark:ring-0 dark:shadow-none dark:group-hover:shadow-none group-hover:shadow-sky-200 dark:group-hover:bg-sky-600 dark:bg-slate-800 p-1">
+            <svg class="h-5 w-5 text-slate-700 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-white" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M12 4v16m8-8H4"/>
+            </svg>
+        </div>
+        Créer ma boutique
+    </a>
+</li>
+<ul class="space-y-6 lg:space-y-3 border-l-2 border-slate-100 dark:border-slate-800">
+    <li>
+        <a
+            class="block border-l-[2px] pl-4 -ml-[2px] font-medium tracking-wide {% if active == 'edit' %}text-sky-500 dark:text-sky-400 border-current{% else %}border-transparent hover:border-slate-400 dark:hover:border-slate-500 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white {% endif %}"
+            href="{{ path('user_edit') }}"
+        >
+            Modifier mon profil
+        </a>
+    </li>
+    <li>
+        <a
+            class="block border-l-[2px] pl-4 -ml-[2px] font-medium tracking-wide {% if active == 'orders' %}text-sky-500 dark:text-sky-400 border-current{% else %}border-transparent hover:border-slate-400 dark:hover:border-slate-500 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white {% endif %}"
+            href="{{ path('user_orders') }}"
+        >
+            Mes commandes
+        </a>
+    </li>
+</ul>

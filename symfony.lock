@@ -211,6 +211,9 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "stevenmaguire/oauth2-microsoft": {
+        "version": "2.2.0"
+    },
     "symfony/asset": {
         "version": "v5.2.4"
     },
@@ -550,6 +553,9 @@
             "config/packages/twig.yaml",
             "templates/base.html.twig"
         ]
+    },
+    "symfony/ux-turbo": {
+        "version": "v2.2.0"
     },
     "symfony/validator": {
         "version": "4.3",

@@ -3,95 +3,147 @@
 {% block title 'Politique de confidentialité - ClickNToulon' %}
 
 {% block body %}
-    {% include 'navbar.html.twig' with {'active': 'about'} %}
-    <div class="sm:container mx-auto px-5 py-5 my-12">
-        <div class="text-center mb-10">
-            <h2 class="sm:text-5xl text-3xl font-extrabold text-black dark:text-white mb-4 uppercase tracking-wider">Politique de confidentialité</h2>
-            <div class="flex mt-6 justify-center">
-                <div class="w-2/3 h-1 rounded-full bg-blue-underline inline-flex"></div>
+    {% include 'about/_header.html.twig' %}
+    <div class="relative mx-auto flex justify-center sm:px-2 lg:px-8 xl:px-12 pt-12">
+        <div class="hidden lg:relative lg:block lg:flex-none">
+            <div class="sticky -ml-0.5 pl-0.5">
+                <nav class="w-64 pr-8 xl:w-72 xl:pr-16">
+                    <ul>
+                        <li>
+                            {% include 'about/_tabs.html.twig' with {active: 'confidential'} %}
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        <div class="flex items-center justify-center mt-10 mb-4 px-20 pt-16">
-            <h2 class="sm:text-4xl text-2xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
-                Utilisation des données personnelles collectées
-            </h2>
+        <div class="min-w-0 max-w-2xl flex-auto px-4 lg:max-w-5xl lg:px-0">
+            <article>
+                <header class="mb-9">
+                    <h1 class="text-3xl tracking-tight text-slate-900 dark:text-white">Politique de confidentialité</h1>
+                </header>
+                <div
+                    class="prose prose-slate max-w-none dark:prose-invert dark:text-slate-200 prose-headings:scroll-mt-28
+                    lg:prose-headings:scroll-mt-[8.5rem] prose-lead:text-slate-500 prose-a:decoration-sky-600
+                    dark:prose-lead:text-slate-400 prose-a:font-semibold prose-a:underline hover:prose-a:text-sky-500
+                    prose-a:underline-offset-4 prose-a:decoration-[2px] dark:prose-hr:border-slate-800"
+                >
+                    <hr>
+
+                    <h2 id="utilisation-donnees">Utilisation de vos données personnelles collectées sur ClickNToulon</h2>
+                    <h3 id="cookies">Cookies</h3>
+                    <p>
+                        Si vous avez un compte et que vous vous connectez sur le site, un cookie temporaire sera créé afin de persister votre état de connexion.
+                        Ce cookie sera automatiquement détruit lorsque vous vous déconnectez du site.
+                    </p>
+                    <p>
+                        Si lors de la connexion à votre compte, vous avez coché la case "Se souvenir de moi",
+                        un cookie sera sauvegardé pour une durée maximale de 1 semaine, mais peut être détruit en forçant une déconnexion manuelle
+                        en cliquant sur le bouton Déconnexion.
+                    </p>
+
+                    <hr>
+
+                    <h2 id="duree-stockage-donnees">Durée de stockage de vos données</h2>
+                    <p>
+                        Pour les utilisateurs et utilisatrices qui s’enregistrent sur le site,
+                        nous stockons également les données personnelles indiquées dans leur profil.
+                        Tous les utilisateurs et utilisatrices peuvent voir, modifier ou supprimer leurs informations personnelles à tout moment.
+                        Seul le gestionnaire du site peut aussi voir ces informations.
+                    </p>
+                    <p>
+                        Les données des utilisateurs sont stockées tout le temps que le compte de ce dernier est actif,
+                        ainsi que de 3 ans après la décision de fermeture de ce compte, conformément au RGPD.
+                        Vous pouvez vous opposer à ce délai en nous contactant par mail (cf. Article 1 des
+                        <a href="{{ path('about_cgu') }}">CGU</a>).
+                    </p>
+
+                    <hr>
+
+                    <h2 id="droits-donnees">Les droits que vous avez sur vos données</h2>
+                    <p>
+                        Conformément au Règlement Général Européen sur la Protection des Données (dit RGPD) et des lois Libertés et Informatique de 1978,
+                        vous avez un droit d'accès, de modification, de suppresion et d'opposition concernant vos données personnelles.
+                        Vous pouvez exercer ses droits par mail en contactant Corentin THIBAUD à l'adresse suivante :
+                        <a href="mailto:contact@clickntoulon.fr">contact@clickntoulon.fr</a>
+                        ou en vous connectant à <a href="{{ path('user_edit') }}">votre compte</a>.
+                    </p>
+
+                    <hr>
+
+                    <h2 id="transmission-donnees">Transmission de vos données personnelles</h2>
+                    <p>
+                        Vos données sont partiellement transmises aux commerçants lorsque vous effectuez une commande sur leur boutique.
+                        Sont concernés uniquement votre nom et votre prénom.
+                    </p>
+
+                    <hr>
+
+                    <h2 id="infos">Informations supplémentaires</h2>
+                    <h3 id="infos1">1. Comment protégeons-nous vos données ?</h3>
+                    <p>
+                        Afin que les données à caractère personnel que nous recueillons ne soient ni perdues, ni divulguées par des tiers non autorisés,
+                        nous avons mis en place les mesures nécessaires (base de données non accessible à distance...)
+                        proportionnellement à la sensibilité des données stockées.
+                    </p>
+                    <h3 id="infos2">2. Procédures mises en œuvre en cas de fuite de données</h3>
+                    <p>
+                        Conformément à la procédure prévue par le Règlement Général sur la Protection des Données (ou RGPD)
+                        en cas de fuite ou d’anomalie concernant les données personnelles en notre possession,
+                        nous vous avertirons de la nature des données ayant fuitées et la nature du risque qui peut être engendrée
+                        si cela peut entamer vos droits et libertés (données sensibles) dans un délai maximal de 72 heures après constat du problème.
+                    </p>
+                </div>
+            </article>
         </div>
-        <div class="flex items-center justify-center mt-6 mb-4 px-20">
-            <h2 class="sm:text-3xl text-xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">Cookies</h2>
+        <div class="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:flex-none xl:overflow-y-auto xl:pr-6 xl:pl-6">
+            <nav aria-labelledby="on-this-page-title" class="w-64">
+                <h2 id="on-this-page-title" class="text-lg font-medium text-slate-900 dark:text-white">Sur cette page</h2>
+                <ul class="mt-4 space-y-3 text-sm">
+                    <li>
+                        <ul class="mt-2 space-y-3 text-slate-500 dark:text-slate-400">
+                            <li>
+                                <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#utilisation-donnees">
+                                    Utilisation des données personnelles collectées sur ClickNToulon
+                                </a>
+                            </li>
+                            <li>
+                                <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#duree-stockage-donnees">
+                                    Durée de stockage de vos données
+                                </a>
+                            </li>
+                            <li>
+                                <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#droits-donnees">
+                                    Les droits que vous avez sur vos données
+                                </a>
+                            </li>
+                            <li>
+                                <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#transmission-donnees">
+                                    Transmission de vos données personnelles
+                                </a>
+                            </li>
+                            <li>
+                                <h3>
+                                    <a class="font-normal text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300" href="#infos">
+                                        Informations supplémentaires
+                                    </a>
+                                </h3>
+                                <ul class="mt-2 space-y-3 pl-5 text-slate-500 dark:text-slate-400">
+                                    <li>
+                                        <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#infos1">
+                                            1. Comment protégeons-nous vos données ?
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#infos2">
+                                            2. Procédures mises en œuvre en cas de fuite de données
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
-            Si vous avez un compte et que vous vous connectez sur le site, un cookie temporaire sera créé afin de persister votre état de connexion.
-            Ce cookie sera automatiquement détruit lorsque vous vous déconnectez du site.
-        </p>
-        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
-            Si lors de la connexion à votre compte, vous avez coché la case "Se souvenir de moi",
-            un cookie sera sauvegardé pour une durée maximale de 1 semaine, mais peut être détruit en forçant une déconnexion manuelle
-            en cliquant sur la bouton Déconnexion.
-        </p>
-        <div class="flex items-center justify-center mt-10 mb-4 px-20 pt-16">
-            <h2 class="sm:text-4xl text-2xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
-                Durée de stockage de vos données
-            </h2>
-        </div>
-        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
-            Pour les utilisateurs et utilisatrices qui s’enregistrent sur le site,
-            nous stockons également les données personnelles indiquées dans leur profil.
-            Tous les utilisateurs et utilisatrices peuvent voir, modifier ou supprimer leurs informations personnelles à tout moment.
-            Seul le gestionnaire du site peut aussi voir ces informations.
-        </p>
-        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
-            Les données des utilisateurs sont stockées tout le temps que le compte de ce dernier est actif,
-            ainsi que de 3 ans après la décision de fermeture de ce compte, conformément au RGPD.
-            Vous pouvez vous opposer à ce délai en nous contactant par mail (cf. Article 1 des
-            <a href="{{ path('about_cgu') }}" class="underline underline-offset-2 text-blue-700 dark:text-blue-400">CGU</a>).
-        </p>
-        <div class="flex items-center justify-center mt-10 mb-4 px-20 pt-16">
-            <h2 class="sm:text-4xl text-2xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
-                Les droits que vous avez sur vos données
-            </h2>
-        </div>
-        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
-            Conformément au Règlement Général Européen sur la Protection des Données (dit RGPD) et des lois Libertés et Informatique de 1978,
-            vous avez un droit d'accès, de modification, de suppresion et d'opposition concernant vos données personnelles.
-            Vous pouvez exercer ses droits par mail en contactant Corentin THIBAUD
-            <a href="mailto:clickntoulon@ycnrea.fr" class="underline underline-offset-2 text-blue-700 dark:text-blue-400">clickntoulon@yncrea.fr</a>
-            ou en vous connectant à <a href="{{ path('user_edit') }}" class="underline underline-offset-2 text-blue-700 dark:text-blue-400">votre compte</a>.
-        </p>
-        <div class="flex items-center justify-center mt-10 mb-4 px-20 pt-16">
-            <h2 class="sm:text-4xl text-2xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
-                Transmission de vos données personnelles
-            </h2>
-        </div>
-        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
-            Vos données sont partiellement transmises aux commerçants lorsque vous effectuez une commande sur leur boutique.
-            Sont concernés uniquement votre nom et votre prénom.
-        </p>
-        <div class="flex items-center justify-center mt-10 mb-4 px-20 pt-16">
-            <h2 class="sm:text-4xl text-2xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
-                Informations supplémentaires
-            </h2>
-        </div>
-        <div class="flex items-center justify-center mt-6 mb-4 px-20">
-            <h2 class="sm:text-3xl text-xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
-                1. Comment protégeons-nous vos données ?
-            </h2>
-        </div>
-        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
-            Afin que les données à caractère personnel que nous recueillons ne soient ni perdues, ni divulguées par des tiers non autorisés,
-            nous avons mis en place les mesures nécessaires (base de données non accessible à distance...)
-            proportionnellement à la sensibilité des données stockées.
-        </p>
-        <div class="flex items-center justify-center mt-10 pt-6 mb-4 px-20">
-            <h2 class="sm:text-3xl text-xl font-bold text-black dark:text-white mb-4 uppercase title-underline tracking-wider">
-                2. Procédures mises en œuvre en cas de fuite de données
-            </h2>
-        </div>
-        <p class="text-black dark:text-gray-200 text-justify text-xl mb-3 font-semibold px-10 tablet:px-40">
-            Conformément à la procédure prévue par le Règlement Général sur la Protection des Données (ou RGPD)
-            en cas de fuite ou d’anomalie concernant les données personnelles en notre possession,
-            nous vous avertirons de la nature des données ayant fuitées et la nature du risque qui peut être engendrée
-            si cela peut entamer vos droits et libertés (données sensibles) dans un délai maximal de 72 heures après constat du problème.
-        </p>
     </div>
-    {% include 'footer.html.twig' %}
 {% endblock %}

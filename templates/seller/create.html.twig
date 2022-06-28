@@ -3,7 +3,6 @@
 {% block title 'Créer votre boutique - ClickNToulon' %}
 
 {% block body %}
-    {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
     <div class="relative">
         <div class="absolute top-5 right-10 w-full max-w-md">
             {% for message in app.flashes('success') %}
@@ -45,16 +44,16 @@
             {% endfor %}
         </div>
     </div>
-    <section class="text-gray-400 body-font">
-        <div class="sm:container px-5 mx-auto sm:max-w-7xl py-8 max-w-full">
+    <section>
+        <div class="sm:container px-5 mx-auto sm:max-w-7xl pt-3 max-w-full">
             <div class="flex items-center justify-center mb-4">
-                <h1 class="sm:text-3xl text-xl font-extrabold title-font text-black dark:text-white mb-4 uppercase tracking-wider title-underline">
+                <h1 class="sm:text-3xl text-xl font-extrabold title-font text-black dark:text-white uppercase tracking-wider title-underline">
                     Créer une boutique
                 </h1>
             </div>
-            <div class="w-full">
+            <div class="w-full max-w-4xl mx-auto">
                 <div class="block">
-                    <div class="mt-5 md:mt-0 md:col-span-2">
+                    <div class="md:col-span-2">
                         {{ form_start(form) }}
                         <div class="sm:overflow-hidden rounded-xl">
                             <div class="px-4 py-5 bg-darkblue-150 dark:bg-darkblue-800 space-y-2 sm:p-6">
@@ -97,7 +96,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="inline-flex justify-center py-1 px-3 border border-transparent font-bold rounded-full text-white bg-blue-700 hover:bg-blue-600">
+                                    <button type="submit" class="inline-flex justify-center py-1 px-3 border border-transparent font-bold rounded-lg text-white bg-blue-700 hover:bg-blue-600 focus:bg-blue-800 active:bg-blue-800">
                                         Confirmer la création
                                     </button>
                                 </div>
@@ -109,6 +108,5 @@
             </div>
         </div>
     </section>
-    {% include 'footer.html.twig' %}
 {% endblock %}
 

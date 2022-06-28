@@ -3,11 +3,10 @@
 {% block title 'Passez la commande - ClickNToulon' %}
 
 {% block body %}
-    {% include 'navbar.html.twig' with {'active': 'basket'} %}
     <div class="relative">
         <div class="absolute top-5 right-10 w-full max-w-md">
             {% for message in app.flashes('warning') %}
-                <div class="bg-red-600 w-full rounded-xl" id="successAlert">
+                <div class="bg-red-600 w-full rounded-lg" id="successAlert">
                     <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
                         <div class="flex items-center justify-between flex-wrap">
                             <div class="w-0 flex-1 flex items-center">
@@ -47,11 +46,11 @@
     </div>
     <section class="container mx-auto px-5">
         <div class="flex items-center justify-center mt-12">
-            <h1 class="sm:text-5xl text-3xl font-extrabold title-font text-black dark:text-white mb-4 uppercase tracking-wider title-underline">Règlement</h1>
+            <h1 class="sm:text-5xl text-3xl font-extrabold title-font text-black dark:text-white mb-4 uppercase tracking-wider title-underline">Règlement de la commande</h1>
         </div>
         <div class="w-full pt-6 lg:pt-12">
             <div class="flex flex-col lg:flex-row space-x-0 lg:space-x-4 h-full w-full">
-                <div class="w-full lg:w-2/3 order-last lg:order-first bg-darkblue-150 dark:bg-darkblue-800 px-3 py-2 rounded-xl">
+                <div class="w-full lg:w-2/3 order-last lg:order-first bg-slate-200 dark:bg-slate-800 px-3 py-2 rounded-lg">
                     <div class="px-4 py-5 sm:px-6 flex sm:flex-row flex-col align-start justify-between">
                         <div class="grid grid-cols-3 space-x-6 pb-2 sm:pb-0">
                             <div class="col-span-3 flex flex-col">
@@ -63,10 +62,10 @@
                     {% set total = 0 %}
                     {% set totalDiscount = 0 %}
                     {% for product in products %}
-                        <div class="border-t border-blue-900 px-4 py-5 sm:px-6 space-y-6">
+                        <div class="border-t dark:border-slate-600 px-4 py-5 sm:px-6 space-y-6">
                             <div class="flex sm:flex-row flex-col">
                                 <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
-                                    <img class="rounded-xl border-2 border-blue-900 dark:border-blue-500" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
+                                    <img class="rounded-lg border-2 border-blue-900 dark:border-blue-600" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
                                 </div>
                                 <div class="flex flex-col px-4 w-full">
                                     <div class="flex flex-row justify-between items-center mb-2">
@@ -97,19 +96,19 @@
                         </div>
                     {% endfor %}
                 </div>
-                <div class="w-full lg:w-1/3 {% if totalDiscount > 0 %}max-h-108{% else %}max-h-64{% endif%} order-first mb-3 lg:mb-0 lg:order-last bg-darkblue-150 dark:bg-darkblue-800 rounded-xl px-6 py-4 flex items-center justify-center flex-col">
+                <div class="w-full lg:w-1/3 {% if totalDiscount > 0 %}max-h-108{% else %}max-h-64{% endif%} order-first mb-3 lg:mb-0 lg:order-last bg-slate-200 dark:bg-slate-800 rounded-lg px-6 py-4 flex items-center justify-center flex-col">
                     <div class="flex justify-start items-start w-full flex-col">
                         {% set basketTotal = total %}
                         <h2 class="font-bold text-2xl text-black dark:text-white">Résumé de la commande</h2>
-                        <div class="w-full pt-4 px-3 divide-y divide-blue-800">
+                        <div class="w-full pt-4 px-3 divide-y divide-slate-600">
                             <div class="flex justify-between flex-row items-center w-full pb-2">
-                                <h2 class="font-bold text-gray-700 dark:text-gray-400">Sous-total</h2>
+                                <h2 class="font-bold text-gray-700 dark:text-gray-200">Sous-total</h2>
                                 <p class="font-bold text-xl text-black dark:text-white">{{ total | format_currency('EUR') }}</p>
                             </div>
                             {% if totalDiscount > 0 %}
                                 {% set basketTotal = basketTotal - totalDiscount %}
                                 <div class="flex justify-between flex-row items-center w-full py-2">
-                                    <h2 class="font-bold text-gray-700 dark:text-gray-400">Total des réductions appliquées</h2>
+                                    <h2 class="font-bold text-gray-700 dark:text-gray-200">Total des réductions appliquées</h2>
                                     <p class="font-bold text-xl text-red-600">- {{ totalDiscount | format_currency('EUR') }}</p>
                                 </div>
                             {% endif %}
@@ -128,7 +127,7 @@
                         {{ form_row(form.total, {attr: {value: basketTotal}}) }}
                     </div>
                     <div class="w-full flex items-center justify-center pt-3">
-                        <button type="submit" class="w-auto flex items-center justify-center px-3 py-1 border border-transparent font-bold rounded-full text-white bg-blue-700 hover:bg-blue-600">
+                        <button type="submit" class="w-auto flex items-center justify-center px-4 py-2 font-bold rounded-lg text-white bg-blue-700 hover:bg-blue-600 focus:bg-blue-800 active:bg-blue-800">
                             Commander
                         </button>
                     </div>
@@ -137,5 +136,4 @@
             </div>
         </div>
     </section>
-    {% include 'footer.html.twig' %}
 {% endblock %}

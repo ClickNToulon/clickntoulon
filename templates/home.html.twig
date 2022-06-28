@@ -3,160 +3,133 @@
 {% block title 'ClickNToulon - Made in Toulon for Toulon' %}
 
 {% block body %}
-    {% include 'navbar.html.twig' with {'active': 'home'} %}
-    {% if user is defined and user == null %}
-        <div class="relative">
-            <div class="max-w-7xl mx-auto">
-                <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-                    <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-                        <div class="sm:text-center lg:text-left">
-                            <svg viewBox="0 0 52 24" fill="currentColor" class="absolute top-0 left-0 -z-10 hidden w-32 -mt-8 -ml-16 text-blue-700 dark:text-blue-900 lg:w-32 lg:-ml-20 lg:-mt-10 lg:block">
-                                <defs>
-                                    <pattern id="e77df901-b9d7-4b9b-822e-16b2d410795b" x="0" y="0" width=".135" height=".30">
-                                        <circle cx="1" cy="1" r=".7"></circle>
-                                    </pattern>
-                                </defs>
-                                <rect fill="url(#e77df901-b9d7-4b9b-822e-16b2d410795b)" width="52" height="24"></rect>
-                            </svg>
-                            <h1 class="text-4xl font-bold text-darkblue-400 dark:text-blue-100 sm:text-5xl md:text-6xl">
-                                <span class="block xl:inline">Bienvenue sur</span>
-                                <span class="block text-darkblue-600 dark:text-blue-500 xl:inline">ClickNToulon</span>
-                            </h1>
-                            <p class="mt-3 text-base font-semibold text-blue-600 dark:text-blue-100 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                                Une plateforme de Click&Collect sur Toulon, réalisé par des étudiants de l'ISEN Méditerranée, à Toulon, pour Toulon.
-                            </p>
-                            <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                                <div>
-                                    <a href="{{ path('app_signup') }}">
-                                        <button class="w-full flex items-center justify-center px-6 py-3 font-bold rounded-full text-white bg-blue-700 border-2 border-transparent hover:bg-blue-600 md:py-2.5 md:text-lg md:px-6">
-                                            Créez votre compte
-                                            <span class="p-0.5 bg-blue-900 ml-2.5 rounded-full">
-                                                <svg class="w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M5 12h14"></path>
-                                                    <path d="M12 5l7 7-7 7"></path>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="mt-3 sm:mt-0 sm:ml-6">
-                                    <a href="{{ path('about_index') }}">
-                                        <button class="w-full flex items-center justify-center px-6 py-3 font-bold rounded-full text-blue-900 hover:text-white dark:text-white border-2 border-blue-800 hover:bg-blue-900 hover:border-blue-900 md:py-2.5 md:text-lg md:px-6">
-                                            Qui sommes-nous ?
-                                        </button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </main>
-                </div>
-            </div>
-            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 py-12">
-                <img class="h-56 w-full object-contain sm:h-72 md:h-96 lg:w-full lg:h-full" src="{{ asset('images/home.svg') }}" alt="">
-            </div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 text-center lg:pt-32">
+        <h1 class="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 dark:text-white sm:text-7xl">
+            {% if app.user is not null %}
+                Bienvenue
+                <span class="relative whitespace-nowrap text-sky-500 dark:text-sky-400">
+                    <svg aria-hidden="true" viewBox="0 0 418 42" class="absolute top-2/3 left-0 h-[0.58em] w-full fill-slate-700/70 dark:fill-sky-700/30" preserveAspectRatio="none">
+                        <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z"></path>
+                    </svg>
+                    <span class="relative">{{ app.user.surname }} {{ app.user.name }}</span>
+                </span>
+            {% else %}
+                Made for
+                <span class="relative whitespace-nowrap text-sky-500 dark:text-sky-400">
+                    <svg aria-hidden="true" viewBox="0 0 418 42" class="absolute top-2/3 left-0 h-[0.58em] w-full fill-slate-700/70 dark:fill-sky-700/30" preserveAspectRatio="none">
+                        <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z"></path>
+                    </svg>
+                    <span class="relative">Toulon</span>
+                </span>
+                in Toulon
+            {% endif %}
+        </h1>
+        <p class="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700 dark:text-slate-200">
+            {% if app.user is not null %}
+                Que cherchez-vous de beau sur ClickNToulon aujourd'hui ? <br> Une envie particulière ou une envie de regarder les nouveautés ?
+            {% else %}
+                Une plateforme de Click&Collect sur Toulon, réalisé par des étudiants, à Toulon.
+            {% endif %}
+        </p>
+        <div class="mt-10 flex justify-center space-x-6">
+            {% if app.user is not null %}
+                <a
+                    class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-bold focus:outline-none
+                    focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
+                    dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500"
+                    href="{{ path('user_orders') }}"
+                >
+                    Mes commandes
+                </a>
+                <a
+                    class="group inline-flex ring-2 items-center justify-center rounded-lg py-1 px-4 font-bold
+                    focus:outline-none ring-slate-200 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
+                    dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600
+                    focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500"
+                    href="{{ path('basket_index') }}"
+                >
+                    Mon panier
+                </a>
+            {% else %}
+                <a
+                    class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-bold focus:outline-none
+                    focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
+                    dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500"
+                    href="{{ path('app_signup') }}"
+                >
+                    Créez votre compte
+                </a>
+                <a
+                    class="group inline-flex ring-2 items-center justify-center rounded-lg py-1 px-4 font-bold
+                    focus:outline-none ring-slate-200 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
+                    dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600
+                    focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500"
+                    href="{{ path('about_index') }}"
+                >
+                    Qui sommes-nous ?
+                </a>
+            {% endif %}
         </div>
-    {% else %}
-        <div class="relative">
-            <div class="max-w-7xl mx-auto">
-                <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-                    <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-                        <div class="sm:text-center lg:text-left">
-                            <svg viewBox="0 0 52 24" fill="currentColor" class="absolute top-0 left-0 -z-10 hidden w-32 -mt-8 -ml-16 text-blue-700 dark:text-blue-900 lg:w-32 lg:-ml-20 lg:-mt-10 lg:block">
-                                <defs>
-                                    <pattern id="e77df901-b9d7-4b9b-822e-16b2d410795b" x="0" y="0" width=".135" height=".30">
-                                        <circle cx="1" cy="1" r=".7"></circle>
-                                    </pattern>
-                                </defs>
-                                <rect fill="url(#e77df901-b9d7-4b9b-822e-16b2d410795b)" width="52" height="24"></rect>
-                            </svg>
-                            <h1 class="text-4xl font-bold text-darkblue-400 dark:text-blue-100 sm:text-5xl md:text-6xl">
-                                <span class="block xl:inline">Bonjour,</span>
-                                <br class="hidden xl:block">
-                                <span class="block text-darkblue-600 dark:text-blue-500 xl:inline">{{ user.surname }} {{ user.name }}</span>
-                            </h1>
-                            <p class="mt-3 font-semibold text-base text-blue-600 dark:text-blue-100 sm:mt-5 sm:text-lg sm:max-w-2xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0 break-normal">
-                                Que cherchez-vous de beau sur ClickNToulon aujourd'hui ? <br> Une envie particulière ou une envie de regarder les nouveautés ?
-                            </p>
-                            <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                                <div>
-                                    <a href="{{ path('user_orders') }}">
-                                        <button class="w-full flex items-center justify-center px-6 py-3 text-base font-bold rounded-full text-white border-2 border-transparent bg-blue-600 hover:bg-blue-500 md:py-2.5 md:text-lg md:px-6">
-                                            Mes commandes
-                                            <span class="p-0.5 bg-blue-900 ml-2.5 rounded-full">
-                                                <svg class="w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M5 12h14"></path>
-                                                    <path d="M12 5l7 7-7 7"></path>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="mt-3 sm:mt-0 sm:ml-6">
-                                    <a href="{{ path('basket_index') }}">
-                                        <button class="w-full flex items-center justify-center px-6 py-3 text-base font-bold rounded-full text-blue-900 hover:text-white dark:text-white border-2 border-blue-800 hover:bg-blue-800 md:py-2.5 md:text-lg md:px-6">
-                                            Mon panier
-                                        </button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </main>
-                </div>
-            </div>
-            <div class="lg:absolute z-10 lg:inset-y-0 lg:right-0 lg:w-1/2">
-                <img class="h-56 w-full object-contain sm:h-80 md:h-96 lg:w-full lg:h-full" src="{{ asset('images/home.svg') }}" alt="">
-            </div>
+        <div class="mt-24 lg:mt-32">
+            <p class="font-display text-xl text-slate-900 dark:text-white">Sponsorisé par</p>
+            <ul class="mt-1 flex items-center justify-center space-x-8 sm:flex-col sm:space-x-0 sm:space-y-10 xl:flex-row xl:space-y-0 xl:space-x-12">
+                <li>
+                    <ul class="flex flex-col items-center space-y-8 sm:flex-row sm:space-y-0 sm:space-x-12">
+                        <li class="flex">
+                            <a href="https://isen-mediterranee.fr">
+                                <img alt="ISEN" class="w-auto h-28" src="https://juniorisen.com/images/ISEN-YNCREA-Mediterranee-removebg-preview.png" decoding="async" data-nimg="fixed">
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-    {% endif %}
-
+    </div>
 
     <section>
-        <div class="container mx-auto pt-16 px-4 sm:pt-24 sm:px-6 lg:px-8">
-            <div class="flex items-start justify-center md:justify-between border-b-2 border-blue-800 dark:border-gray-700 pb-2">
-                <h2 class="text-2xl font-extrabold tracking-tight text-blue-800 dark:text-gray-200">Les boutiques partenaires</h2>
-                <a href="{{ path('product_index') }}">
-                    <button class="text-blue-800 dark:text-blue-500 text-xl font-bold hidden sm:inline-flex items-center rounded-full px-3 py-1 hover:bg-blue-800 hover:text-white">
-                        <span class="mr-1">Toutes les boutiques</span>
-                        <svg class="w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14"></path>
-                            <path d="M12 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
+        <div class="sm:container mx-auto pt-16 px-4 sm:pt-24 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-center md:justify-between border-b-2 border-slate-300 dark:border-slate-700 pb-4">
+                <h2 class="text-3xl font-medium text-slate-900 dark:text-slate-100">Les boutiques partenaires</h2>
+                <a href="{{ path('shop_index') }}" class="text-black dark:text-white text-lg font-medium hidden sm:inline-flex items-center hover:underline decoration-[3px] decoration-sky-600 underline-offset-4">
+                    <span class="mr-1">Toutes les boutiques</span>
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5l7 7-7 7"></path>
+                    </svg>
                 </a>
             </div>
-        </div>
-        <div class="mx-auto pb-16">
-            <div class="my-6 relative w-full flex gap-6 snap-x snap-mandatory overflow-x-auto pb-8 shop-scrollbar mx-auto container">
+            <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {% if shops is defined and shops != [] %}
                     {% for shop in shops %}
-                    <a href="{{ path('shop_show', {slug: shop.slug}) }}"
-                       class="snap-center snap-always shrink-0 bg-darkblue-150 dark:bg-darkblue-800 group-hover:bg-opacity-75 rounded-lg">
-                        <img class="object-cover object-center w-96 h-40 bg-gray-200 rounded-t-lg" src="{{ asset('uploads/shops/' ~ shop.image) }}" alt="">
-                        <div class="p-4">
-                            <div class="flex items-center justify-between">
-                                <h2 class="text-black dark:text-white text-xl font-bold">{{ shop.name }}</h2>
-                                <p class="text-gray-700 dark:text-gray-400 font-medium inline-flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    {{ shop.city }}
-                                </p>
+                        <a
+                            href="{{ path('shop_show', {slug: shop.slug}) }}"
+                            class="shrink-0 p-2 group-hover:bg-slate-700 rounded-lg group relative before:absolute before:-inset-0 before:rounded-lg before:bg-gray-50 dark:before:bg-slate-700 before:opacity-0 hover:before:opacity-100"
+                        >
+                            <img class="aspect-video w-full h-72 rounded-lg group-hover:opacity-75" src="{{ asset('uploads/shops/' ~ shop.image) }}" alt="">
+                            <div class="p-4 relative">
+                                <div class="flex justify-between items-center flex-wrap space-y-1">
+                                    <h3 class="text-2xl text-black dark:text-white group-hover:underline underline-offset-4 decoration-[3px] decoration-sky-600 font-semibold tracking-wide">
+                                        {{ shop.name }}
+                                    </h3>
+                                    <div class="inline-flex items-center justify-center text-lg font-medium text-gray-900 dark:text-gray-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                        <p>{{ shop.address }} {{ shop.postalCode }} {{ shop.city }}</p>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <p class="text-lg text-justify text-gray-900 dark:text-gray-200 font-medium">{{ shop.description | u.truncate(175, '...', false) }}</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
                     {% endfor %}
                 {% else %}
                     <div class="w-full flex items-center justify-center flex-col space-y-4 mt-10">
-                        <h1 class="text-center text-black dark:text-white font-bold text-4xl">
+                        <h1 class="text-center text-black dark:text-white font-semibold text-4xl">
                             Aucune boutique sur ClickNToulon actuellement...
                         </h1>
-                        <p class="text-center text-black dark:text-white font-bold text-2xl">
-                            Vous pouvez créer la vôtre dès maintenant.
-                        </p>
-                        <p class="text-center text-black dark:text-white font-bold text-2xl">
-                            Pour cela, rendez-vous sur votre profil.
-                        </p>
                     </div>
                 {% endif %}
             </div>
@@ -164,20 +137,18 @@
     </section>
 
     <section>
-        <div class="container mx-auto pt-8 px-4 sm:pt-16 sm:px-6 lg:px-8">
-            <div class="flex items-start justify-center md:justify-between border-b-2 border-blue-800 dark:border-gray-700 pb-2">
-                <h2 class="text-2xl font-extrabold tracking-tight text-blue-800 dark:text-gray-200">Les derniers produits</h2>
-                <a href="{{ path('product_index') }}">
-                    <button class="text-blue-800 dark:text-blue-500 text-xl font-bold hidden sm:inline-flex items-center rounded-full px-3 py-1 hover:bg-blue-800 hover:text-white">
-                        <span class="mr-1">Tous les produits</span>
-                        <svg class="w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14"></path>
-                            <path d="M12 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
+        <div class="sm:container mx-auto pt-8 px-4 sm:pt-16 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-center md:justify-between border-b-2 border-slate-300 dark:border-slate-700 pb-4">
+                <h2 class="text-3xl font-medium text-slate-900 dark:text-slate-100">Les derniers produits</h2>
+                <a href="{{ path('product_index') }}" class="text-black dark:text-white text-lg font-medium hidden sm:inline-flex items-center hover:underline decoration-[3px] decoration-sky-600 underline-offset-4">
+                    <span class="mr-1">Tous les produits</span>
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5l7 7-7 7"></path>
+                    </svg>
                 </a>
             </div>
-            <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+            <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-4 xl:gap-y-6">
                 {% if products is defined and products != [] %}
                     {% include 'product/product_skeleton.html.twig' with {'products': products} %}
                 {% else %}
@@ -188,6 +159,4 @@
             </div>
         </div>
     </section>
-
-    {% include('footer.html.twig') %}
 {% endblock %}

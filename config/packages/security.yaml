@@ -31,7 +31,7 @@ security:
     providers:
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Domain\Auth\User
                 property: email
     firewalls:
         dev:
@@ -41,8 +41,9 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticators:
-                - App\Security\AppAuthenticator
-                - App\Security\GoogleAuthenticator
+                - App\Domain\Auth\LoginAuthenticator
+                - App\Infrastructure\Social\Authenticator\GoogleAuthenticator
+                - App\Infrastructure\Social\Authenticator\MicrosoftAuthenticator
             logout:
                 path: app_logout
                 target: home
@@ -61,7 +62,7 @@ security:
             login_throttling:
                 limiter: app.login_rate_limiter
 
-            user_checker: App\Security\UserChecker
+            user_checker: App\Domain\Auth\Security\UserChecker
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used

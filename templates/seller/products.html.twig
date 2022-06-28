@@ -3,152 +3,152 @@
 {% block title 'Gérer les produits de ma boutique - ClickNToulon' %}
 
 {% block body %}
-    {% include 'navbar.html.twig' with {'active': 'my-shop'} %}
     {% include 'seller/_header.html.twig' %}
-    <section class="text-gray-400 body-font">
-        <div class="container px-5 py-12 pb-6 pt-6 mx-auto">
-            <div class="flex justify-center flex-wrap -m-4">
-                {% include 'seller/_tabs.html.twig' with {active: 'products'} %}
+    <div class="relative mx-auto flex justify-center sm:px-2 lg:px-8 xl:px-12">
+        <div class="hidden lg:relative lg:block lg:flex-none">
+            <div class="sticky -ml-0.5 pl-0.5">
+                <nav class="w-64 pr-8 xl:w-72 xl:pr-16">
+                    <ul>
+                        <li>
+                            {% include 'seller/_tabs.html.twig' with {active: 'products'} %}
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        <div class="container mx-auto flex flex-col">
-            <div class="flex items-center justify-between mt-6 sm:px-2 lg:px-6">
-                <h1 class="sm:text-3xl text-xl font-extrabold title-font text-black dark:text-white mb-4 uppercase tracking-wider title-underline">
-                    Les produits
-                </h1>
-                <button class="px-3 py-2 bg-blue-700 hover:bg-blue-600 rounded-full font-semibold text-white w-auto text-center" onclick="openModal('addModal')">
-                    Ajouter un produit
-                </button>
-                <div class="hidden z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" id="addModal" role="dialog" aria-modal="true">
-                    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                        <!-- Background overlay, show/hide based on modal state. -->
-                        <div class="fixed inset-0 bg-darkblue-800 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-                        <!-- This element is to trick the browser into centering the modal contents. -->
-                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                        <!-- Modal panel, show/hide based on modal state. -->
-                        <div class="inline-block align-bottom bg-darkblue-150 dark:bg-darkblue-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                            {{ form_start(form) }}
-                            <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 flex flex-col items-center justify-center w-full">
-                                <h2 class="sm:text-2xl text-xl font-extrabold title-font text-black dark:text-white mb-4 uppercase tracking-wider title-underline">
-                                    Ajouter un produit
-                                </h2>
-                                <div class="mb-3 w-full">
-                                    {{ form_label(form.name) }}
-                                    <div class="mt-1">
-                                        {{ form_widget(form.name) }}
+        <div class="min-w-0 max-w-2xl flex-auto px-4 lg:max-w-8xl lg:px-0">
+            <article>
+                <div class="flex flex-col">
+                    <div class="flex items-center justify-between sm:px-2 lg:px-6 mb-4">
+                        <h1 class="sm:text-4xl text-xl font-semibold text-black dark:text-white underline underline-offset-4 decoration-[3px] decoration-blue-600">
+                            Les produits
+                        </h1>
+                        <button onclick="openDialog('addDialog')" type="button" class="px-3 py-2 bg-blue-700 hover:bg-blue-600 rounded-lg font-medium text-white w-auto text-center flex flex-row items-center">
+                            <span>Ajouter un produit</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                            </svg>
+                        </button>
+                        <dialog class="bg-slate-100 dark:bg-slate-900 rounded-lg text-left overflow-hidden shadow-lg transform transition-all sm:align-middle sm:max-w-lg sm:w-full p-0 backdrop:bg-slate-900/20 backdrop:backdrop-blur" id="addDialog" aria-modal="true">
+                            <!-- Modal panel, show/hide based on modal state. -->
+                            <div class="inline-block align-bottom w-full">
+                                {{ form_start(form) }}
+                                <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 flex flex-col items-center justify-center w-full">
+                                    <h2 class="sm:text-3xl text-xl font-medium text-black dark:text-white mb-4 tracking-wide underline underline-offset-2 decoration-[3px] decoration-blue-600">
+                                        Ajouter un produit
+                                    </h2>
+                                    <div class="mb-3 w-full">
+                                        {{ form_label(form.name) }}
+                                        <div class="mt-1">
+                                            {{ form_widget(form.name) }}
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 w-full">
+                                        {{ form_label(form.type) }}
+                                        <div class="mt-1">
+                                            {{ form_widget(form.type) }}
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 w-full">
+                                        {{ form_label(form.unitPrice) }}
+                                        <div class="mt-1">
+                                            {{ form_widget(form.unitPrice) }}
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 w-full">
+                                        {{ form_label(form.unitPriceDiscount) }}
+                                        <div class="mt-1">
+                                            {{ form_widget(form.unitPriceDiscount) }}
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 w-full">
+                                        {{ form_label(form.description) }}
+                                        <div class="mt-1">
+                                            {{ form_widget(form.description) }}
+                                        </div>
+                                    </div>
+                                    <div class="w-full">
+                                        {{ form_label(form.images) }}
+                                        <div class="mt-1">
+                                            {{ form_widget(form.images, {attr: {class: 'block w-full font-semibold text-black dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 file:cursor-pointer'}}) }}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="mb-3 w-full">
-                                    {{ form_label(form.type) }}
-                                    <div class="mt-1">
-                                        {{ form_widget(form.type) }}
-                                    </div>
+                                <div class="px-4 pb-3 sm:pb-6 sm:px-6 sm:flex sm:items-center sm:justify-center sm:flex-row-reverse">
+                                    <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-lg border-2 border-transparent shadow-sm px-4 py-2 sm:ml-3 bg-blue-600 hover:bg-blue-500 focus:bg-blue-700 active:bg-blue-700 text-sm font-medium text-white">
+                                        Ajouter le produit
+                                    </button>
+                                    <button type="button" class="w-full sm:w-auto inline-flex justify-center rounded-lg border-2 border-slate-700 shadow-sm px-4 py-2 mt-3 sm:mt-0 hover:bg-slate-700 text-black dark:text-white text-sm font-medium" onclick="closeDialog('addDialog')">
+                                        Revenir en arrière
+                                    </button>
                                 </div>
-                                <div class="mb-3 w-full">
-                                    {{ form_label(form.unitPrice) }}
-                                    <div class="mt-1">
-                                        {{ form_widget(form.unitPrice) }}
-                                    </div>
-                                </div>
-                                <div class="mb-3 w-full">
-                                    {{ form_label(form.unitPriceDiscount) }}
-                                    <div class="mt-1">
-                                        {{ form_widget(form.unitPriceDiscount) }}
-                                    </div>
-                                </div>
-                                <div class="mb-3 w-full">
-                                    {{ form_label(form.description) }}
-                                    <div class="mt-1">
-                                        {{ form_widget(form.description) }}
-                                    </div>
-                                </div>
-                                <div class="w-full">
-                                    {{ form_label(form.images) }}
-                                    <div class="mt-1">
-                                        {{ form_widget(form.images, {attr: {class: 'block w-full font-semibold text-black dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 file:cursor-pointer'}}) }}
-                                    </div>
-                                </div>
+                                {{ form_end(form) }}
                             </div>
-                            <div class="px-4 pb-3 sm:pb-6 sm:px-6 sm:flex sm:items-center sm:justify-center sm:flex-row-reverse">
-                                <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-full border-2 border-transparent shadow-sm px-4 py-2 sm:ml-3 bg-blue-600 hover:bg-blue-500 text-lg sm:text-sm font-bold text-white">
-                                    Confirmer
-                                </button>
-                                <button type="button" class="w-full sm:w-auto inline-flex justify-center rounded-full border-2 border-blue-900 shadow-sm px-4 py-2 mt-3 sm:mt-0 hover:bg-blue-900 text-blue-900 hover:text-white dark:text-white text-lg sm:text-sm font-bold" onclick="openModal('addModal')">
-                                    Revenir en arrière
-                                </button>
-                            </div>
-                            {{ form_end(form) }}
-                        </div>
+                        </dialog>
                     </div>
-                </div>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="overflow-x-auto w-full">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-2 lg:px-6">
-                        {% if products is not null and products.items != [] %}
-                            <div class="shadow overflow-hidden rounded-xl">
-                                <table class="min-w-full divide-y divide-blue-900 table-striped">
-                                    <thead class="bg-darkblue-150 dark:bg-darkblue-800">
-                                    <tr>
-                                        <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-gray-200 uppercase tracking-wider">
-                                            ID
-                                        </th>
-                                        <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-gray-200 uppercase tracking-wider">
-                                            Nom
-                                        </th>
-                                        <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-gray-200 uppercase tracking-wider">
-                                            Prix
-                                        </th>
-                                        <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-gray-200 uppercase tracking-wider">
-                                            Prix en promo
-                                        </th>
-                                        <th scope="col" class="relative px-8 py-4">
-                                            <span class="sr-only">Actions</span>
-                                            <span class="sr-only">Supprimer le produit</span>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="bg-darkblue-150 dark:bg-darkblue-800 divide-y divide-blue-900">
-                                    {% for product in products %}
-                                        <tr>
-                                            <td class="px-8 py-8 whitespace-nowrap text-center text-gray-700 dark:text-gray-400 font-bold">
-                                                {{ product.id }}
-                                            </td>
-                                            <td class="px-8 py-8 whitespace-nowrap text-black dark:text-white font-bold flex items-center justify-center">
-                                                <img src="{{ asset('uploads/products/' ~ product.images[0]) }}" class="rounded-full h-10 w-10 object-cover mr-2" alt="Product Image">
-                                                {{ product.name }}
-                                            </td>
-                                            <td class="px-8 py-8 whitespace-nowrap text-black dark:text-white text-center text-lg font-bold">
-                                                {{ product.unitPrice | format_currency('EUR') }}
-                                            </td>
-                                            <td class="px-8 py-8 whitespace-nowrap text-center text-black dark:text-white font-bold">
-                                                {% if product.unitPriceDiscount == null %}
-                                                    Pas de promo
-                                                {% else %}
-                                                    {% set deal_price = product.unitPrice * (1 - (product.unitPriceDiscount/100)) %}
-                                                    <span class="bg-accent-red text-red-700 px-3 py-1 rounded-full">
+                    <div class="flex flex-col items-center">
+                        <div class="overflow-x-auto w-full">
+                            <div class="py-2 align-middle inline-block min-w-full sm:px-2 lg:px-6">
+                                {% if products is not null and products.items != [] %}
+                                    <div class="shadow overflow-hidden rounded-xl">
+                                        <table class="min-w-full divide-y divide-slate-700 table-striped">
+                                            <thead class="bg-slate-200 dark:bg-slate-800">
+                                            <tr>
+                                                <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
+                                                    ID
+                                                </th>
+                                                <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
+                                                    Nom
+                                                </th>
+                                                <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
+                                                    {{ knp_pagination_sortable(products, "Prix", "p.unitPrice") }}
+                                                </th>
+                                                <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
+                                                    {{ knp_pagination_sortable(products, "Prix en promo", "p.unitPriceDiscount") }}
+                                                </th>
+                                                <th scope="col" class="relative px-8 py-4">
+                                                    <span class="sr-only">Actions</span>
+                                                    <span class="sr-only">Supprimer le produit</span>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="bg-slate-200 dark:bg-slate-800 divide-y divide-slate-700">
+                                            {% for product in products %}
+                                                <tr>
+                                                    <td class="px-8 py-8 whitespace-nowrap text-center text-gray-700 dark:text-white font-normal">
+                                                        {{ product.id }}
+                                                    </td>
+                                                    <td class="px-8 py-8 whitespace-nowrap text-black dark:text-white font-medium text-center">
+                                                        <div class="flex items-center justify-center">
+                                                            <img src="{{ asset('uploads/products/' ~ product.images[0]) }}" class="rounded-full h-10 w-10 object-cover mr-2" alt="Product Image">
+                                                            {{ product.name }}
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-8 py-8 whitespace-nowrap text-black dark:text-white text-lg font-medium">
+                                                        {{ product.unitPrice | format_currency('EUR') }}
+                                                    </td>
+                                                    <td class="px-8 py-8 whitespace-nowrap text-black dark:text-white font-medium">
+                                                        {% if product.unitPriceDiscount == null %}
+                                                            Pas de promo
+                                                        {% else %}
+                                                            {% set deal_price = product.unitPrice * (1 - (product.unitPriceDiscount/100)) %}
+                                                            <span class="bg-accent-red text-red-700 px-3 py-1 rounded-lg font-bold">
                                                         {{ deal_price | format_currency('EUR') }}
                                                     </span>
-                                                {% endif %}
-                                            </td>
-                                            <td class="px-8 py-8 text-right text-sm sm:space-x-1 whitespace-nowrap">
-                                                <a href="{{ path('seller_edit_product', {id: shop.id, product: product.id}) }}">
-                                                    <button class="px-3 py-1 text-lg font-bold border-2 border-transparent bg-blue-700 hover:bg-blue-600 rounded-full text-white">
-                                                        Modifier
-                                                    </button>
-                                                </a>
-                                                <button class="px-3 py-1 text-lg font-bold border-2 border-red-600 hover:bg-red-600 rounded-full text-red-600 hover:text-white dark:text-white" onclick="openModal('deleteModal{{ product.id }}')">
-                                                    Supprimer
-                                                </button>
-                                            </td>
-                                            <div class="hidden z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" id="deleteModal{{ product.id }}" role="dialog" aria-modal="true">
-                                                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                                                    <!-- Background overlay, show/hide based on modal state. -->
-                                                    <div class="fixed inset-0 bg-darkblue-800 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-                                                    <!-- This element is to trick the browser into centering the modal contents. -->
-                                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="px-8 py-8 text-sm space-y-1 whitespace-nowrap flex flex-col items-end justify-end">
+                                                        <a href="{{ path('seller_edit_product', {id: shop.id, product: product.id}) }}" class="max-w-[15rem] text-center px-3 py-1 w-full text-lg font-medium border-2 border-transparent bg-blue-700 hover:bg-blue-600 rounded-lg text-white">
+                                                            Modifier le produit
+                                                        </a>
+                                                        <button type="button" class="max-w-[15rem] px-3 py-1 w-full text-lg font-medium border-2 border-red-600 hover:bg-red-600 rounded-lg text-red-600 hover:text-white dark:text-white" onclick="openDialog('deleteDialog-{{ product.id }}')">
+                                                            Supprimer le produit
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <dialog class="bg-slate-100 dark:bg-slate-900 rounded-lg text-left overflow-hidden shadow-lg transform transition-all sm:align-middle sm:max-w-lg sm:w-full p-0 backdrop:bg-slate-900/20 backdrop:backdrop-blur" id="deleteDialog-{{ product.id }}" aria-modal="true">
                                                     <!-- Modal panel, show/hide based on modal state. -->
-                                                    <div class="inline-block align-bottom bg-darkblue-900 rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                    <div class="inline-block align-bottom w-full">
                                                         <form action="{{ path('seller_delete_product', {id: shop.id, product: product.id}) }}" method="POST" name="order_delete">
                                                             <input type="hidden" name="_token" value="{{ csrf_token('product_delete') }}">
                                                             <input type="hidden" name="order_delete[id]" id="order_delete_id" value="{{ product.id }}" required>
@@ -161,7 +161,7 @@
                                                                         </svg>
                                                                     </div>
                                                                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                                                        <h3 class="text-xl mt-1 font-bold text-white" id="modal-title">
+                                                                        <h3 class="text-xl mt-1 font-medium text-white" id="modal-title">
                                                                             Supprimer le produit n°{{ product.id }}
                                                                         </h3>
                                                                         <div class="mt-2">
@@ -173,44 +173,42 @@
                                                                 </div>
                                                             </div>
                                                             <div class="px-4 ml-4 pb-3 sm:pb-6 sm:px-6 sm:flex sm:items-center sm:justify-center sm:flex-row-reverse">
-                                                                <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-full border-2 border-transparent shadow-sm px-4 py-2 sm:ml-3 bg-red-600 hover:bg-red-500 text-lg sm:text-sm font-bold text-white">
-                                                                    Confirmer
+                                                                <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-lg border-2 border-transparent shadow-sm px-4 py-2 sm:ml-3 bg-red-600 hover:bg-red-500 focus:bg-red-700 active:bg-red-700 text-sm font-medium text-white">
+                                                                    Supprimer le produit
                                                                 </button>
-                                                                <button type="button" class="w-full sm:w-auto inline-flex justify-center rounded-full border-2 border-blue-900 shadow-sm px-4 py-2 mt-3 sm:mt-0 sm:ml-3 hover:bg-blue-900 text-white text-lg sm:text-sm font-bold text-black" onclick="openModal('deleteModal{{ product.id }}')">
+                                                                <button type="button" class="w-full sm:w-auto inline-flex justify-center rounded-lg border-2 border-slate-700 shadow-sm px-4 py-2 mt-3 sm:mt-0 sm:ml-3 hover:bg-slate-700 text-black dark:text-white text-sm font-medium" onclick="closeDialog('deleteDialog-{{ product.id }}')">
                                                                     Revenir en arrière
                                                                 </button>
                                                             </div>
                                                         </form>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
+                                                </dialog>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <h1 class="text-center text-3xl py-3 font-medium text-black dark:text-white">
+                                        Vous n'avez pas de produits mais vous pouvez en ajouter d&egrave;s maintenant
+                                    </h1>
+                                {% endif %}
                             </div>
-                        {% else %}
-                            <h1 class="text-center text-3xl py-3 font-semibold text-black dark:text-white">
-                                Vous n'avez pas de produits mais vous pouvez en ajouter d&egrave;s maintenant
-                            </h1>
-                        {% endif %}
+                        </div>
+                    </div>
+                    <div class="px-6">
+                        {{ knp_pagination_render(products) }}
                     </div>
                 </div>
-            </div>
-            {{ knp_pagination_render(products) }}
+            </article>
         </div>
-    </section>
+    </div>
     <script>
-        function openModal(modalID) {
-            document.getElementById(modalID).classList.toggle('hidden')
-            document.getElementById(modalID).classList.toggle('fixed')
+        function openDialog(dialogID) {
+            document.getElementById(dialogID).showModal();
+        }
+
+        function closeDialog(dialogID) {
+            document.getElementById(dialogID).close();
         }
     </script>
-    {% if products != null %}
-        {% include 'footer.html.twig' %}
-    {% else %}
-        <div class="sm:absolute sm:bottom-0 w-full">
-            {% include 'footer.html.twig' %}
-        </div>
-    {% endif %}
 {% endblock %}

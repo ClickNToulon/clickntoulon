@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Shop;
+use App\Domain\Shop\Shop;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

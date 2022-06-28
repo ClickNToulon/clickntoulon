@@ -3,12 +3,11 @@
 {% block title 'Modifier les informations de ma boutique - ClickNToulon' %}
 
 {% block body %}
-    {% include 'navbar.html.twig' with {active: 'my-shop'} %}
     <div class="relative">
         <div class="absolute top-5 right-10 w-full max-w-md">
             {% for message in app.flashes('success') %}
-                <div class="bg-green-600 w-full rounded-xl" id="successAlert">
-                    <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
+                <div class="bg-green-600 w-full rounded-lg" id="successAlert">
+                    <div class="max-w-7xl mx-auto py-3 px-3 rounded-lg">
                         <div class="flex items-center justify-between flex-wrap">
                             <div class="w-0 flex-1 flex items-center">
                                 <span class="flex p-2 rounded-lg bg-green-700">
@@ -25,7 +24,7 @@
                                 </p>
                             </div>
                             <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
-                                <button type="button" class="flex p-2 rounded-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1" onclick="closeAlert('successAlert')">
+                                <button type="button" class="flex p-2 rounded-lg hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1" onclick="closeAlert('successAlert')">
                                     <span class="sr-only">Fermer</span>
                                     <!-- Heroicon name: outline/x -->
                                     <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -36,365 +35,369 @@
                         </div>
                     </div>
                 </div>
-                <script>
-                    function closeAlert(alertID) {
-                        document.getElementById(alertID).classList.toggle('hidden');
-                        document.getElementById(alertID).classList.toggle('block');
-                    }
-                </script>
             {% endfor %}
         </div>
     </div>
     {% include 'seller/_header.html.twig' %}
-    <section class="text-gray-400 body-font">
-        <div class="container px-5 py-6 mx-auto">
-            <div class="flex justify-center flex-wrap -m-4 mb-4">
-                {% include 'seller/_tabs.html.twig' with {active: 'edit'} %}
+    <div class="relative mx-auto flex justify-center sm:px-2 lg:px-8 xl:px-12">
+        <div class="hidden lg:relative lg:block lg:flex-none">
+            <div class="sticky -ml-0.5 pl-0.5">
+                <nav class="w-64 pr-8 xl:w-72 xl:pr-16">
+                    <ul>
+                        <li>
+                            {% include 'seller/_tabs.html.twig' with {active: 'edit'} %}
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        <div class="container px-5 mx-auto sm:max-w-7xl max-w-full">
-            <div class="w-full">
-                <div class="block md:grid md:grid-cols-3 md:gap-6">
-                    <div class="md:col-span-1">
-                        <div class="px-4 sm:px-0">
-                            <h3 class="text-2xl font-bold uppercase tracking-wider text-black dark:text-white inline-flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span class="ml-1">Votre boutique</span>
-                            </h3>
-                            <p class="mt-1 text-base font-medium text-black dark:text-white">
-                                Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultatif
-                            </p>
-                        </div>
-                    </div>
-                    <div class="mt-5 md:mt-0 md:col-span-2">
-                        {{ form_start(form_update) }}
-                        <div class="sm:overflow-hidden">
-                            <div class="px-4 py-5 bg-darkblue-150 dark:bg-darkblue-800 space-y-2 tablet:space-y-6 sm:p-6 rounded-xl">
-                                <div class="grid grid-cols-2 gap-y-1 tablet:gap-6">
-                                    <div class="col-span-2 sm:col-span-1">
-                                        {{ form_row(form_update.name) }}
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        {{ form_row(form_update.tag) }}
-                                    </div>
+        <div class="min-w-0 max-w-2xl flex-auto px-4 lg:max-w-6xl lg:px-0">
+            <article>
+                <div class="flex flex-col divide-y-2 dark:divide-slate-700">
+                    <div class="w-full pb-10">
+                        <div class="block flex flex-col justify-center w-full mx-auto space-y-6 max-w-6xl">
+                            <div>
+                                <div class="flex flex-col space-y-1 px-4 sm:px-0">
+                                    <h3 class="text-2xl font-bold text-black dark:text-white inline-flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span class="ml-3">Votre boutique</span>
+                                    </h3>
+                                    <p class="text-base font-normal text-black dark:text-white">
+                                        Tous les champs doivent être remplis, sauf pour l'adresse mail qui est facultatif
+                                    </p>
                                 </div>
-                                <div class="grid grid-cols-2 gap-y-1 tablet:gap-6">
-                                    <div class="col-span-2 sm:col-span-1">
-                                        {{ form_row(form_update.email) }}
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        {{ form_row(form_update.phone) }}
-                                    </div>
-                                </div>
-                                <div>
-                                    {{ form_row(form_update.description) }}
-                                </div>
-                                <div>
-                                    {{ form_row(form_update.address) }}
-                                </div>
-                                <div class="grid grid-cols-2 gap-y-1 tablet:gap-6">
-                                    <div class="col-span-2 sm:col-span-1">
-                                        {{ form_row(form_update.postalCode) }}
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        {{ form_row(form_update.city) }}
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-5 gap-1">
-                                    {% for payment in payments %}
-                                    <div class="col-span-2 lg:col-span-1">
-                                        <div class="inline-flex items-start">
-                                            <div class="mt-2">
-                                                <div>
-                                                    <label class="inline-flex items-center align-middle">
-                                                        <input type="checkbox" class="rounded border-2 border-blue-600 text-blue-500 shadow-sm focus:border-blue-500" name="payment[]" value="{{ payment.id }}" id="payment_{{ payment.id }}" {% if payment in shop.payments %}checked{% endif %}>
-                                                        <span class="text-black dark:text-white font-bold">{{ payment.name }}</span>
-                                                    </label>
-                                                </div>
+                            </div>
+                            <div>
+                                {{ form_start(form_update) }}
+                                <div class="sm:overflow-hidden">
+                                    <div class="space-y-2">
+                                        <div class="grid grid-cols-2 gap-y-1 tablet:gap-6">
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_update.name) }}
+                                            </div>
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_update.tag) }}
                                             </div>
                                         </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="inline-flex justify-center py-1 px-3 border border-transparent font-bold rounded-full text-white bg-blue-700 hover:bg-blue-600">
-                                        Sauvegarder les changements
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        {{ form_end(form_update) }}
-                    </div>
-                </div>
-            </div>
-            <div class="block" aria-hidden="true">
-                <div class="py-5">
-                    <div class="border-t border-blue-900"></div>
-                </div>
-            </div>
-            <div class="mt-0">
-                <div class="md:grid md:grid-cols-3 md:gap-6">
-                    <div class="md:col-span-1">
-                        <div class="px-4 sm:px-0">
-                            <h3 class="text-2xl font-bold uppercase tracking-wider text-black dark:text-white inline-flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span class="ml-1">Vos horaires</span>
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="mt-5 md:mt-0 md:col-span-2 w-full md:w-auto">
-                        <form action="" method="post" name="test" id="test">
-                            <div class="overflow-hidden">
-                                <div class="px-4 py-5 bg-darkblue-150 dark:bg-darkblue-800 space-y-6 sm:p-6 rounded-xl">
-                                    <div class="flex flex-wrap items-center justify-center p-1 rounded-xl bg-darkblue-300 dark:bg-darkblue-700 w-full sm:w-auto">
-                                        <a class="tab w-full sm:w-auto cursor-pointer tab-active" id="lundiTab" onclick="changeTab('lundi', 'lundiTab')">Lundi</a>
-                                        <a class="tab w-full sm:w-auto cursor-pointer" id="mardiTab" onclick="changeTab('mardi', 'mardiTab')">Mardi</a>
-                                        <a class="tab w-full sm:w-auto cursor-pointer" id="mercrediTab" onclick="changeTab('mercredi', 'mercrediTab')">Mercredi</a>
-                                        <a class="tab w-full sm:w-auto cursor-pointer" id="jeudiTab" onclick="changeTab('jeudi', 'jeudiTab')">Jeudi</a>
-                                        <a class="tab w-full sm:w-auto cursor-pointer" id="vendrediTab" onclick="changeTab('vendredi', 'vendrediTab')">Vendredi</a>
-                                        <a class="tab w-full sm:w-auto cursor-pointer" id="samediTab" onclick="changeTab('samedi', 'samediTab')">Samedi</a>
-                                        <a class="tab w-full sm:w-auto cursor-pointer" id="dimancheTab" onclick="changeTab('dimanche', 'dimancheTab')">Dimanche</a>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-2 gap-y-2 block" id="lundi">
-                                        <div class="col-span-2 flex flex-row items-center justify-center">
-                                            <label class="block text-lg font-bold text-black dark:text-white">
-                                                Lundi
-                                            </label>
+                                        <div class="grid grid-cols-2 gap-y-1 tablet:gap-6">
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_update.email) }}
+                                            </div>
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_update.phone) }}
+                                            </div>
                                         </div>
-                                        {% set a = 1 %}
-                                        {% for openingHour in openingHours %}
-                                            {% if openingHour.day == 1 %}
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="lundiTimeOpen{{ a }}" class="text-black dark:text-white">Ouverture</label>
-                                                    <input type="time" name="lundiTimeOpen{{ a }}" {% if openingHour.start %}value="{{ openingHour.start |format_time(locale='fr') }}"{% endif%} id="lundiTimeOpen{{ a }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="lundiTimeClose{{ a }}" class="text-black dark:text-white">Fermeture</label>
-                                                    <input type="time" name="lundiTimeClose{{ a }}" {% if openingHour.end %}value="{{ openingHour.end |format_time(locale='fr') }}"{% endif%} id="lundiTimeClose{{ a }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                            {% endif %}
-                                            {% set a = a + 1 %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="mardi">
-                                        <div class="col-span-2 flex flex-row items-center justify-center">
-                                            <label class="block text-lg font-bold text-black dark:text-white">
-                                                Mardi
-                                            </label>
+                                        <div>
+                                            {{ form_row(form_update.description) }}
                                         </div>
-                                        {% set b = 1 %}
-                                        {% for openingHour in openingHours %}
-                                            {% if openingHour.day == 2 %}
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="mardiTimeOpen{{ b }}" class="text-black dark:text-white">Ouverture</label>
-                                                    <input type="time" name="mardiTimeOpen{{ b }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="mardiTimeOpen{{ b }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="mardiTimeClose{{ b }}" class="text-black dark:text-white">Fermeture</label>
-                                                    <input type="time" name="mardiTimeClose{{ b }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="mardiTimeClose{{ b }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                            {% endif %}
-                                            {% set b = b + 1 %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="mercredi">
-                                        <div class="col-span-2 flex flex-row items-center justify-center">
-                                            <label class="block text-lg font-bold text-black dark:text-white">
-                                                Mercredi
-                                            </label>
+                                        <div>
+                                            {{ form_row(form_update.address) }}
                                         </div>
-                                        {% set c = 1 %}
-                                        {% for openingHour in openingHours %}
-                                            {% if openingHour.day == 3 %}
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="mercrediTimeOpen{{ c }}" class="text-black dark:text-white">Ouverture</label>
-                                                    <input type="time" name="mercrediTimeOpen{{ c }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="mercrediTimeOpen{{ c }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="mercrediTimeClose{{ c }}" class="text-black dark:text-white">Fermeture</label>
-                                                    <input type="time" name="mercrediTimeClose{{ c }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="mercrediTimeClose{{ c }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                            {% endif %}
-                                            {% set c = c + 1 %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="jeudi">
-                                        <div class="col-span-2 flex flex-row items-center justify-center">
-                                            <label class="block text-lg font-bold text-black dark:text-white">
-                                                Jeudi
-                                            </label>
+                                        <div class="grid grid-cols-2 gap-y-1 tablet:gap-6">
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_update.postalCode) }}
+                                            </div>
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_update.city) }}
+                                            </div>
                                         </div>
-                                        {% set d = 1 %}
-                                        {% for openingHour in openingHours %}
-                                            {% if openingHour.day == 4 %}
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="jeudiTimeOpen{{ d }}" class="text-black dark:text-white">Ouverture</label>
-                                                    <input type="time" name="jeudiTimeOpen{{ d }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="jeudiTimeOpen{{ d }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="jeudiTimeClose{{ d }}" class="text-black dark:text-white">Fermeture</label>
-                                                    <input type="time" name="jeudiTimeClose{{ d }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="jeudiTimeClose{{ d }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                            {% endif %}
-                                            {% set d = d + 1 %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="vendredi">
-                                        <div class="col-span-2 flex flex-row items-center justify-center">
-                                            <label class="block text-lg font-bold text-black dark:text-white">
-                                                Vendredi
-                                            </label>
-                                        </div>
-                                        {% set e = 1 %}
-                                        {% for openingHour in openingHours %}
-                                            {% if openingHour.day == 5 %}
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="vendrediTimeOpen{{ e }}" class="text-black dark:text-white">Ouverture</label>
-                                                    <input type="time" name="vendrediTimeOpen{{ e }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="vendrediTimeOpen{{ e }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="vendrediTimeClose{{ e }}" class="text-black dark:text-white">Fermeture</label>
-                                                    <input type="time" name="vendrediTimeClose{{ e }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="vendrediTimeClose{{ e }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                            {% endif %}
-                                            {% set e = e + 1 %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="samedi">
-                                        <div class="col-span-2 flex flex-row items-center justify-center">
-                                            <label class="block text-lg font-bold text-black dark:text-white">
-                                                Samedi
-                                            </label>
-                                        </div>
-                                        {% set f = 1 %}
-                                        {% for openingHour in openingHours %}
-                                            {% if openingHour.day == 6 %}
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="samediTimeOpen{{ f }}" class="text-black dark:text-white">Ouverture</label>
-                                                    <input type="time" name="samediTimeOpen{{ f }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="samediTimeOpen{{ f }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="samediTimeClose{{ f }}" class="text-black dark:text-white">Fermeture</label>
-                                                    <input type="time" name="samediTimeClose{{ f }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="samediTimeClose{{ f }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                            {% endif %}
-                                            {% set f = f + 1 %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-2 gap-y-1 hidden" id="dimanche">
-                                        <div class="col-span-2 flex flex-row items-center justify-center">
-                                            <label class="block text-lg font-bold text-black dark:text-white">
-                                                Dimanche
-                                            </label>
-                                        </div>
-                                        {% set i = 1 %}
-                                        {% for openingHour in openingHours %}
-                                            {% if openingHour.day == 7 %}
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="dimancheTimeOpen{{ i }}" class="text-black dark:text-white">Ouverture</label>
-                                                    <input type="time" name="dimancheTimeOpen{{ i }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="dimancheTimeOpen{{ i }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="dimancheTimeClose{{ i }}" class="text-black dark:text-white">Fermeture</label>
-                                                    <input type="time" name="dimancheTimeClose{{ i }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="dimancheTimeClose{{ i }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
-                                                </div>
-                                            {% endif %}
-                                            {% set i = i + 1 %}
-                                        {% endfor %}
-                                    </div>
-                                    <input type="hidden" value="1" name="day">
-                                    <div class="text-center">
-                                        <button type="submit" class="inline-flex justify-center py-1 px-3 border border-transparent font-bold rounded-full text-white bg-blue-700 hover:bg-blue-600">
-                                            Sauvegarder les horaires
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="block" aria-hidden="true">
-                <div class="py-5">
-                    <div class="border-t border-blue-900"></div>
-                </div>
-            </div>
-            <div class="mt-0">
-                <div class="md:grid md:grid-cols-3 md:gap-6">
-                    <div class="md:col-span-1">
-                        <div class="px-4 sm:px-0">
-                            <h3 class="text-2xl font-bold uppercase text-black dark:text-white inline-flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
-                                </svg>
-                                <span class="ml-1">Supprimer votre boutique</span>
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="mt-5 md:mt-0 md:col-span-2">
-                        <div>
-                            <div class="overflow-hidden">
-                                <div class="px-4 py-5 bg-darkblue-150 dark:bg-darkblue-800 space-y-6 sm:p-6 rounded-xl">
-                                    <div class="text-center flex items-center flex-col">
-                                        <p class="mt-2 text-black dark:text-white font-bold">
-                                            Vous n'êtes pas satisfait du contenu proposé sur le site ?
-                                            <br>
-                                            Ou vous souhaitez supprimer toutes les informations associées à votre boutique ?
-                                        </p>
-                                        <p class="mt-2 text-black dark:text-white font-bold">
-                                            Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es relatives à votre boutique,
-                                            ainsi que toutes les commandes passées sur le site qui ne sont encore livrées
-                                            (donc même celles en attente et en préparation).
-                                        </p>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="button" class="inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-base font-bold rounded-full text-white bg-red-700 hover:bg-red-600" onclick="openModal('deleteModal')">
-                                            Supprimer votre boutique
-                                        </button>
-                                        <div class="hidden z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" id="deleteModal" role="dialog" aria-modal="true">
-                                            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                                                <!-- Background overlay, show/hide based on modal state. -->
-                                                <div class="fixed inset-0 bg-darkblue-800 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-                                                <!-- This element is to trick the browser into centering the modal contents. -->
-                                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                                                <!-- Modal panel, show/hide based on modal state. -->
-                                                <div class="inline-block align-bottom bg-darkblue-150 dark:bg-darkblue-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                                    {{ form_start(form_delete) }}
-                                                    {{ form_row(form_delete.id) }}
-                                                    <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                                        <div class="sm:flex sm:items-start">
-                                                            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-accent-red sm:mx-0 sm:h-10 sm:w-10">
-                                                                <!-- Heroicon name: outline/exclamation -->
-                                                                <svg class="h-6 w-6 text-red-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                                                </svg>
-                                                            </div>
-                                                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                                                <h3 class="mt-1 text-xl font-bold text-black dark:text-gray-200" id="modal-title">
-                                                                    Supprimer votre boutique
-                                                                </h3>
-                                                                <div class="mt-2 font-semibold text-black dark:text-gray-200">
-                                                                    <p class="text-md">
-                                                                        Vous allez confirmer que vous voulez supprimer votre boutique chez ClickNToulon.
-                                                                    </p>
-                                                                </div>
+                                        <div class="grid grid-cols-4 gap-1">
+                                            {% for payment in payments %}
+                                                <div class="col-span-2 lg:col-span-1">
+                                                    <div class="inline-flex items-start">
+                                                        <div class="mt-2">
+                                                            <div>
+                                                                <label class="inline-flex items-center align-middle">
+                                                                    <input type="checkbox" class="rounded border-2 border-blue-600 text-blue-500 shadow-sm focus:border-blue-500 mr-2" name="payment[]" value="{{ payment.id }}" id="payment_{{ payment.id }}" {% if payment in shop.payments %}checked{% endif %}>
+                                                                    <span class="text-black dark:text-white font-medium">{{ payment.name }}</span>
+                                                                </label>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="px-4 ml-4 pb-3 sm:pb-6 sm:px-6 sm:ml-0 sm:flex sm:items-center sm:justify-center sm:flex-row-reverse">
-                                                        <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-full border-2 border-transparent shadow-sm px-4 py-2 sm:ml-3 bg-red-600 hover:bg-red-500 text-lg sm:text-sm font-bold text-white">
-                                                            Supprimer votre compte
-                                                        </button>
-                                                        <button type="button" class="w-full sm:w-auto inline-flex justify-center rounded-full border-2 border-blue-900 shadow-sm px-4 py-2 mt-3 sm:mt-0 sm:ml-3 hover:bg-blue-900 text-blue-900 hover:text-white dark:text-white text-lg sm:text-sm font-bold" onclick="openModal('deleteModal')">
-                                                            Revenir en arrière
-                                                        </button>
-                                                    </div>
-                                                    {{ form_end(form_delete) }}
                                                 </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="text-center">
+                                            <button
+                                                type="submit"
+                                                class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-bold focus:outline-none
+                                                focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
+                                                dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500"
+                                            >
+                                                Sauvegarder les changements
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{ form_end(form_update) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-10">
+                        <div class="flex flex-col max-w-6xl mx-auto space-y-4">
+                            <div>
+                                <div class="px-4 sm:px-0">
+                                    <h3 class="text-2xl font-bold text-black dark:text-white inline-flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span class="ml-3">Vos horaires</span>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="md:col-span-2 w-full md:w-auto">
+                                <form action="" method="post">
+                                    <div class="overflow-hidden">
+                                        <div class="space-y-2">
+                                            <div class="flex flex-wrap items-center justify-center p-1 rounded-lg bg-slate-300 dark:bg-slate-800 w-fit mx-auto">
+                                                <a class="tab w-full sm:w-auto cursor-pointer tab-active" id="lundiTab" onclick="changeTab('lundi', 'lundiTab')">Lundi</a>
+                                                <a class="tab w-full sm:w-auto cursor-pointer" id="mardiTab" onclick="changeTab('mardi', 'mardiTab')">Mardi</a>
+                                                <a class="tab w-full sm:w-auto cursor-pointer" id="mercrediTab" onclick="changeTab('mercredi', 'mercrediTab')">Mercredi</a>
+                                                <a class="tab w-full sm:w-auto cursor-pointer" id="jeudiTab" onclick="changeTab('jeudi', 'jeudiTab')">Jeudi</a>
+                                                <a class="tab w-full sm:w-auto cursor-pointer" id="vendrediTab" onclick="changeTab('vendredi', 'vendrediTab')">Vendredi</a>
+                                                <a class="tab w-full sm:w-auto cursor-pointer" id="samediTab" onclick="changeTab('samedi', 'samediTab')">Samedi</a>
+                                                <a class="tab w-full sm:w-auto cursor-pointer" id="dimancheTab" onclick="changeTab('dimanche', 'dimancheTab')">Dimanche</a>
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-y-1 tablet:gap-6 block" id="lundi">
+                                                <div class="col-span-2 flex -mb-4">
+                                                    <label class="block text-lg font-medium text-black dark:text-white">
+                                                        Lundi
+                                                    </label>
+                                                </div>
+                                                {% set a = 1 %}
+                                                {% for openingHour in openingHours %}
+                                                    {% if openingHour.day == 1 %}
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="lundiTimeOpen{{ a }}" class="text-black dark:text-white">Ouverture</label>
+                                                            <input type="time" name="lundiTimeOpen{{ a }}" {% if openingHour.start %}value="{{ openingHour.start |format_time(locale='fr') }}"{% endif%} id="lundiTimeOpen{{ a }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="lundiTimeClose{{ a }}" class="text-black dark:text-white">Fermeture</label>
+                                                            <input type="time" name="lundiTimeClose{{ a }}" {% if openingHour.end %}value="{{ openingHour.end |format_time(locale='fr') }}"{% endif%} id="lundiTimeClose{{ a }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                    {% endif %}
+                                                    {% set a = a + 1 %}
+                                                {% endfor %}
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-y-1 tablet:gap-6 hidden" id="mardi">
+                                                <div class="col-span-2 flex -mb-4">
+                                                    <label class="block text-lg font-medium text-black dark:text-white">
+                                                        Mardi
+                                                    </label>
+                                                </div>
+                                                {% set b = 1 %}
+                                                {% for openingHour in openingHours %}
+                                                    {% if openingHour.day == 2 %}
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="mardiTimeOpen{{ b }}" class="text-black dark:text-white">Ouverture</label>
+                                                            <input type="time" name="mardiTimeOpen{{ b }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="mardiTimeOpen{{ b }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="mardiTimeClose{{ b }}" class="text-black dark:text-white">Fermeture</label>
+                                                            <input type="time" name="mardiTimeClose{{ b }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="mardiTimeClose{{ b }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                    {% endif %}
+                                                    {% set b = b + 1 %}
+                                                {% endfor %}
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-y-1 tablet:gap-6 hidden" id="mercredi">
+                                                <div class="col-span-2 flex -mb-4">
+                                                    <label class="block text-lg font-medium text-black dark:text-white">
+                                                        Mercredi
+                                                    </label>
+                                                </div>
+                                                {% set c = 1 %}
+                                                {% for openingHour in openingHours %}
+                                                    {% if openingHour.day == 3 %}
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="mercrediTimeOpen{{ c }}" class="text-black dark:text-white">Ouverture</label>
+                                                            <input type="time" name="mercrediTimeOpen{{ c }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="mercrediTimeOpen{{ c }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="mercrediTimeClose{{ c }}" class="text-black dark:text-white">Fermeture</label>
+                                                            <input type="time" name="mercrediTimeClose{{ c }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="mercrediTimeClose{{ c }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                    {% endif %}
+                                                    {% set c = c + 1 %}
+                                                {% endfor %}
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-y-1 tablet:gap-6 hidden" id="jeudi">
+                                                <div class="col-span-2 flex -mb-4">
+                                                    <label class="block text-lg font-medium text-black dark:text-white">
+                                                        Jeudi
+                                                    </label>
+                                                </div>
+                                                {% set d = 1 %}
+                                                {% for openingHour in openingHours %}
+                                                    {% if openingHour.day == 4 %}
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="jeudiTimeOpen{{ d }}" class="text-black dark:text-white">Ouverture</label>
+                                                            <input type="time" name="jeudiTimeOpen{{ d }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="jeudiTimeOpen{{ d }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="jeudiTimeClose{{ d }}" class="text-black dark:text-white">Fermeture</label>
+                                                            <input type="time" name="jeudiTimeClose{{ d }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="jeudiTimeClose{{ d }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                    {% endif %}
+                                                    {% set d = d + 1 %}
+                                                {% endfor %}
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-y-1 tablet:gap-6 hidden" id="vendredi">
+                                                <div class="col-span-2 flex -mb-4">
+                                                    <label class="block text-lg font-medium text-black dark:text-white">
+                                                        Vendredi
+                                                    </label>
+                                                </div>
+                                                {% set e = 1 %}
+                                                {% for openingHour in openingHours %}
+                                                    {% if openingHour.day == 5 %}
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="vendrediTimeOpen{{ e }}" class="text-black dark:text-white">Ouverture</label>
+                                                            <input type="time" name="vendrediTimeOpen{{ e }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="vendrediTimeOpen{{ e }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="vendrediTimeClose{{ e }}" class="text-black dark:text-white">Fermeture</label>
+                                                            <input type="time" name="vendrediTimeClose{{ e }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="vendrediTimeClose{{ e }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                    {% endif %}
+                                                    {% set e = e + 1 %}
+                                                {% endfor %}
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-y-1 tablet:gap-6 hidden" id="samedi">
+                                                <div class="col-span-2 flex -mb-4">
+                                                    <label class="block text-lg font-medium text-black dark:text-white">
+                                                        Samedi
+                                                    </label>
+                                                </div>
+                                                {% set f = 1 %}
+                                                {% for openingHour in openingHours %}
+                                                    {% if openingHour.day == 6 %}
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="samediTimeOpen{{ f }}" class="text-black dark:text-white">Ouverture</label>
+                                                            <input type="time" name="samediTimeOpen{{ f }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="samediTimeOpen{{ f }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="samediTimeClose{{ f }}" class="text-black dark:text-white">Fermeture</label>
+                                                            <input type="time" name="samediTimeClose{{ f }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="samediTimeClose{{ f }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                    {% endif %}
+                                                    {% set f = f + 1 %}
+                                                {% endfor %}
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-y-1 tablet:gap-6 hidden" id="dimanche">
+                                                <div class="col-span-2 flex -mb-4">
+                                                    <label class="block text-lg font-medium text-black dark:text-white">
+                                                        Dimanche
+                                                    </label>
+                                                </div>
+                                                {% set i = 1 %}
+                                                {% for openingHour in openingHours %}
+                                                    {% if openingHour.day == 7 %}
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="dimancheTimeOpen{{ i }}" class="text-black dark:text-white">Ouverture</label>
+                                                            <input type="time" name="dimancheTimeOpen{{ i }}" {% if openingHour.start %}value="{{ openingHour.start | format_time(locale='fr')}}"{% endif%} id="dimancheTimeOpen{{ i }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                        <div class="col-span-2 sm:col-span-1">
+                                                            <label for="dimancheTimeClose{{ i }}" class="text-black dark:text-white">Fermeture</label>
+                                                            <input type="time" name="dimancheTimeClose{{ i }}" {% if openingHour.end %}value="{{ openingHour.end | format_time(locale='fr')}}"{% endif%} id="dimancheTimeClose{{ i }}" class="w-full rounded-xl text-black dark:text-white mt-1 bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500">
+                                                        </div>
+                                                    {% endif %}
+                                                    {% set i = i + 1 %}
+                                                {% endfor %}
+                                            </div>
+                                            <input type="hidden" value="1" name="day">
+                                            <div class="text-center">
+                                                <button
+                                                    type="submit"
+                                                    class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-bold focus:outline-none
+                                                    focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
+                                                    dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500"
+                                                >
+                                                    Sauvegarder les horaires
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-10">
+                        <div class="flex flex-col space-y-4 max-w-6xl mx-auto">
+                            <div>
+                                <div class="px-4 sm:px-0">
+                                    <h3 class="text-2xl font-bold text-black dark:text-white inline-flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
+                                        </svg>
+                                        <span class="ml-3">Supprimer votre boutique</span>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <div class="overflow-hidden">
+                                        <div class="space-y-2">
+                                            <div class="flex flex-col">
+                                                <p class="text-black dark:text-white font-medium">
+                                                    Vous n'êtes pas satisfait du contenu proposé sur le site ?
+                                                    <br>
+                                                    Ou vous souhaitez supprimer toutes les informations associées à votre boutique ?
+                                                </p>
+                                                <p class="mt-2 text-black dark:text-white font-medium">
+                                                    Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es relatives à votre boutique,
+                                                    ainsi que toutes les commandes passées sur le site qui ne sont encore livrées
+                                                    (donc même celles en attente et en préparation).
+                                                </p>
+                                            </div>
+                                            <div class="text-center">
+                                                <button
+                                                    type="button"
+                                                    id="openDialogButton"
+                                                    class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-bold focus:outline-none
+                                                    focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-red-700 text-white hover:bg-slate-700
+                                                    dark:hover:bg-red-600 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500"
+                                                >
+                                                    Supprimer votre boutique
+                                                </button>
+                                                <dialog class="bg-slate-100 dark:bg-slate-900 rounded-lg text-left overflow-hidden shadow-lg transform transition-all sm:align-middle sm:max-w-lg sm:w-full p-0 backdrop:bg-slate-900/50 backdrop:backdrop-blur" aria-labelledby="modal-title" id="deleteDialog" aria-modal="true">
+                                                    <!-- Modal panel, show/hide based on modal state. -->
+                                                    <div class="inline-block align-bottom">
+                                                        {{ form_start(form_delete) }}
+                                                        {{ form_row(form_delete.id) }}
+                                                        <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                            <div class="sm:flex sm:items-start">
+                                                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-accent-red sm:mx-0 sm:h-10 sm:w-10">
+                                                                    <!-- Heroicon name: outline/exclamation -->
+                                                                    <svg class="h-6 w-6 text-red-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                                                                    <h3 class="mt-1 text-xl font-medium text-black dark:text-gray-200" id="modal-title">
+                                                                        Supprimer votre boutique
+                                                                    </h3>
+                                                                    <div class="mt-2 font-medium text-black dark:text-gray-200">
+                                                                        <p class="text-md">
+                                                                            Vous allez confirmer que vous voulez supprimer votre boutique chez ClickNToulon.
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="px-4 ml-4 pb-3 sm:pb-6 sm:px-6 sm:ml-0 sm:flex sm:items-center sm:justify-center sm:flex-row-reverse">
+                                                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-lg border-2 border-transparent shadow-sm px-4 py-2 sm:ml-3 bg-red-700 hover:bg-red-600 focus:bg-red-800 active:bg-red-800 text-sm font-medium text-white">
+                                                                Supprimer votre boutique
+                                                            </button>
+                                                            <button type="button" onclick="dialog.close()" class="w-full sm:w-auto inline-flex justify-center rounded-lg border-2 border-slate-700 shadow-sm px-4 py-2 mt-3 sm:mt-0 sm:ml-3 hover:bg-slate-700 text-black dark:text-white text-sm font-medium">
+                                                                Revenir en arrière
+                                                            </button>
+                                                        </div>
+                                                        {{ form_end(form_delete) }}
+                                                    </div>
+                                                </dialog>
                                             </div>
                                         </div>
                                     </div>
@@ -403,13 +406,23 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
         </div>
-    </section>
+    </div>
     <script>
-        function openModal(modalID) {
-            document.getElementById(modalID).classList.toggle('hidden');
-            document.getElementById(modalID).classList.toggle('fixed');
+        const openButton = document.getElementById('openDialogButton');
+        const dialog = document.getElementById('deleteDialog');
+        openButton.addEventListener("click", function onOpen() {
+            if (typeof dialog.showModal === "function") {
+                dialog.showModal();
+            } else {
+                console.log("Sorry, the <dialog> API is not supported by this browser.");
+            }
+        })
+
+        function closeAlert(alertID) {
+            document.getElementById(alertID).classList.toggle('hidden');
+            document.getElementById(alertID).classList.toggle('block');
         }
 
         function changeTab(divID, tabID) {
@@ -418,5 +431,4 @@
             document.getElementById(tabID).classList.toggle('tab-active');
         }
     </script>
-    {% include 'footer.html.twig' %}
 {% endblock %}

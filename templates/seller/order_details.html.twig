@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Details de la commande #{{ order.orderNumber }} - ClickNToulon
+{% endblock %}
+
+{% block body %}
+    <div class="relative">
+        <div class="absolute top-5 right-10 w-full max-w-md">
+            {% for message in app.flashes('success') %}
+                <div class="bg-green-600 w-full rounded-xl" id="successAlert">
+                    <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
+                        <div class="flex items-center justify-between flex-wrap">
+                            <div class="w-0 flex-1 flex items-center">
+                                <span class="flex p-2 rounded-lg bg-green-700">
+                                    <!-- Heroicon name: outline/exclamation -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                </span>
+                                <p class="ml-3 font-bold text-white">
+                                    <span class="inline">
+                                        {{ message }}
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
+                                <button type="button" class="flex p-2 rounded-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1" onclick="closeAlert('successAlert')">
+                                    <span class="sr-only">Fermer</span>
+                                    <!-- Heroicon name: outline/x -->
+                                    <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function closeAlert(alertID) {
+                        document.getElementById(alertID).classList.toggle('hidden');
+                        document.getElementById(alertID).classList.toggle('block');
+                    }
+                </script>
+            {% endfor %}
+        </div>
+    </div>
+    <section>
+        <div class="sm:container px-5 pt-12 mx-auto flex flex-wrap">
+            <div class="flex flex-wrap">
+                <div class="w-full md:mt-0 mt-12">
+                    <div class="flex flex-col p-4 w-full">
+                        <div class="w-full flex flex-col items-center justify-center">
+                            <h1 class="text-3xl text-black dark:text-white font-bold title-font title-underline">Commande #{{ order.orderNumber }}</h1>
+                            <h2 class="text-gray-700 dark:text-gray-200 text-lg font-bold mt-2">Date de retrait souhaitée : {{ order.day | format_date(pattern='dd MMMM y',locale='fr') }}</h2>
+                            <div class="flex items-center justify-between mt-3 space-x-4">
+                                {% if order.status == 0 %}
+                                    <span class="px-2 py-0.5 inline-flex text-lg font-bold rounded-lg bg-accent-red text-red-700">
+                                        Commande en attente
+                                    </span>
+                                {% elseif order.status == 1 %}
+                                    <span class="px-2 py-0.5 inline-flex text-lg font-bold rounded-lg bg-accent-yellow text-yellow-700">
+                                        Commande validée
+                                    </span>
+                                {% elseif order.status == 2 %}
+                                    <span class="px-2 py-0.5 inline-flex text-lg font-bold rounded-lg bg-accent-green text-green-700">
+                                        Commande prête
+                                    </span>
+                                {% elseif order.status == 3 %}
+                                    <span class="px-2 py-0.5 inline-flex text-lg font-bold rounded-lg bg-blue-200 text-blue-700">
+                                        Commande récupérée
+                                    </span>
+                                {% elseif order.status >= 4 %}
+                                    <span class="px-2 py-0.5 text-lg font-bold rounded-lg bg-red-600 text-white">
+                                        Commande annulée
+                                    </span>
+                                {% endif %}
+                                <span class="inline-flex text-2xl font-bold text-black dark:text-white">{{ order.total | format_currency('EUR') }}</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="mt-3">
+                                <div class="px-4 pb-1 sm:px-6 flex items-center justify-center sm:flex-row flex-col space-y-2 sm:space-y-0 sm:space-x-4">
+                                    {% if order.status == 0 %}
+                                        <a href="{{ path('shop_show', {slug: order.shop.slug}) }}">
+                                            <button class="w-auto flex items-center justify-center px-2 py-1 font-bold rounded-lg text-blue-900 hover:text-white dark:text-white border-2 border-blue-900 hover:bg-blue-900">
+                                                Valider la commande
+                                            </button>
+                                        </a>
+                                    {% elseif order.status == 1 %}
+                                        <a href="{{ path('shop_show', {slug: order.shop.slug}) }}">
+                                            <button class="w-auto flex items-center justify-center px-2 py-1 font-bold rounded-lg text-blue-900 hover:text-white dark:text-white border-2 border-blue-900 hover:bg-blue-900">
+                                                Commande prête
+                                            </button>
+                                        </a>
+                                    {% elseif order.status == 2 %}
+                                        <a href="{{ path('shop_show', {slug: order.shop.slug}) }}">
+                                            <button class="w-auto flex items-center justify-center px-2 py-1 font-bold rounded-lg text-blue-900 hover:text-white dark:text-white border-2 border-blue-900 hover:bg-blue-900">
+                                                Commande récupérée
+                                            </button>
+                                        </a>
+                                    {% endif %}
+                                    <a href="{{ path('shop_show', {slug: order.shop.slug}) }}">
+                                        <button class="w-auto flex items-center justify-center px-2 py-1 font-bold rounded-lg text-red-500 hover:text-white dark:text-white border-2 border-red-600 hover:bg-red-600">
+                                            Annuler la commande
+                                        </button>
+                                    </a>
+                                </div>
+                                {% set i = 0 %}
+                                {% for product in products %}
+                                    <div class="px-4 py-5 sm:px-6 space-y-6">
+                                        <div class="flex sm:flex-row flex-col">
+                                            <div class="w-full sm:w-1/3 pb-2 sm:pb-0">
+                                                <img class="rounded-xl border-2 border-blue-600" src="{{ asset('uploads/products/' ~ product.images[0]) }}" alt="">
+                                            </div>
+                                            <div class="flex flex-col pl-4 w-full">
+                                                <div class="flex flex-row justify-between items-center mb-2">
+                                                    <h1 class="font-bold text-black dark:text-gray-200 text-2xl">{{ product.name }} (x{{ quantities[i] }})</h1>
+                                                    {% if product.unitPriceDiscount is not null %}
+                                                        <div class="inline-flex items-center justify-between space-x-3">
+                                                            {% set dealPrice = product.unitPrice * (1 - (product.unitPriceDiscount/100)) | round(2) %}
+                                                            <p class="text-lg font-bold text-gray-900 dark:text-red-500">{{ dealPrice | format_currency('EUR') }}</p>
+                                                            <p class="text-lg font-bold bg-accent-red text-red-700 rounded-lg px-2.5 py-0.25">-{{ product.unitPriceDiscount }}%</p>
+                                                        </div>
+                                                    {% else %}
+                                                        <p class="text-lg font-bold text-gray-900 dark:text-gray-200">{{ product.unitPrice | format_currency('EUR') }}</p>
+                                                    {% endif %}
+                                                    {% set i = i + 1 %}
+                                                </div>
+                                                <div class="h-full relative">
+                                                    <p class="text-base font-semibold text-black dark:text-gray-200">
+                                                        {{ product.description }}
+                                                    </p>
+                                                </div>
+                                                <div class="w-full flex justify-center tablet:justify-end pt-4 tablet:pt-0">
+                                                    <a
+                                                            href="{{ path('product_show', {id: product.id}) }}"
+                                                            class="text-blue-900 hover:text-white dark:text-white border-2 border-blue-900 hover:bg-blue-900 font-bold px-2 py-1 rounded-lg transition-all duration-500"
+                                                    >
+                                                        Voir le produit
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -3,7 +3,6 @@
 {% block title 'Modifier mes informations - ClickNToulon' %}
 
 {% block body %}
-    {% include 'navbar.html.twig' with {'active': 'user'} %}
     <div class="relative">
         <div class="absolute top-5 right-10 w-full max-w-md">
             {% for message in app.flashes('success') %}
@@ -46,48 +45,74 @@
         </div>
     </div>
     {% include 'user/_header.html.twig' %}
-    <section class="text-gray-400 body-font pb-10">
-        <div class="container px-5 max-w-7xl mx-auto">
-            <div class="space-y-24">
-                <div id="informations">
-                    <div class="w-full">
-                        <div class="w-full">
+    <div class="relative mx-auto flex justify-center sm:px-2 lg:px-8 xl:px-12">
+        <div class="hidden lg:relative lg:block lg:flex-none">
+            <div class="sticky -ml-0.5 pl-0.5">
+                <nav class="w-64 pr-8 xl:w-72 xl:pr-16">
+                    <ul>
+                        <li>
+                            {% include 'user/_tabs.html.twig' with {active: 'edit'} %}
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="min-w-0 max-w-2xl flex-auto px-4 lg:max-w-6xl lg:px-0">
+            <article>
+                <div class="flex flex-col divide-y-2 dark:divide-slate-700">
+                    <div class="w-full pb-10">
+                        <div class="block flex flex-col justify-center w-full mx-auto space-y-6 max-w-6xl">
                             <div>
-                                {{ form_start(form_profile, {attr: {class: 'relative'}}) }}
-                                <div class="rounded-xl bg-darkblue-150 dark:bg-darkblue-800">
-                                    <div class="px-4 py-2 sm:p-6 flex items-center justify-center flex-col w-full">
-                                        <h2 class="text-black dark:text-white text-center text-3xl font-bold title-underline mb-4">Mes informations</h2>
-                                        <div class="w-full">
-                                            <div class="grid grid-cols-2 gap-6">
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    {{ form_row(form_profile.name) }}
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    {{ form_row(form_profile.surname) }}
-                                                </div>
+                                <div class="flex flex-col space-y-1 px-4 sm:px-0">
+                                    <h3 class="text-2xl font-bold text-black dark:text-white inline-flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span class="ml-3">Mes informations</span>
+                                    </h3>
+                                    <p class="text-base font-normal text-black dark:text-white">
+                                        Tous les champs doivent être remplis, sauf pour l'adresse, le code postal, la ville et le téléphone
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                {{ form_start(form_profile) }}
+                                <div class="sm:overflow-hidden">
+                                    <div class="space-y-2">
+                                        <div class="grid grid-cols-2 gap-y-1 tablet:gap-6">
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_profile.name) }}
                                             </div>
-                                            <div class="grid grid-cols-2 gap-6">
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    {{ form_row(form_profile.email) }}
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    {{ form_row(form_profile.phone) }}
-                                                </div>
-                                            </div>
-                                            <div>
-                                                {{ form_row(form_profile.address) }}
-                                            </div>
-                                            <div class="grid grid-cols-2 gap-6">
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    {{ form_row(form_profile.postalCode) }}
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    {{ form_row(form_profile.city) }}
-                                                </div>
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_profile.surname) }}
                                             </div>
                                         </div>
-                                        <div class="mt-4 text-center">
-                                            <button type="submit" class="inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-base font-bold rounded-full text-white bg-blue-600 hover:bg-blue-500 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-white dark:focus:ring-offset-darkblue-800">
+                                        <div class="grid grid-cols-2 gap-y-1 tablet:gap-6">
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_profile.email) }}
+                                            </div>
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_profile.phone) }}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            {{ form_row(form_profile.address) }}
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-y-1 tablet:gap-6">
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_profile.postalCode) }}
+                                            </div>
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_profile.city) }}
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button
+                                                type="submit"
+                                                class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-bold focus:outline-none
+                                                focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
+                                                dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500"
+                                            >
                                                 Sauvegarder les changements
                                             </button>
                                         </div>
@@ -97,63 +122,89 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="mot-de-passe">
-                    <div>
-                        {{ form_start(form_password) }}
-                        <div class="rounded-xl bg-darkblue-150 dark:bg-darkblue-800">
-                            <div class="px-4 py-2 sm:p-6 flex items-center justify-center flex-col w-full">
-                                <h2 class="text-black dark:text-white text-center text-3xl font-bold title-underline mb-4">Mot de passe</h2>
-                                <div class="grid grid-cols-2 gap-6 w-full">
-                                    <div class="col-span-2 sm:col-span-1">
-                                        {{ form_row(form_password.password.first) }}
-                                    </div>
-                                    <div class="col-span-2 sm:col-span-1">
-                                        {{ form_row(form_password.password.second) }}
-                                    </div>
+                    <div class="py-10">
+                        <div class="flex flex-col max-w-6xl mx-auto space-y-4">
+                            <div>
+                                <div class="px-4 sm:px-0">
+                                    <h3 class="text-2xl font-bold text-black dark:text-white inline-flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                        </svg>
+                                        <span class="ml-3">Modifier mon mot de passe</span>
+                                    </h3>
                                 </div>
-                                <div class="mt-4 text-center">
-                                    <button type="submit" class="inline-flex justify-center py-1 px-3 shadow-sm text-base font-bold rounded-full text-white bg-blue-600 hover:bg-blue-500 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-white dark:focus:ring-offset-darkblue-800">
-                                        Sauvegarder le mot de passe
-                                    </button>
+                            </div>
+                            <div class="md:col-span-2 w-full md:w-auto">
+                                {{ form_start(form_password) }}
+                                <div class="sm:overflow-hidden">
+                                    <div class="space-y-2">
+                                        <div class="grid grid-cols-2 tablet:gap-6">
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_password.password.first) }}
+                                            </div>
+                                            <div class="col-span-2 sm:col-span-1">
+                                                {{ form_row(form_password.password.second) }}
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button
+                                                type="submit"
+                                                class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-bold focus:outline-none
+                                                focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
+                                                dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500"
+                                            >
+                                                Sauvegarder le mot de passe
+                                            </button>
+                                        </div>
+                                    </div>
+                                {{ form_end(form_password) }}
                                 </div>
                             </div>
                         </div>
-                        {{ form_end(form_password) }}
                     </div>
-                </div>
-                <div id="avance">
-                    <div>
-                        <div>
-                            <div class="rounded-xl bg-darkblue-150 dark:bg-darkblue-800 relative">
-                                <div class="px-4 py-2 sm:p-6 flex items-center justify-center flex-col w-full">
-                                    <h2 class="text-black dark:text-white text-center text-3xl font-bold title-underline title-underline-danger mb-4">Danger Zone</h2>
-                                    <div class="text-center flex items-center flex-col">
-                                        <p class="mt-2 text-black dark:text-gray-100 font-bold text-lg">
-                                            Vous n'&ecirc;tes pas satisfait du contenu propos&eacute;
-                                            sur le site ?<br>
-                                            Ou vous souhaitez supprimer toutes les informations associ&eacute;es à votre
-                                            compte ?
-                                        </p>
-                                        <p class="mt-2 text-black dark:text-gray-100 font-bold text-lg">
-                                            Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es
-                                            relatives &agrave; votre profil, ainsi que toutes vos commandes pass&eacute;es
-                                            sur le site.
-                                        </p>
-                                    </div>
-                                    <div class="mt-4 text-center">
-                                        <button type="button" class="inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-base font-bold rounded-full text-white bg-red-700 hover:bg-red-600" onclick="openModal('deleteModal')">
-                                            Supprimer votre compte
-                                        </button>
-                                        <div class="hidden z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" id="deleteModal" role="dialog" aria-modal="true">
-                                            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                                                <!-- Background overlay, show/hide based on modal state. -->
-                                                <div class="fixed inset-0 bg-darkblue-800 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-                                                <!-- This element is to trick the browser into centering the modal contents. -->
-                                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                                                <!-- Modal panel, show/hide based on modal state. -->
-                                                <div class="inline-block align-bottom bg-darkblue-150 dark:bg-darkblue-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                                    {{ form_start(form_delete) }}
+                    <div class="pt-10">
+                        <div class="flex flex-col space-y-4 max-w-6xl mx-auto">
+                            <div>
+                                <div class="px-4 sm:px-0">
+                                    <h3 class="text-2xl font-bold text-black dark:text-white inline-flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
+                                        </svg>
+                                        <span class="ml-3">Supprimer votre compte</span>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <div class="overflow-hidden">
+                                        <div class="space-y-4">
+                                            <div class="flex flex-col">
+                                                <p class="text-black dark:text-white font-medium">
+                                                    Vous n'&ecirc;tes pas satisfait du contenu propos&eacute;
+                                                    sur le site ?<br>
+                                                    Ou vous souhaitez supprimer toutes les informations associ&eacute;es à votre
+                                                    compte ?
+                                                </p>
+                                                <p class="mt-2 text-black dark:text-white font-medium">
+                                                    Cette fonctionnalit&eacute; va supprimer toutes les donn&eacute;es
+                                                    relatives &agrave; votre profil, ainsi que toutes vos commandes pass&eacute;es
+                                                    sur le site.
+                                                </p>
+                                            </div>
+                                            <div class="text-center">
+                                                <button
+                                                    type="button"
+                                                    id="openDialogButton"
+                                                    class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-bold focus:outline-none
+                                                    focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-red-700 text-white hover:bg-slate-700
+                                                    dark:hover:bg-red-600 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500"
+                                                >
+                                                    Supprimer votre compte
+                                                </button>
+                                                <dialog class="bg-slate-100 dark:bg-slate-900 rounded-lg text-left overflow-hidden shadow-lg transform transition-all sm:align-middle sm:max-w-lg sm:w-full p-0 backdrop:bg-slate-900/50 backdrop:backdrop-blur" aria-labelledby="modal-title" id="deleteDialog" aria-modal="true">
+                                                    <!-- Modal panel, show/hide based on modal state. -->
+                                                    <div class="inline-block align-bottom">
+                                                        {{ form_start(form_delete) }}
                                                         {{ form_row(form_delete.id) }}
                                                         <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                                             <div class="sm:flex sm:items-start">
@@ -164,10 +215,10 @@
                                                                     </svg>
                                                                 </div>
                                                                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                                                    <h3 class="mt-1 text-xl font-bold text-black dark:text-gray-200" id="modal-title">
+                                                                    <h3 class="mt-1 text-xl font-medium text-black dark:text-gray-200" id="modal-title">
                                                                         Supprimer votre compte
                                                                     </h3>
-                                                                    <div class="mt-2 font-semibold text-black dark:text-gray-200">
+                                                                    <div class="mt-2 font-medium text-black dark:text-gray-200">
                                                                         <p class="text-md">
                                                                             Vous allez confirmer que vous voulez supprimer votre compte chez ClickNToulon.
                                                                         </p>
@@ -176,15 +227,16 @@
                                                             </div>
                                                         </div>
                                                         <div class="px-4 ml-4 pb-3 sm:pb-6 sm:px-6 sm:ml-0 sm:flex sm:items-center sm:justify-center sm:flex-row-reverse">
-                                                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-full border-2 border-transparent shadow-sm px-4 py-2 sm:ml-3 bg-red-600 hover:bg-red-500 text-lg sm:text-sm font-bold text-white">
+                                                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-lg border-2 border-transparent shadow-sm px-4 py-2 sm:ml-3 bg-red-700 hover:bg-red-600 focus:bg-red-800 active:bg-red-800 text-sm font-medium text-white">
                                                                 Supprimer votre compte
                                                             </button>
-                                                            <button type="button" class="w-full sm:w-auto inline-flex justify-center rounded-full border-2 border-blue-900 shadow-sm px-4 py-2 mt-3 sm:mt-0 sm:ml-3 hover:bg-blue-900 text-blue-900 hover:text-white dark:text-white text-lg sm:text-sm font-bold" onclick="openModal('deleteModal')">
+                                                            <button type="button" onclick="dialog.close()" class="w-full sm:w-auto inline-flex justify-center rounded-lg border-2 border-slate-700 shadow-sm px-4 py-2 mt-3 sm:mt-0 sm:ml-3 hover:bg-slate-700 text-black dark:text-white text-sm font-medium">
                                                                 Revenir en arrière
                                                             </button>
                                                         </div>
-                                                    {{ form_end(form_delete) }}
-                                                </div>
+                                                        {{ form_end(form_delete) }}
+                                                    </div>
+                                                </dialog>
                                             </div>
                                         </div>
                                     </div>
@@ -193,14 +245,18 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
         </div>
-    </section>
+    </div>
     <script>
-        function openModal(modalID) {
-            document.getElementById(modalID).classList.toggle('hidden')
-            document.getElementById(modalID).classList.toggle('fixed')
-        }
+        const openButton = document.getElementById('openDialogButton');
+        const dialog = document.getElementById('deleteDialog');
+        openButton.addEventListener("click", function onOpen() {
+            if (typeof dialog.showModal === "function") {
+                dialog.showModal();
+            } else {
+                console.log("Sorry, the <dialog> API is not supported by this browser.");
+            }
+        })
     </script>
-    {% include 'footer.html.twig' %}
 {% endblock %}

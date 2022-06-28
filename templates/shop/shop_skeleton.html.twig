@@ -1,33 +1,35 @@
 {% for shop in shops %}
-    <div class="group relative">
+    <div class="group relative before:absolute before:-inset-1.5 before:rounded-lg before:bg-gray-50 dark:before:bg-slate-700 before:opacity-0 hover:before:opacity-100">
         {% if shop.status == 2 %}
-            <span class="bg-blue-500 rounded-xl text-white font-bold uppercase px-3 py-2 z-10 absolute -right-3 -top-4 flex items-center justify-center">
-            Partenaire
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-            </svg>
-        </span>
+            <span class="bg-sky-200 rounded-lg text-sky-700 font-bold uppercase px-2 py-1 z-10 absolute right-2 top-2 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                </svg>
+                Partenaire
+            </span>
         {% endif %}
-        <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+        <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-lg overflow-hidden lg:h-80 lg:aspect-none relative">
             <img src="{{ asset('uploads/shops/' ~ shop.image) }}" alt="Shop Image" class="w-full h-full object-center object-cover lg:w-full lg:h-full">
         </div>
-        <div class="mt-4 flex justify-between items-baseline">
-            <h3 class="text-2xl text-black dark:text-white dark:group-hover:text-blue-900 group-hover:text-blue-500 font-bold tracking-wide">
-                <a href="{{ path('shop_show', {slug: shop.slug}) }}">
-                    <span aria-hidden="true" class="absolute inset-0"></span>
-                    {{ shop.name }}
-                </a>
-            </h3>
-            <div class="inline-flex items-center justify-center text-lg font-bold text-gray-900 dark:text-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <p>{{ shop.address }} {{ shop.postalCode }} {{ shop.city }}</p>
+        <div class="p-2 flex flex-col relative">
+            <div class="flex justify-between items-baseline flex-wrap space-y-1">
+                <h3 class="text-2xl text-black dark:text-white group-hover:underline underline-offset-4 decoration-[3px] decoration-sky-600 font-semibold tracking-wide">
+                    <a href="{{ path('shop_show', {slug: shop.slug}) }}">
+                        <span aria-hidden="true" class="absolute inset-0"></span>
+                        {{ shop.name }}
+                    </a>
+                </h3>
+                <div class="inline-flex items-center justify-center text-lg font-medium text-gray-900 dark:text-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <p>{{ shop.address }} {{ shop.postalCode }} {{ shop.city }}</p>
+                </div>
             </div>
-        </div>
-        <div class="mt-2">
-            <p class="text-lg text-justify text-gray-900 dark:text-gray-200 font-medium">{{ shop.description | u.truncate(175, '...', false) }}</p>
+            <div class="mt-2">
+                <p class="text-lg text-justify text-gray-900 dark:text-gray-200 font-medium">{{ shop.description | u.truncate(175, '...', false) }}</p>
+            </div>
         </div>
     </div>
 {% endfor %}

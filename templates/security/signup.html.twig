@@ -3,10 +3,16 @@
 {% block title 'Inscription - ClickNToulon' %}
 
 {% block body %}
-    {% include 'navbar.html.twig' with {'active': 'signup'} %}
-    <div class="container mx-auto flex items-center justify-center h-test">
-        <div class="grid grid-cols-3 gap-x-6 w-full h-auto">
-            <div class="bg-darkblue-150 dark:bg-darkblue-800 col-span-1 h-full w-full max-h-max rounded-xl p-10">
+    <div class="sm:container px-5 mx-auto flex items-center justify-center py-6">
+        <div class="w-full max-w-xl h-auto">
+            <div class="h-full w-full max-h-max p-12">
+                <h1 class="text-4xl font-bold text-center mb-2 cursor-pointer text-refresh-purple dark:text-white capitalize">S'inscrire</h1>
+                <button class="w-full pb-4 text-center text-refresh-purple dark:text-white text-lg font-bold" type="button">
+                    ou
+                    <a href="{{ path('app_login') }}" class="text-black dark:text-white underline decoration-[3px] underline-offset-4 decoration-sky-600">
+                        se connecter à son compte
+                    </a>
+                </button>
                 {% for message in app.flashes('warning') %}
                     <div class="bg-yellow-600 rounded-xl mb-2">
                         <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
@@ -15,7 +21,7 @@
                                 <span class="flex p-2 rounded-lg bg-yellow-700">
                                   <!-- Heroicon name: outline/exclamation -->
                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                                   </svg>
                                 </span>
                                     <p class="ml-3 font-medium text-white">
@@ -29,7 +35,7 @@
                                         <span class="sr-only">Fermer</span>
                                         <!-- Heroicon name: outline/x -->
                                         <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                         </svg>
                                     </button>
                                 </div>
@@ -37,41 +43,53 @@
                         </div>
                     </div>
                 {% endfor %}
-                {{ form_start(form) }}
-                <h1 class="text-4xl font-bold text-center mb-4 cursor-pointer text-black dark:text-white capitalize">Inscrivez-vous</h1>
-                <div class="space-y-1">
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.surname) }}
-                    {{ form_row(form.email) }}
-                    {{ form_row(form.password.first) }}
-                    {{ form_row(form.password.second) }}
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <div class="inline-flex items-start mt-2 px-3">
-                        <div>
-                            <div>
-                                <label class="inline-flex items-center align-middle">
-                                    <input type="checkbox" class="rounded border-2 border-blue-600 text-blue-500 shadow-sm focus:border-blue-500" id="checkbox" name="cgu" required>
-                                    <span class="text-black dark:text-gray-300 font-semibold">J'accepte les <a href="{{ path('about_cgu') }}" class="font-bold underline underline-offset-2 text-blue-700 dark:text-blue-400">Conditions Générales d'Utilisation</a></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                {{ form_start(form, {attr: {class: 'space-y-1 w-full mb-8'}}) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.surname) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.password.first) }}
+                {{ form_row(form.password.second) }}
+                <button class="w-full px-3 py-1 rounded-lg bg-sky-600 transition hover:bg-sky-500 relative" type="submit">
+                    <span class="font-semibold text-white text-lg">Inscription</span>
+                </button>
+                {{ form_end(form) }}
+
+                <div class="border-t-2 border-sky-500">
+                    <span class="block w-max mx-auto -mt-3.5 px-4 text-center text-black dark:text-white font-bold bg-slate-100 dark:bg-slate-900">Ou continuer avec</span>
                 </div>
-                <div class="text-center mt-2">
-                    <button class="py-2 px-3 w-full text-xl font-semibold text-white bg-blue-700 hover:bg-blue-600 rounded-full" type="submit">S'inscrire</button>
-                    <a href="{{ path('google_connect') }}" class="flex flex-row items-center justify-center px-3 py-2 rounded-full border-2 border-[#dd4b39] hover:bg-[#C64333] text-white font-bold mt-2 text-xl transition-all duration-500">
-                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="mr-3">
-                            <path fill="currentColor" d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z"/>
-                        </svg>
-                        <span>S'inscrire avec Google</span>
+
+                <div class="mt-6 grid gap-6 sm:grid-cols-2 w-full">
+                    <a href="{{ path('oauth_connect', {service: "google"}) }}" class="w-full">
+                        <button class="px-3 py-1 rounded-lg bg-red-700 hover:bg-red-600 focus:bg-red-600 active:bg-red-500 flex items-center justify-center w-full">
+                            <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#google)">
+                                    <path d="M23.766 12.2764C23.766 11.4607 23.6999 10.6406 23.5588 9.83807H12.24V14.4591H18.7217C18.4528 15.9494 17.5885 17.2678 16.323 18.1056V21.1039H20.19C22.4608 19.0139 23.766 15.9274 23.766 12.2764Z" fill="currentColor" />
+                                    <path d="M12.24 24.0008C15.4764 24.0008 18.2058 22.9382 20.1944 21.1039L16.3274 18.1055C15.2516 18.8375 13.8626 19.252 12.2444 19.252C9.11376 19.252 6.45934 17.1399 5.50693 14.3003H1.51648V17.3912C3.55359 21.4434 7.70278 24.0008 12.24 24.0008Z" fill="currentColor" />
+                                    <path d="M5.50253 14.3003C4.99987 12.8099 4.99987 11.1961 5.50253 9.70575V6.61481H1.51649C-0.18551 10.0056 -0.18551 14.0004 1.51649 17.3912L5.50253 14.3003Z" fill="currentColor" />
+                                    <path d="M12.24 4.74966C13.9508 4.7232 15.6043 5.36697 16.8433 6.54867L20.2694 3.12262C18.1 1.0855 15.2207 -0.034466 12.24 0.000808666C7.70277 0.000808666 3.55359 2.55822 1.51648 6.61481L5.50252 9.70575C6.45052 6.86173 9.10935 4.74966 12.24 4.74966Z" fill="currentColor" />
+                                </g>
+                                <defs>
+                                    <clipPath id="google">
+                                        <rect class="h-6 w-6" fill="white" height="24" width="24"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <span class="ml-2 font-medium text-white">Google</span>
+                        </button>
+                    </a>
+                    <a href="{{ path('oauth_connect', {service: "microsoft"}) }}" class="w-full">
+                        <button class="px-3 py-1 w-full rounded-lg bg-gray-800 transition hover:bg-gray-700 active:bg-gray-600 focus:bg-gray-700 flex items-center justify-center text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" class="h-5 w-5">
+                                <path fill="none" d="M0 0h23v23H0z"/>
+                                <path fill="#f35325" d="M1 1h10v10H1z"/>
+                                <path fill="#81bc06" d="M12 1h10v10H12z"/>
+                                <path fill="#05a6f0" d="M1 12h10v10H1z"/>
+                                <path fill="#ffba08" d="M12 12h10v10H12z"/>
+                            </svg>
+                            <span class="ml-2 font-medium text-white">Microsoft</span>
+                        </button>
                     </a>
                 </div>
-                <div class="w-full">
-                </div>
-                {{ form_end(form) }}
-            </div>
-            <div class="w-full col-span-2 flex items-center justify-center">
-                <img class="h-96 object-cover" src="{{ asset('images/security.svg') }}" alt="">
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/*! ClickNToulon v1.0.0-alpha | MIT License | https://clickntoulon.fr */
+/*! ClickNToulon v1.0.0 | MIT License | https://clickntoulon.fr */
 
 @tailwind base;
 @tailwind components;
@@ -45,47 +45,53 @@ html {
 }
 
 html::-webkit-scrollbar {
-  width: 10px;
+  width: 11px;
   height: 10px;
 }
 
 html::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-
-  @apply bg-blue-500;
+  @apply bg-sky-600;
 }
 
-html::-webkit-scrollbar-track {
-  @apply bg-darkblue-100 dark:bg-darkblue-900;
-}
-
-.lg\:max-h-7xl {
-  max-height: 80rem !important;
+::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-900;
 }
 
 .order_details_panel:last-of-type {
   @apply rounded-b-lg;
 }
 
-.h-screen-custom {
-  height: calc(100vh - 192px) !important;
-}
-
-.h-test {
-  height: calc(100vh - 84px) !important;
-}
-
 @layer base {
+  .w-4\.5 {
+    width: 1.125rem;
+  }
+
+  .h-4\.5 {
+    height: 1.125rem;
+  }
+
   button {
     @apply transition-all duration-500;
   }
 
   label {
-    @apply font-semibold text-black dark:text-white text-base;
+    @apply font-medium text-black dark:text-white text-lg;
   }
 
-  [type="checkbox"] {
-    @apply rounded bg-darkblue-200 dark:bg-darkblue-700 border-blue-400 dark:border-blue-600 text-blue-500 focus:border-blue-600 mr-2;
+  input, textarea, select {
+    @apply w-full rounded-lg mt-1 text-black dark:text-white font-medium bg-gray-50 dark:bg-slate-800 border-2 border-gray-300 dark:border-slate-700 focus:border-sky-600 focus:outline-0 focus:ring-0 focus:ring-offset-0 placeholder:text-black dark:placeholder:text-gray-400 #{!important};
+  }
+
+  input[type="checkbox"] {
+    @apply w-4.5 h-4.5 mt-0 rounded text-black dark:text-white border-2 border-gray-300 dark:border-slate-700 focus:border-sky-600 focus:outline-0 focus:ring-0 focus:ring-offset-0 #{!important};
+
+    &:checked {
+      @apply bg-sky-600 border-sky-600 #{!important};
+    }
+  }
+
+  input[type="file"] {
+    @apply block w-full font-medium text-black dark:text-white border-0 bg-transparent py-1 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-500 file:active:bg-blue-700 file:cursor-pointer focus:outline-0 #{!important};
   }
 
   .p-0\.75 {
@@ -93,15 +99,15 @@ html::-webkit-scrollbar-track {
   }
 
   .tab {
-    @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-black dark:text-white font-bold rounded-xl mx-1 my-0.5;
+    @apply inline-flex flex-wrap items-center justify-center relative text-center cursor-pointer text-sm h-8 px-4 text-black dark:text-white font-medium rounded-lg mx-1 my-0.5;
 
     &:hover {
-      @apply bg-darkblue-200 dark:bg-darkblue-900 text-black dark:text-white;
+      @apply bg-slate-200 dark:bg-slate-700 text-black dark:text-white;
     }
   }
 
   .tab-active {
-    @apply bg-darkblue-200 dark:bg-darkblue-900 text-black dark:text-white font-bold;
+    @apply bg-slate-200 dark:bg-slate-700 text-black dark:text-white;
   }
 
   .tab:focus {
@@ -116,8 +122,8 @@ html::-webkit-scrollbar-track {
   input:-webkit-autofill,
   textarea:-webkit-autofill,
   select:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px hsl(220, 95%, 70%) inset !important;
-    -webkit-text-fill-color: black !important;
+    -webkit-box-shadow: 0 0 0 1000px #f1f5f9 inset !important;
+    -webkit-text-fill-color: #000 !important;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -134,17 +140,17 @@ html::-webkit-scrollbar-track {
     input:-webkit-autofill,
     textarea:-webkit-autofill,
     select:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0 1000px hsl(220, 95%, 15%) inset !important;
+      -webkit-box-shadow: 0 0 0 1000px #1e293b inset !important;
       -webkit-text-fill-color: white !important;
     }
   }
 }
 
 .image-active {
-  @apply ring-2 ring-blue-500;
+  @apply ring-2 ring-blue-600;
 }
 
-.test {
+.letter-spacing-0\.025 {
   letter-spacing: 0.025em !important;
 }
 
@@ -154,13 +160,15 @@ html::-webkit-scrollbar-track {
 }
 
 .shop-scrollbar::-webkit-scrollbar-thumb {
-  border-radius: 10px;
+  border-radius: 10px !important;
 
-  @apply bg-darkblue-600;
+  @apply bg-sky-600;
 }
 
-.shop-scrollbar::-webkit-scrollbar-track {
-  @apply bg-darkblue-100 dark:bg-darkblue-900;
+#types::-webkit-scrollbar-thumb {
+  border-radius: 10px !important;
+
+  @apply bg-sky-600;
 }
 
 .title-underline::after {
@@ -183,6 +191,19 @@ html::-webkit-scrollbar-track {
   height: calc(100vh - 390px) !important;
 }
 
-.max-h-108 {
-  max-height: 27rem;
+nav a[aria-current="page"] {
+  @apply underline;
+}
+
+a.sortable,
+a.asc,
+a.desc {
+  @apply flex flex-row items-center;
+}
+
+.logo {
+  background-image: url("https://salient.tailwindui.com/_next/static/media/background-call-to-action.6a5a5672.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

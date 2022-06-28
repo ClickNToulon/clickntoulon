@@ -3,96 +3,113 @@
 {% block title 'Signaler un produit et/ou une boutique - ClickNToulon' %}
 
 {% block body %}
-    {% include 'navbar.html.twig' with {active: 'report'} %}
-    <section class="container mx-auto px-5 pt-12">
-        <div class="flex items-center justify-center">
-            <h1 class="sm:text-5xl text-3xl font-extrabold title-font text-black dark:text-white mb-4 uppercase tracking-wider title-underline">Signaler un contenu</h1>
+    {% include 'about/_header.html.twig' %}
+    <div class="relative mx-auto flex justify-center sm:px-2 lg:px-8 xl:px-12 pt-12">
+        <div class="hidden lg:relative lg:block lg:flex-none">
+            <div class="sticky -ml-0.5 pl-0.5">
+                <nav class="w-64 pr-8 xl:w-72 xl:pr-16">
+                    <ul>
+                        <li>
+                            {% include 'about/_tabs.html.twig' with {active: 'report'} %}
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-        <div class="pt-12 max-w-3xl mx-auto">
-            {% for message in app.flashes('success') %}
-                <div class="bg-green-600 rounded-xl mb-2 lg:mb-4 -mt-2 lg:-mt-6" id="successAlert">
-                    <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
-                        <div class="flex items-center justify-between flex-wrap">
-                            <div class="w-0 flex-1 flex items-center">
-                                <span class="flex p-2 rounded-xl bg-green-700">
-                                    <!-- Heroicon name: outline/exclamation -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                    </svg>
-                                </span>
-                                <p class="ml-3 font-semibold text-white">
-                                    <span class="inline">
-                                        {{ message }}
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
-                                <button type="button" class="flex p-2 rounded-xl hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1" onclick="closeAlert('successAlert')">
-                                    <span class="sr-only">Fermer</span>
-                                    <!-- Heroicon name: outline/x -->
-                                    <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
+        <div class="min-w-0 max-w-2xl flex-auto px-4 lg:max-w-5xl lg:px-0">
+            <article>
+                <header class="mb-4">
+                    {% for message in app.flashes('warning') %}
+                        <div class="mb-4 flex rounded-lg p-3 bg-slate-50 dark:bg-slate-800/70 dark:ring-1 dark:ring-slate-300/10">
+                            <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" class="h-8 w-8 flex-none [--icon-foreground:theme(colors.red.900)] [--icon-background:theme(colors.red.500)]">
+                                <defs>
+                                    <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id="gradient" gradientTransform="rotate(65.924 1.519 20.92) scale(25.7391)">
+                                        <stop stop-color="#ef4444" offset=".08"></stop>
+                                        <stop stop-color="#dc2626" offset=".837"></stop>
+                                    </radialGradient>
+                                </defs>
+                                <g>
+                                    <path
+                                         fill="url(#gradient)"
+                                         fill-rule="evenodd"
+                                         clip-rule="evenodd"
+                                         d="M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14-6.268 14-14 14S2 23.732 2 16Zm11.386-4.85a2.66 2.66 0 1 1 5.228 0l-1.039 5.543a1.602 1.602 0 0 1-3.15 0l-1.04-5.543ZM16 20a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"
+                                    />
+                                </g>
+                            </svg>
+                            <div class="ml-4 flex-auto">
+                                <p class="m-0 font-display text-xl text-red-500 dark:text-red-600 font-bold dark:font-medium">Oops ! Une erreur est survenue !</p>
+                                <div
+                                    class="prose mt-2.5 text-sky-500 prose-a:underline prose-a:decoration-[2px] prose-a:decoration-sky-600 prose-a:underline-offset-4
+                                    prose-a:text-slate-900 dark:prose-a:text-white hover:prose-a:text-sky-500 text-slate-900 dark:text-slate-300 dark:prose-code:text-slate-300 max-w-full"
+                                >
+                                    {{ message }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <script>
-                    function closeAlert(alertID) {
-                        document.getElementById(alertID).classList.toggle('hidden');
-                        document.getElementById(alertID).classList.toggle('block');
-                    }
-                </script>
-            {% endfor %}
-            {% for message in app.flashes('warning') %}
-                <div class="bg-red-600 rounded-xl mb-2 lg:mb-4 -mt-2 lg:-mt-6" id="warningAlert">
-                    <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
-                        <div class="flex items-center justify-between flex-wrap">
-                            <div class="w-0 flex-1 flex items-center">
-                                <span class="flex p-2 rounded-xl bg-red-700">
-                                    <!-- Heroicon name: outline/exclamation -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                    </svg>
-                                </span>
-                                <p class="ml-3 font-semibold text-white">
-                                    <span class="inline">
-                                        {{ message }}
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
-                                <button type="button" class="flex p-2 rounded-xl hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1" onclick="closeAlert('warningAlert')">
-                                    <span class="sr-only">Fermer</span>
-                                    <!-- Heroicon name: outline/x -->
-                                    <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
+                    {% endfor %}
+                    {% for message in app.flashes('success') %}
+                        <div class="mb-4 flex rounded-lg p-3 bg-slate-50 dark:bg-slate-800/70 dark:ring-1 dark:ring-slate-300/10">
+                            <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" class="h-8 w-8 flex-none">
+                                <defs>
+                                    <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id="gradient" gradientTransform="rotate(65.924 1.519 20.92) scale(25.7391)">
+                                        <stop stop-color="#22c55e" offset=".08"></stop>
+                                        <stop stop-color="#16a34a" offset=".837"></stop>
+                                    </radialGradient>
+                                </defs>
+                                <g>
+                                    <path
+                                         fill="url(#gradient)"
+                                         fill-rule="evenodd"
+                                         clip-rule="evenodd"
+                                         d="M16 2C10.002 2 5 6.507 5 12.23c0 3.144 1.523 6.411 3.877 8.691.75.727 1.363 1.52 1.734 2.353.185.415.574.726 1.028.726H12a1 1 0 0 0 1-1v-4.5a.5.5 0 0 0-.5-.5A3.5 3.5 0 0 1 9 14.5V14a3 3 0 1 1 6 0v9a1 1 0 1 0 2 0v-9a3 3 0 1 1 6 0v.5a3.5 3.5 0 0 1-3.5 3.5.5.5 0 0 0-.5.5V23a1 1 0 0 0 1 1h.36c.455 0 .844-.311 1.03-.726.37-.833.982-1.626 1.732-2.353 2.354-2.28 3.878-5.547 3.878-8.69C27 6.507 21.998 2 16 2Zm5 25a1 1 0 0 0-1-1h-8a1 1 0 0 0-1 1 3 3 0 0 0 3 3h4a3 3 0 0 0 3-3Zm-8-13v1.5a.5.5 0 0 1-.5.5 1.5 1.5 0 0 1-1.5-1.5V14a1 1 0 1 1 2 0Zm6.5 2a.5.5 0 0 1-.5-.5V14a1 1 0 1 1 2 0v.5a1.5 1.5 0 0 1-1.5 1.5Z"
+                                    />
+                                </g>
+                            </svg>
+                            <div class="ml-4 flex-auto w-auto">
+                                <p class="m-0 font-display text-xl text-green-600 dark:text-green-500 font-bold dark:font-medium">Signalement bien envoyé !</p>
+                                <div
+                                    class="prose mt-2.5 text-sky-500 prose-a:underline prose-a:decoration-[2px] prose-a:decoration-sky-600 prose-a:underline-offset-4
+                                    prose-a:text-slate-900 dark:prose-a:text-white hover:prose-a:text-sky-500 text-slate-900 dark:text-slate-300 dark:prose-code:text-slate-300 max-w-full"
+                                >
+                                    {{ message }}
+                                </div>
                             </div>
                         </div>
+                    {% endfor %}
+                    <h1 class="text-3xl tracking-tight text-slate-900 dark:text-white">Signaler un contenu</h1>
+                </header>
+                {{ form_start(form, {attr: {class: 'w-full flex items-center justify-center flex-col'}}) }}
+                <div class="sm:overflow-hidden w-full">
+                    <div class="space-y-2">
+                        <div class="grid grid-cols-2 gap-y-1 tablet:gap-6">
+                            <div class="col-span-2 sm:col-span-1">
+                                {% if app.user is not null %}
+                                    {{ form_row(form.email, {attr: {value: app.user.email, disabled: 'disabled'}}) }}
+                                {% else %}
+                                    {{ form_row(form.email) }}
+                                {% endif %}
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                {{ form_row(form.url) }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            {{ form_row(form.content) }}
+                        </div>
+                        <div class="text-center">
+                            <button
+                                   type="submit"
+                                   class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-bold focus:outline-none
+                                   focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
+                                   dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500"
+                            >
+                                Signaler
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <script>
-                    function closeAlert(alertID) {
-                        document.getElementById(alertID).classList.toggle('hidden');
-                        document.getElementById(alertID).classList.toggle('block');
-                    }
-                </script>
-            {% endfor %}
-            {{ form_start(form, {attr: {class: 'w-full flex items-center justify-center flex-col mx-auto'}}) }}
-                <div class="w-full">
-                    {{ form_row(form.url) }}
-                </div>
-                <div class="w-full">
-                    {{ form_row(form.content) }}
-                </div>
-                <button type="submit" class="inline-flex justify-center py-1 px-3 border border-transparent font-bold rounded-full text-white bg-blue-700 hover:bg-blue-600">
-                    Signaler
-                </button>
-            {{ form_end(form) }}
+                    {{ form_end(form) }}
+            </article>
         </div>
-    </section>
-    {% include 'footer.html.twig' %}
+    </div>
 {% endblock %}
