@@ -1,0 +1,26 @@
+.noUi-target {
+  @apply border-slate-100 dark:border-slate-900 bg-slate-200 dark:bg-slate-800 shadow-none #{!important};
+}
+
+.noUi-connect {
+  @apply bg-sky-600 border-none rounded-lg  #{!important};
+}
+
+.noUi-handle {
+  @apply border-transparent bg-slate-300 dark:bg-slate-700 shadow-none rounded-lg #{!important};
+}
+
+.noUi-horizontal .noUi-tooltip {
+  bottom: -150% !important;
+
+  @apply bg-slate-300 dark:bg-slate-700 text-black dark:text-white rounded-lg border-slate-400 dark:border-slate-600 #{!important}
+}
+
+#types {
+  max-height: 225px;
+  overflow-y: auto;
+}
+
+#types::-webkit-scrollbar {
+  width: 10px;
+}
