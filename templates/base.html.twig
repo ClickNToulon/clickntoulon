@@ -60,7 +60,7 @@
                             <a href="{{ path('home') }}">
                                 <div class="flex tablet:hidden flex-row items-center">
                                     <div class="p-1.5 logo rounded-md">
-                                        <svg viewBox="0 0 40 40" class="h-10 w-auto fill-white" xmlns="http://www.w3.org/2000/svg">
+                                        <svg viewBox="0 0 40 40" class="h-7 w-auto fill-white" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M0 20c0 11.046 8.954 20 20 20s20-8.954 20-20S31.046 0 20 0 0 8.954 0 20Zm20 16c-7.264 0-13.321-5.163-14.704-12.02C4.97 22.358 6.343 21 8 21h24c1.657 0 3.031 1.357 2.704 2.98C33.32 30.838 27.264 36 20 36Z"/>
                                         </svg>
                                     </div>
@@ -124,15 +124,15 @@
                                                     {% if is_granted('ROLE_MERCHANT') %}
                                                         <div class="py-1" role="none">
                                                             <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                                            <a href="{{ path('seller_choose') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-0">Ma boutique</a>
+                                                            <a href="{{ path('seller_choose') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-0">Ma boutique</a>
                                                         </div>
                                                     {% endif %}
                                                     <div class="py-1" role="none">
-                                                        <a href="{{ path('user_edit') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-1">Mon profil</a>
-                                                        <a href="{{ path('user_orders') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-2">Mes commandes</a>
+                                                        <a href="{{ path('user_edit') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-1">Mon profil</a>
+                                                        <a href="{{ path('user_orders') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-2">Mes commandes</a>
                                                     </div>
                                                     <div class="py-1" role="none">
-                                                        <a href="{{ path('app_logout') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-3">Déconnexion</a>
+                                                        <a href="{{ path('app_logout') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-3">Déconnexion</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -208,15 +208,15 @@
                                 {% if is_granted('ROLE_MERCHANT') %}
                                     <div class="py-1" role="none">
                                         <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                        <a href="{{ path('seller_choose') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-0">Ma boutique</a>
+                                        <a href="{{ path('seller_choose') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-0">Ma boutique</a>
                                     </div>
                                 {% endif %}
                                 <div class="py-1" role="none">
-                                    <a href="{{ path('user_edit') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-1">Mon profil</a>
-                                    <a href="{{ path('user_orders') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-2">Mes commandes</a>
+                                    <a href="{{ path('user_edit') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-1">Mon profil</a>
+                                    <a href="{{ path('user_orders') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-2">Mes commandes</a>
                                 </div>
                                 <div class="py-1" role="none">
-                                    <a href="{{ path('app_logout') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline dark:decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-3">Déconnexion</a>
+                                    <a href="{{ path('app_logout') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-3">Déconnexion</a>
                                 </div>
                             </div>
                         </div>
@@ -253,7 +253,7 @@
             }
         </script>
         {% block body %}{% endblock %}
-        <footer class="text-slate-900 dark:text-slate-100 pb-12 container px-5 mx-auto">
+        <footer class="text-slate-900 dark:text-slate-100 pb-12 tablet:container px-5 mx-auto">
             <div class="max-w-screen-2xl mx-auto flex flex-col tablet:flex-row justify-between items-center space-y-4 mt-12 lg:mt-16 border-t-2 border-blue-800 dark:border-gray-700 pt-8">
                 <div class="flex items-baseline space-x-2">
                     <div class="flex flex-row items-center">
@@ -272,7 +272,7 @@
                     <p>ClickNToulon est une association de loi 1901 administrant la présente plateforme.</p>
                 </div>
             </div>
-            <div class="max-w-screen-2xl mx-auto flex flex-col text-center lg:text-left tablet:flex-row text-sm justify-center tablet:justify-between items-center align-middle space-y-4 mt-8 tablet:space-y-0 lg:mt-12">
+            <div class="max-w-screen-2xl mx-auto flex flex-col text-center lg:text-left lg:flex-row text-sm justify-center tablet:justify-between items-center align-middle space-y-4 mt-8 lg:space-y-0 lg:mt-12">
                 <nav class="flex flex-col tablet:flex-row justify-center items-center space-y-4 tablet:space-y-0 tablet:space-x-6">
                     <a href="{{ path('about_index') }}" class="font-medium text-lg decoration-[3px] underline-offset-4 hover:underline decoration-sky-600 tracking-wide">&Agrave; propos</a>
                     <a href="{{ path('about_cgu') }}" class="font-medium text-lg decoration-[3px] underline-offset-4 hover:underline decoration-sky-600 tracking-wide">Conditions Générales d'Utilisation</a>

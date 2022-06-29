@@ -25,10 +25,7 @@ class ChooseShopForm extends AbstractType
             'query_builder' => function(ShopRepository $em) use($owner) {
                 return $em->choose($owner);
             },
-            'choice_label' => 'name',
-            'attr' => [
-                'class' => 'w-full rounded-lg text-black dark:text-white font-bold bg-slate-300 dark:bg-slate-800 border-2 border-slate-700 dark:border-slate-700 focus:border-blue-600'
-            ]
+            'choice_label' => 'name'
         ]);
     }
 

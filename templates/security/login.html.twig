@@ -3,46 +3,74 @@
 {% block title  'Connexion - ClickNToulon'%}
 
 {% block body %}
-    <div class="sm:container px-5 mx-auto flex items-center justify-center py-6 h-screen-footer">
+    <div class="sm:container px-5 mx-auto flex items-center justify-center py-6">
         <div class="w-full max-w-xl h-auto">
-            <div class="h-full w-full max-h-max p-12">
+            <div class="h-full w-full sm:px-12">
                 <h1 class="text-4xl font-bold text-center mb-2 text-refresh-purple dark:text-white capitalize">Se connecter</h1>
-                <button class="w-full pb-4 text-center text-refresh-purple dark:text-white font-bold" type="button">
+                <div class="w-full pb-4 text-center text-black dark:text-white font-bold">
                     ou
                     <a href="{{ path('app_signup') }}" class="text-black dark:text-white underline decoration-[3px] underline-offset-4 decoration-sky-600">
                         créer un nouveau compte
                     </a>
-                </button>
+                </div>
                 {% for message in app.flashes('warning') %}
-                    <div class="bg-yellow-600 rounded-xl mb-2">
-                        <div class="max-w-7xl mx-auto py-3 px-3 rounded-xl">
-                            <div class="flex items-center justify-between flex-wrap">
-                                <div class="w-0 flex-1 flex items-center">
-                                <span class="flex p-2 rounded-lg bg-yellow-700">
-                                  <!-- Heroicon name: outline/exclamation -->
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-                                  </svg>
-                                </span>
-                                    <p class="ml-3 font-medium text-white">
-                                    <span class="inline">
-                                        {{ message }}
-                                    </span>
-                                    </p>
-                                </div>
-                                <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
-                                    <button type="button" class="flex p-2 rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-white -mr-1">
-                                        <span class="sr-only">Fermer</span>
-                                        <!-- Heroicon name: outline/x -->
-                                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                                        </svg>
-                                    </button>
-                                </div>
+                    <div class="mb-4 flex rounded-lg p-3 bg-slate-50 dark:bg-slate-800/70 dark:ring-1 dark:ring-slate-300/10">
+                        <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" class="h-8 w-8 flex-none [--icon-foreground:theme(colors.red.900)] [--icon-background:theme(colors.red.500)]">
+                            <defs>
+                                <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id="gradient" gradientTransform="rotate(65.924 1.519 20.92) scale(25.7391)">
+                                    <stop stop-color="#ef4444" offset=".08"></stop>
+                                    <stop stop-color="#dc2626" offset=".837"></stop>
+                                </radialGradient>
+                            </defs>
+                            <g>
+                                <path
+                                     fill="url(#gradient)"
+                                     fill-rule="evenodd"
+                                     clip-rule="evenodd"
+                                     d="M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14-6.268 14-14 14S2 23.732 2 16Zm11.386-4.85a2.66 2.66 0 1 1 5.228 0l-1.039 5.543a1.602 1.602 0 0 1-3.15 0l-1.04-5.543ZM16 20a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"
+                                />
+                            </g>
+                        </svg>
+                        <div class="ml-4 flex-auto">
+                            <p class="m-0 font-display text-xl text-red-500 dark:text-red-600 font-bold dark:font-medium">Oops ! Une erreur est survenue !</p>
+                            <div
+                                class="prose mt-2.5 text-sky-500 prose-a:underline prose-a:decoration-[2px] prose-a:decoration-sky-600 prose-a:underline-offset-4
+                                prose-a:text-slate-900 dark:prose-a:text-white hover:prose-a:text-sky-500 text-slate-900 dark:text-slate-300 dark:prose-code:text-slate-300 max-w-full"
+                            >
+                                {{ message }}
                             </div>
                         </div>
                     </div>
                 {% endfor %}
+                {% if error %}
+                    <div class="mb-4 flex rounded-lg p-3 bg-slate-50 dark:bg-slate-800/70 dark:ring-1 dark:ring-slate-300/10">
+                        <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" class="h-8 w-8 flex-none [--icon-foreground:theme(colors.red.900)] [--icon-background:theme(colors.red.500)]">
+                            <defs>
+                                <radialGradient cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" id="gradient" gradientTransform="rotate(65.924 1.519 20.92) scale(25.7391)">
+                                    <stop stop-color="#ef4444" offset=".08"></stop>
+                                    <stop stop-color="#dc2626" offset=".837"></stop>
+                                </radialGradient>
+                            </defs>
+                            <g>
+                                <path
+                                        fill="url(#gradient)"
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14-6.268 14-14 14S2 23.732 2 16Zm11.386-4.85a2.66 2.66 0 1 1 5.228 0l-1.039 5.543a1.602 1.602 0 0 1-3.15 0l-1.04-5.543ZM16 20a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"
+                                />
+                            </g>
+                        </svg>
+                        <div class="ml-4 flex-auto">
+                            <p class="m-0 font-display text-xl text-red-500 dark:text-red-600 font-bold dark:font-medium">Oops ! Une erreur est survenue !</p>
+                            <div
+                                    class="prose mt-2.5 text-sky-500 prose-a:underline prose-a:decoration-[2px] prose-a:decoration-sky-600 prose-a:underline-offset-4
+                                prose-a:text-slate-900 dark:prose-a:text-white hover:prose-a:text-sky-500 text-slate-900 dark:text-slate-300 dark:prose-code:text-slate-300 max-w-full"
+                            >
+                                {{ error.messageKey | trans(domain="security", locale="fr") }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
                 <form method="post" class="w-full space-y-6 mb-8" autocomplete="off">
                     <div class="flex flex-col space-y-6">
                         <div class="relative">
@@ -55,7 +83,7 @@
                         </div>
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     </div>
-                    <div class="flex items-center justify-between">
+                    <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 justify-between">
                         <div class="flex items-center">
                             <input id="remember-me" name="remember-me" type="checkbox">
                             <label for="remember-me" class="ml-2 block">Se souvenir de moi</label>
@@ -71,7 +99,7 @@
                     <span class="block w-max mx-auto -mt-3.5 px-4 text-center text-black dark:text-white font-bold bg-white dark:bg-slate-900">Ou continuer avec</span>
                 </div>
 
-                <div class="mt-6 grid gap-6 sm:grid-cols-2 w-full">
+                <div class="mt-6 grid gap-2 sm:gap-6 sm:grid-cols-2 w-full">
                     <a href="{{ path('oauth_connect', {service: 'google'}) }}" class="w-full">
                         <button class="py-1 px-3 rounded-lg bg-red-700 hover:bg-red-600 focus:bg-red-600 active:bg-red-500 flex items-center justify-center w-full">
                             <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

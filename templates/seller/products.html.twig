@@ -19,8 +19,8 @@
         <div class="min-w-0 max-w-2xl flex-auto px-4 lg:max-w-8xl lg:px-0">
             <article>
                 <div class="flex flex-col">
-                    <div class="flex items-center justify-between sm:px-2 lg:px-6 mb-4">
-                        <h1 class="sm:text-4xl text-xl font-semibold text-black dark:text-white underline underline-offset-4 decoration-[3px] decoration-blue-600">
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 items-center justify-between sm:px-2 lg:px-6 mb-4">
+                        <h1 class="text-4xl font-semibold text-black dark:text-white underline underline-offset-4 decoration-[3px] decoration-sky-600">
                             Les produits
                         </h1>
                         <button onclick="openDialog('addDialog')" type="button" class="px-3 py-2 bg-blue-700 hover:bg-blue-600 rounded-lg font-medium text-white w-auto text-center flex flex-row items-center">
@@ -31,7 +31,7 @@
                         </button>
                         <dialog class="bg-slate-100 dark:bg-slate-900 rounded-lg text-left overflow-hidden shadow-lg transform transition-all sm:align-middle sm:max-w-lg sm:w-full p-0 backdrop:bg-slate-900/20 backdrop:backdrop-blur" id="addDialog" aria-modal="true">
                             <!-- Modal panel, show/hide based on modal state. -->
-                            <div class="inline-block align-bottom w-full">
+                            <div class="inline-block align-middle w-full">
                                 {{ form_start(form) }}
                                 <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 flex flex-col items-center justify-center w-full">
                                     <h2 class="sm:text-3xl text-xl font-medium text-black dark:text-white mb-4 tracking-wide underline underline-offset-2 decoration-[3px] decoration-blue-600">
@@ -93,24 +93,24 @@
                                     <div class="shadow overflow-hidden rounded-xl">
                                         <table class="min-w-full divide-y divide-slate-700 table-striped">
                                             <thead class="bg-slate-200 dark:bg-slate-800">
-                                            <tr>
-                                                <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
-                                                    ID
-                                                </th>
-                                                <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
-                                                    Nom
-                                                </th>
-                                                <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
-                                                    {{ knp_pagination_sortable(products, "Prix", "p.unitPrice") }}
-                                                </th>
-                                                <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
-                                                    {{ knp_pagination_sortable(products, "Prix en promo", "p.unitPriceDiscount") }}
-                                                </th>
-                                                <th scope="col" class="relative px-8 py-4">
-                                                    <span class="sr-only">Actions</span>
-                                                    <span class="sr-only">Supprimer le produit</span>
-                                                </th>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
+                                                        ID
+                                                    </th>
+                                                    <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
+                                                        Nom
+                                                    </th>
+                                                    <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
+                                                        {{ knp_pagination_sortable(products, "Prix", "p.unitPrice") }}
+                                                    </th>
+                                                    <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
+                                                        {{ knp_pagination_sortable(products, "Prix en promo", "p.unitPriceDiscount") }}
+                                                    </th>
+                                                    <th scope="col" class="relative px-8 py-4">
+                                                        <span class="sr-only">Actions</span>
+                                                        <span class="sr-only">Supprimer le produit</span>
+                                                    </th>
+                                                </tr>
                                             </thead>
                                             <tbody class="bg-slate-200 dark:bg-slate-800 divide-y divide-slate-700">
                                             {% for product in products %}
@@ -138,10 +138,21 @@
                                                         {% endif %}
                                                     </td>
                                                     <td class="px-8 py-8 text-sm space-y-1 whitespace-nowrap flex flex-col items-end justify-end">
-                                                        <a href="{{ path('seller_edit_product', {id: shop.id, product: product.id}) }}" class="max-w-[15rem] text-center px-3 py-1 w-full text-lg font-medium border-2 border-transparent bg-blue-700 hover:bg-blue-600 rounded-lg text-white">
+                                                        <a
+                                                            href="{{ path('seller_edit_product', {id: shop.id, product: product.id}) }}"
+                                                            class="max-w-[12rem] w-full py-1 text-lg group inline-flex items-center justify-center rounded-lg font-medium
+                                                            focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600
+                                                            text-white hover:bg-slate-700 dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900
+                                                            transition-colors duration-500"
+                                                        >
                                                             Modifier le produit
                                                         </a>
-                                                        <button type="button" class="max-w-[15rem] px-3 py-1 w-full text-lg font-medium border-2 border-red-600 hover:bg-red-600 rounded-lg text-red-600 hover:text-white dark:text-white" onclick="openDialog('deleteDialog-{{ product.id }}')">
+                                                        <button
+                                                                type="button"
+                                                                class="max-w-[12rem] py-0.5 w-full text-lg font-medium text-black dark:text-white hover:underline
+                                                                decoration-[2.5px] decoration-red-600 underline-offset-2"
+                                                                onclick="openDialog('deleteDialog-{{ product.id }}')"
+                                                        >
                                                             Supprimer le produit
                                                         </button>
                                                     </td>
@@ -176,7 +187,7 @@
                                                                 <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-lg border-2 border-transparent shadow-sm px-4 py-2 sm:ml-3 bg-red-600 hover:bg-red-500 focus:bg-red-700 active:bg-red-700 text-sm font-medium text-white">
                                                                     Supprimer le produit
                                                                 </button>
-                                                                <button type="button" class="w-full sm:w-auto inline-flex justify-center rounded-lg border-2 border-slate-700 shadow-sm px-4 py-2 mt-3 sm:mt-0 sm:ml-3 hover:bg-slate-700 text-black dark:text-white text-sm font-medium" onclick="closeDialog('deleteDialog-{{ product.id }}')">
+                                                                <button type="button" class="w-full sm:w-auto inline-flex justify-center px-4 py-2 mt-3 sm:mt-0 sm:ml-3 text-black dark:text-white text-sm font-medium hover:underline underline-offset-4 decoration-[2.5px] decoration-sky-600" onclick="closeDialog('deleteDialog-{{ product.id }}')">
                                                                     Revenir en arrière
                                                                 </button>
                                                             </div>

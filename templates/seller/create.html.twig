@@ -46,17 +46,16 @@
     </div>
     <section>
         <div class="sm:container px-5 mx-auto sm:max-w-7xl pt-3 max-w-full">
-            <div class="flex items-center justify-center mb-4">
-                <h1 class="sm:text-3xl text-xl font-extrabold title-font text-black dark:text-white uppercase tracking-wider title-underline">
-                    Créer une boutique
+            <div class="flex flex-col items-center justify-center mb-4 sm:mb-12">
+                <h1 class="sm:text-5xl text-3xl font-medium text-black dark:text-white mb-4 underline-offset-4 underline decoration-sky-600 decoration-[3px]">
+                    Créer ma boutique
                 </h1>
             </div>
             <div class="w-full max-w-4xl mx-auto">
                 <div class="block">
                     <div class="md:col-span-2">
                         {{ form_start(form) }}
-                        <div class="sm:overflow-hidden rounded-xl">
-                            <div class="px-4 py-5 bg-darkblue-150 dark:bg-darkblue-800 space-y-2 sm:p-6">
+                            <div class="space-y-4">
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="col-span-2 sm:col-span-1">
                                         {{ form_row(form.name) }}
@@ -87,21 +86,22 @@
                                         {{ form_row(form.city) }}
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-6">
+                                <div class="grid grid-cols-2 gap-4">
                                     <div class="col-span-2">
-                                        {{ form_label(form.image) }}
-                                        <div class="mt-1">
-                                            {{ form_widget(form.image) }}
-                                        </div>
+                                        {{ form_row(form.image) }}
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="inline-flex justify-center py-1 px-3 border border-transparent font-bold rounded-lg text-white bg-blue-700 hover:bg-blue-600 focus:bg-blue-800 active:bg-blue-800">
+                                    <button
+                                           type="submit"
+                                           class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-bold focus:outline-none
+                                           focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
+                                           dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500"
+                                    >
                                         Confirmer la création
                                     </button>
                                 </div>
                             </div>
-                        </div>
                         {{ form_end(form) }}
                     </div>
                 </div>

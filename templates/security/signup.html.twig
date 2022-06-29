@@ -5,7 +5,7 @@
 {% block body %}
     <div class="sm:container px-5 mx-auto flex items-center justify-center py-6">
         <div class="w-full max-w-xl h-auto">
-            <div class="h-full w-full max-h-max p-12">
+            <div class="h-full w-full max-h-max sm:px-12">
                 <h1 class="text-4xl font-bold text-center mb-2 cursor-pointer text-refresh-purple dark:text-white capitalize">S'inscrire</h1>
                 <button class="w-full pb-4 text-center text-refresh-purple dark:text-white text-lg font-bold" type="button">
                     ou
@@ -58,7 +58,7 @@
                     <span class="block w-max mx-auto -mt-3.5 px-4 text-center text-black dark:text-white font-bold bg-slate-100 dark:bg-slate-900">Ou continuer avec</span>
                 </div>
 
-                <div class="mt-6 grid gap-6 sm:grid-cols-2 w-full">
+                <div class="mt-6 grid gap-2 sm:gap-6 sm:grid-cols-2 w-full">
                     <a href="{{ path('oauth_connect', {service: "google"}) }}" class="w-full">
                         <button class="px-3 py-1 rounded-lg bg-red-700 hover:bg-red-600 focus:bg-red-600 active:bg-red-500 flex items-center justify-center w-full">
                             <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

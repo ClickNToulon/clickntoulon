@@ -23,8 +23,7 @@ class ReportForm extends AbstractType
                 'required' => true,
                 'label' => 'Le motif de votre signalement',
                 'attr' => [
-                    'rows' => 4,
-                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
+                    'rows' => 4
                 ],
             ])
             ->add('email', EmailType::class, [
@@ -35,10 +34,7 @@ class ReportForm extends AbstractType
             ->add('url', UrlType::class, [
                 'mapped' => true,
                 'required' => true,
-                'label' => 'Le lien vers le contenu signalé',
-                'attr' => [
-                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
-                ],
+                'label' => 'Le lien vers le contenu signalé'
             ]);
     }
 

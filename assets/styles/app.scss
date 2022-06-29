@@ -91,7 +91,7 @@ html::-webkit-scrollbar-thumb {
   }
 
   input[type="file"] {
-    @apply block w-full font-medium text-black dark:text-white border-0 bg-transparent py-1 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-500 file:active:bg-blue-700 file:cursor-pointer focus:outline-0 #{!important};
+    @apply block w-full font-medium text-black dark:text-white border-0 bg-transparent py-1 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-sky-600 file:text-white hover:file:bg-sky-500 file:cursor-pointer focus:outline-0 #{!important};
   }
 
   .p-0\.75 {
@@ -188,7 +188,11 @@ html::-webkit-scrollbar-thumb {
 }
 
 .h-screen-footer {
-  height: calc(100vh - 390px) !important;
+  height: calc(100vh - 390px);
+}
+
+.max-h-screen-footer {
+  max-height: calc(100vh - 390px);
 }
 
 nav a[aria-current="page"] {

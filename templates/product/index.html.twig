@@ -14,17 +14,17 @@
 
 {% block body %}
     <section>
-        <div class="container px-8 sm:px-5 pt-12 mx-auto">
+        <div class="md:container px-8 sm:px-5 pt-12 mx-auto">
             <div class="flex items-center justify-center flex-col mb-12">
                 <h1 class="sm:text-5xl text-3xl font-medium text-black dark:text-white mb-4 underline-offset-4 underline decoration-sky-600 decoration-[3px]">
                     Les produits
                 </h1>
-                <p class="mx-auto max-w-2xl text-xl tracking-tight text-slate-700 dark:text-slate-200">
+                <p class="mx-auto max-w-2xl text-xl tracking-tight text-slate-700 dark:text-slate-200 text-center">
                     Envie de découvrir de nouveaux produits ?
                 </p>
             </div>
-            <div class="grid grid-cols-4 gap-y-8 sm:gap-y-0 gap-x-6">
-                <div class="col-span-4 sm:col-span-1 px-5">
+            <div class="grid lg:grid-cols-2 desktop:grid-cols-4 gap-y-8 desktop:gap-y-0 gap-x-6">
+                <div class="col-span-4 lg:col-span-2 desktop:col-span-1 px-5 max-w-xl mx-auto w-full">
                     {{ form_start(form) }}
                     <div class="flex flex-col space-y-4">
                         <div class="flex flex-col">
@@ -61,8 +61,8 @@
                     </button>
                     {{ form_end(form) }}
                 </div>
-                <div class="col-span-4 sm:col-span-3">
-                    <div class="grid grid-cols-1 gap-y-6 gap-x-6 sm:grid-cols-3 xl:gap-x-3">
+                <div class="col-span-4 desktop:col-span-3">
+                    <div class="grid grid-cols-1 gap-y-6 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-3">
                         {% if products is defined and products.items != [] %}
                             {% include 'product/product_skeleton.html.twig' with {'products': products} %}
                         {% else %}

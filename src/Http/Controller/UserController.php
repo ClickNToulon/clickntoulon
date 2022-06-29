@@ -80,7 +80,6 @@ class UserController extends AbstractController
     #[Route(path: "/mes-commandes/{number}", name: "order", requirements: ["id" => "[0-9\-]*"])]
     public function order(Request $request): Response
     {
-        $user = $this->getUser();
         $order = $this->orderRepository->findOneBy(['orderNumber' => $request->attributes->get('number')]);
         $products = [];
         $order_products = $order->getProducts();

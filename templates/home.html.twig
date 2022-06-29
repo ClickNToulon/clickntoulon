@@ -3,12 +3,12 @@
 {% block title 'ClickNToulon - Made in Toulon for Toulon' %}
 
 {% block body %}
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 text-center lg:pt-32">
-        <h1 class="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 dark:text-white sm:text-7xl">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 text-center lg:py-32">
+        <h1 class="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 dark:text-white tablet:text-7xl">
             {% if app.user is not null %}
                 Bienvenue
-                <span class="relative whitespace-nowrap text-sky-500 dark:text-sky-400">
-                    <svg aria-hidden="true" viewBox="0 0 418 42" class="absolute top-2/3 left-0 h-[0.58em] w-full fill-slate-700/70 dark:fill-sky-700/30" preserveAspectRatio="none">
+                <span class="relative whitespace-wrap text-sky-500 dark:text-sky-400">
+                    <svg aria-hidden="true" viewBox="0 0 418 42" class="absolute top-2/3 left-0 h-[0.58em] w-full fill-sky-700/30" preserveAspectRatio="none">
                         <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z"></path>
                     </svg>
                     <span class="relative">{{ app.user.surname }} {{ app.user.name }}</span>
@@ -16,7 +16,7 @@
             {% else %}
                 Made for
                 <span class="relative whitespace-nowrap text-sky-500 dark:text-sky-400">
-                    <svg aria-hidden="true" viewBox="0 0 418 42" class="absolute top-2/3 left-0 h-[0.58em] w-full fill-slate-700/70 dark:fill-sky-700/30" preserveAspectRatio="none">
+                    <svg aria-hidden="true" viewBox="0 0 418 42" class="absolute top-2/3 left-0 h-[0.58em] w-full fill-sky-700/30" preserveAspectRatio="none">
                         <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z"></path>
                     </svg>
                     <span class="relative">Toulon</span>
@@ -31,10 +31,10 @@
                 Une plateforme de Click&Collect sur Toulon, réalisé par des étudiants, à Toulon.
             {% endif %}
         </p>
-        <div class="mt-10 flex justify-center space-x-6">
+        <div class="mt-10 flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-6">
             {% if app.user is not null %}
                 <a
-                    class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-bold focus:outline-none
+                    class="group inline-flex items-center justify-center rounded-lg py-2 px-4 font-semibold focus:outline-none
                     focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
                     dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500"
                     href="{{ path('user_orders') }}"
@@ -42,7 +42,7 @@
                     Mes commandes
                 </a>
                 <a
-                    class="group inline-flex ring-2 items-center justify-center rounded-lg py-1 px-4 font-bold
+                    class="group inline-flex ring-2 items-center justify-center rounded-lg py-1 px-4 font-semibold
                     focus:outline-none ring-slate-200 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
                     dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600
                     focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500"
@@ -70,25 +70,11 @@
                 </a>
             {% endif %}
         </div>
-        <div class="mt-24 lg:mt-32">
-            <p class="font-display text-xl text-slate-900 dark:text-white">Sponsorisé par</p>
-            <ul class="mt-1 flex items-center justify-center space-x-8 sm:flex-col sm:space-x-0 sm:space-y-10 xl:flex-row xl:space-y-0 xl:space-x-12">
-                <li>
-                    <ul class="flex flex-col items-center space-y-8 sm:flex-row sm:space-y-0 sm:space-x-12">
-                        <li class="flex">
-                            <a href="https://isen-mediterranee.fr">
-                                <img alt="ISEN" class="w-auto h-28" src="https://juniorisen.com/images/ISEN-YNCREA-Mediterranee-removebg-preview.png" decoding="async" data-nimg="fixed">
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
     </div>
 
     <section>
         <div class="sm:container mx-auto pt-16 px-4 sm:pt-24 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-center md:justify-between border-b-2 border-slate-300 dark:border-slate-700 pb-4">
+            <div class="flex items-center justify-between border-b-2 border-slate-300 dark:border-slate-700 pb-4">
                 <h2 class="text-3xl font-medium text-slate-900 dark:text-slate-100">Les boutiques partenaires</h2>
                 <a href="{{ path('shop_index') }}" class="text-black dark:text-white text-lg font-medium hidden sm:inline-flex items-center hover:underline decoration-[3px] decoration-sky-600 underline-offset-4">
                     <span class="mr-1">Toutes les boutiques</span>
@@ -98,7 +84,7 @@
                     </svg>
                 </a>
             </div>
-            <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div class="mt-6 grid grid-cols-1 gap-4 tablet:grid-cols-2">
                 {% if shops is defined and shops != [] %}
                     {% for shop in shops %}
                         <a
@@ -138,7 +124,7 @@
 
     <section>
         <div class="sm:container mx-auto pt-8 px-4 sm:pt-16 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-center md:justify-between border-b-2 border-slate-300 dark:border-slate-700 pb-4">
+            <div class="flex items-center justify-between border-b-2 border-slate-300 dark:border-slate-700 pb-4">
                 <h2 class="text-3xl font-medium text-slate-900 dark:text-slate-100">Les derniers produits</h2>
                 <a href="{{ path('product_index') }}" class="text-black dark:text-white text-lg font-medium hidden sm:inline-flex items-center hover:underline decoration-[3px] decoration-sky-600 underline-offset-4">
                     <span class="mr-1">Tous les produits</span>

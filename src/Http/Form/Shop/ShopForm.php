@@ -24,46 +24,16 @@ class ShopForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'attr' => [
-                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
-                ]
-            ])
-            ->add('description', TextareaType::class, [
-                'attr' => [
-                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
-                ]
-            ])
-            ->add('phone', NumberType::class, [
-                'attr' => [
-                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
-                ]
-            ])
+            ->add('name', TextType::class)
+            ->add('description', TextareaType::class)
+            ->add('phone', NumberType::class)
             ->add('email', EmailType::class, [
-                'attr' => [
-                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
-                ],
                 "required" => false,
             ])
-            ->add('address', TextareaType::class, [
-                'attr' => [
-                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
-                ]
-            ])
-            ->add('postalCode', TextType::class, [
-                'attr' => [
-                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
-                ]
-            ])
-            ->add('city', TextType::class, [
-                'attr' => [
-                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
-                ]
-            ])
+            ->add('address', TextareaType::class)
+            ->add('postalCode', TextType::class)
+            ->add('city', TextType::class)
             ->add('image', FileType::class, [
-                'attr' => [
-                    'class' => 'block w-full font-semibold text-black dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 file:cursor-pointer'
-                ],
                 'required' => true,
                 'constraints' => [
                     new Image([
@@ -81,10 +51,7 @@ class ShopForm extends AbstractType
                 'query_builder' => function(TagRepository $em) {
                     return $em->findAllQuery();
                 },
-                'choice_label' => 'name',
-                'attr' => [
-                    'class' => 'w-full rounded-xl mt-1 mb-4 text-black dark:text-white font-bold bg-darkblue-200 dark:bg-darkblue-800 border-2 border-blue-700 dark:border-blue-800 focus:border-blue-600 dark:focus:border-blue-500 placeholder:text-gray-700 dark:placeholder:text-gray-400'
-                ]
+                'choice_label' => 'name'
             ]);
     }
 
