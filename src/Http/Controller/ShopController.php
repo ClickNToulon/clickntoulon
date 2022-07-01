@@ -36,7 +36,8 @@ class ShopController extends AbstractController
         $form->handleRequest($request);
         $shops = $this->shopRepository->findSearch($data);
         return $this->render('shop/index.html.twig', [
-            'shops' => $shops,
+            'shops' => $shops[1],
+            'checkShops' => $shops[0],
             'user' => $user,
             'form' => $form->createView(),
             "menu" => "shop"

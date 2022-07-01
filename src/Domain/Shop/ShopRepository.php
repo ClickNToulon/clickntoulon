@@ -91,14 +91,17 @@ class ShopRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findSearch(SearchShopData $data): PaginationInterface
+    public function findSearch(SearchShopData $data): array
     {
         $query = $this->getSearchQuery($data)->getQuery();
-        return $this->paginator->paginate(
-            $query,
-            $data->page,
-            6
-        );
+        return [
+            count($this->findAll()),
+            $this->paginator->paginate(
+                $query,
+                $data->page,
+                6
+            )
+        ];
     }
 
     private function getSearchQuery(SearchShopData $search): QueryBuilder

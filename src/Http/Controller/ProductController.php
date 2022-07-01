@@ -47,7 +47,8 @@ class ProductController extends AbstractController
         $max = $this->productRepository->findMinMax($data);
         $products = $this->productRepository->findSearch($data);
         return $this->render('product/index.html.twig', [
-            'products' => $products,
+            'products' => $products[1],
+            'checkProducts' => $products[0],
             'form' => $form->createView(),
             'max' => $max,
             "menu" => "product"
