@@ -61,7 +61,7 @@
                 </a>
                 <a
                     class="group inline-flex ring-2 items-center justify-center rounded-lg py-1 px-4 font-bold
-                    focus:outline-none ring-slate-200 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
+                    focus:outline-none ring-slate-300 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
                     dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600
                     focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500"
                     href="{{ path('about_index') }}"
@@ -89,7 +89,7 @@
                     {% for shop in shops %}
                         <a
                             href="{{ path('shop_show', {slug: shop.slug}) }}"
-                            class="shrink-0 p-2 group-hover:bg-slate-700 rounded-lg group relative before:absolute before:-inset-0 before:rounded-lg before:bg-gray-50 dark:before:bg-slate-700 before:opacity-0 hover:before:opacity-100"
+                            class="shrink-0 p-2 group-hover:bg-slate-700 rounded-lg group relative before:absolute before:-inset-0 before:rounded-lg before:bg-gray-100 dark:before:bg-slate-700 before:opacity-0 hover:before:opacity-100"
                         >
                             <img class="aspect-video w-full h-72 rounded-lg group-hover:opacity-75" src="{{ asset('uploads/shops/' ~ shop.image) }}" alt="">
                             <div class="p-4 relative">
@@ -112,7 +112,7 @@
                         </a>
                     {% endfor %}
                 {% else %}
-                    <div class="w-full flex items-center justify-center flex-col space-y-4 mt-10">
+                    <div class="col-span-2 w-full flex items-center justify-center flex-col space-y-4 mt-10">
                         <h1 class="text-center text-black dark:text-white font-semibold text-4xl">
                             Aucune boutique sur ClickNToulon actuellement...
                         </h1>

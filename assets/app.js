@@ -5,7 +5,7 @@ const _paq = window._paq = window._paq || [];
 _paq.push(['trackPageView']);
 _paq.push(['enableLinkTracking']);
 (function () {
-    const u = "https://analytics.clickntoulon.fr/";
+    const u = "//analytics.clickntoulon.fr/";
     _paq.push(['setTrackerUrl', u + 'matomo.php']);
     _paq.push(['setSiteId', '1']);
     const d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];

@@ -79,7 +79,7 @@ html::-webkit-scrollbar-thumb {
   }
 
   input, textarea, select {
-    @apply w-full rounded-lg mt-1 text-black dark:text-white font-medium bg-gray-50 dark:bg-slate-800 border-2 border-gray-300 dark:border-slate-700 focus:border-sky-600 focus:outline-0 focus:ring-0 focus:ring-offset-0 placeholder:text-black dark:placeholder:text-gray-400 #{!important};
+    @apply w-full rounded-lg mt-1 text-black dark:text-white font-medium bg-gray-100 dark:bg-slate-800 border-2 border-gray-300 dark:border-slate-700 focus:border-sky-600 focus:outline-0 focus:ring-0 focus:ring-offset-0 placeholder:text-black dark:placeholder:text-gray-400 #{!important};
   }
 
   input[type="checkbox"] {
@@ -206,7 +206,7 @@ a.desc {
 }
 
 .logo {
-  background-image: url("https://salient.tailwindui.com/_next/static/media/background-call-to-action.6a5a5672.jpg");
+  background-image: url("../../public/images/logo-bg.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

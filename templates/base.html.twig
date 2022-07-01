@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" class="bg-slate-100 dark:bg-slate-900">
+<html lang="fr" class="bg-white dark:bg-slate-900">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,9 +41,9 @@
         <nav>
             <div class="desktop:container mx-auto px-5 lg:px-8 py-2">
                 <div class="relative flex items-center justify-between h-[4.25rem]">
-                    <div class="absolute inset-y-0 left-0 flex items-center tablet:hidden">
+                    <div class="absolute inset-y-0 left-0 z-[100] flex items-center tablet:hidden">
                         <!-- Mobile menu button-->
-                        <button type="button" class="relative inline-flex items-center justify-center text-black dark:text-white" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleNavbar('mobile-menu', 'menu-close', 'menu-open')">
+                        <button type="button" class="relative z-10 inline-flex items-center justify-center text-black dark:text-white" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleNavbar('mobile-menu', 'menu-close', 'menu-open')">
                             <span class="sr-only">Open main menu</span>
                             <!-- Icon when menu is closed. Heroicon name: outline/menu. Menu open: "hidden", Menu closed: "block" -->
                             <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" id="menu-open">
@@ -102,12 +102,12 @@
                                             <div class="relative px-3 font-medium my-auto inline-block items-center">
                                                 <div>
                                                     <button
-                                                        type="button"
-                                                        class="inline-flex justify-center ring-2 items-center w-full min-w-max rounded-lg shadow-lg px-2 py-1 font-bold
-                                                        focus:outline-none ring-slate-200 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
-                                                        dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600
-                                                        focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500"
-                                                        aria-expanded="true" aria-haspopup="true" onclick="openDropdown('menu-button')"
+                                                            type="button"
+                                                            class="inline-flex justify-center ring-2 items-center w-full min-w-max rounded-lg shadow-lg px-2 py-1 font-bold
+                                                                focus:outline-none ring-slate-200 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
+                                                                dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600
+                                                                focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500"
+                                                            aria-expanded="true" aria-haspopup="true" onclick="openDropdown('menu-button')"
                                                     >
                                                         Mon compte
                                                         <!-- Heroicon name: solid/chevron-down -->
@@ -117,9 +117,9 @@
                                                     </button>
                                                 </div>
                                                 <!-- Dropdown menu, show/hide based on menu state. -->
-                                                <div class="origin-top-right absolute right-0 left-0 mt-2.5 w-42 text-black dark:text-white rounded-lg hidden shadow-lg dark:shadow-none bg-slate-100 z-40 dark:bg-slate-800 min-w-max w-full divide-y divide-gray-100 dark:divide-slate-700" role="menu" aria-orientation="vertical" id="menu-button" aria-labelledby="menu-button" tabindex="-1">
+                                                <div class="origin-top absolute right-0 mt-2.5 w-42 text-black dark:text-white rounded-lg hidden shadow-lg dark:shadow-none bg-slate-100 z-40 dark:bg-slate-800 min-w-max w-full divide-y divide-gray-100 dark:divide-slate-700" role="menu" aria-orientation="vertical" id="menu-button" aria-labelledby="menu-button" tabindex="-1">
                                                     <div class="py-1" role="none">
-                                                        <h6 class="px-4 py-2 text-sm block">Connecté en tant que <span class="text-sky-500 dark:text-sky-400 font-bold">{{ app.user.surname }} {{ app.user.name }}</span></h6>
+                                                        <h6 class="px-4 py-2 block">Connecté en tant que <span class="text-sky-500 dark:text-sky-400 font-bold">{{ app.user.surname }} {{ app.user.name }}</span></h6>
                                                     </div>
                                                     {% if is_granted('ROLE_MERCHANT') %}
                                                         <div class="py-1" role="none">
@@ -139,21 +139,21 @@
                                         {% else %}
                                             <a href="{{ path('app_login') }}" class="flex items-center justify-center align-middle h-10 my-auto">
                                                 <button
-                                                    class="px-3.5 py-1 ring-2 rounded-lg font-bold focus:outline-none ring-slate-200
-                                                    dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
-                                                    dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500
-                                                    active:text-slate-600 focus-visible:outline-sky-600 focus-visible:ring-slate-300
-                                                    transition-all duration-500"
+                                                        class="px-3.5 py-1 ring-2 rounded-lg font-bold focus:outline-none ring-slate-300
+                                                            dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
+                                                            dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500
+                                                            active:text-slate-600 focus-visible:outline-sky-600 focus-visible:ring-slate-300
+                                                            transition-all duration-500"
                                                 >
                                                     Connexion
                                                 </button>
                                             </a>
                                             <a href="{{ path('app_signup') }}" class="flex items-center justify-center align-middle h-10 my-auto">
                                                 <button
-                                                    class="px-3.5 py-1.5 rounded-lg font-bold focus:outline-none focus-visible:outline-2
-                                                    focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
-                                                    dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all
-                                                    duration-500"
+                                                        class="px-3.5 py-1.5 rounded-lg font-bold focus:outline-none focus-visible:outline-2
+                                                            focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700
+                                                            dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all
+                                                            duration-500"
                                                 >
                                                     Inscription
                                                 </button>
@@ -167,73 +167,85 @@
                 </div>
             </div>
             <!-- Mobile menu, show/hide based on menu state. -->
-            <div class="hidden tablet:hidden" id="mobile-menu">
-                <div class="container mx-auto px-6 pt-2 pb-3 space-y-1">
-                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                    <a href="{{ path('home') }}" class="px-3 py-2 w-auto text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('home') }}>
-                        Accueil
-                    </a>
-                    <a href="{{ path('shop_index') }}" class="px-3 py-2 text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('shop') }}>
-                        Boutiques
-                    </a>
-                    <a href="{{ path('product_index') }}" class="px-3 py-2 text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('product') }}>
-                        Produits
-                    </a>
-                    {% if app.user is defined and app.user is not null %}
-                        <a href="{{ path('basket_index') }}" class="px-3 py-2 text-lg font-medium tracking-wide flex items-center text-black dark:text-white underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" {{ menu_active('basket') }}>
-                            Panier
-                        </a>
-                        <div class="relative px-3 font-medium my-auto inline-block items-center w-full">
-                            <div>
-                                <button
-                                    type="button"
-                                    class="inline-flex justify-center ring-2 items-center w-full min-w-max rounded-lg shadow-lg px-2 py-1 font-bold
-                                    focus:outline-none ring-slate-200 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
-                                    dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600
-                                    focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500"
-                                    aria-expanded="true" aria-haspopup="true" onclick="openDropdown('menu-button')"
-                                >
-                                    Mon compte
-                                    <!-- Heroicon name: solid/chevron-down -->
-                                    <svg class="h-5 w-5 -mr-0.5 ml-1 mt-[2.5px]" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <!-- Dropdown menu, show/hide based on menu state. -->
-                            <div class="origin-top-right absolute right-0 left-0 mt-2.5 w-42 text-black dark:text-white rounded-lg hidden shadow-lg dark:shadow-none bg-darkblue-150 z-40 dark:bg-slate-800 min-w-max w-full divide-y divide-gray-100 dark:divide-slate-700" role="menu" aria-orientation="vertical" id="menu-button" aria-labelledby="menu-button" tabindex="-1">
-                                <div class="py-1" role="none">
-                                    <h6 class="px-4 py-2 text-sm block">Connecté en tant que <span class="text-sky-500 dark:text-sky-400 font-bold">{{ app.user.surname }} {{ app.user.name }}</span></h6>
-                                </div>
-                                {% if is_granted('ROLE_MERCHANT') %}
-                                    <div class="py-1" role="none">
-                                        <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                        <a href="{{ path('seller_choose') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-0">Ma boutique</a>
+            <div class="hidden tablet:hidden relative px-6 z-50" id="mobile-menu">
+                <div>
+                    <div class="fixed inset-0 bg-slate-300/50 dark:bg-slate-800/50 opacity-100" aria-hidden="true"></div>
+                    <ul class="absolute inset-x-3 top-full mt-1 flex origin-top flex-col gap-y-4 rounded-2xl bg-white dark:bg-slate-900 p-6 text-lg font-medium text-slate-900 dark:text-white shadow-xl dark:shadow-none ring-1 ring-slate-900/5 opacity-100 scale-100" tabindex="-1">
+                        <li>
+                            <a href="{{ path('home') }}" class="w-full underline-offset-4 decoration-[2px] hover:underline decoration-sky-600" {{ menu_active('home') }}>
+                                Accueil
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('shop_index') }}" class="w-full underline-offset-4 decoration-[2px] hover:underline decoration-sky-600" {{ menu_active('shop') }}>
+                                Boutiques
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('product_index') }}" class="w-full underline-offset-4 decoration-[2px] hover:underline decoration-sky-600" {{ menu_active('product') }}>
+                                Produits
+                            </a>
+                        </li>
+                        {% if app.user is defined and app.user is not null %}
+                            <li>
+                                <a href="{{ path('basket_index') }}" class="w-full underline-offset-4 decoration-[2px] hover:underline decoration-sky-600" {{ menu_active('basket') }}>
+                                    Panier
+                                </a>
+                            </li>
+                            <li class="border-t border-slate-300/40 dark:border-slate-600/40 pt-4">
+                                <div class="relative px-3 font-medium my-auto inline-block items-center w-full">
+                                    <div>
+                                        <button type="button" aria-expanded="true" aria-haspopup="true" onclick="openDropdown('mobile-button')"
+                                                class="inline-flex justify-center ring-2 items-center w-full min-w-max rounded-lg px-2 py-1 font-bold
+                                                focus:outline-none ring-slate-200 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900
+                                                dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600
+                                                focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500"
+                                        >
+                                            Mon compte
+                                            <!-- Heroicon name: solid/chevron-down -->
+                                            <svg class="h-5 w-5 -mr-0.5 ml-1 mt-[2.5px]" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
                                     </div>
-                                {% endif %}
-                                <div class="py-1" role="none">
-                                    <a href="{{ path('user_edit') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-1">Mon profil</a>
-                                    <a href="{{ path('user_orders') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-2">Mes commandes</a>
+                                    <!-- Dropdown menu, show/hide based on menu state. -->
+                                    <div class="origin-top-right absolute right-0 left-0 mt-2.5 w-42 text-slate-900 dark:text-white rounded-lg hidden shadow-lg dark:shadow-none bg-white z-40 dark:bg-slate-800 min-w-max w-full divide-y divide-gray-100 dark:divide-slate-700" role="menu" aria-orientation="vertical" id="mobile-button" aria-labelledby="mobile-button" tabindex="-1">
+                                        <div class="py-1" role="none">
+                                            <h6 class="px-4 py-2 block">Connecté en tant que <span class="text-sky-500 dark:text-sky-400 font-bold">{{ app.user.surname }} {{ app.user.name }}</span></h6>
+                                        </div>
+                                        {% if is_granted('ROLE_MERCHANT') %}
+                                            <div class="py-1" role="none">
+                                                <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                                                <a href="{{ path('seller_choose') }}" class="block px-4 py-2 underline-offset-4 decoration-[2px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-0">Ma boutique</a>
+                                            </div>
+                                        {% endif %}
+                                        <div class="py-1" role="none">
+                                            <a href="{{ path('user_edit') }}" class="block px-4 py-2 underline-offset-4 decoration-[2px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-1">Mon profil</a>
+                                            <a href="{{ path('user_orders') }}" class="block px-4 py-2 underline-offset-4 decoration-[2px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-2">Mes commandes</a>
+                                        </div>
+                                        <div class="py-1" role="none">
+                                            <a href="{{ path('app_logout') }}" class="block px-4 py-2 underline-offset-4 decoration-[2px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-3">Déconnexion</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="py-1" role="none">
-                                    <a href="{{ path('app_logout') }}" class="block px-4 py-2 underline-offset-4 decoration-[3px] hover:underline decoration-sky-600" role="menuitem" tabindex="-1" id="menu-item-3">Déconnexion</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% else %}
-                        <div class="space-x-4 flex flex-row">
-                            <a href="{{ path('app_login') }}" class="flex items-center justify-center align-middle h-10 my-auto w-full" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                                <button class="tracking-wide text-white font-medium px-6 py-2 border-2 border-blue-800 hover:bg-blue-900 hover:border-blue-900 rounded-lg w-full">
-                                    Connexion
-                                </button>
-                            </a>
-                            <a href="{{ path('app_signup') }}" class="flex items-center justify-center align-middle h-10 my-auto w-full">
-                                <button class="tracking-wide text-white font-medium px-6 py-2 bg-blue-700 border-2 border-transparent hover:bg-blue-600 rounded-lg w-full">
-                                    Inscription
-                                </button>
-                            </a>
-                        </div>
-                    {% endif %}
+                            </li>
+                        {% else %}
+                            <li class="border-t border-slate-300/40 pt-4 flex items-center justify-between space-x-4">
+                                <a href="{{ path('app_login') }}" class="flex items-center justify-center align-middle h-10 my-auto w-full">
+                                    <button class="px-3.5 py-1 ring-2 rounded-lg font-bold focus:outline-none ring-slate-300 dark:ring-sky-600 text-slate-700 dark:text-white hover:text-slate-900 dark:hover:text-slate-100 hover:ring-slate-300 dark:hover:ring-sky-500 active:text-slate-600 focus-visible:outline-sky-600 focus-visible:ring-slate-300 transition-all duration-500 w-full"
+                                    >
+                                        Connexion
+                                    </button>
+                                </a>
+                                <a href="{{ path('app_signup') }}" class="flex items-center justify-center align-middle h-10 my-auto w-full">
+                                    <button class="px-3.5 py-1.5 rounded-lg font-bold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-slate-900 dark:bg-sky-600 text-white hover:bg-slate-700 dark:hover:bg-sky-500 hover:text-slate-100 focus-visible:outline-slate-900 transition-all duration-500 w-full"
+                                    >
+                                        Inscription
+                                    </button>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -289,7 +301,9 @@
                     <a href="https://instagram.com/clickntoulon" class="hover:text-sky-500 dark:hover:text-sky-400">
                         <span class="sr-only">Instagram</span>
                         <svg class="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" stroke-width="1">
-                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd"
+                                  d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                                  clip-rule="evenodd"></path>
                         </svg>
                     </a>
                     <a href="https://twitter.com/clickntoulon" class="hover:text-sky-500 dark:hover:text-sky-400">
