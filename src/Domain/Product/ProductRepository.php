@@ -2,8 +2,11 @@
 
 namespace App\Domain\Product;
 
+use App\Domain\Product\PriceHistory;
 use App\Domain\Shop\Shop;
 use App\Helper\FilterData\SearchProductData;
+use DateTime;
+use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -61,7 +64,7 @@ class ProductRepository extends ServiceEntityRepository
     public function findMinMax(SearchProductData $search): float
     {
         $results = $this->getSearchQuery($search, true)
-            ->select('MAX(p.unitPrice) as max')
+            ->select('MAX(ph.unitPrice) as max')
             ->getQuery()
             ->getResult();
         return (float)$results[0]['max'];
@@ -71,9 +74,10 @@ class ProductRepository extends ServiceEntityRepository
     {
         $query = $this
             ->createQueryBuilder('p')
-            ->select('pt', 'p', 's')
+            ->select('ph', 'pt', 'p', 's')
             ->join('p.type', 'pt')
-            ->join('p.shop', 's');
+            ->join('p.shop', 's')
+            ->join('p.priceHistory', 'ph');
 
         if (!empty($search->q)) {
             $query = $query
@@ -83,14 +87,20 @@ class ProductRepository extends ServiceEntityRepository
 
         if (!empty($search->min)) {
             $query = $query
-                ->andWhere('p.unitPrice >= :min')
-                ->setParameter('min', $search->min);
+                ->andWhere('ph.unitPrice >= :min')
+                ->andWhere('ph.date_start <= :date')
+                ->andWhere('ph.date_end >= :date')
+                ->setParameter('min', $search->min)
+                ->setParameter('date', new DateTime('now',  new DateTimeZone("Europe/Paris")));
         }
 
         if (!empty($search->max)) {
             $query = $query
-                ->andWhere('p.unitPrice <= :max')
-                ->setParameter('max', $search->max);
+                ->andWhere('ph.unitPrice <= :max')
+                ->andWhere('ph.date_start <= :date')
+                ->andWhere('ph.date_end >= :date')
+                ->setParameter('max', $search->max)
+                ->setParameter('date', new DateTime('now', new DateTimeZone("Europe/Paris")));
         }
 
         if (!empty($search->types)) {

@@ -3,8 +3,11 @@
 namespace App\Domain\Product;
 
 use App\Domain\Shop\Shop;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @author ClickNToulon <developpeurs@clickntoulon.fr>
@@ -27,11 +30,8 @@ class Product
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description;
 
-    #[ORM\Column(type: Types::FLOAT, precision: 2, scale: 2)]
-    private ?float $unitPrice;
-
-    #[ORM\Column(type: Types::FLOAT, precision: 2, scale: 2, nullable: true)]
-    private ?float $unitPriceDiscount;
+    #[ORM\OneToMany(mappedBy: "product", targetEntity: PriceHistory::class)]
+    protected ArrayCollection|PersistentCollection $priceHistory;
 
     #[ORM\Column(type: Types::JSON)]
     private ?array $images;
@@ -41,8 +41,8 @@ class Product
     private ?ProductType $type;
 
     public function __construct() {
+        $this->priceHistory = new ArrayCollection();
         $this->images = [];
-        $this->unitPriceDiscount = null;
     }
 
     public function getId(): ?int
@@ -83,25 +83,42 @@ class Product
         return $this;
     }
 
-    public function getUnitPrice(): ?float
+    /**
+     * @return Collection
+     */
+    public function getPriceHistory(): Collection
     {
-        return $this->unitPrice;
+        return $this->priceHistory;
     }
 
-    public function setUnitPrice(float $unitPrice): self
+    /**
+     * @param PriceHistory $priceHistory
+     * @return $this
+     */
+    public function addPriceHistory(PriceHistory $priceHistory): self
     {
-        $this->unitPrice = $unitPrice;
+        if (!$this->priceHistory->contains($priceHistory)) {
+            $this->priceHistory[] = $priceHistory;
+            $priceHistory->setProduct($this);
+        }
+
         return $this;
     }
 
-    public function getUnitPriceDiscount(): ?float
+    /**
+     * @param PriceHistory $priceHistory
+     * @return $this
+     */
+    public function removePriceHistory(PriceHistory $priceHistory): self
     {
-        return $this->unitPriceDiscount;
-    }
+        if ($this->priceHistory->contains($priceHistory)) {
+            $this->priceHistory->removeElement($priceHistory);
+            // set the owning side to null (unless already changed)
+            if ($priceHistory->getProduct() === $this) {
+                $priceHistory->setProduct(null);
+            }
+        }
 
-    public function setUnitPriceDiscount(?float $unitPriceDiscount): self
-    {
-        $this->unitPriceDiscount = $unitPriceDiscount;
         return $this;
     }
 
