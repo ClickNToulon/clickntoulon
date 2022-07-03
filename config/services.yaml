@@ -8,6 +8,7 @@ parameters:
     uploads/products: '%kernel.project_dir%/public/uploads/products'
     uploads/shops: '%kernel.project_dir%/public/uploads/shops'
     images: '%kernel.project_dir%%/public/images'
+    admin_prefix: '%env(resolve:ADMIN_PREFIX)%'
 
 services:
     # default configuration for services in *this* file
@@ -27,5 +28,10 @@ services:
     App\Http\Controller\:
         resource: '../src/Http/Controller'
         tags: [ 'controller.service_arguments' ]
+
+    App\Http\Admin\Controller\:
+        resource: '../src/Http/Admin/Controller'
+        tags: [ 'controller.service_arguments' ]
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

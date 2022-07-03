@@ -1,0 +1,29 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title 'Administration - ClickNToulon' %}
+
+{% block body %}
+    <div class="relative mx-auto flex justify-center sm:px-2 lg:px-8 xl:px-12 pt-12">
+        <div class="hidden lg:relative lg:block lg:flex-none">
+            <div class="sticky -ml-0.5 pl-0.5">
+                <nav class="w-64 pr-8 xl:w-72 xl:pr-16">
+                    <ul>
+                        <li>
+                            {% include 'about/_tabs.html.twig' with {active: 'about'} %}
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="min-w-0 max-w-2xl flex-auto px-4 lg:max-w-8xl lg:px-0">
+            <article>
+                <header class="mb-9">
+                    <h1 class="text-3xl tracking-tight text-slate-900 dark:text-white">Accueil</h1>
+                </header>
+                <div class="max-w-none dark:text-slate-200 text-slate-500">
+
+                </div>
+            </article>
+        </div>
+    </div>
+{% endblock %}
