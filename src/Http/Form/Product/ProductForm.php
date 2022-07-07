@@ -32,6 +32,12 @@ class ProductForm extends AbstractType
                     'rows' => 3
                 ]
             ])
+            ->add('unitPrice', NumberType::class, [
+                'required' => true
+            ])
+            ->add('unitPriceDiscount', NumberType::class, [
+                'required' => false
+            ])
             ->add('images', FileType::class, [
                 'attr' => [
                     'accept' => 'image/*'
@@ -48,9 +54,6 @@ class ProductForm extends AbstractType
                     return $em->findAllQuery();
                 },
                 'choice_label' => 'name'
-            ])
-            ->add('priceHistory', CollectionType::class, [
-                'entry_type' => PriceForm::class
             ]);
     }
 

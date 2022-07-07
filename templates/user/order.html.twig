@@ -53,7 +53,7 @@ Commande n°{{ order.orderNumber }} - ClickNToulon
                     <div class="flex flex-col p-4 w-full">
                         <div class="w-full flex flex-col items-center justify-center">
                             <h1 class="text-3xl text-black dark:text-white font-bold title-font title-underline">Commande #{{ order.orderNumber }}</h1>
-                            <h2 class="text-gray-700 dark:text-gray-200 text-lg font-bold mt-2">Date de retrait souhaitée : {{ order.day | format_date(pattern='dd MMMM y',locale='fr') }}</h2>
+                            <h2 class="text-gray-700 dark:text-gray-200 text-lg font-bold mt-2">Date de retrait souhaitée : {{ order.day | format_date(pattern='dd MMMM y', locale='fr') }}</h2>
                             <div class="flex items-center justify-between mt-3 space-x-4">
                                 {% if order.status == 0 %}
                                     <span class="px-2 py-0.5 inline-flex text-lg font-bold rounded-lg bg-accent-red text-red-700">
@@ -102,29 +102,16 @@ Commande n°{{ order.orderNumber }} - ClickNToulon
                                             <div class="flex flex-col pl-4 w-full">
                                                 <div class="flex flex-row justify-between items-center mb-2">
                                                     <h1 class="font-bold text-black dark:text-gray-200 text-2xl">{{ product.name }} (x{{ quantities[i] }})</h1>
-                                                    {% if product.unitPriceDiscount is not null %}
-                                                        <div class="inline-flex items-center justify-between space-x-3">
-                                                            {% set dealPrice = product.unitPrice * (1 - (product.unitPriceDiscount/100)) | round(2) %}
-                                                            <p class="text-lg font-bold text-gray-900 dark:text-red-500">{{ dealPrice | format_currency('EUR') }}</p>
-                                                            <p class="text-lg font-bold bg-accent-red text-red-700 rounded-lg px-2.5 py-0.25">-{{ product.unitPriceDiscount }}%</p>
-                                                        </div>
-                                                    {% else %}
-                                                        <p class="text-lg font-bold text-gray-900 dark:text-gray-200">{{ product.unitPrice | format_currency('EUR') }}</p>
-                                                    {% endif %}
-                                                    {% set i = i + 1 %}
+                                                    <a href="{{ path('product_show', {id: product.id}) }}"
+                                                       class="text-blue-900 hover:text-white dark:text-white border-2 border-blue-900 hover:bg-blue-900 font-bold px-2 py-1 rounded-lg transition-all duration-500"
+                                                    >
+                                                        Voir le produit
+                                                    </a>
                                                 </div>
                                                 <div class="h-full relative">
                                                     <p class="text-base font-semibold text-black dark:text-gray-200">
                                                         {{ product.description }}
                                                     </p>
-                                                </div>
-                                                <div class="w-full flex justify-center tablet:justify-end pt-4 tablet:pt-0">
-                                                    <a
-                                                        href="{{ path('product_show', {id: product.id}) }}"
-                                                        class="text-blue-900 hover:text-white dark:text-white border-2 border-blue-900 hover:bg-blue-900 font-bold px-2 py-1 rounded-lg transition-all duration-500"
-                                                    >
-                                                        Voir le produit
-                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

@@ -1,7 +1,7 @@
 {% for product in products %}
     <div class="shrink-0 p-2 group relative before:absolute before:inset-0 before:rounded-lg before:bg-gray-100 dark:before:bg-slate-700 before:opacity-0 hover:before:opacity-100">
         {% if product.unitPriceDiscount != null and product.unitPriceDiscount != 0 %}
-            <span class="bg-accent-red rounded-lg text-red-700 font-extrabold px-2 py-1 absolute right-4 z-10 top-4 flex items-center justify-center uppercase">
+            <span class="bg-sky-200 rounded-lg text-sky-700 font-bold px-2 py-1 absolute right-4 z-10 top-4 flex items-center justify-center">
                 Promo
             </span>
         {% endif %}
@@ -21,7 +21,7 @@
                         <div class="inline-flex items-baseline justify-between space-x-2">
                             {% set dealPrice = product.unitPrice * (1 - (product.unitPriceDiscount/100)) | round(2) %}
                             <p class="text-lg font-medium text-gray-900 dark:text-red-500">{{ dealPrice | format_currency('EUR') }}</p>
-                            <p class="text-lg font-extrabold bg-accent-red text-red-700 rounded-full px-2.5 py-0.25">-{{ product.unitPriceDiscount }}%</p>
+                            <p class="text-lg font-bold bg-sky-200 text-sky-700 rounded-lg px-2.5 py-0.25">-{{ product.unitPriceDiscount }}%</p>
                         </div>
                     {% else %}
                         <p class="text-lg font-medium text-gray-900 dark:text-gray-200">{{ product.unitPrice | format_currency('EUR') }}</p>

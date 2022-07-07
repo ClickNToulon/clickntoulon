@@ -49,11 +49,18 @@
                                             {{ form_widget(form.type) }}
                                         </div>
                                     </div>
-                                    {% for formInput in form.priceHistory %}
                                     <div class="mb-3 w-full">
-                                        {{ form_row(formInput.unitPrice) }}
+                                        {{ form_label(form.unitPrice) }}
+                                        <div class="mt-1">
+                                            {{ form_widget(form.unitPrice) }}
+                                        </div>
                                     </div>
-                                    {% endfor %}
+                                    <div class="mb-3 w-full">
+                                        {{ form_label(form.unitPriceDiscount) }}
+                                        <div class="mt-1">
+                                            {{ form_widget(form.unitPriceDiscount) }}
+                                        </div>
+                                    </div>
                                     <div class="mb-3 w-full">
                                         {{ form_label(form.description) }}
                                         <div class="mt-1">
@@ -94,7 +101,7 @@
                                                         Nom
                                                     </th>
                                                     <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
-                                                        {{ knp_pagination_sortable(products, "Prix", "ph.unitPrice") }}
+                                                        {{ knp_pagination_sortable(products, "Prix", "p.unitPrice") }}
                                                     </th>
                                                     <th scope="col" class="px-8 py-4 text-center font-bold text-black dark:text-white tracking-wide">
                                                         {{ knp_pagination_sortable(products, "Prix en promo", "p.unitPriceDiscount") }}

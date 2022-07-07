@@ -75,7 +75,7 @@
     <section>
         <div class="sm:container mx-auto pt-16 px-4 sm:pt-24 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between border-b-2 border-slate-300 dark:border-slate-700 pb-4">
-                <h2 class="text-3xl font-medium text-slate-900 dark:text-slate-100">Les boutiques partenaires</h2>
+                <h2 class="text-3xl font-medium text-slate-900 dark:text-slate-100">Les boutiques</h2>
                 <a href="{{ path('shop_index') }}" class="text-black dark:text-white text-lg font-medium hidden sm:inline-flex items-center hover:underline decoration-[3px] decoration-sky-600 underline-offset-4">
                     <span class="mr-1">Toutes les boutiques</span>
                     <svg class="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -91,6 +91,12 @@
                             href="{{ path('shop_show', {slug: shop.slug}) }}"
                             class="shrink-0 p-2 group-hover:bg-slate-700 rounded-lg group relative before:absolute before:-inset-0 before:rounded-lg before:bg-gray-100 dark:before:bg-slate-700 before:opacity-0 hover:before:opacity-100"
                         >
+                            <span class="bg-sky-200 rounded-lg text-sky-700 font-bold uppercase px-2 py-1 z-10 absolute right-4 top-4 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                </svg>
+                                Partenaire
+                            </span>
                             <img class="aspect-video w-full h-72 rounded-lg group-hover:opacity-75" src="{{ asset('uploads/shops/' ~ shop.image) }}" alt="">
                             <div class="p-4 relative">
                                 <div class="flex justify-between items-center flex-wrap space-y-1">

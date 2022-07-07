@@ -1,13 +1,16 @@
+admin_controllers:
+  name_prefix: admin_
+  resource: ../src/Http/Admin/Controller
+  type: annotation
+
+seller_controllers:
+  name_prefix: seller_
+  resource: ../src/Http/Seller/Controller
+  type: annotation
+
 controllers:
   resource: ../src/Http/Controller
   type: annotation
-
-admin_controllers:
-  name_prefix: admin_
-  prefix: '%admin_prefix%'
-  resource: ../src/Http/Admin/Controller
-  type: annotation
-  trailing_slash_on_root: false
 
 kernel:
   resource: ../src/Kernel.php

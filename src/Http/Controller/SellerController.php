@@ -73,7 +73,7 @@ class SellerController extends AbstractController
                         $this->getParameter('uploads/shops'),
                         $newFilename
                     );
-                } catch (FileException $e) {}
+                } catch (FileException) {}
                 $shop->setImage($newFilename);
             }
             $default_payment = $this->paymentRepository->find(1);
@@ -121,7 +121,6 @@ class SellerController extends AbstractController
                 ->setIsBanned(0)
                 ->setIsVerified(0)
                 ->addPayment($payment)
-                ->setSlug($shop->getSlug())
                 ->setTag($tag);
         } catch (Exception) {
             $response = new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);

@@ -8,6 +8,7 @@ use App\Domain\Shop\ShopRepository;
 use App\Helper\FilterData\SearchShopData;
 use App\Http\Form\Shop\FilterShopForm;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +45,8 @@ class ShopController extends AbstractController
         ]);
     }
 
-    #[Route(path: "/{slug}", name: "show")]
+    #[Route(path: "/{slug}", name: "show", requirements: ["slug" => "[a-zA-Z0-9\-]*"])]
+    #[Entity("shop", expr: "repository.findOneBy({'slug': slug})")]
     public function showOne(Shop $shop): Response
     {
         $user = $this->getUser();

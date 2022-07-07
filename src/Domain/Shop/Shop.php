@@ -6,7 +6,6 @@ use App\Domain\Auth\User;
 use App\Domain\Buyer\Order;
 use App\Domain\Product\Product;
 use App\Helper\Day;
-use Cocur\Slugify\Slugify;
 use DateTime;
 use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,6 +14,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use Exception;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @author ClickNToulon <developpeurs@clickntoulon.fr>
@@ -35,6 +35,7 @@ class Shop
     private string $name;
 
     #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
+    #[Gedmo\Slug(fields: ['name'])]
     private string $slug;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -132,7 +133,7 @@ class Shop
 
     public function getSlug(): ?string
     {
-        return (new Slugify())->slugify($this->name);
+        return $this->slug;
     }
 
     public function setSlug(string $slug): self

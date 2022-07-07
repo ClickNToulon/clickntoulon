@@ -30,8 +30,14 @@ class Product
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description;
 
-    #[ORM\OneToMany(mappedBy: "product", targetEntity: PriceHistory::class)]
-    protected ArrayCollection|PersistentCollection $priceHistory;
+    #[ORM\Column(type: Types::FLOAT, precision: 2, scale: 2)]
+    private ?float $unitPrice;
+
+    #[ORM\Column(type: Types::FLOAT, precision: 2, scale: 2, nullable: true)]
+    private ?float $unitPriceDiscount;
+
+    #[ORM\Column(type: Types::FLOAT, precision: 2, scale: 2, nullable: true)]
+    private ?float $vat;
 
     #[ORM\Column(type: Types::JSON)]
     private ?array $images;
@@ -41,8 +47,8 @@ class Product
     private ?ProductType $type;
 
     public function __construct() {
-        $this->priceHistory = new ArrayCollection();
         $this->images = [];
+        $this->unitPriceDiscount = null;
     }
 
     public function getId(): ?int
@@ -83,42 +89,36 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
-    public function getPriceHistory(): Collection
+    public function getUnitPrice(): ?float
     {
-        return $this->priceHistory;
+        return $this->unitPrice;
     }
 
-    /**
-     * @param PriceHistory $priceHistory
-     * @return $this
-     */
-    public function addPriceHistory(PriceHistory $priceHistory): self
+    public function setUnitPrice(float $unitPrice): self
     {
-        if (!$this->priceHistory->contains($priceHistory)) {
-            $this->priceHistory[] = $priceHistory;
-            $priceHistory->setProduct($this);
-        }
-
+        $this->unitPrice = $unitPrice;
         return $this;
     }
 
-    /**
-     * @param PriceHistory $priceHistory
-     * @return $this
-     */
-    public function removePriceHistory(PriceHistory $priceHistory): self
+    public function getUnitPriceDiscount(): ?float
     {
-        if ($this->priceHistory->contains($priceHistory)) {
-            $this->priceHistory->removeElement($priceHistory);
-            // set the owning side to null (unless already changed)
-            if ($priceHistory->getProduct() === $this) {
-                $priceHistory->setProduct(null);
-            }
-        }
+        return $this->unitPriceDiscount;
+    }
 
+    public function setUnitPriceDiscount(?float $unitPriceDiscount): self
+    {
+        $this->unitPriceDiscount = $unitPriceDiscount;
+        return $this;
+    }
+
+    public function getVat(): ?float
+    {
+        return $this->vat;
+    }
+
+    public function setVat(float $vat): self
+    {
+        $this->vat = $vat;
         return $this;
     }
 
