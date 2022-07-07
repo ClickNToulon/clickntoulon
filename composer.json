@@ -97,7 +97,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "php bin/console cache:clear",
-            "assets:install %PUBLIC_DIR%": "php bin/console assets:install %PUBLIC_DIR%"
+            "assets:install %PUBLIC_DIR%": "php bin/console assets:install public/"
         },
         "post-install-cmd": [
             "@auto-scripts"
