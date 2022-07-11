@@ -53,7 +53,7 @@ html::-webkit-scrollbar-thumb {
   @apply bg-sky-600;
 }
 
-::-webkit-scrollbar-track {
+html::-webkit-scrollbar-track {
   @apply bg-slate-100 dark:bg-slate-900;
 }
 
@@ -156,13 +156,15 @@ html::-webkit-scrollbar-thumb {
 
 .shop-scrollbar::-webkit-scrollbar {
   width: 10px;
-  height: 8px;
+  height: 10px;
 }
 
 .shop-scrollbar::-webkit-scrollbar-thumb {
-  border-radius: 10px !important;
-
   @apply bg-sky-600;
+}
+
+.shop-scrollbar::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-800;
 }
 
 #types::-webkit-scrollbar-thumb {
@@ -195,7 +197,7 @@ html::-webkit-scrollbar-thumb {
   max-height: calc(100vh - 390px);
 }
 
-nav a[aria-current="page"] {
+nav:not(.sidebar) a[aria-current="page"] {
   @apply underline;
 }
 
@@ -210,4 +212,12 @@ a.desc {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+nav:is(.sidebar) a[aria-current="page"] {
+  @apply bg-slate-700 text-white fill-white #{!important};
+
+  svg path {
+    @apply fill-white #{!important}
+  }
 }

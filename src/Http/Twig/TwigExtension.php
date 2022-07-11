@@ -15,6 +15,11 @@ class TwigExtension extends AbstractExtension
                 [$this, "menuActive"],
                 ["is_safe" => ["html"], "needs_context" => true]
             ),
+            new TwigFunction(
+                "sidebar_active",
+                [$this, "sidebarActive"],
+                ["is_safe" => ["html"], "needs_context" => true]
+            )
         ];
     }
 
@@ -26,6 +31,20 @@ class TwigExtension extends AbstractExtension
     public function menuActive(array $context, string $name): string
     {
         if (($context["menu"] ?? null) === $name) {
+            return ' aria-current="page"';
+        }
+
+        return "";
+    }
+
+    /**
+     * Ajoute une class is-active pour les éléments actifs de la sidebar.
+     *
+     * @param array<string,mixed> $context
+     */
+    public function sidebarActive(array $context, string $name): string
+    {
+        if (($context["sidebar"] ?? null) === $name) {
             return ' aria-current="page"';
         }
 

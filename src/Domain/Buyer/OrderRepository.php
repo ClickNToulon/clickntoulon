@@ -4,7 +4,9 @@ namespace App\Domain\Buyer;
 
 use App\Domain\Auth\User;
 use App\Domain\Shop\Shop;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -62,5 +64,29 @@ class OrderRepository extends ServiceEntityRepository
             ->setParameter('number', $number)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findAllPriorTodayForShop(Shop $shop, DateTime $dateTime)
+    {
+        return $this->createQueryBuilder('o')
+            ->where('o.shop = :shop')
+            ->setParameter('shop', $shop)
+            ->andWhere('o.day < :dateTime')
+            ->setParameter('dateTime', $dateTime)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findTotalForShop(Shop $shop)
+    {
+        return $this->createQueryBuilder('o')
+            ->select('SUM(o.total) as sum')
+            ->where('o.shop = :shop')
+            ->setParameter('shop', $shop)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }
