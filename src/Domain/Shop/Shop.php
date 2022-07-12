@@ -390,8 +390,8 @@ class Shop
             /** @var OpeningHours $openingHour */
             if (null !== $openingHour->getStart() | null !== $openingHour->getEnd()) {
                 $weekDays[$openingHour->getDay()][] = $openingHour->toStringFormat();
-            } else {
-                $weekDays[$openingHour->getDay()][] = 'Fermé';
+            } elseif (null === $openingHour->getStart() && null === $openingHour->getEnd()) {
+                $weekDays[$openingHour->getDay()][] = "Fermé";
             }
         }
         return array_combine(Day::getWeekDays(), $this->dayOpeningHoursToString($weekDays));
@@ -401,10 +401,8 @@ class Shop
     private function dayOpeningHoursToString(array $dayOpeningHours): array
     {
         foreach ($dayOpeningHours as $key => $value) {
-            if($value[0] == 'Fermé' && $value[1] == 'Fermé') {
+            if(($value[0] == 'Fermé' && $value[1] == 'Fermé') || ($value[0] == "Fermé" && $value[1] !== "Fermé")) {
                 $value = array_slice($value, 1, 1);
-            } elseif ($value[0] == 'Fermé') {
-                $value = array_reverse($value);
             }
             $value = implode(', ', $value);
             $dayOpeningHours[$key] = $value;

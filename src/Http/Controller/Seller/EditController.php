@@ -87,6 +87,8 @@ class EditController extends AbstractController
                 $this->em->remove($openingHour);
             }
             $this->em->flush();
+            dump(count($data));
+            dump($data);
             for ($i = 0; $i < count($data); $i+=4) {
                 if ($data[$i] !== "" && $data[$i+1] !== "") {
                     [$day, $response] = $this->setOpeningHours($d, $shop, $data, $i);
@@ -96,9 +98,25 @@ class EditController extends AbstractController
                     $this->em->persist($day);
                     $this->em->flush();
                     $shop->addOpeningHour($day);
+                } else {
+                    [$day, $response] = $this->setOpeningHours($d, $shop, null, $i);
+                    if($response) {
+                        return $response;
+                    }
+                    $this->em->persist($day);
+                    $this->em->flush();
+                    $shop->addOpeningHour($day);
                 }
                 if($data[$i+2] !== "" && $data[$i+3] !== "") {
-                    [$day2, $response] = $this->setOpeningHours($d, $shop, $data, $i);
+                    [$day2, $response] = $this->setOpeningHours($d, $shop, $data, $i+2);
+                    if($response) {
+                        return $response;
+                    }
+                    $this->em->persist($day2);
+                    $this->em->flush();
+                    $shop->addOpeningHour($day2);
+                } else {
+                    [$day2, $response] = $this->setOpeningHours($d, $shop, null, $i+2);
                     if($response) {
                         return $response;
                     }
@@ -120,16 +138,21 @@ class EditController extends AbstractController
         ]);
     }
 
-    private function setOpeningHours(int $d, Shop $shop, array $data, int $i): array
+    private function setOpeningHours(int $d, Shop $shop, ?array $data, int $i): array
     {
         $day = new OpeningHours();
         try {
             $day->setDay($d)
-                ->setShop($shop)
-                ->setStart(new DateTime($data[$i], new DateTimeZone("Europe/Paris")))
-                ->setEnd(new DateTime($data[$i+1], new DateTimeZone("Europe/Paris")));
+                ->setShop($shop);
+            if($data != null) {
+                $day->setStart(new DateTime($data[$i], new DateTimeZone("Europe/Paris")))
+                    ->setEnd(new DateTime($data[$i+1], new DateTimeZone("Europe/Paris")));
+            } else {
+                $day->setStart(null)
+                    ->setEnd(null);
+            }
         } catch (Exception) {
-            $response = new Response($this->render('bundles/TwigBundle/Exception/error500.html.twig'), Response::HTTP_INTERNAL_SERVER_ERROR);
+            $response = new Response('Test');
             return [null, $response];
         }
 
